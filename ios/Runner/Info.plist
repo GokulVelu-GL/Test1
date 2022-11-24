@@ -39,7 +39,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<!--<key>UIViewControllerBasedStatusBarAppearance</key>-->
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<string />
 	<key>NSPhotoLibraryUsageDescription</key>
   	<string>Upload images for screen background</string>
   	<key>NSCameraUsageDescription</key>
