@@ -1,0 +1,80 @@
+[
+    {
+        "Created_Time": "Thu, 15 Apr 2021 19:06:45 GMT",
+        "Created_User": "shalinikaarthick@gmail.com",
+        "Deleted_Indicator": "true",
+        "Deleted_Time": "Thu, 15 Apr 2021 19:06:54 GMT",
+        "Deleted_User": "shalinikaarthick@gmail.com",
+        "SPH_Type_Code": "DC",
+        "SPH_Type_Description": "Special Handling and Storing-Dangerous-Ex: Radioactive\t",
+        "SPH_Type_Name": "Dangerous Cargo.",
+        "Updated_Time": "Thu, 15 Apr 2021 19:06:52 GMT",
+        "Updated_User": "shalinikaarthick@gmail.com",
+        "id": 1
+    },
+    {
+        "Created_Time": "Thu, 15 Apr 2021 19:12:20 GMT",
+        "Created_User": "shalinikaarthick@gmail.com",
+        "Deleted_Indicator": "true",
+        "Deleted_Time": "Wed, 16 Jun 2021 16:48:15 GMT",
+        "Deleted_User": "shalinikaarthick@gmail.com",
+        "SPH_Type_Code": "DC",
+        "SPH_Type_Description": "Special Handling and Storing-Dangerous-Ex: Radioactive\t",
+        "SPH_Type_Name": "Dangerous Cargo",
+        "Updated_Time": null,
+        "Updated_User": null,
+        "id": 2
+    },
+    {
+        "Created_Time": "Wed, 16 Jun 2021 16:49:08 GMT",
+        "Created_User": "shalinikaarthick@gmail.com",
+        "Deleted_Indicator": "false",
+        "Deleted_Time": null,
+        "Deleted_User": null,
+        "SPH_Type_Code": "DC",
+        "SPH_Type_Description": "Special Handling and Storing-Dangerous-Ex: Radioactive\t",
+        "SPH_Type_Name": "Dangerous Cargo",
+        "Updated_Time": null,
+        "Updated_User": null,
+        "id": 3
+    },
+    {
+        "Created_Time": "Wed, 16 Jun 2021 16:49:48 GMT",
+        "Created_User": "shalinikaarthick@gmail.com",
+        "Deleted_Indicator": "false",
+        "Deleted_Time": null,
+        "Deleted_User": null,
+        "SPH_Type_Code": "HC",
+        "SPH_Type_Description": "Special Handling and Storing-Ex: Aircraft Engine or Pallet",
+        "SPH_Type_Name": "Heavy Cargo",
+        "Updated_Time": null,
+        "Updated_User": null,
+        "id": 4
+    },
+    {
+        "Created_Time": "Wed, 16 Jun 2021 16:50:10 GMT",
+        "Created_User": "shalinikaarthick@gmail.com",
+        "Deleted_Indicator": "false",
+        "Deleted_Time": null,
+        "Deleted_User": null,
+        "SPH_Type_Code": "RC",
+        "SPH_Type_Description": "Regular Handling and Storing-Ex: Textiles",
+        "SPH_Type_Name": "Regular Cargo",
+        "Updated_Time": null,
+        "Updated_User": null,
+        "id": 5
+    },
+    {
+        "Created_Time": "Wed, 16 Jun 2021 16:50:32 GMT",
+        "Created_User": "shalinikaarthick@gmail.com",
+        "Deleted_Indicator": "false",
+        "Deleted_Time": null,
+        "Deleted_User": null,
+        "SPH_Type_Code": "SC",
+        "SPH_Type_Description": "Special Handling and Storing-Ex: Perishables",
+        "SPH_Type_Name": "Special Cargo",
+        "Updated_Time": null,
+        "Updated_User": null,
+        "id": 6
+    }
+]
