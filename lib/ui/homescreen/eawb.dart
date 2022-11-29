@@ -463,8 +463,9 @@ class _EAWBState extends State<EAWB> {
                             Image(
                               width: 39.0,
                               color: Theme.of(context).accentColor,
-                              image: NetworkImage(
-                                  "https://cdn.iconscout.com/icon/free/png-64/e-way-bill-1817343-1538217.png"
+                              image: AssetImage(
+                                "assets/homescreen/eawb.png"
+                                //  "https://cdn.iconscout.com/icon/free/png-64/e-way-bill-1817343-1538217.png"
                                   // "https://cdn.iconscout.com/icon/free/png-64/e-way-bill-1817316-1538184.png"
                                   //   "https://cdn-icons-png.flaticon.com/512/4301/4301590.png"),
                                   ),

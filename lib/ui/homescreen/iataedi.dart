@@ -123,9 +123,10 @@ class _IATAEDIState extends State<IATAEDI> {
                         Image(
                           width: 39.0,
                          color: Theme.of(context).accentColor,
-                          image: NetworkImage(
+                          image: AssetImage(
+                            "assets/homescreen/iataedi.png"
                           //    "http://monstertechblog.com/wp-content/2.png"
-                            "https://img.icons8.com/wired/344/chat.png"
+                          //  "https://img.icons8.com/wired/344/chat.png"
                           ),
                         ),
                         SizedBox(

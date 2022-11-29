@@ -719,12 +719,15 @@ class MulticityInputState extends State<MulticityInput>
             StringData.airlineCodes.isEmpty||
             StringData.contactType.isEmpty) {
           StringData.loadAirportCode();
-
           StringData.loadtContactType();
-          StringData.loadAirlineCode();
-
+          StringData.loadRateClassCode();
+          StringData.loadAccId();
           StringData.loadShgCode();
+          StringData.loadtCHGSCode();
+          StringData.loadVolumeCode();
+          StringData.loadAirlineCode();
           StringData.loadCurrency();
+          StringData.loadExchangeRate();
         }
         if (prefs.getStringList("exrate") == null) {
           StringData.loadExchangeRate();

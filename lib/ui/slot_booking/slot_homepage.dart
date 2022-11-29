@@ -766,7 +766,7 @@ class _Slot_homeState extends State<Slot_home> {
                                 onEditingComplete: () {
                                   //_getAWBData(model);
                                 },
-                                keyboardType: TextInputType.number,
+                                // keyboardType: TextInputType.number,
                                 cursorColor: Theme
                                     .of(context)
                                     .accentColor,

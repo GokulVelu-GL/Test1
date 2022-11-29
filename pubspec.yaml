@@ -59,19 +59,16 @@ dependencies:
   flutter_local_notifications: ^4.0.1+2
   cron:
   fluttertoast: ^8.0.9
-  slimy_card: ^1.0.4
-  neumorphic_container: ^0.0.1+2
-  neuomorphic_container: ^2.0.3
   badges: ^2.0.3
   hover_effect: ^0.0.0
   percent_indicator: 4.2.0
   razorpay_flutter: ^1.3.0
   hand_signature: ^2.3.0+1
+  responsive_framework: ^0.0.7
 
   #flash: ^2.0.5
 
-  
-  
+
 
 flutter_icons:
   image_path: "assets/images/logo.png"
@@ -106,6 +103,40 @@ flutter:
     - assets/countrycode.json
     - assets/airlinecode.json
     - assets/wallet.gif
+    - assets/homescreen/dashboard.png
+    - assets/homescreen/user_management.png
+    - assets/homescreen/configuration.png
+    - assets/homescreen/social.png
+    - assets/homescreen/hawb.png
+    - assets/homescreen/eawb.png
+    - assets/homescreen/ehouse.png
+    - assets/homescreen/emanifest.webp
+    - assets/homescreen/flight.png
+    - assets/homescreen/iataedi.png
+    - assets/homescreen/iatacargoxml.png
+    - assets/homescreen/slot_booking.png
+    - assets/homescreen/about.png
+    - assets/homescreen/chatbox.png
+    - assets/homescreen/todolist.png
+    - assets/homescreen/policies.png
+    - assets/homescreen/payment_wallet.png
+    - assets/dashboard/user.png
+    - assets/dashboard/connection.png
+    - assets/dashboard/unique_visitors.png
+    - assets/dashboard/Booked_AWB.png
+    - assets/dashboard/online.png
+    - assets/dashboard/table.png
+    - assets/dashboard/flights.png
+    - assets/dashboard/bounce_rate.png
+    - assets/profile/camera.png
+    - assets/profile/galery.png
+    - assets/profile/default.png
+    - assets/homescreen/telax.png
+    - assets/dock&slot/vehicle.jpg
+    - assets/plan/plan.gif
+    - assets/plan/background_plan.gif
+    - assets/recharge_wallet/success_payment.gif
+    - assets/recharge_wallet/recharge_wallet.gif
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

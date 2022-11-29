@@ -708,7 +708,10 @@ class _RechargeWalletState extends State<RechargeWallet> with TickerProviderStat
                 child: Text("Pay"),
 
               ),
-              Image.network("https://www.arkasoftwares.com/blog/wp-content/uploads/2021/01/Near-Field-Communication.gif"),
+              Image.asset(
+              "assets/recharge_wallet/recharge_wallet.gif"
+                //  "https://www.arkasoftwares.com/blog/wp-content/uploads/2021/01/Near-Field-Communication.gif"
+              ),
             ],
           ),
         ),

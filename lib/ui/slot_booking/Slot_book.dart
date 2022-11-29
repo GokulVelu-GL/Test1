@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
-import 'package:neumorphic_container/neumorphic_container.dart';
 import 'package:provider/provider.dart';
 import 'package:rooster/generated/l10n.dart';
 import 'package:rooster/model/slot_booking/main_slotbooking.dart';
@@ -2135,6 +2134,8 @@ class _SlotBookState extends State<SlotBook> {
                                                                               zone: widget.zone,
                                                                               sphgroup: widget.sphgroup,
                                                                               date: widget.date,
+                                                                              awbnumber3: "",
+                                                                              awbnumber2: "",
                                                                             )));
                                                               },
                                                               style:
@@ -3779,6 +3780,8 @@ class _SlotListState extends State<SlotList> {
                                                                                     zone: widget.zone,
                                                                                     sphgroup: widget.sphgroup,
                                                                                     date: widget.date,
+                                                                                awbnumber2: "",
+                                                                                awbnumber3: "",
                                                                                   )));
                                                                     },
                                                                     style:

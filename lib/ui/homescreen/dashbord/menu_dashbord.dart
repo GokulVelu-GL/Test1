@@ -113,110 +113,121 @@ class _HomeDashboardState extends State<HomeDashboard> {
                   runSpacing: 10.0,
                   children: <Widget>[
                     //1 card
-                    Row(
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: containerbox(
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          containerbox(
                               context,
-                              "https://www.pngmart.com/files/10/User-Account-PNG-Photos.png",
+                              "assets/dashboard/user.png",
+                              //"https://www.pngmart.com/files/10/User-Account-PNG-Photos.png",
                               //"https://cdn-icons-png.flaticon.com/512/3135/3135768.png",
                               "46",
                               S.of(context).User,
                               //"User",
                               // Colors.orange.shade300
                               Theme.of(context).accentColor),
-                        ),
 
-                        //2 card
-                        // containerbox(
-                        //     context,
-                        //     "https://cdn-icons-png.flaticon.com/512/3135/3135768.png",
-                        //     "48",
-                        //     S.of(context).UniqueVisitors,
-                        //     // "Unique\nVisitors",
-                        //     Colors.blue),
-                        //3 card
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: containerbox(
+                          //2 card
+                          // containerbox(
+                          //     context,
+                          //     "https://cdn-icons-png.flaticon.com/512/3135/3135768.png",
+                          //     "48",
+                          //     S.of(context).UniqueVisitors,
+                          //     // "Unique\nVisitors",
+                          //     Colors.blue),
+                          //3 card
+                          containerbox(
                               context,
-                              "https://img.icons8.com/nolan/2x/link.png",
+                              "assets/dashboard/connection.png",
+                              //"https://img.icons8.com/nolan/2x/link.png",
                               //  "https://cdn-icons-png.flaticon.com/512/1011/1011356.png",
                               "4/20",
                               S.of(context).Connections,
                               //"Connections",
                               // Colors.purple.shade300
                               Theme.of(context).accentColor),
-                        ),
-                        Card(
-                          color: Theme.of(context).backgroundColor,
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(13),
-                          ),
-                          child: Container(
-                              width: 60,
-                              height: 125,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(13),
-                                // color: Colors.orange.shade300,
-                                // image: DecorationImage(
-                                //   colorFilter: ColorFilter.mode(
-                                //       Colors.black.withOpacity(0.5), BlendMode.dstATop),
-                                //   image: NetworkImage(
-                                //       "https://ifatceg.com/wp-content/uploads/2021/03/72AC9CE1-F524-4778-80D7-9401ED743DDA.jpeg"
-                                //       // "https://www.fmanet.org/wp-content/uploads/2015/07/water-image1.jpg",
-                                //       ),
-                                //   fit: BoxFit.cover,
-                                // ),
-                              ),
-                              child: Center(
-                                  child: Padding(
-                                      padding: const EdgeInsets.all(3.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          // SizedBox(
-                                          //   height: 10,
-                                          // ),
-                                          Image(
-                                            width: 45.0,
-                                            color:
-                                                Theme.of(context).accentColor,
-                                            image: NetworkImage(
-                                                "https://www.pngmart.com/files/10/User-Account-PNG-Photos.png"),
-                                          ),
-                                          SizedBox(
-                                            height: 05,
-                                          ),
-                                          Text(
-                                            "User",
-                                            //"User Management",
-                                            textAlign: TextAlign.center,
-                                            textDirection: TextDirection.ltr,
-                                            style: TextStyle(
-                                              //color: Colors.black,
-                                              //fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),),
-                                          SizedBox(height: 2,),
-                                          Text(
-                                            "2",
-                                            //"User Management",
-                                            textAlign: TextAlign.end,
-                                            textDirection: TextDirection.ltr,
-                                            style: TextStyle(
-                                              //color: Colors.black,
-                                              //fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      )))),
-                        ),
-                      ],
+                          containerbox(
+                              context,
+                              "assets/dashboard/user.png",
+                              //"https://img.icons8.com/nolan/2x/link.png",
+                              //  "https://cdn-icons-png.flaticon.com/512/1011/1011356.png",
+                              "2",
+                              "User",
+                              //"Connections",
+                              // Colors.purple.shade300
+                              Theme.of(context).accentColor),
+                          // Card(
+                          //   color: Theme.of(context).backgroundColor,
+                          //   elevation: 5,
+                          //   shape: RoundedRectangleBorder(
+                          //     borderRadius: BorderRadius.circular(13),
+                          //   ),
+                          //   child: Container(
+                          //       width: 60,
+                          //       height: 125,
+                          //       decoration: BoxDecoration(
+                          //         borderRadius: BorderRadius.circular(13),
+                          //         // color: Colors.orange.shade300,
+                          //         // image: DecorationImage(
+                          //         //   colorFilter: ColorFilter.mode(
+                          //         //       Colors.black.withOpacity(0.5), BlendMode.dstATop),
+                          //         //   image: NetworkImage(
+                          //         //       "https://ifatceg.com/wp-content/uploads/2021/03/72AC9CE1-F524-4778-80D7-9401ED743DDA.jpeg"
+                          //         //       // "https://www.fmanet.org/wp-content/uploads/2015/07/water-image1.jpg",
+                          //         //       ),
+                          //         //   fit: BoxFit.cover,
+                          //         // ),
+                          //       ),
+                          //       child: Center(
+                          //           child: Padding(
+                          //               padding: const EdgeInsets.all(3.0),
+                          //               child: Column(
+                          //                 mainAxisAlignment:
+                          //                     MainAxisAlignment.center,
+                          //                 children: <Widget>[
+                          //                   // SizedBox(
+                          //                   //   height: 10,
+                          //                   // ),
+                          //                   Image(
+                          //                     width: 45.0,
+                          //                     color:
+                          //                         Theme.of(context).accentColor,
+                          //                     image: AssetImage(
+                          //                        "assets/dashboard/user.png"
+                          //                     ),
+                          //                        // "https://www.pngmart.com/files/10/User-Account-PNG-Photos.png"),
+                          //                   ),
+                          //                   SizedBox(
+                          //                     height: 05,
+                          //                   ),
+                          //                   Text(
+                          //                     "User",
+                          //                     //"User Management",
+                          //                     textAlign: TextAlign.center,
+                          //                     textDirection: TextDirection.ltr,
+                          //                     style: TextStyle(
+                          //                       //color: Colors.black,
+                          //                       //fontSize: 18,
+                          //                       fontWeight: FontWeight.bold,
+                          //                     ),),
+                          //                   SizedBox(height: 2,),
+                          //                   Text(
+                          //                     "2",
+                          //                     //"User Management",
+                          //                     textAlign: TextAlign.end,
+                          //                     textDirection: TextDirection.ltr,
+                          //                     style: TextStyle(
+                          //                       //color: Colors.black,
+                          //                       //fontSize: 14,
+                          //                       fontWeight: FontWeight.bold,
+                          //                     ),
+                          //                   ),
+                          //                 ],
+                          //               )))),
+                          // ),
+                        ],
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 15, right: 15),
@@ -246,8 +257,9 @@ class _HomeDashboardState extends State<HomeDashboard> {
                               leading: Image(
                                 width: 45.0,
                                 color: Theme.of(context).accentColor,
-                                image: NetworkImage(
-                                    "https://img.icons8.com/ios/344/user--v1.png"
+                                image: AssetImage(
+                                  "assets/dashboard/unique_visitors.png"
+                                  //  "https://img.icons8.com/ios/344/user--v1.png"
                                     //  "https://cdn-icons-png.flaticon.com/512/3135/3135768.png",
                                     //color: Theme.of(context).accentColor,
                                     ),
@@ -292,8 +304,9 @@ class _HomeDashboardState extends State<HomeDashboard> {
                               leading: Image(
                                 width: 45.0,
                                 color: Theme.of(context).accentColor,
-                                image: NetworkImage(
-                                    "https://cdn.iconscout.com/icon/free/png-64/e-way-bill-1817367-1538235.png"
+                                image: AssetImage(
+                                  "assets/dashboard/Booked_AWB.png"
+                                  // "https://cdn.iconscout.com/icon/free/png-64/e-way-bill-1817367-1538235.png"
                                     //  "https://cdn-icons-png.flaticon.com/512/3135/3135768.png",
                                     //color: Theme.of(context).accentColor,
                                     ),
@@ -324,7 +337,8 @@ class _HomeDashboardState extends State<HomeDashboard> {
                         //     Colors.yellow.shade300),
                         containerbox(
                             context,
-                            "https://img.icons8.com/dotty/2x/online.png",
+                            "assets/dashboard/online.png",
+                            //"https://img.icons8.com/dotty/2x/online.png",
                             // "https://cdn-icons-png.flaticon.com/512/3135/3135768.png",
                             "1",
                             S.of(context).Online,
@@ -333,7 +347,8 @@ class _HomeDashboardState extends State<HomeDashboard> {
                         //6 card
                         containerbox(
                             context,
-                            "https://img.icons8.com/ios-filled/2x/pivot-table.png",
+                           "assets/dashboard/table.png",
+                           // "https://img.icons8.com/ios-filled/2x/pivot-table.png",
                             // "https://cdn-icons-png.flaticon.com/512/1548/1548723.png",
                             "80",
                             S.of(context).Tables,
@@ -342,7 +357,8 @@ class _HomeDashboardState extends State<HomeDashboard> {
                         //7 card
                         containerbox(
                             context,
-                            "https://img.icons8.com/external-xnimrodx-lineal-xnimrodx/2x/external-flight-calendar-xnimrodx-lineal-xnimrodx.png",
+                            "assets/dashboard/flights.png",
+                            //"https://img.icons8.com/external-xnimrodx-lineal-xnimrodx/2x/external-flight-calendar-xnimrodx-lineal-xnimrodx.png",
                             // "https://cdn-icons.flaticon.com/png/128/5086/premium/5086864.png?token=exp=1645798626~hmac=ead32126940d8a839a82bd2701f4725a",
                             // "https://cdn-icons-png.flaticon.com/512/1544/1544388.png",
                             "17",
@@ -352,7 +368,8 @@ class _HomeDashboardState extends State<HomeDashboard> {
                         //8 card
                         containerbox(
                             context,
-                            "https://img.icons8.com/external-outline-wichaiwi/2x/external-bounce-rate-digital-marketing-outline-wichaiwi.png",
+                           "assets/dashboard/bounce_rate.png",
+                            // "https://img.icons8.com/external-outline-wichaiwi/2x/external-bounce-rate-digital-marketing-outline-wichaiwi.png",
                             //  "https://cdn-icons-png.flaticon.com/512/2328/2328942.png",
                             "53",
                             S.of(context).BounceRate,
@@ -492,7 +509,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
                       Image(
                         width: 49.0,
                         color: Theme.of(context).accentColor,
-                        image: NetworkImage(imageUrl),
+                        image: AssetImage(imageUrl),
                       ),
                       // SizedBox(
                       //   height: 05,

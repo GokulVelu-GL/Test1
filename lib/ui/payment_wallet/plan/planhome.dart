@@ -24,7 +24,10 @@ class _PlanPageState extends State<PlanPage> {
         decoration: BoxDecoration(
         color: Colors.white,
         image: DecorationImage(
-          image: NetworkImage("https://img1.picmix.com/output/stamp/normal/1/0/7/9/1289701_e1c8c.gif"),
+          image: AssetImage(
+              "assets/plan/background_plan.gif"
+              //"https://img1.picmix.com/output/stamp/normal/1/0/7/9/1289701_e1c8c.gif"
+          ),
           fit: BoxFit.cover,
         ),
       ),

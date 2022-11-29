@@ -118,8 +118,10 @@ class _TelexState extends State<Telex> {
                         Image(
                           width: 39.0,
                           color: Theme.of(context).accentColor,
-                          image: NetworkImage(
-                            "https://cdn1.iconfinder.com/data/icons/electronics-and-devices-1-2/64/45-256.png"),
+                          image: AssetImage(
+                           "assets/homescreen/telax.png"
+                          //  "https://cdn1.iconfinder.com/data/icons/electronics-and-devices-1-2/64/45-256.png"
+                          ),
                             //"https://st4.depositphotos.com/16138592/29131/v/600/depositphotos_291311932-stock-illustration-flat-laser-printer-vector-design.jpg"),
                         ),
                         SizedBox(

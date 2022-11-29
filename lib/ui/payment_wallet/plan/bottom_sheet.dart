@@ -111,7 +111,7 @@ class _ExhibitionBottomSheetState extends State<ExhibitionBottomSheet>
           left: Radius.circular(iconLeftBorderRadius),
           right: Radius.circular(iconRightBorderRadius),
         ),
-        child: Image.network(
+        child: Image.asset(
           event.assetName,
           fit: BoxFit.cover,
           alignment: Alignment(lerp(1, 0), 0),
@@ -233,9 +233,9 @@ class ExpandedEventItem extends StatelessWidget {
 }
 
 final List<Event> events = [
-  Event('https://cdn.dribbble.com/users/767646/screenshots/1943995/team.gif', 'FREE TRIAL', '0 USD / 7 DAYS FREE TRIAL'),
-  Event('https://cdn.dribbble.com/users/767646/screenshots/1943995/team.gif', 'SILVER', '20 USD / PER MONTH'),
-  Event('https://cdn.dribbble.com/users/767646/screenshots/1943995/team.gif', 'GOLD', '25 USD / PER MONTH'),
+  Event('assets/plan/plan.gif', 'FREE TRIAL', '0 USD / 7 DAYS FREE TRIAL'),
+  Event('assets/plan/plan.gif', 'SILVER', '20 USD / PER MONTH'),
+  Event('assets/plan/plan.gif', 'GOLD', '25 USD / PER MONTH'),
 ];
 
 class Event {

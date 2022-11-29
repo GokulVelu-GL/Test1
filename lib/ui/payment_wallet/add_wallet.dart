@@ -827,7 +827,10 @@ class _AddWalletState extends State<AddWallet> with TickerProviderStateMixin{
                                                 },
                                                 child: Text("Pay"),
                                               ),
-                                              Image.network("https://www.arkasoftwares.com/blog/wp-content/uploads/2021/01/Near-Field-Communication.gif"),
+                                              Image.asset(
+                                              "assets/recharge_wallet/recharge_wallet.gif"
+                                              //    "https://www.arkasoftwares.com/blog/wp-content/uploads/2021/01/Near-Field-Communication.gif"
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -2041,17 +2044,19 @@ class _AddWalletState extends State<AddWallet> with TickerProviderStateMixin{
                                       ),
                                       child: FittedBox(
                                         alignment: Alignment.center,
-                                        child: Image.network
+                                        child: Image.asset(
                                         //   ("https://eadn-wc01-4731180.nxedge.io/cdn/media/wp-content/uploads/2019/02/transportation-and-logistics-concept.jpg"
                                         // ),
                                           (
-                                            "https://i.pinimg.com/originals/70/a5/52/70a552e8e955049c8587b2d7606cd6a6.gif"
+                                           "assets/recharge_wallet/success_payment.gif"
+                                              //   "https://i.pinimg.com/originals/70/a5/52/70a552e8e955049c8587b2d7606cd6a6.gif"
                                           // "https://image.shutterstock.com/image-vector/warehouse-loading-dock-goods-vehicles-260nw-2044711208.jpg"
                                         ),
                                         fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
+                                ),
                                 ),
                                 Transform.translate(
                                   offset: Offset(0, 60),

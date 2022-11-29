@@ -687,12 +687,15 @@ class _SignInState extends State<SignIn> {
             StringData.airlineCodes.isEmpty||
             StringData.contactType.isEmpty) {
           StringData.loadAirportCode();
-          StringData.loadAirlineCode();
           StringData.loadtContactType();
           StringData.loadRateClassCode();
-
+          StringData.loadAccId();
           StringData.loadShgCode();
+          StringData.loadtCHGSCode();
+          StringData.loadVolumeCode();
+          StringData.loadAirlineCode();
           StringData.loadCurrency();
+          StringData.loadExchangeRate();
 
         }
         if (prefs.getStringList("exrate") == null) {

@@ -149,8 +149,10 @@ class _ConfigurationState extends State<Configuration> {
                         Image(
                           width: 39.0,
                           color: Theme.of(context).accentColor,
-                          image: NetworkImage(
-                              "https://cdn-icons-png.flaticon.com/512/989/989368.png"),
+                          image: AssetImage(
+                            "assets/homescreen/configuration.png"
+                            //  "https://cdn-icons-png.flaticon.com/512/989/989368.png"
+                          ),
                         ),
                         // SizedBox(
                         //   height: 12,

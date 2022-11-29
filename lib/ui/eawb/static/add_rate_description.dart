@@ -1802,42 +1802,42 @@ class _AddRateDescriptionFormState extends State<AddRateDescriptionForm> {
                                 ),
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Checkbox(
-                                  value: consolidationvalue,
-                                  onChanged: (bool value) {
-                                    setState(() {
-                                      this.consolidationvalue = value;
-                                      if(consolidationvalue.toString()=="true")
-                                        this.natureofgoods=TextEditingController(text: "CONSOLIDATION");
-                                      // natureAndQuantity="CONSOLIDATION";
-                                      //   natureofgoods.text = "CONSOLIDATION";
-                                      else
-                                        this.natureofgoods=TextEditingController(text: " ");
-                                      // natureAndQuantity="";
-                                      // natureofgoods.clear();
-                                      // natureAndQuantity.clear();
-                                      print(natureofgoods.text);
-                                      print(consolidationvalue);
-                                      // monVal = value;
-                                    });
-                                  },
-                                ),
-                                Text(
-                                  S.of(context).Consolidation,
-                                  //"Consolidation",
-                                  style: TextStyle(
-                                    color: Theme.of(context).accentColor,
-                                    // color: Colors.deepPurple,
-                                    // decoration: TextDecoration.underline,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 18.0,
-                                  ),
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.start,
+                            //   children: <Widget>[
+                            //     Checkbox(
+                            //       value: consolidationvalue,
+                            //       onChanged: (bool value) {
+                            //         setState(() {
+                            //           this.consolidationvalue = value;
+                            //           if(consolidationvalue.toString()=="true")
+                            //             this.natureofgoods=TextEditingController(text: "CONSOLIDATION");
+                            //           // natureAndQuantity="CONSOLIDATION";
+                            //           //   natureofgoods.text = "CONSOLIDATION";
+                            //           else
+                            //             this.natureofgoods=TextEditingController(text: " ");
+                            //           // natureAndQuantity="";
+                            //           // natureofgoods.clear();
+                            //           // natureAndQuantity.clear();
+                            //           print(natureofgoods.text);
+                            //           print(consolidationvalue);
+                            //           // monVal = value;
+                            //         });
+                            //       },
+                            //     ),
+                            //     Text(
+                            //       S.of(context).Consolidation,
+                            //       //"Consolidation",
+                            //       style: TextStyle(
+                            //         color: Theme.of(context).accentColor,
+                            //         // color: Colors.deepPurple,
+                            //         // decoration: TextDecoration.underline,
+                            //         fontWeight: FontWeight.w700,
+                            //         fontSize: 18.0,
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
 
                             // ! natureAndQuantity....
                             Padding(

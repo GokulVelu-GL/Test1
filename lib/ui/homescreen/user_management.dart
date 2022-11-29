@@ -127,8 +127,10 @@ class _UserManagementState extends State<UserManagement> {
                             Image(
                               width: 39.0,
                               color: Theme.of(context).accentColor,
-                              image: NetworkImage(
-                                  "https://cdn-icons-png.flaticon.com/512/1283/1283342.png"),
+                              image: AssetImage(
+                              "assets/homescreen/user_management.png"
+                                //    "https://cdn-icons-png.flaticon.com/512/1283/1283342.png"
+                              ),
                             ),
                             // SizedBox(
                             //   height: 05,

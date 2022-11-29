@@ -123,8 +123,10 @@ class _IATACargoXMLState extends State<IATACargoXML> {
                         Image(
                           width: 39.0,
                           color: Theme.of(context).accentColor,
-                          image: NetworkImage(
-                              "https://cdn-icons-png.flaticon.com/512/2329/2329087.png"),
+                          image: AssetImage(
+                            "assets/homescreen/iatacargoxml.png"
+                           //   "https://cdn-icons-png.flaticon.com/512/2329/2329087.png"
+                          ),
                         ),
                         SizedBox(
                           height: 05,

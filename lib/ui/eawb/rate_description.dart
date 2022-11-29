@@ -9,6 +9,7 @@ import 'package:rooster/ui/eawb/static/add_rate_description.dart';
 import 'package:rooster/ui/eawb/static/custom_background.dart';
 import 'package:rooster/ui/eawb/handling_information.dart';
 import 'package:rooster/ui/eawb/static/update_rate_description.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'dart:math' as math show sin, pi,sqrt;
 import 'package:flutter/animation.dart';
 
@@ -25,22 +26,62 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
   bool alertvalue=false;
   AnimationController _controller;
   bool consolidationvalue = false;
+  AnimationController _resizableController;
+  final animationDuration = Duration(milliseconds: 500);
+
+
+  AnimationController _myAnimation;
+
+  int TotalPieces=0;
+  int TotalGWeight=0;
+  int overalltotal=0;
+  var _currentIndex = 0;
 
   void initState() {
     super.initState();
+
+
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 2000),
+      duration: const Duration(milliseconds: 1000),
       vsync: this,
     )..repeat();
+    _resizableController = new AnimationController(
+      vsync: this,
+      duration: new Duration(
+        milliseconds: 1000,
+      ),
+    );
+    _resizableController.addStatusListener((animationStatus) {
+      switch (animationStatus) {
+        case AnimationStatus.completed:
+          _resizableController.reverse();
+          break;
+        case AnimationStatus.dismissed:
+          _resizableController.forward();
+          break;
+        case AnimationStatus.forward:
+          break;
+        case AnimationStatus.reverse:
+          break;
+      }
+    });
+
+    _resizableController.forward();
+    _myAnimation = AnimationController(
+        duration: const Duration(seconds: 1),
+    vsync: this,
+    );
+
   }
+
 
   @override
   void dispose() {
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
+
     return Consumer<EAWBModel>(
       builder: (context, model, child) => WillPopScope(
         onWillPop: () async {
@@ -252,6 +293,7 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
+
                                 children: [
                                   Checkbox(
                                     value: consolidationvalue,
@@ -287,352 +329,222 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                                   Text("Consolidation"),
                                 ],
                               ),
-
-                              ElevatedButton(
-                                style: TextButton.styleFrom(
-                                  primary: Theme.of(context).backgroundColor,
-                                  backgroundColor: Theme.of(context).accentColor,
-                                  // Text Color
-                                ),
+                              TextButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                                 onPressed: (){
-                                  showGeneralDialog(
-                                      context: context,
-                                      barrierDismissible: true,
-                                      barrierLabel: MaterialLocalizations.of(context)
-                                          .modalBarrierDismissLabel,
-                                      barrierColor: Colors.black45,
-                                      transitionDuration: const Duration(milliseconds: 200),
-                                      pageBuilder: (BuildContext buildContext,
-                                          Animation animation,
-                                          Animation secondaryAnimation) {
-                                        return Center(
-                                          child: Container(
+                                showDialog(
+                                  context: context,
+                                  builder: (ctx) => AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(30.0))),
+                                    title: AnimatedBuilder(
+                                        animation: _resizableController,
+                                        builder: (context, child) {
+                                          return Container(
+                                            padding: EdgeInsets.only(left: 15.0,
+                                                top: 10.0,bottom: 10.0,
+                                                right: 15.0),
+                                            child: Center(child: Text("Alert")),
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                  topLeft:Radius.circular(40.0),
-                                                bottomLeft: Radius.circular(40.0),
-                                              ),
-                                              color: Colors.white,
+                                              shape: BoxShape.rectangle,
+                                              borderRadius: BorderRadius.all(Radius.circular(12)),
+                                              border: Border.all(
+                                                  color: Theme.of(context).backgroundColor, width: _resizableController.value * 10),
                                             ),
-                                            width: MediaQuery.of(context).size.width - 14,
-                                            height: 250,
-                                            padding: EdgeInsets.all(8.0),
-                                            child:  Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Container(
-                                                        child: Center(
-                                                          child: Text("Alert",
-                                                          style: TextStyle(
-                                                                color: Theme.of(context).accentColor,
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 20
-                                                          ),
-                                                          ),
-                                                        ),
+                                          );
+                                        }),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Center(
+                                              child: CustomPaint(
+                                                painter: CirclePainter(
+                                                    _controller,
+                                                    color: Theme.of(context).accentColor
+                                                ),
+                                                child: SizedBox(
+                                                    height: 80,
+                                                    width:80,
+                                                    child: Icon(Icons.dangerous_outlined, size: 20,
+                                                      color: Theme.of(context).backgroundColor,
+                                                    )
+                                                  //_button(),
+                                                ),
+                                              ),
+                                            ),
+                                            Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              // crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                // Text("AWB Gross weight:350K\nAWB Chargeable Weight: 350 K \nGHA Acceptance Gross Weight:\n 500"
+                                                //     "K \nThis means the AWB Gross Weight"
+                                                // ,
+                                                //   style: TextStyle(
+                                                //     fontSize: 13
+                                                //   ),
+                                                // ),
+                                                Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  // mainAxisAlignment: MainAxisAlignment.end,
+                                                  children: [
+                                                    Text("AWB Gross weight ",
+                                                      style: TextStyle(
+                                                        color: Theme.of(context).accentColor,
                                                       ),
-                                                      Column(
-                                                        children: [
-                                                          Row(
-
-                                                            children: [
-                                                              Center(
-                                                                child: CustomPaint(
-                                                                  painter: CirclePainter(
-                                                                    _controller,
-                                                                      color: Theme.of(context).accentColor
-                                                                  ),
-                                                                  child: SizedBox(
-                                                                    height: 85,
-                                                                    width:80,
-                                                                    child: Icon(Icons.dangerous_outlined, size: 25,
-                                                                    color: Theme.of(context).backgroundColor,
-                                                                    )
-                                                                    //_button(),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Column(
-                                                                mainAxisSize: MainAxisSize.min,
-                                                                // crossAxisAlignment: CrossAxisAlignment.start,
-                                                                children: [
-                                                              // Text("AWB Gross weight:350K\nAWB Chargeable Weight: 350 K \nGHA Acceptance Gross Weight:\n 500"
-                                                              //     "K \nThis means the AWB Gross Weight"
-                                                              // ,
-                                                              //   style: TextStyle(
-                                                              //     fontSize: 13
-                                                              //   ),
-                                                              // ),
-                                                                   Row(
-                                                                     crossAxisAlignment: CrossAxisAlignment.end,
-                                                                     // mainAxisAlignment: MainAxisAlignment.end,
-                                                                     children: [
-                                                                       Text("AWB Gross weight ",
-                                                                         style: TextStyle(
-                                                                             color: Theme.of(context).accentColor,
-                                                                         ),
-                                                                       ),
-                                                                       Text("------------------> 350K",
-                                                                         style: TextStyle(
-                                                                           fontWeight: FontWeight.bold,
-                                                                         ),
-                                                                       )
-                                                                     ],
-                                                                   ),
-                                                                  Row(
-                                                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                                                    // mainAxisAlignment: MainAxisAlignment.end,
-                                                                    children: [
-                                                                      Text("AWB Chargeable Weight  ",
-                                                                        style: TextStyle(
-                                                                          color: Theme.of(context).accentColor,
-
-                                                                        ),
-                                                                      ),
-                                                                      Text("-----------> 350K",
-                                                                        style: TextStyle(
-                                                                            fontWeight: FontWeight.bold,
-                                                                        ),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                  Row(
-                                                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                                                    // mainAxisAlignment: MainAxisAlignment.end,
-                                                                    children: [
-                                                                      Text("GHA Acceptance Gross Weight ",
-                                                                        style: TextStyle(
-                                                                            color: Theme.of(context).accentColor,
-                                                                        ),
-                                                                      ),
-                                                                      Text("----> 500K",
-                                                                        style: TextStyle(
-                                                                            fontWeight: FontWeight.bold,
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  // Text("This means the AWB Gross Weight & AWB",
-                                                                  //   style: TextStyle(
-                                                                  //       color: Theme.of(context).accentColor,
-                                                                  //
-                                                                  //   ),
-                                                                  // ),
-                                                                  // Text("Chargeable Weight captured by ",
-                                                                  //   style: TextStyle(
-                                                                  //       color: Theme.of(context).accentColor,
-                                                                  //
-                                                                  //   ),
-                                                                  // ),
-                                                                  // Text("Documentation Team are INCORRECT. This",
-                                                                  //   style: TextStyle(
-                                                                  //     color: Theme.of(context).accentColor,
-                                                                  //
-                                                                  //   ),
-                                                                  // ),
-                                                                  // Text("also potentially means the AWB Charges",
-                                                                  //   style: TextStyle(
-                                                                  //     color: Theme.of(context).accentColor,
-                                                                  //
-                                                                  //   ),
-                                                                  // ),  Text("are INCORRECT,and a possible revenue loss",
-                                                                  //   style: TextStyle(
-                                                                  //     color: Theme.of(context).accentColor,
-                                                                  //
-                                                                  //   ),
-                                                                  // )
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Text("This means the AWB Gross Weight & AWB Chargeable Weight captured by Documentation Team are INCORRECT. This also potentially means the AWB Charges are INCORRECT, and a possible revenue loss.",
-                                                            textAlign: TextAlign.justify,
-                                                            style: TextStyle(
-                                                              color: Theme.of(context).accentColor,
-                                                            ),
-                                                            ),
-                                                          Text("Please Check!",
-                                                            style: TextStyle(
-                                                                color: Theme.of(context).accentColor,
-                                                              fontWeight: FontWeight.bold,
-                                                            ),
-                                                            textAlign: TextAlign.center,
-
-                                                          )
-                                                        ],
+                                                    ),
+                                                    Text("--------------> 350K",
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
                                                       ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  // mainAxisAlignment: MainAxisAlignment.end,
+                                                  children: [
+                                                    Text("AWB Chargeable Weight  ",
+                                                      style: TextStyle(
+                                                        color: Theme.of(context).accentColor,
 
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.end,
-                                                        crossAxisAlignment: CrossAxisAlignment.end,
-                                                        children: [
-                                                          ElevatedButton(
+                                                      ),
+                                                    ),
+                                                    Text("--------> 350K",
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                  // mainAxisAlignment: MainAxisAlignment.end,
+                                                  children: [
+                                                    Text("GHA Acceptance Gross Weight ",
+                                                      style: TextStyle(
+                                                        color: Theme.of(context).accentColor,
+                                                      ),
+                                                    ),
+                                                    Text("-> 500K",
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                // Text("This means the AWB Gross Weight & AWB",
+                                                //   style: TextStyle(
+                                                //       color: Theme.of(context).accentColor,
+                                                //
+                                                //   ),
+                                                // ),
+                                                // Text("Chargeable Weight captured by ",
+                                                //   style: TextStyle(
+                                                //       color: Theme.of(context).accentColor,
+                                                //
+                                                //   ),
+                                                // ),
+                                                // Text("Documentation Team are INCORRECT. This",
+                                                //   style: TextStyle(
+                                                //     color: Theme.of(context).accentColor,
+                                                //
+                                                //   ),
+                                                // ),
+                                                // Text("also potentially means the AWB Charges",
+                                                //   style: TextStyle(
+                                                //     color: Theme.of(context).accentColor,
+                                                //
+                                                //   ),
+                                                // ),  Text("are INCORRECT,and a possible revenue loss",
+                                                //   style: TextStyle(
+                                                //     color: Theme.of(context).accentColor,
+                                                //
+                                                //   ),
+                                                // )
+                                              ],
+                                            ),
+                                            Text("This means the AWB Gross Weight & AWB Chargeable Weight captured by Documentation Team are INCORRECT. This also potentially means the AWB Charges are INCORRECT, and a possible revenue loss.",
+                                              textAlign: TextAlign.justify,
+                                              style: TextStyle(
+                                                color: Theme.of(context).accentColor,
+                                              ),
+                                            ),
+                                            Text("Please Check!",
+                                              style: TextStyle(
+                                                color: Theme.of(context).accentColor,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
 
-                                                              style: TextButton.styleFrom(
-                                                                primary: Theme.of(context).backgroundColor,
-                                                                backgroundColor: Colors.green,
-                                                                // Text Color
-                                                              ),onPressed: (){
-                                                                setState(() {
-                                                                  alertvalue=false;
-                                                                  Navigator.pop(context);
-                                                                });
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            ElevatedButton(
 
-                                                          }, child: Text("Accept",
-                                                          )),
-                                                          SizedBox(
-                                                            width: 10,
-                                                          ),
-                                                          ElevatedButton(
+                                                style: TextButton.styleFrom(
+                                                  primary: Theme.of(context).backgroundColor,
+                                                  backgroundColor: Colors.green,
+                                                  // Text Color
+                                                ),onPressed: (){
+                                              setState(() {
+                                                alertvalue=false;
+                                                Navigator.pop(context);
+                                              });
 
-                                                              style: TextButton.styleFrom(
-                                                                primary: Theme.of(context).backgroundColor,
-                                                                backgroundColor: Colors.red,
-                                                                // Text Color
-                                                              ),
-                                                              onPressed: (){
-                                                                setState(() {
-                                                                  alertvalue=true;
-                                                                  Navigator.pop(context);
-                                                                });
-                                                                // Navigator.pop(context);
-                                                                }, child: Text("Reject",
-                                                          ))
-                                                        ],
-                                                      )
-                                                    ],
-                                                  ),
-                                          ),
-                                        );
-                                      });
-                                // showDialog(
-                                //     context: context,
-                                //     builder: (BuildContext context) {
-                                //       var height = MediaQuery.of(context).size.height;
-                                //       var width = MediaQuery.of(context).size.width;
-                                //       return Dialog(
-                                //         shape: RoundedRectangleBorder(
-                                //             borderRadius:
-                                //             BorderRadius.only(
-                                //              topLeft: Radius.circular(30.0),
-                                //               bottomLeft: Radius.circular(30.0),
-                                //             )
-                                //         ), //this right here
-                                //         child: Padding(
-                                //           padding: const EdgeInsets.all(12.0),
-                                //           child: Column(
-                                //             mainAxisAlignment: MainAxisAlignment.center,
-                                //             mainAxisSize: MainAxisSize.min,
-                                //             crossAxisAlignment: CrossAxisAlignment.start,
-                                //             children: [
-                                //               Container(
-                                //                 child: Center(
-                                //                   child: Text("Alert",
-                                //                   style: TextStyle(
-                                //                     fontWeight: FontWeight.bold
-                                //                   ),
-                                //                   ),
-                                //                 ),
-                                //               ),
-                                //               Row(
-                                //                 children: [
-                                //                   CustomPaint(
-                                //                     painter: CirclePainter(
-                                //                       _controller,
-                                //                         color: Theme.of(context).accentColor
-                                //                     ),
-                                //                     child: SizedBox(
-                                //                       height: 70,
-                                //                       width:70,
-                                //                       child: Icon(Icons.dangerous_outlined, size: 25,
-                                //                       color: Theme.of(context).backgroundColor,
-                                //                       )
-                                //                       //_button(),
-                                //                     ),
-                                //                   ),
-                                //                   Column(
-                                //                     crossAxisAlignment: CrossAxisAlignment.start,
-                                //                     mainAxisAlignment: MainAxisAlignment.start,
-                                //                     children: [
-                                //                   // Text("AWB Gross weight:350K\nAWB Chargeable Weight: 350 K \nGHA Acceptance Gross Weight:\n 500"
-                                //                   //     "K \nThis means the AWB Gross Weight"
-                                //                   // ,
-                                //                   //   style: TextStyle(
-                                //                   //     fontSize: 13
-                                //                   //   ),
-                                //                   // ),
-                                //                        Row(
-                                //                          crossAxisAlignment: CrossAxisAlignment.end,
-                                //                          // mainAxisAlignment: MainAxisAlignment.end,
-                                //                          children: [
-                                //                            Text("AWB Gross weight ",
-                                //                              style: TextStyle(
-                                //                                  fontWeight: FontWeight.bold,
-                                //                                  fontSize: 12
-                                //                              ),
-                                //                            ),
-                                //                            Text("350K",
-                                //                            style: TextStyle(
-                                //                              fontWeight: FontWeight.bold,
-                                //                              fontSize: 16
-                                //                            ),
-                                //                            )
-                                //                          ],
-                                //                        ),
-                                //                       Row(
-                                //                         crossAxisAlignment: CrossAxisAlignment.end,
-                                //                         // mainAxisAlignment: MainAxisAlignment.end,
-                                //                         children: [
-                                //                           Text("AWB Chargeable Weight: ",
-                                //                             style: TextStyle(
-                                //                                 fontWeight: FontWeight.bold,
-                                //                                 fontSize: 12
-                                //                             ),
-                                //                           ),
-                                //                           Text("350K",
-                                //                             style: TextStyle(
-                                //                                 fontWeight: FontWeight.bold,
-                                //                                 fontSize: 16
-                                //                             ),
-                                //                           )
-                                //                         ],
-                                //                       ),
-                                //                       Row(
-                                //                         crossAxisAlignment: CrossAxisAlignment.end,
-                                //                         // mainAxisAlignment: MainAxisAlignment.end,
-                                //                         children: [
-                                //                           Text("GHA Acceptance Gross Weight:",
-                                //                             style: TextStyle(
-                                //                                 fontWeight: FontWeight.bold,
-                                //                                 fontSize: 12
-                                //                             ),
-                                //                           ),
-                                //                           Text("500K",
-                                //                             style: TextStyle(
-                                //                                 fontWeight: FontWeight.bold,
-                                //                                 fontSize: 14
-                                //                             ),
-                                //                           ),
-                                //                         ],
-                                //                       ),
-                                //                       Text("This means the AWB Gross Weight & "),
-                                //                       Text("AWB Chargeable Weight captured by Documentation")
-                                //                     ],
-                                //                   ),
-                                //                 ],
-                                //               ),
-                                //
-                                //             ],
-                                //           ),
-                                //         ),
-                                //       );
-                                //     });
+                                            }, child: Text("Accept",
+                                            )),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            ElevatedButton(
 
-                              }, child: Text("Test"),
-
-                              ),
+                                                style: TextButton.styleFrom(
+                                                  primary: Theme.of(context).backgroundColor,
+                                                  backgroundColor: Colors.red,
+                                                  // Text Color
+                                                ),
+                                                onPressed: (){
+                                                  setState(() {
+                                                    alertvalue=true;
+                                                    Navigator.pop(context);
+                                                  });
+                                                  // Navigator.pop(context);
+                                                }, child: Text("Reject",
+                                            ))
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    // actions: <Widget>[
+                                    //   TextButton(
+                                    //     onPressed: () {
+                                    //       Navigator.of(ctx).pop();
+                                    //     },
+                                    //     child: Center(
+                                    //       child: Container(
+                                    //         padding: const EdgeInsets.all(14),
+                                    //         child:  Text("Close",
+                                    //           style: TextStyle(
+                                    //             color: Theme.of(context).accentColor,
+                                    //           ),
+                                    //         ),
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ],
+                                  ),
+                                );
+                              },  child: Text("Test"),),
                             ],
                           ),
                         ),
@@ -780,6 +692,83 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                     ),
                   ))
               : null,
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.only(left: 60.0,right:55.0),
+            child: BottomNavyBar(
+
+              selectedIndex: _currentIndex,
+              showElevation: true, // use this to remove appBar's elevation
+              onItemSelected: (index) => setState(() {
+
+                _currentIndex = index;
+                // _pageController.animateToPage(index,
+                //     duration: Duration(milliseconds: 300), curve: Curves.ease);
+              }
+              ),
+              items: [
+                BottomNavyBarItem(
+                  icon: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(TotalPieces.toString(),
+                        style: TextStyle(
+                            fontSize: 12,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      // Text(
+                      //     "Total Pieces"
+                      //   //'Home'
+                      // ),
+                    ],
+                  ),
+                   title: Text("Total Pieces"),
+                   //Text(
+                  //     TotalPieces.toString()
+                  //   //'Home'
+                  // ),
+                  activeColor: Theme.of(context).accentColor,
+                ),
+                BottomNavyBarItem(
+                  icon: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(TotalGWeight.toString(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12
+                        ),
+                      ),
+                      // Text(
+                      //     "Total Pieces"
+                      //   //'Home'
+                      // ),
+                    ],
+                  ),
+                  title: Text("Total GWeight"),
+                  //Text(
+                  //     TotalPieces.toString()
+                  //   //'Home'
+                  // ),
+                  activeColor: Theme.of(context).accentColor,
+                ),
+                BottomNavyBarItem(
+                  icon: Text(overalltotal.toString(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    fontSize: 12
+                  ),
+                  ),
+                  title: Text("Total"),
+                  //Text(
+                  //     TotalPieces.toString()
+                  //   //'Home'
+                  // ),
+                  activeColor: Theme.of(context).accentColor,
+                ),
+              ],
+            ),
+          ),
           // floatingActionButtonLocation:
           //     FloatingActionButtonLocation.centerFloat,
         ),
@@ -812,16 +801,44 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
       ),
     );
   }
+  TotalValue(EAWBModel model){
+    int totalpieces=0;
+    model.rateDescriptionItemList.forEach((element) {
+      totalpieces+=element.pieces;
+      TotalPieces=totalpieces;
+    });
+  }
+  TotalGWEightValues(EAWBModel model){
+    int totalgrossweight=0;
+    model.rateDescriptionItemList.forEach((element) {
+      totalgrossweight+=element.grossWeight.toInt();
+      TotalGWeight=totalgrossweight;
+    });
+  }
+  OverallTotalValue(EAWBModel model){
+    int totaloverall=0;
+    model.rateDescriptionItemList.forEach((element) {
+      totaloverall+=element.total;
+      overalltotal =totaloverall;
+    });
+  }
+
 
   buildExpansionPanelList(EAWBModel model, bool alertvalue) {
 
     if (model.rateDescriptionItemList.isNotEmpty) {
+
+      // load total value for pieces and gross weight over all total
+      TotalValue(model);
+      TotalGWEightValues(model);
+      OverallTotalValue(model);
       return Container(
         child: Column(
           children: model.rateDescriptionItemList
                  .map<Column>((RateDescriptionItem item) {
             return Column(
               children: [
+                // Text(TotalPieces.toString()),
                 Dismissible(
                   key: ValueKey(item),
                   confirmDismiss: (DismissDirection direction) async {

@@ -64,8 +64,9 @@ class _HAWBState extends State<HAWB> {
                         Image(
                           width: 39.0,
                           color: Theme.of(context).accentColor,
-                          image: NetworkImage(
-                           "https://cdn.iconscout.com/icon/free/png-64/e-way-bill-1817367-1538235.png"
+                          image: AssetImage(
+                            "assets/homescreen/hawb.png"
+                        //   "https://cdn.iconscout.com/icon/free/png-64/e-way-bill-1817367-1538235.png"
                           ),
                             //  "https://cdn-icons-png.flaticon.com/512/4301/4301588.png"),
                         ),

@@ -116,8 +116,10 @@ class _SocialMediaState extends State<SocialMedia> {
                         Image(
                           width: 39.0,
                           color: Theme.of(context).accentColor,
-                          image: NetworkImage(
-                              "https://cdn-icons-png.flaticon.com/512/2728/2728217.png"),
+                          image: AssetImage(
+                          "assets/homescreen/social.png",
+                             // "https://cdn-icons-png.flaticon.com/512/2728/2728217.png"
+                          ),
                         ),
                         // SizedBox(
                         //   height: 10,

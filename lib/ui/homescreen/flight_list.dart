@@ -79,8 +79,9 @@ class _FlightBookState extends State<FlightBook> {
                         Image(
                           width: 39.0,
                           color: Theme.of(context).accentColor,
-                          image: NetworkImage(
-                            "https://img.icons8.com/external-xnimrodx-lineal-xnimrodx/2x/external-flight-calendar-xnimrodx-lineal-xnimrodx.png",
+                          image: AssetImage(
+                            "assets/homescreen/flight.png"
+                            //"https://img.icons8.com/external-xnimrodx-lineal-xnimrodx/2x/external-flight-calendar-xnimrodx-lineal-xnimrodx.png",
                           ),
                           //   "https://cdn2.iconfinder.com/data/icons/delivery-and-shipping-2/64/package_delivery_manifest_document-512.png"),
                         ),

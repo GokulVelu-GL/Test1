@@ -330,8 +330,9 @@ class _EHouseFHLState extends State<EHouseFHL> {
                             Image(
                               color: Theme.of(context).accentColor,
                               width: 39.0,
-                              image: NetworkImage(
-                              "https://cdn-icons-png.flaticon.com/512/25/25694.png"
+                              image: AssetImage(
+                                  "assets/homescreen/ehouse.png"
+                              //"https://cdn-icons-png.flaticon.com/512/25/25694.png"
                               ),
                                 //    "https://cdn-icons-png.flaticon.com/512/2728/2728061.png"),
                             ),

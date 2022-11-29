@@ -69,8 +69,10 @@ class _EManifestFFMState extends State<EManifestFFM> {
                         Image(
                           width: 39.0,
                           color: Theme.of(context).accentColor,
-                          image: NetworkImage(
-                              "https://cdn0.iconfinder.com/data/icons/freebies-2/24/warehouse-storage-3-128.png"),
+                          image: AssetImage(
+                            "assets/homescreen/emanifest.webp"
+                              //"https://cdn0.iconfinder.com/data/icons/freebies-2/24/warehouse-storage-3-128.png"
+                          ),
                           // "https://cdn2.iconfinder.com/data/icons/delivery-and-shipping-2/64/package_delivery_manifest_document-512.png"),
                         ),
                         SizedBox(

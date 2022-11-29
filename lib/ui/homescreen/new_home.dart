@@ -422,8 +422,10 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                         child: CircleAvatar(
                           radius: 28,
                           backgroundImage:
-                          NetworkImage(
-                              "https://png.pngitem.com/pimgs/s/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"),
+                          AssetImage(
+                            "assets/profile/default.png"
+                          ),
+                              //"https://png.pngitem.com/pimgs/s/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"),
                         ),
                       ),
                       SizedBox(height: 5),
@@ -751,10 +753,13 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                       ),
                       child: FittedBox(
                         alignment: Alignment.center,
-                        child: Image.network
+                        child: Image.asset
                             //   ("https://eadn-wc01-4731180.nxedge.io/cdn/media/wp-content/uploads/2019/02/transportation-and-logistics-concept.jpg"
                             // ),
-                            ("https://image.shutterstock.com/image-vector/warehouse-loading-dock-goods-vehicles-260nw-2044711208.jpg"),
+                            (
+                        "ssets/images/logo.png"
+                        //    "https://image.shutterstock.com/image-vector/warehouse-loading-dock-goods-vehicles-260nw-2044711208.jpg"
+                        ),
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -1085,8 +1090,9 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                                 leading: Image(
                                   width: 39.0,
                                   color: Theme.of(context).accentColor,
-                                  image: NetworkImage(
-                                      "https://cdn-icons-png.flaticon.com/512/2649/2649019.png"
+                                  image: AssetImage(
+                                    "assets/homescreen/slot_booking.png"
+                                    //  "https://cdn-icons-png.flaticon.com/512/2649/2649019.png"
                                       // "https://cdn-icons-png.flaticon.com/512/2329/2329087.png"
                                       ),
                                 ),
@@ -1132,8 +1138,9 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                                 leading: Image(
                                   width: 39.0,
                                   color: Theme.of(context).accentColor,
-                                  image: NetworkImage(
-                                      "https://img.icons8.com/ios-filled/452/about.png"
+                                  image: AssetImage(
+                                    "assets/homescreen/about.png"
+                                     // "https://img.icons8.com/ios-filled/452/about.png"
                                       // "https://cdn-icons-png.flaticon.com/512/2329/2329087.png"
                                       ),
                                 ),
@@ -1175,9 +1182,10 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                                 leading: Image(
                                   width: 39.0,
                                   color: Theme.of(context).accentColor,
-                                  image: NetworkImage(
+                                  image: AssetImage(
                                       //"https://uxwing.com/wp-content/themes/uxwing/download/12-peoples-avatars/team-communication.png"
-                                    "https://img.icons8.com/wired/344/chat.png"
+                                    "assets/homescreen/chatbox.png"
+                                   // "https://img.icons8.com/wired/344/chat.png"
                                     //  "https://cdn-icons.flaticon.com/png/512/919/premium/919904.png?token=exp=1660142065~hmac=d0aed4d4e291d1b14ac3ffe1d9573bcd"
                                       ),
                                 ),
@@ -1229,8 +1237,10 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                                 leading: Image(
                                   width: 39.0,
                                   color: Theme.of(context).accentColor,
-                                  image: NetworkImage(
-                                      "https://cdn-icons-png.flaticon.com/512/1/1560.png"),
+                                  image: AssetImage(
+                                    "assets/homescreen/todolist.png"
+                                    //  "https://cdn-icons-png.flaticon.com/512/1/1560.png"
+                                  ),
                                 ),
                                 title: Text(S.of(context).ToDoList
                                     //"To Do List"
@@ -1274,8 +1284,10 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                                 leading: Image(
                                   width: 39.0,
                                   color: Theme.of(context).accentColor,
-                                  image: NetworkImage(
-                                      "https://cdn-icons-png.flaticon.com/512/4599/4599298.png"),
+                                  image: AssetImage(
+                                    "assets/homescreen/policies.png"
+                                  //    "https://cdn-icons-png.flaticon.com/512/4599/4599298.png"
+                                  ),
                                 ),
                                 title: Text(S.of(context).Policies
                                     //"Policies"
@@ -1326,8 +1338,10 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                                 leading: Image(
                                   width: 39.0,
                                   color: Theme.of(context).accentColor,
-                                  image: NetworkImage(
-                                    "https://cdn-icons-png.flaticon.com/512/7150/7150057.png"),
+                                  image: AssetImage(
+                                    "assets/homescreen/payment_wallet.png"
+                                  //    "https://cdn-icons-png.flaticon.com/512/7150/7150057.png"
+                                  ),
                                     // "https://cdn-icons-png.flaticon.com/512/4599/4599298.png"),
                                 ),
                                 title: Text(

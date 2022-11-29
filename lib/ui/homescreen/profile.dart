@@ -669,8 +669,10 @@ class _ProfileState extends State<Profile> {
 
                                         _getFromGallery();
                                       },
-                                      icon: Image.network(
-                                          "https://cdn-icons-png.flaticon.com/512/465/465599.png")),
+                                      icon: Image.asset(
+                                        "assets/profile/galery.png"
+                                          //"https://cdn-icons-png.flaticon.com/512/465/465599.png"
+                                      )),
                                   Container(
                                     height: 40.0,
                                   ),
@@ -680,8 +682,10 @@ class _ProfileState extends State<Profile> {
                                         _getFromCamera();
                                         //print("Widget Email id" + '${emailid}');
                                       },
-                                      icon: Image.network(
-                                          "https://cdn-icons-png.flaticon.com/512/2983/2983067.png")),
+                                      icon: Image.asset(
+                                      "assets/profile/camera.png"
+                                      //    "https://cdn-icons-png.flaticon.com/512/2983/2983067.png"
+                                      )),
                                 ],
                               ),
                             ),
@@ -708,8 +712,9 @@ class _ProfileState extends State<Profile> {
                 CircularProfileAvatar(
                   '',
                   child: imageFile == null
-                      ? Image.network(
-                          "https://png.pngitem.com/pimgs/s/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
+                      ? Image.asset(
+                         "assets/profile/default.png",
+                         // "https://png.pngitem.com/pimgs/s/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
                           //"https://www.pngarea.com/pngm/4/5041637_beard-png-professional-business-man-icon-png-download.png",
                           fit: BoxFit.cover,
                         )

@@ -1889,44 +1889,44 @@ class _UpdateRateDescriptionFormState extends State<UpdateRateDescriptionForm> {
                                 ),
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Checkbox(
-                                  value: consolidationvalue,
-                                  onChanged: (bool value) {
-                                    setState(() {
-                                      this.consolidationvalue = value;
-                                      if(consolidationvalue.toString()=="true") {
-                                        natureofgoods.text = "CONSOLIDATION";
-                                        //  natureAndQuantity = "CONSOLIDATION";
-                                      }
-                                      else
-
-                                        // natureofgoods.clear();
-                                        // this.widget.natureAndQuantity = "";
-                                        natureofgoods.clear();
-                                      print(natureofgoods.text);
-                                      print(consolidationvalue);
-                                      // monVal = value;
-                                    });
-                                  },
-                                ),
-                                Text(
-                                  S.of(context).Consolidation,
-                                  //"Consolidation",
-                                  style: TextStyle(
-                                    color: Theme.of(context).accentColor,
-                                    // color: Colors.deepPurple,
-                                    // decoration: TextDecoration.underline,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 20.0,
-                                  ),
-                                ),
-
-
-                              ],
-                            ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     Checkbox(
+                            //       value: consolidationvalue,
+                            //       onChanged: (bool value) {
+                            //         setState(() {
+                            //           this.consolidationvalue = value;
+                            //           if(consolidationvalue.toString()=="true") {
+                            //             natureofgoods.text = "CONSOLIDATION";
+                            //             //  natureAndQuantity = "CONSOLIDATION";
+                            //           }
+                            //           else
+                            //
+                            //             // natureofgoods.clear();
+                            //             // this.widget.natureAndQuantity = "";
+                            //             natureofgoods.clear();
+                            //           print(natureofgoods.text);
+                            //           print(consolidationvalue);
+                            //           // monVal = value;
+                            //         });
+                            //       },
+                            //     ),
+                            //     Text(
+                            //       S.of(context).Consolidation,
+                            //       //"Consolidation",
+                            //       style: TextStyle(
+                            //         color: Theme.of(context).accentColor,
+                            //         // color: Colors.deepPurple,
+                            //         // decoration: TextDecoration.underline,
+                            //         fontWeight: FontWeight.w700,
+                            //         fontSize: 20.0,
+                            //       ),
+                            //     ),
+                            //
+                            //
+                            //   ],
+                            // ),
 
                             // ! natureAndQuantity....
                             Padding(

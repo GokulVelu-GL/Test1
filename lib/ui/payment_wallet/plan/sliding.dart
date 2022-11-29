@@ -126,8 +126,9 @@ class SlidingCard extends StatelessWidget {
                     child: Column(
                       children: [
                         Center(
-                          child: Image.network(
-                          "https://cdn.dribbble.com/users/767646/screenshots/1943995/team.gif",
+                          child: Image.asset(
+                          "assets/plan/plan.gif",
+                            //"https://cdn.dribbble.com/users/767646/screenshots/1943995/team.gif",
                             // "https://cliply.co/wp-content/uploads/2019/06/371906130_GEM_STONE_400px.gif",
                             //'https://cdn-icons-gif.flaticon.com/6172/6172524.gif',
                             // color: Theme.of(context).accentColor,
