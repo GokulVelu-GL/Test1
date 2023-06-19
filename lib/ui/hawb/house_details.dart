@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:convert' as convert;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:rooster/generated/l10n.dart';
 import 'package:rooster/model/fhl_model.dart';
 import 'package:rooster/screenroute.dart';
@@ -16,7 +16,7 @@ import 'static/add_eawb_house.dart';
 
 void refreshToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var response = await http.get(StringData.refreshTokenAPI,
+  var response = await http.get(Uri.parse(StringData.refreshTokenAPI),
       headers: {'x-access-tokens': prefs.getString('token')});
   var result = json.decode(response.body);
   if (result['result'] == 'verified') prefs.setString('token', result['token']);
@@ -327,7 +327,7 @@ class _GetHouseListState extends State<GetHouseList> {
                       ),
                       // "Are you sure you want to delete this item?"),
                       actions: <Widget>[
-                        FlatButton(
+                        TextButton(
                             onPressed: () {
                               Navigator.of(context).pop(true);
                               deleteHAWB('${widget.gethouselist[index]["id"]}');
@@ -338,7 +338,7 @@ class _GetHouseListState extends State<GetHouseList> {
                                   color: Theme.of(context).accentColor),
                               //"Delete"
                             )),
-                        FlatButton(
+                        TextButton(
                           onPressed: () => Navigator.of(context).pop(false),
                           child: Text(
                             S.of(context).Cancel,
@@ -846,7 +846,7 @@ class _GetHouseListState extends State<GetHouseList> {
                                           )),
                                           actions: <Widget>[
                                             Center(
-                                              child: new FlatButton(
+                                              child:  TextButton(
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
                                                 },

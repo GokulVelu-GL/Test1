@@ -16,7 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void refreshToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var response = await http.get(StringData.refreshTokenAPI,
+  var response = await http.get(Uri.parse(StringData.refreshTokenAPI),
       headers: {'x-access-tokens': prefs.getString('token')});
   var result = json.decode(response.body);
   if (result['result'] == 'verified') prefs.setString('token', result['token']);
@@ -26,7 +26,7 @@ void refreshToken() async {
 Future<dynamic> getAWBlist() async {
   var result;
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var response = await http.get(StringData.awblistAPI,
+  var response = await http.get(Uri.parse(StringData.awblistAPI),
       headers: {'x-access-tokens': prefs.getString('token')});
   result = json.decode(response.body);
   if (result['message'] == 'token expired') {
@@ -329,7 +329,7 @@ class _MyAWBState extends State<GetAWBList> {
                         //"Are you sure you want to delete this item?"
                       ),
                       actions: <Widget>[
-                        FlatButton(
+                        TextButton(
                             onPressed: () {
                               Navigator.of(context).pop(true);
                               deleteAWB('${getawblist[index]["id"]}');
@@ -341,7 +341,7 @@ class _MyAWBState extends State<GetAWBList> {
                                   color: Theme.of(context).accentColor),
                               //"Delete"
                             )),
-                        FlatButton(
+                        TextButton(
                           onPressed: () => Navigator.of(context).pop(false),
                           child: Text(
                             S.of(context).Cancel,
@@ -910,7 +910,7 @@ class _MyAWBState extends State<GetAWBList> {
         child: Container(
           height: 300,
           child: Stack(
-            overflow: Overflow.visible,
+            clipBehavior: Clip.none,
             alignment: Alignment.topCenter,
             fit: StackFit.loose,
             children: <Widget>[
@@ -964,10 +964,8 @@ class _MyAWBState extends State<GetAWBList> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          RaisedButton(
-                            color: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                            elevation: 5,
+                          TextButton(
+                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                             onPressed: () {
                               Navigator.pop(context);
                               Navigator.push(context,
@@ -977,10 +975,8 @@ class _MyAWBState extends State<GetAWBList> {
                                 //"Yes"
                                 ),
                           ),
-                          RaisedButton(
-                            color: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                            elevation: 5,
+                          TextButton(
+                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                             onPressed: () {
                               Navigator.pop(context);
                             },

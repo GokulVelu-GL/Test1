@@ -26,6 +26,7 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
   bool alertvalue=false;
   AnimationController _controller;
   bool consolidationvalue = false;
+
   AnimationController _resizableController;
   final animationDuration = Duration(milliseconds: 500);
 
@@ -148,7 +149,7 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                                   ),
                                   Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.class__outlined,
+                                      leading: Icon(Icons.class_,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("Rate Class Code"),
@@ -544,7 +545,11 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                                     // ],
                                   ),
                                 );
-                              },  child: Text("Test"),),
+                              },  child: Text("Test",
+                              style: TextStyle(
+                                color: Theme.of(context).backgroundColor
+                              ),
+                              ),),
                             ],
                           ),
                         ),
@@ -693,7 +698,7 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                   ))
               : null,
           bottomNavigationBar: Padding(
-            padding: const EdgeInsets.only(left: 60.0,right:55.0),
+            padding: const EdgeInsets.only(left: 60.0,right:55.0,bottom: 50),
             child: BottomNavyBar(
 
               selectedIndex: _currentIndex,
@@ -858,7 +863,7 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                               //"Are you sure you want to delete this item?"
                             ),
                             actions: <Widget>[
-                              FlatButton(
+                              TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop(true);
                                     model.deleteRateDescriptionItem(item);
@@ -873,7 +878,7 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                                         color: Theme.of(context).accentColor),
                                     //"Delete"
                                   )),
-                              FlatButton(
+                              TextButton(
                                 onPressed: () => Navigator.of(context).pop(false),
                                 child: Text(
                                   S.of(context).Cancel,
@@ -893,6 +898,7 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                           MaterialPageRoute<RateDescriptionItem>(
                               builder: (context) =>
                                   UpdateRateDescriptionForm(
+                                    consolidationstatus: consolidationvalue,
                                     pieces: item.pieces,
                                     grossWeight: item.grossWeight,
                                     grossWeightUnit:
@@ -1351,8 +1357,8 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                                                               Row(
                                                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                 children: [
-                                                                  FlatButton(
-                                                                    color: Theme.of(context).accentColor,
+                                                                  TextButton(
+                                                                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                                                                     onPressed: () {
                                                                       model.deleteRateDescriptionItem(item);
                                                                       setState(() {
@@ -1384,8 +1390,8 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  FlatButton(
-                                                                    color: Theme.of(context).accentColor,
+                                                                  TextButton(
+                                                                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                                                                     onPressed: () async {
                                                                       RateDescriptionItem rateDescriptionItem =
                                                                       await Navigator.push(
@@ -1393,6 +1399,7 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                                                                           MaterialPageRoute<RateDescriptionItem>(
                                                                               builder: (context) =>
                                                                                   UpdateRateDescriptionForm(
+                                                                                    consolidationstatus: consolidationvalue,
                                                                                     pieces: item.pieces,
                                                                                     grossWeight: item.grossWeight,
                                                                                     grossWeightUnit:

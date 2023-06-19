@@ -42,14 +42,14 @@ class EawbFabMenu extends StatelessWidget {
               ,textAlign: TextAlign.center,
             ),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
                 child: Text(
                   S.of(context).Cancel,
                   //  "Cancel"
                 ),
               ),
-              FlatButton(
+              TextButton(
                 onPressed: () => Navigator.of(context).pop(true),
                 child: Text(
                   S.of(context).Save,
@@ -78,14 +78,14 @@ class EawbFabMenu extends StatelessWidget {
              , textAlign: TextAlign.center,
             ),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
                 child: Text(
                   S.of(context).Cancel,
                   // "Cancel"
                 ),
               ),
-              FlatButton(
+              TextButton(
                 onPressed: () => Navigator.of(context).pop(true),
                 child: Text(
                   S.of(context).Ok
@@ -114,14 +114,14 @@ class EawbFabMenu extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
                 child: Text(
                     S.of(context).Cancel,
                   //  "Cancel"
                 ),
               ),
-              FlatButton(
+              TextButton(
                 onPressed: () => Navigator.of(context).pop(true),
                 child: Text(
                   S.of(context).Ok,
@@ -173,20 +173,25 @@ class EawbFabMenu extends StatelessWidget {
                   bool isSaved = await model.inserteAWB();
                   Navigator.pop(context);
                   if (isSaved) {
-                    Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text(
-                            S.of(context).DataSavedSuccessfully,
-
-                            //"Data Saved Successfully"
-
-                        )));
+                    Navigator.of(context, rootNavigator: true).pop('dialog');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content:Text(
+                          S.of(context).DataSavedSuccessfully,
+                        ),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
                   } else {
-                    Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text(
+                    Navigator.of(context, rootNavigator: true).pop('dialog');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content:Text(
                           S.of(context).Somethingwentwrong,
-
-                          //"Something went wrong"
-                        )));
+                        ),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
                     print(isSaved);
                   }
                 }
@@ -249,9 +254,14 @@ class EawbFabMenu extends StatelessWidget {
                 String result =
                     await model.getEAWB(prefs.getString("awbListid"));
                 Navigator.pop(context);
-                Scaffold.of(context).showSnackBar(
+                Navigator.of(context, rootNavigator: true).pop('dialog');
+                ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                      duration: Duration(seconds: 1), content: Text(result)),
+                    content:Text(
+                      result,
+                    ),
+                    duration: Duration(seconds: 2),
+                  ),
                 );
               }
             },

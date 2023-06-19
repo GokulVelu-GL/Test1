@@ -504,7 +504,7 @@ Future moveEawb(EAWBModel model, BuildContext context) {
             //"Exit"
           ),
         ),
-        FlatButton(
+        TextButton(
           onPressed: () {
             model.inserteAWB();
             Navigator.of(context).pushReplacement(

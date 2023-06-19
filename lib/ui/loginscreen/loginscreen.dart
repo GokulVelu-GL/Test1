@@ -45,13 +45,18 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   resentConfirmation() async {
-    var response = await http.post(StringData.emailConfirmationAPI, body: {
+    var response = await http.post(Uri.parse(StringData.emailConfirmationAPI), body: {
       'email': mailId,
     });
     var result = json.decode(response.body);
     if (result["result"] == "success") {
-      Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text(result["message"])));
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:Text(result["message"]),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
   }
 
@@ -59,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
     SharedPreferences prefs =
         await SharedPreferences.getInstance(); // ! get SharedPreferences....
     try {
-      var response = await http.post(StringData.loginAPI, body: {
+      var response = await http.post(Uri.parse(StringData.loginAPI), body: {
         'email': mailId,
         'password': _password,
         'TenantName': "tenant"
@@ -106,11 +111,15 @@ class _LoginScreenState extends State<LoginScreen> {
           //print('Shared preference ${prefs.getStringList("exrate")}');
         }
         print('Shared preference ${prefs.getStringList("exrate")}');
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomeScreen(),
-            ));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) =>  HomeScreen()),
+        );
+        // Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => HomeScreen(),
+        //     ));
       } else {
         setState(() {
           button = Text(S.of(context).Login,
@@ -128,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Container(
                 height: 250,
                 child: Stack(
-                  overflow: Overflow.visible,
+                  clipBehavior: Clip.none,
                   alignment: Alignment.topCenter,
                   fit: StackFit.loose,
                   children: <Widget>[
@@ -169,10 +178,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(
                             height: 8.0,
                           ),
-                          RaisedButton(
-                            color: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                            elevation: 5,
+                          TextButton(
+                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                             onPressed: () {
                               Navigator.of(context).pop();
                               resentConfirmation();
@@ -192,30 +199,57 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           );
         } else {
-          Scaffold.of(context)
-              .showSnackBar(SnackBar(content: Text(result["error"])));
+          Navigator.of(context, rootNavigator: true).pop('dialog');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content:Text(result["error"]),
+              duration: Duration(seconds: 2),
+            ),
+          );
         }
       }
     } catch (e) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomeScreen(),
-          ));
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) =>  HomeScreen()),
+      );
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => HomeScreen(),
+      //     ));
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:Text(e.toString()),
+          duration: Duration(seconds: 2),
+        ),
+      );
       print(e.toString());
     }
   }
 
   resetPassword() async {
-    var response = await http.post(StringData.forgotPasswordAPI, body: {
+    var response = await http.post(Uri.parse(StringData.forgotPasswordAPI), body: {
       'email': resetMail,
     });
     var result = json.decode(response.body);
 
     if (result["result"] == "success") {
-      Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text(result["message"])));
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:Text(result["message"]),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:Text(result["message"]),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
   }
 
@@ -556,7 +590,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   forgetPasswordButton() {
-    return FlatButton(
+    return TextButton(
       onPressed: () {
         showDialog(
           barrierDismissible: true,
@@ -567,7 +601,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Container(
               height: 300,
               child: Stack(
-                overflow: Overflow.visible,
+                clipBehavior: Clip.none,
                 alignment: Alignment.topCenter,
                 fit: StackFit.loose,
                 children: <Widget>[
@@ -652,10 +686,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                           ),
                         ),
-                        RaisedButton(
-                          color: Theme.of(context).primaryColor,
-                          textColor: Colors.white,
-                          elevation: 5,
+                        TextButton(
+                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                           onPressed: () {
                             Navigator.of(context).pop();
                             resetPassword();
@@ -675,7 +707,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         );
       },
-      textColor: Theme.of(context).accentColor,
+      // textColor: Theme.of(context).accentColor,
       child: Text(
         S.of(context).ForgetPassword,
         // "Forget Password"
@@ -684,9 +716,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   loginButton() {
-    return RaisedButton(
-      color: Theme.of(context).primaryColor,
-      elevation: 8,
+    return TextButton(
+      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
       onPressed: button is Text
           ? () {
               if (_formKey.currentState.validate()) {
@@ -699,8 +730,6 @@ class _LoginScreenState extends State<LoginScreen> {
               }
             }
           : null,
-      textColor: Colors.white,
-      padding: const EdgeInsets.all(0.0),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
         child: button,

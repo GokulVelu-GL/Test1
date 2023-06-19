@@ -24,7 +24,7 @@ import '../../string.dart';
 
 void refreshToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var response = await http.get(StringData.refreshTokenAPI,
+  var response = await http.get(Uri.parse(StringData.refreshTokenAPI),
       headers: {'x-access-tokens': prefs.getString('token')});
   var result = json.decode(response.body);
   if (result['result'] == 'verified') prefs.setString('token', result['token']);
@@ -618,14 +618,34 @@ class _ProfileState extends State<Profile> {
           }),
     );
   }
+  Widget getImagenBase64() {
+    // _imageBase64 = imagen;
+    final UriData data = Uri.parse(widget.profile.profileImage).data;
+    Uint8List myImage = data.contentAsBytes();
+    // var _bytesImage = Base64Decoder().convert(widget.profile.profileImage);
+    // const Base64Codec base64 = Base64Codec();
+    //
+    // // if (_imageBase64 == null) return new Container();
+    // var bytes = base64.decode((widget.profile.profileImage).toString());
+
+    return Image.memory(
+      myImage,
+      width: 200,
+      fit: BoxFit.fitWidth,
+
+    );
+  }
 
   Widget buildProfile() {
     final double circleRadius = 120.0;
     print("Proile model" + '${emailid}');
+    final UriData data = Uri.parse(widget.profile.profileImage).data;
+    Uint8List myImage = data.contentAsBytes();
     bool isVisible = true;
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(children: [
+        // getImagenBase64(),
         Stack(children: <Widget>[
           Padding(
             padding:
@@ -712,12 +732,18 @@ class _ProfileState extends State<Profile> {
                 CircularProfileAvatar(
                   '',
                   child: imageFile == null
-                      ? Image.asset(
-                         "assets/profile/default.png",
-                         // "https://png.pngitem.com/pimgs/s/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
-                          //"https://www.pngarea.com/pngm/4/5041637_beard-png-professional-business-man-icon-png-download.png",
-                          fit: BoxFit.cover,
-                        )
+                      ?
+                      Image.memory(
+                      myImage,
+                         fit: BoxFit.fitHeight,
+                      )
+
+                  // Image.asset(
+                  //        "assets/profile/default.png",
+                  //        // "https://png.pngitem.com/pimgs/s/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
+                  //         //"https://www.pngarea.com/pngm/4/5041637_beard-png-professional-business-man-icon-png-download.png",
+                  //         fit: BoxFit.cover,
+                  //       )
                       : Image.file(
                     imageFile,
                     // File(widget.profile.profileImage),
@@ -1174,6 +1200,7 @@ class _ProfileState extends State<Profile> {
         )
       ]),
     );
+
 
     //  Scaffold(
     //     appBar: AppBar(

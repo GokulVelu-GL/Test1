@@ -141,7 +141,7 @@ class SlidingCard extends StatelessWidget {
                           child: Text(name, style: TextStyle(fontSize: 20)),
                         ),
                         SizedBox(
-                          height: 85,
+                          height: 100,
                         ),
                        Text(date,
 
@@ -240,16 +240,15 @@ class CardContent extends StatelessWidget {
             children: <Widget>[
               Transform.translate(
                 offset: Offset(48 * offset, 0),
-                child: RaisedButton(
-                  color: Theme.of(context).primaryColor,
+                child: TextButton(
+                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                   child: Transform.translate(
                     offset: Offset(24 * offset, 0),
                     child: Text('RECHARGE'),
                   ),
-                  textColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32),
-                  ),
+                  // shape: RoundedRectangleBorder(
+                  //   borderRadius: BorderRadius.circular(32),
+                  // ),
                   onPressed: () {},
                 ),
               ),

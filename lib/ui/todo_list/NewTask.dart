@@ -362,8 +362,10 @@ class _newTaskState extends State<NewTask> {
                                 child: Text(
                                     S.of(context).AddTask,
                                     //"Add Task",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 18)),
+                                    style:TextStyle(
+                                        color:Theme.of(context).backgroundColor
+                                    ),
+                                ),
                                 onPressed: () {
                                   insertTODOList(title, longDescription);
                                 },
@@ -387,7 +389,7 @@ class _newTaskState extends State<NewTask> {
     var result;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var response = await http.post(StringData.todoListAPI,
+    var response = await http.post(Uri.parse(StringData.todoListAPI),
         headers: <String, String>{
           'x-access-tokens': prefs.getString('token'),
           'Content-Type': 'application/json; charset=UTF-8',

@@ -128,7 +128,7 @@ class _CreateManifestBulkState extends State<CreateManifestBulk> {
       ),
       actions: <Widget>[
         Center(
-          child: new FlatButton(
+          child:  TextButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) => CreateManifestBulk(

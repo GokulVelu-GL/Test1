@@ -26,7 +26,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
 
   void refreshToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var response = await http.get(StringData.refreshTokenAPI,
+    var response = await http.get(Uri.parse(StringData.refreshTokenAPI),
         headers: {'x-access-tokens': prefs.getString('token')});
     var result = json.decode(response.body);
     if (result['result'] == 'verified') prefs.setString('token', result['token']);

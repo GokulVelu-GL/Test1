@@ -136,10 +136,8 @@ class _AddMasterAWBState extends State<AddMasterAWBFHL> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      RaisedButton(
-                        color: Theme.of(context).primaryColor,
-                        textColor: Colors.white,
-                        elevation: 5,
+                      TextButton(
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                         onPressed: () {
                           insertAWB();
                           // Navigator.pop(
@@ -175,7 +173,7 @@ class _AddMasterAWBState extends State<AddMasterAWBFHL> {
   Future<dynamic> insertAWB() async {
     var result;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var response = await http.post(StringData.insertawbAPI,
+    var response = await http.post(Uri.parse(StringData.insertawbAPI),
         body: {}, headers: {'x-access-tokens': prefs.getString('token')});
     //print("@@@@@@@@@@@@@@@@@");
 

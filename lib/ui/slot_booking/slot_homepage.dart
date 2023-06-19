@@ -390,7 +390,7 @@ class _Slot_homeState extends State<Slot_home> {
               child: Container(
                 height: 300,
                 child: Stack(
-                  overflow: Overflow.visible,
+                  clipBehavior: Clip.none,
                   alignment: Alignment.topCenter,
                   fit: StackFit.loose,
                   children: <Widget>[
@@ -517,7 +517,7 @@ class _Slot_homeState extends State<Slot_home> {
                                       )
                                     ),
                                     maxLength: 12,
-                                    maxLengthEnforced: true,
+                                    // maxLengthEnforced: true,
                                   ),
                                 ),
                                 // TextFormField(
@@ -659,12 +659,8 @@ class _Slot_homeState extends State<Slot_home> {
                               ],
                             ),
                           ),
-                          RaisedButton(
-                            color: Theme
-                                .of(context)
-                                .accentColor,
-                            textColor: Theme.of(context).backgroundColor,
-                            elevation: 5,
+                          TextButton(
+                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                             onPressed: () {
                               if(_awbForm.currentState.validate())
                               //print(model.awbConsigmentDetailsAWBNumber);
@@ -707,7 +703,7 @@ class _Slot_homeState extends State<Slot_home> {
               child: Container(
                 height: 300,
                 child: Stack(
-                  overflow: Overflow.visible,
+                  clipBehavior: Clip.none,
                   alignment: Alignment.topCenter,
                   fit: StackFit.loose,
                   children: <Widget>[
@@ -798,16 +794,12 @@ class _Slot_homeState extends State<Slot_home> {
                                     color: Theme.of(context).accentColor
                                   )
                                 ),
-                                maxLengthEnforced: true,
+                                // maxLengthEnforced: true,
                               ),
                             ),
                           ),
-                          RaisedButton(
-                            color: Theme
-                                .of(context)
-                                .accentColor,
-                            textColor: Colors.white,
-                            elevation: 5,
+                          TextButton(
+                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                             onPressed: () {
                               //print(model.awbConsigmentDetailsAWBNumber);
                               Navigator.of(context).push(MaterialPageRoute(
@@ -1234,12 +1226,8 @@ class _MultipleAWBState extends State<MultipleAWB> {
               }).toList(),
             ),
           ),
-          RaisedButton(
-            color: Theme
-                .of(context)
-                .accentColor,
-            textColor: Colors.white,
-            elevation: 5,
+          TextButton(
+            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
             onPressed: () {
 
               Navigator.of(context).push(MaterialPageRoute(

@@ -11,9 +11,9 @@ import 'package:rooster/model/emanifest_model.dart';
 import 'package:rooster/ui/drodowns/airline_code.dart';
 import 'package:rooster/ui/homescreen/emanifest.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tutorial_coach_mark/animated_focus_light.dart';
-import 'package:tutorial_coach_mark/content_target.dart';
-import 'package:tutorial_coach_mark/target_focus.dart';
+// import 'package:tutorial_coach_mark/animated_focus_light.dart';
+// import 'package:tutorial_coach_mark/content_target.dart';
+// import 'package:tutorial_coach_mark/target_focus.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../../formatter.dart';
@@ -112,7 +112,7 @@ class _FlightBookState extends State<FlightBook> {
 
 void refreshToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var response = await http.get(StringData.refreshTokenAPI,
+  var response = await http.get(Uri.parse(StringData.refreshTokenAPI),
       headers: {'x-access-tokens': prefs.getString('token')});
   var result = json.decode(response.body);
   if (result['result'] == 'verified') prefs.setString('token', result['token']);
@@ -349,7 +349,7 @@ class _MyAWBState extends State<Getflightlist> {
                               //"Are you sure you want to delete this item?"
                             ),
                             actions: <Widget>[
-                              FlatButton(
+                              TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop(true);
                                     deleteflightlist(
@@ -362,7 +362,7 @@ class _MyAWBState extends State<Getflightlist> {
                                         color: Theme.of(context).accentColor),
                                     //"Delete"
                                   )),
-                              FlatButton(
+                              TextButton(
                                 onPressed: () =>
                                     Navigator.of(context).pop(false),
                                 child: Text(
@@ -1169,10 +1169,8 @@ class _AddFlightlistState extends State<AddFlightlist> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          RaisedButton(
-                            color: Theme.of(context).accentColor,
-                            textColor: Theme.of(context).backgroundColor,
-                            elevation: 5,
+                          TextButton(
+                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                             onPressed: () {
                               if (_awbForm.currentState.validate()) {
                                 insertflightList();
@@ -1274,7 +1272,7 @@ class _AddFlightlistState extends State<AddFlightlist> {
     }
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var response = await http.post(StringData.flightlistAPI,
+    var response = await http.post(Uri.parse(StringData.flightlistAPI),
         headers: <String, String>{
           'x-access-tokens': prefs.getString('token'),
           'Content-Type': 'application/json; charset=UTF-8',
@@ -1933,10 +1931,8 @@ class _EditFlightlistState extends State<EditFlightList> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          RaisedButton(
-                            color: Theme.of(context).accentColor,
-                            textColor: Theme.of(context).backgroundColor,
-                            elevation: 5,
+                          TextButton(
+                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                             onPressed: () {
                               if (_awbForm.currentState.validate()) {
                                 editFlightlist();
@@ -1980,7 +1976,7 @@ class _EditFlightlistState extends State<EditFlightList> {
     }
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var response = await http.put(StringData.flightlistAPI,
+    var response = await http.put(Uri.parse(StringData.flightlistAPI),
         headers: <String, String>{
           'x-access-tokens': prefs.getString('token'),
           'Content-Type': 'application/json; charset=UTF-8',

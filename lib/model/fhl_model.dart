@@ -56,7 +56,7 @@ class FHLModel
         jsonEncode(sippercontactList) +
         jsonEncode(consigneeContactList));
 
-    var response = await http.put(StringData.hawblistAPI,
+    var response = await http.put(Uri.parse(StringData.hawblistAPI),
         body: jsonEncode({
           "id": fhlawbid,
           "serialNumber": houseDetailsNumber,
@@ -158,7 +158,7 @@ class FHLModel
     //     jsonEncode(consigneeContactList));
     print(houseDetailsNumber);
 
-    var response = await http.post(StringData.hawblistAPI,
+    var response = await http.post(Uri.parse(StringData.hawblistAPI),
         headers: {
           'x-access-tokens': prefs.getString('token'),
           'Content-Type': 'application/json; charset=UTF-8',

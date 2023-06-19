@@ -93,10 +93,8 @@ class _AddSlotBookingState extends State<AddSlotBooking> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      RaisedButton(
-                        color: Theme.of(context).primaryColor,
-                        textColor: Theme.of(context).backgroundColor,
-                        elevation: 5,
+                      TextButton(
+
                         onPressed: () {
                           if (_awbForm.currentState.validate()) {
                             insertAWBList();
@@ -135,7 +133,7 @@ class _AddSlotBookingState extends State<AddSlotBooking> {
     var result;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var response = await http.post(StringData.awblistAPI,
+    var response = await http.post(Uri.parse(StringData.awblistAPI),
         headers: <String, String>{
           'x-access-tokens': prefs.getString('token'),
           'Content-Type': 'application/json; charset=UTF-8',

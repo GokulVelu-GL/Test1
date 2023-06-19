@@ -1598,7 +1598,7 @@ class _SlotBookState extends State<SlotBook> {
                         //"Are you sure you want to delete this item?"
                       ),
                       actions: <Widget>[
-                        FlatButton(
+                        TextButton(
                             onPressed: () async {
                               //Navigator.pop(context, 'OK');
                               EasyLoading.show(status:
@@ -1647,7 +1647,7 @@ class _SlotBookState extends State<SlotBook> {
                               style: TextStyle(
                                   color: Theme.of(context).accentColor),
                             )),
-                        FlatButton(
+                        TextButton(
                           onPressed: () => Navigator.of(context).pop(false),
                           child: Text(
                            S.of(context).No,
@@ -1682,7 +1682,7 @@ class _SlotBookState extends State<SlotBook> {
                               TextStyle(color: Theme.of(context).accentColor),
                         ),
                         actions: <Widget>[
-                          FlatButton(
+                          TextButton(
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -1704,7 +1704,7 @@ class _SlotBookState extends State<SlotBook> {
                                     color: Theme.of(context).accentColor
                               ),
                               )),
-                          FlatButton(
+                          TextButton(
                             onPressed: () => Navigator.of(context).pop(false),
                             child: Text(
                               S.of(context).No,
@@ -2480,7 +2480,7 @@ class _SlotBookedState extends State<SlotBooked> {
                               //"Are you sure you want to delete this item?"
                             ),
                             actions: <Widget>[
-                              FlatButton(
+                              TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop(true);
                                     // deleteAWB('${slotlen[index]["id"]}');
@@ -2495,7 +2495,7 @@ class _SlotBookedState extends State<SlotBooked> {
                                         color: Theme.of(context).accentColor),
                                     //"Delete"
                                   )),
-                              FlatButton(
+                              TextButton(
                                 onPressed: () =>
                                     Navigator.of(context).pop(false),
                                 child: Text(
@@ -2537,7 +2537,7 @@ class _SlotBookedState extends State<SlotBooked> {
                                 //"Are you sure you want to delete this item?"
                               ),
                               actions: <Widget>[
-                                FlatButton(
+                                TextButton(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -2561,7 +2561,7 @@ class _SlotBookedState extends State<SlotBooked> {
                                           color: Theme.of(context).accentColor),
                                       //"Delete"
                                     )),
-                                FlatButton(
+                                TextButton(
                                   onPressed: () =>
                                       Navigator.of(context).pop(false),
                                   child: Text(
@@ -3284,7 +3284,7 @@ class _SlotListState extends State<SlotList> {
                               //"Are you sure you want to delete this item?"
                             ),
                             actions: <Widget>[
-                              FlatButton(
+                              TextButton(
                                   onPressed: () async {
                                     //Navigator.pop(context, 'OK');
                                     EasyLoading.show(status:
@@ -3329,7 +3329,7 @@ class _SlotListState extends State<SlotList> {
                                         color: Theme.of(context).accentColor),
                                     //"Delete"
                                   )),
-                              FlatButton(
+                              TextButton(
                                 onPressed: () =>
                                     Navigator.of(context).pop(false),
                                 child: Text(
@@ -3372,7 +3372,7 @@ class _SlotListState extends State<SlotList> {
                                 //"Are you sure you want to delete this item?"
                               ),
                               actions: <Widget>[
-                                FlatButton(
+                                TextButton(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -3396,7 +3396,7 @@ class _SlotListState extends State<SlotList> {
                                           color: Theme.of(context).accentColor),
                                       //"Delete"
                                     )),
-                                FlatButton(
+                                TextButton(
                                   onPressed: () =>
                                       Navigator.of(context).pop(false),
                                   child: Text(

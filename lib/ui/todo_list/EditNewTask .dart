@@ -330,9 +330,14 @@ class _editnewTaskState extends State<EditNewTask> {
                               child: TextButton(
                                 child: Text(
                                     S.of(context).SaveTask,
+                                    style:TextStyle(
+                                        color:Theme.of(context).backgroundColor
+                                    )
                                     //"Save Task",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 18)),
+                                    // style: TextStyle(
+                                    //     color: Colors.white, fontSize: 18)
+
+                                ),
                                 onPressed: () {
                                   updateTODOList(
                                       widget.id,
@@ -362,7 +367,7 @@ class _editnewTaskState extends State<EditNewTask> {
     var result;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var response = await http.put(StringData.todoListAPI,
+    var response = await http.put(Uri.parse(StringData.todoListAPI),
         headers: <String, String>{
           'x-access-tokens': prefs.getString('token'),
           'Content-Type': 'application/json; charset=UTF-8',

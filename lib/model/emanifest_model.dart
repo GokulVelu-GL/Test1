@@ -73,7 +73,7 @@ class ManifestModel with ChangeNotifier {
 
     SharedPreferences prefs =
         await SharedPreferences.getInstance(); // ! get SharedPreferences....
-    var response = await http.post(StringData.manifestPdfAPI,
+    var response = await http.post(Uri.parse(StringData.manifestPdfAPI),
         headers: {
           'x-access-tokens': prefs.getString('token'),
           'Content-Type': 'application/json; charset=UTF-8',

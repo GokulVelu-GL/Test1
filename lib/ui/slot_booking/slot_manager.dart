@@ -765,7 +765,7 @@ class _SlotManagementState extends State<SlotManagement> {
 
                 //"AWB-Number"),
                 maxLength: 12,
-                maxLengthEnforced: true,
+                // maxLengthEnforced: true,
               ),
             ),
             ElevatedButton(

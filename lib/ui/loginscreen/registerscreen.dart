@@ -41,7 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   registerUser() async {
-    var response = await http.post(StringData.registerAPI, body: {
+    var response = await http.post(Uri.parse(StringData.registerAPI), body: {
       'email': mailId,
       'password': _newPassword,
       'retype_password': _confirmPassword,
@@ -54,17 +54,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
       setState(() {
         button = Text('Create Account', style: TextStyle(fontSize: 20));
       });
-      Scaffold.of(context)
-          // ignore: deprecated_member_use
-          .showSnackBar(SnackBar(content: Text(result["message"])));
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:Text(result["message"]),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:Text(result["message"]),
+          duration: Duration(seconds: 2),
+        ),
+      );
+
       widget.cardController.reverse();
     } else {
       setState(() {
         button = Text('Create Account', style: TextStyle(fontSize: 20));
       });
-      Scaffold.of(context)
-          // ignore: deprecated_member_use
-          .showSnackBar(SnackBar(content: Text(result["error"])));
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:Text(result["error"]),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
   }
 
@@ -387,9 +403,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   createAccountButton() {
     // ignore: deprecated_member_use
-    return RaisedButton(
-      color: Theme.of(context).primaryColor,
-      elevation: 8,
+    return TextButton(
+
       onPressed: button is Text
           ? () {
               if (_formKey.currentState.validate()) {
@@ -402,8 +417,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               }
             }
           : null,
-      textColor: Colors.white,
-      padding: const EdgeInsets.all(0.0),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
         child: button,

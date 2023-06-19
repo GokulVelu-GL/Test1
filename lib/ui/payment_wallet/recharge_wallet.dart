@@ -666,6 +666,7 @@ class _RechargeWalletState extends State<RechargeWallet> with TickerProviderStat
                       //used space
                       sum =sum + int.parse(_controller.text);
                       //percentage
+
                       per =((sum/2000)*100)*0.01;
                       used =(sum/2000)*100;
                       print(per);
@@ -756,7 +757,13 @@ class _RechargeWalletState extends State<RechargeWallet> with TickerProviderStat
     //     ));
     print('Success Response: $response');
     // status.add("successs");
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text("SUCCESS: " + response.paymentId)));
+    Navigator.of(context, rootNavigator: true).pop('dialog');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content:Text("SUCCESS: " + response.paymentId),
+        duration: Duration(seconds: 2),
+      ),
+    );
     /*Fluttertoast.showToast(
         msg: "SUCCESS: " + response.paymentId!,
         toastLength: Toast.LENGTH_SHORT); */
@@ -767,7 +774,13 @@ class _RechargeWalletState extends State<RechargeWallet> with TickerProviderStat
     String a = response.message;
     status.add("Failure");
     print("response.................................................................."+response.message);
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text ("ERROR: " + response.code.toString() + " - " + response.message)));
+    Navigator.of(context, rootNavigator: true).pop('dialog');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content:Text("ERROR: " + response.code.toString() + " - " + response.message),
+        duration: Duration(seconds: 2),
+      ),
+    );
     status.add(response.message);
     /* Fluttertoast.showToast(
         msg: "ERROR: " + response.code.toString() + " - " + response.message!,
@@ -778,8 +791,13 @@ class _RechargeWalletState extends State<RechargeWallet> with TickerProviderStat
     print('External SDK Response: $response');
     String a = response.walletName;
     print("a="+response.walletName);
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text("EXTERNAL_WALLET: " + response.walletName)));
-
+    Navigator.of(context, rootNavigator: true).pop('dialog');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content:Text("EXTERNAL_WALLET: " + response.walletName),
+        duration: Duration(seconds: 2),
+      ),
+    );
     /* Fluttertoast.showToast(
         msg: "EXTERNAL_WALLET: " + response.walletName!,
         toastLength: Toast.LENGTH_SHORT); */

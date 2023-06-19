@@ -258,14 +258,16 @@ class UpdateHawbState extends State<UpdateHawb> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(bottom: 15, right: 8),
-            child: FlatButton(
-              textColor: Theme.of(context).backgroundColor,
-              color: Theme.of(context).accentColor,
+            child: TextButton(
+              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
               onPressed: () {
                 Navigator.of(context).pop(null);
               },
               child: Text(
                 S.of(context).Discard,
+                style: TextStyle(
+                    color: Theme.of(context).backgroundColor
+                ),
                 //  "Discard"
               ),
             ),
@@ -273,9 +275,8 @@ class UpdateHawbState extends State<UpdateHawb> {
           // ! ADD ....
           Padding(
             padding: const EdgeInsets.only(bottom: 15),
-            child: FlatButton(
-                textColor: Theme.of(context).backgroundColor,
-                color: Theme.of(context).accentColor,
+            child: TextButton(
+                style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                 onPressed: () {
                   _fhlModel.sippercontactList = sippercontactList;
                   _fhlModel.consigneeContactList = consigneecontactList;
@@ -329,7 +330,8 @@ class UpdateHawbState extends State<UpdateHawb> {
                 child: Text(
                   S.of(context).Update,
                   style:
-                  TextStyle(color: Theme.of(context).backgroundColor),
+                  TextStyle(color: Theme.of(context).backgroundColor
+                  ),
                   //  "Update"
                 )),
           ),

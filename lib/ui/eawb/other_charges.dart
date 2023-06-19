@@ -259,7 +259,7 @@ class _OtherChargesState extends State<OtherCharges> {
                               //"Are you sure you want to delete this item?"
                             ),
                             actions: <Widget>[
-                              FlatButton(
+                              TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop(true);
                                     model.deleteOtherChargesItem(item);
@@ -272,7 +272,7 @@ class _OtherChargesState extends State<OtherCharges> {
                                         color: Theme.of(context).accentColor),
                                     //"Delete"
                                   )),
-                              FlatButton(
+                              TextButton(
                                 onPressed: () => Navigator.of(context).pop(false),
                                 child: Text(
                                   S.of(context).Cancel,
@@ -856,7 +856,7 @@ class _OtherChargesState extends State<OtherCharges> {
                               //"Are you sure you want to delete this item?"
                             ),
                             actions: <Widget>[
-                              FlatButton(
+                              TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop(true);
                                     model.deleteOtherChargesItem(item);
@@ -869,7 +869,7 @@ class _OtherChargesState extends State<OtherCharges> {
                                         color: Theme.of(context).accentColor),
                                     //"Delete"
                                   )),
-                              FlatButton(
+                              TextButton(
                                 onPressed: () => Navigator.of(context).pop(false),
                                 child: Text(
                                   S.of(context).Cancel,

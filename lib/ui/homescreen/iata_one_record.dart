@@ -14,7 +14,7 @@ class _IATAOneRecordState extends State<IATAOneRecord> {
   listItem(IconData icon, String field) {
     return SizedBox(
       height: 50,
-      child: FlatButton(
+      child: TextButton(
         onPressed: () {
           switch (field) {
             case "One Waybill":

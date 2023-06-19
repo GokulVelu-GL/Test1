@@ -660,7 +660,7 @@ class EAWBModel
 
   void refreshToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var response = await http.get(StringData.refreshTokenAPI,
+    var response = await http.get(Uri.parse(StringData.refreshTokenAPI),
         headers: {'x-access-tokens': prefs.getString('token')});
     var result = json.decode(response.body);
     if (result['result'] == 'verified')
@@ -922,7 +922,7 @@ class EAWBModel
     var result;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var response = await http.post(StringData.eawbbyid,
+    var response = await http.post(Uri.parse(StringData.eawbbyid),
         headers: <String, String>{
           'x-access-tokens': prefs.getString('token'),
           'Content-Type': 'application/json; charset=UTF-8',
@@ -1176,10 +1176,12 @@ class EAWBModel
       'x-access-tokens': prefs.getString('token')
     });
     print(awbnumber.substring(3));
-    request.body = jsonEncode({
+    request.body = jsonEncode(
+        {
       "prefix": awbnumber.substring(0, 3),
       "wayBillNumber": awbnumber.substring(4)
-    });
+    }
+    );
     var jsonData;
     var res = await request.send();
     final respStr = await res.stream.bytesToString();
@@ -1209,7 +1211,7 @@ class EAWBModel
     print(jsonList);
     SharedPreferences prefs =
     await SharedPreferences.getInstance(); // ! get SharedPreferences....
-    var response = await http.post(StringData.printEAWBAPI,
+    var response = await http.post(Uri.parse(StringData.printEAWBAPI),
         headers: {
           'x-access-tokens': prefs.getString('token'),
           'Content-Type': 'application/json; charset=UTF-8',
@@ -1378,7 +1380,7 @@ class EAWBModel
           },
         ));
 
-    response = await http.get(StringData.fileEAWBAPI(response.body),
+    response = await http.get(Uri.parse(StringData.fileEAWBAPI(response.body)),
         headers: {'x-access-tokens': prefs.getString('token')});
 
     print("print pdf ---"+response.body);

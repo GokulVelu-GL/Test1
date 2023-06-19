@@ -203,14 +203,20 @@ class _SignInState extends State<SignIn> {
 
 
   resetPassword() async {
-    var response = await http.post(StringData.forgotPasswordAPI, body: {
+    var response = await http.post(Uri.parse(StringData.forgotPasswordAPI), body: {
       'email': resetMail,
     });
     var result = json.decode(response.body);
 
     if (result["result"] == "success") {
-      Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text(result["message"])));
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:Text(result["message"]),
+          duration: Duration(seconds: 2),
+        ),
+      );
+
     }
   }
 
@@ -378,9 +384,8 @@ class _SignInState extends State<SignIn> {
                       stops: <double>[0.0, 1.0],
                       tileMode: TileMode.clamp),
                 ),
-                child: RaisedButton(
-                  color: Theme.of(context).primaryColor,
-                  elevation: 8,
+                child: TextButton(
+                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                   onPressed: button is Text
                       ? () {
                     if (_formKey.currentState.validate()) {
@@ -393,8 +398,6 @@ class _SignInState extends State<SignIn> {
                     }
                   }
                       : null,
-                  textColor: Colors.white,
-                  padding: const EdgeInsets.all(0.0),
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     child: button,
@@ -473,7 +476,7 @@ class _SignInState extends State<SignIn> {
                       child: Container(
                         height: 300,
                         child: Stack(
-                          overflow: Overflow.visible,
+                          clipBehavior: Clip.none,
                           alignment: Alignment.topCenter,
                           fit: StackFit.loose,
                           children: <Widget>[
@@ -558,10 +561,8 @@ class _SignInState extends State<SignIn> {
                                       ),
                                     ),
                                   ),
-                                  RaisedButton(
-                                    color: Theme.of(context).primaryColor,
-                                    textColor: Colors.white,
-                                    elevation: 5,
+                                  TextButton(
+                                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                       resetPassword();
@@ -653,7 +654,7 @@ class _SignInState extends State<SignIn> {
     SharedPreferences prefs =
     await SharedPreferences.getInstance(); // ! get SharedPreferences....
     try {
-      var response = await http.post(StringData.loginAPI, body: {
+      var response = await http.post(Uri.parse(StringData.loginAPI), body: {
         'email': mailId,
         'password': _password,
         'TenantName': "tenant"
@@ -704,16 +705,21 @@ class _SignInState extends State<SignIn> {
           //print('Shared preference ${prefs.getStringList("exrate")}');
         }
         print('Shared preference ${prefs.getStringList("exrate")}');
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomeScreen(),
-            ));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+        // Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => HomeScreen(),
+        //     ));
       } else {
         setState(() {
           button = Text(S.of(context).Login,
               //'Login'
-              style: TextStyle(fontSize: 20));
+
+            style: TextStyle(
+                color: Theme.of(context).backgroundColor
+            ),
+          );
         });
         if (result["error"] ==
             "Your email address has not yet been confirmed") {
@@ -726,7 +732,7 @@ class _SignInState extends State<SignIn> {
               child: Container(
                 height: 250,
                 child: Stack(
-                  overflow: Overflow.visible,
+                  clipBehavior: Clip.none,
                   alignment: Alignment.topCenter,
                   fit: StackFit.loose,
                   children: <Widget>[
@@ -768,10 +774,8 @@ class _SignInState extends State<SignIn> {
                             height: 8.0,
                           ),
 
-                          RaisedButton(
-                            color: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                            elevation: 5,
+                          TextButton(
+                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                             onPressed: () {
                               Navigator.of(context).pop();
                               resentConfirmation();
@@ -791,29 +795,49 @@ class _SignInState extends State<SignIn> {
             ),
           );
         } else {
-          Scaffold.of(context)
-              .showSnackBar(SnackBar(content: Text(result["error"])));
+          Navigator.of(context, rootNavigator: true).pop('dialog');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content:Text(result["error"]),
+              duration: Duration(seconds: 2),
+            ),
+          );
         }
       }
     } catch (e) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomeScreen(),
-          ));
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => HomeScreen(),
+      //     ));
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:Text(e.toString()),
+          duration: Duration(seconds: 2),
+        ),
+      );
       print(e.toString());
     }
   }
 
   resentConfirmation() async {
-    var response = await http.post(StringData.emailConfirmationAPI, body: {
+    var response = await http.post(Uri.parse(StringData.emailConfirmationAPI), body: {
       'email': mailId,
     });
     var result = json.decode(response.body);
     if (result["result"] == "success") {
-      Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text(result["message"])));
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:Text(result["message"]),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
   }
 }
@@ -860,7 +884,7 @@ class _SignUpState extends State<SignUp> {
   }
 
   registerUser() async {
-    var response = await http.post(StringData.registerAPI, body: {
+    var response = await http.post(Uri.parse(StringData.registerAPI), body: {
       'email': mailId,
       'password': _newPassword,
       'retype_password': _confirmPassword,
@@ -873,17 +897,25 @@ class _SignUpState extends State<SignUp> {
       setState(() {
         button = Text('Create Account', style: TextStyle(fontSize: 20));
       });
-      Scaffold.of(context)
-      // ignore: deprecated_member_use
-          .showSnackBar(SnackBar(content: Text(result["message"])));
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:Text(result["message"]),
+          duration: Duration(seconds: 2),
+        ),
+      );
       // widget.cardController.reverse();
     } else {
       setState(() {
         button = Text('Create Account', style: TextStyle(fontSize: 20));
       });
-      Scaffold.of(context)
-      // ignore: deprecated_member_use
-          .showSnackBar(SnackBar(content: Text(result["error"])));
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:Text(result["error"]),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
   }
 
@@ -1260,9 +1292,8 @@ class _SignUpState extends State<SignUp> {
                       stops: <double>[0.0, 1.0],
                       tileMode: TileMode.clamp),
                 ),
-                child: RaisedButton(
-                  color: Theme.of(context).primaryColor,
-                  elevation: 8,
+                child: TextButton(
+                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                   onPressed: button is Text
                       ? () {
                     if (_formKey.currentState.validate()) {
@@ -1275,8 +1306,6 @@ class _SignUpState extends State<SignUp> {
                     }
                   }
                       : null,
-                  textColor: Colors.white,
-                  padding: const EdgeInsets.all(0.0),
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     child: button,

@@ -176,10 +176,8 @@ class _RoutingAndFlightBookingsState extends State<RoutingAndFlightBookings> {
   }
 
   nextButton(model) {
-    return RaisedButton(
-      color: Colors.white,
-      textColor: Theme.of(context).primaryColor,
-      elevation: 3,
+    return TextButton(
+      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
       onPressed: () {
         FocusScope.of(context).unfocus();
         model.setStatus();
@@ -202,10 +200,8 @@ class _RoutingAndFlightBookingsState extends State<RoutingAndFlightBookings> {
   }
 
   previousButton(model) {
-    return RaisedButton(
-      color: Colors.white,
-      textColor: Theme.of(context).primaryColor,
-      elevation: 3,
+    return TextButton(
+      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
       onPressed: () {
         FocusScope.of(context).unfocus();
         model.setStatus();

@@ -1783,9 +1783,8 @@ class _AddOtherChargesFormState extends State<AddOtherChargesForm> {
                           children: <Widget>[
                             Padding(
                               padding:  EdgeInsets.only(bottom: 15, right: 8),
-                              child: FlatButton(
-                                textColor: Colors.black,
-                                color: Theme.of(context).accentColor,
+                              child: TextButton(
+                                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor),),
                                 onPressed: () {
                                   Navigator.of(context).pop(null);
                                 },
@@ -1798,9 +1797,8 @@ class _AddOtherChargesFormState extends State<AddOtherChargesForm> {
                             // ! ADD ....
                             Padding(
                               padding: const EdgeInsets.only(bottom: 15),
-                              child: FlatButton(
-                                 textColor: Colors.black,
-                                  color: Theme.of(context).accentColor,
+                              child: TextButton(
+                                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                                   onPressed: () {
                                     Navigator.of(context).pop(OtherChargesItem(
                                         description: description,
@@ -1813,7 +1811,10 @@ class _AddOtherChargesFormState extends State<AddOtherChargesForm> {
                                         minimum: minimum));
                                   },
                                   child: Text(
-                                      S.of(context).Add
+                                      S.of(context).Add,
+                                    style:TextStyle(
+                                      color:Theme.of(context).backgroundColor
+                                    )
                                     // "Add"
                                   )),
                             ),

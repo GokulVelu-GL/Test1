@@ -14,7 +14,7 @@ class _PoliciesState extends State<Policies> {
   listItem(IconData icon, String field) {
     return SizedBox(
       height: 50,
-      child: FlatButton(
+      child: TextButton(
         onPressed: () {
           // TODO : Configuration....
           switch (field) {

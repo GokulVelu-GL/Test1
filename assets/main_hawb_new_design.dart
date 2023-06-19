@@ -9,8 +9,8 @@ import 'package:rooster/ui/hawb/static/add_master_eawb.dart';
 import 'package:rooster/ui/hawb/static/edit_hawb.dart';
 import 'package:rooster/ui/hawb/house_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tutorial_coach_mark/animated_focus_light.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
+// import 'package:tutorial_coach_mark/animated_focus_light.dart';
+// import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:http/http.dart' as http;
 import 'package:rooster/model/eawb_model.dart';
 import 'package:rooster/screenroute.dart';
@@ -18,7 +18,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void refreshToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var response = await http.get(StringData.refreshTokenAPI,
+  var response = await http.get(Uri.parse(StringData.refreshTokenAPI),
       headers: {'x-access-tokens': prefs.getString('token')});
   var result = json.decode(response.body);
   if (result['result'] == 'verified') prefs.setString('token', result['token']);
@@ -28,7 +28,7 @@ void refreshToken() async {
 Future<dynamic> getAWBlist() async {
   var result;
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var response = await http.get(StringData.awblistAPI,
+  var response = await http.get(Uri.parse(StringData.awblistAPI),
       headers: {'x-access-tokens': prefs.getString('token')});
   result = json.decode(response.body);
   if (result['message'] == 'token expired') {
@@ -60,8 +60,8 @@ class _MyEawbState extends State<MyEawb> with TickerProviderStateMixin {
     );
   }
 
-  TutorialCoachMark tutorialCoachMark;
-  List<TargetFocus> targets = List();
+  // TutorialCoachMark tutorialCoachMark;
+  // List<TargetFocus> targets = List();
   bool tutorial = false;
 
   GlobalKey _listTargetKey = GlobalKey();
@@ -70,167 +70,167 @@ class _MyEawbState extends State<MyEawb> with TickerProviderStateMixin {
   GlobalKey _piecesAndWeightTargetKey = GlobalKey();
   GlobalKey _fabTarget = GlobalKey();
 
-  void initTargets() {
-    targets.add(
-      TargetFocus(
-        identify: "List",
-        keyTarget: _listTargetKey,
-        contents: [
-          ContentTarget(
-            align: AlignContent.bottom,
-            child: InkWell(
-              onTap: () {
-                tutorialCoachMark.next();
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                  "Swipe Left to Detele and Right to Add Houses",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
-                ),
-              ),
-            ),
-          )
-        ],
-        shape: ShapeLightFocus.RRect,
-      ),
-    );
-    targets.add(
-      TargetFocus(
-        identify: "Master AWB",
-        keyTarget: _masterAWBTargetKey,
-        contents: [
-          ContentTarget(
-            align: AlignContent.bottom,
-            child: InkWell(
-              onTap: () {
-                tutorialCoachMark.next();
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                  "Master Air Waybill of Houses",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
-                ),
-              ),
-            ),
-          )
-        ],
-        shape: ShapeLightFocus.RRect,
-      ),
-    );
-    targets.add(
-      TargetFocus(
-        identify: "Origin to Destination",
-        keyTarget: _originToDestinationTargetKey,
-        contents: [
-          ContentTarget(
-            align: AlignContent.bottom,
-            child: InkWell(
-              onTap: () {
-                tutorialCoachMark.next();
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                  'Origin to Destination\nShipment - Total',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
-                ),
-              ),
-            ),
-          )
-        ],
-        shape: ShapeLightFocus.RRect,
-      ),
-    );
-    targets.add(
-      TargetFocus(
-        identify: "Pieces and Weight",
-        keyTarget: _piecesAndWeightTargetKey,
-        contents: [
-          ContentTarget(
-            align: AlignContent.bottom,
-            child: InkWell(
-              onTap: () {
-                tutorialCoachMark.next();
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                  "Number of pieces and total weight",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
-                ),
-              ),
-            ),
-          )
-        ],
-        shape: ShapeLightFocus.RRect,
-      ),
-    );
-    targets.add(
-      TargetFocus(
-        identify: "Add Master AWB here.",
-        keyTarget: _fabTarget,
-        contents: [
-          ContentTarget(
-            align: AlignContent.top,
-            child: InkWell(
-              onTap: () {
-                tutorialCoachMark.finish();
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                  "Add Master AWB here.",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
-                ),
-              ),
-            ),
-          )
-        ],
-        shape: ShapeLightFocus.Circle,
-      ),
-    );
-  }
+  // void initTargets() {
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "List",
+  //       keyTarget: _listTargetKey,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.bottom,
+  //           child: InkWell(
+  //             onTap: () {
+  //               tutorialCoachMark.next();
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(bottom: 20.0),
+  //               child: Text(
+  //                 "Swipe Left to Detele and Right to Add Houses",
+  //                 style: TextStyle(
+  //                     color: Colors.white,
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 20.0),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.RRect,
+  //     ),
+  //   );
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "Master AWB",
+  //       keyTarget: _masterAWBTargetKey,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.bottom,
+  //           child: InkWell(
+  //             onTap: () {
+  //               tutorialCoachMark.next();
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(bottom: 20.0),
+  //               child: Text(
+  //                 "Master Air Waybill of Houses",
+  //                 style: TextStyle(
+  //                     color: Colors.white,
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 20.0),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.RRect,
+  //     ),
+  //   );
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "Origin to Destination",
+  //       keyTarget: _originToDestinationTargetKey,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.bottom,
+  //           child: InkWell(
+  //             onTap: () {
+  //               tutorialCoachMark.next();
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(bottom: 20.0),
+  //               child: Text(
+  //                 'Origin to Destination\nShipment - Total',
+  //                 style: TextStyle(
+  //                     color: Colors.white,
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 20.0),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.RRect,
+  //     ),
+  //   );
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "Pieces and Weight",
+  //       keyTarget: _piecesAndWeightTargetKey,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.bottom,
+  //           child: InkWell(
+  //             onTap: () {
+  //               tutorialCoachMark.next();
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(bottom: 20.0),
+  //               child: Text(
+  //                 "Number of pieces and total weight",
+  //                 style: TextStyle(
+  //                     color: Colors.white,
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 20.0),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.RRect,
+  //     ),
+  //   );
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "Add Master AWB here.",
+  //       keyTarget: _fabTarget,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.top,
+  //           child: InkWell(
+  //             onTap: () {
+  //               tutorialCoachMark.finish();
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(bottom: 20.0),
+  //               child: Text(
+  //                 "Add Master AWB here.",
+  //                 style: TextStyle(
+  //                     color: Colors.white,
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 20.0),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.Circle,
+  //     ),
+  //   );
+  // }
 
   void _afterLayout(_) {
     Future.delayed(const Duration(seconds: 1), () {
-      showTutorial();
+      //showTutorial();
     });
   }
 
-  void showTutorial() {
-    BuildContext context;
-    tutorialCoachMark = TutorialCoachMark(
-      context,
-      targets: targets,
-      colorShadow: Colors.black,
-      alignSkip: Alignment.topRight,
-      textSkip: "SKIP",
-      paddingFocus: 10,
-      opacityShadow: 0.8,
-      onFinish: () {
-        setState(() {
-          tutorial = false;
-        });
-      },
-    )..show();
-  }
+  // void showTutorial() {
+  //   BuildContext context;
+  //   tutorialCoachMark = TutorialCoachMark(
+  //     context,
+  //     targets: targets,
+  //     colorShadow: Colors.black,
+  //     alignSkip: Alignment.topRight,
+  //     textSkip: "SKIP",
+  //     paddingFocus: 10,
+  //     opacityShadow: 0.8,
+  //     onFinish: () {
+  //       setState(() {
+  //         tutorial = false;
+  //       });
+  //     },
+  //   )..show();
+  // }
 
 // Animation Part
   AnimationController _anicontroller;
@@ -384,15 +384,15 @@ class GetAWBList extends StatelessWidget {
                       content: const Text(
                           "Are you sure you want to delete this item?"),
                       actions: <Widget>[
-                        FlatButton(
+                        TextButton(
                             onPressed: () {
                               Navigator.of(context).pop(true);
                               deleteAWB('${getawblist[index]["id"]}');
                             },
-                            child: const Text("Delete")),
-                        FlatButton(
+                            child:  Text("Delete")),
+                        TextButton(
                           onPressed: () => Navigator.of(context).pop(false),
-                          child: const Text("Cancel"),
+                          child:  Text("Cancel"),
                         ),
                       ],
                     );
@@ -1190,7 +1190,7 @@ class GetAWBList extends StatelessWidget {
         child: Container(
           height: 300,
           child: Stack(
-            overflow: Overflow.visible,
+            clipBehavior: Clip.none,
             alignment: Alignment.topCenter,
             fit: StackFit.loose,
             children: <Widget>[
@@ -1240,10 +1240,10 @@ class GetAWBList extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          RaisedButton(
-                            color: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                            elevation: 5,
+                          TextButton(
+                            // color: Theme.of(context).primaryColor,
+                            // textColor: Colors.white,
+                            // elevation: 5,
                             onPressed: () {
                               Navigator.pop(context);
                               Navigator.push(context,
@@ -1251,10 +1251,10 @@ class GetAWBList extends StatelessWidget {
                             },
                             child: Text("Yes"),
                           ),
-                          RaisedButton(
-                            color: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                            elevation: 5,
+                          TextButton(
+                            // color: Theme.of(context).primaryColor,
+                            // textColor: Colors.white,
+                            // elevation: 5,
                             onPressed: () {
                               Navigator.pop(context);
                             },

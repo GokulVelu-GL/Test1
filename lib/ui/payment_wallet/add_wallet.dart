@@ -2028,7 +2028,7 @@ class _AddWalletState extends State<AddWallet> with TickerProviderStateMixin{
                           child: Container(
                             height: 165,
                             child: Stack(
-                              overflow: Overflow.visible,
+                              clipBehavior: Clip.none,
                               alignment: Alignment.topCenter,
                               fit: StackFit.loose,
                               children: <Widget>[
@@ -2075,10 +2075,8 @@ class _AddWalletState extends State<AddWallet> with TickerProviderStateMixin{
                                       SizedBox(
                                         height: 8.0,
                                       ),
-                                      RaisedButton(
-                                        color: Theme.of(context).primaryColor,
-                                        textColor: Colors.white,
-                                        elevation: 5,
+                                      TextButton(
+                                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                                         onPressed: () {
                                           Navigator.of(context).pop();
                                         },
@@ -2134,7 +2132,13 @@ class _AddWalletState extends State<AddWallet> with TickerProviderStateMixin{
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     print('Success Response: $response');
     // status.add("successs");
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text("SUCCESS: " + response.paymentId)));
+    Navigator.of(context, rootNavigator: true).pop('dialog');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content:Text("SUCCESS: " + response.paymentId),
+        duration: Duration(seconds: 2),
+      ),
+    );
     /*Fluttertoast.showToast(
         msg: "SUCCESS: " + response.paymentId!,
         toastLength: Toast.LENGTH_SHORT); */
@@ -2145,7 +2149,13 @@ class _AddWalletState extends State<AddWallet> with TickerProviderStateMixin{
     String a = response.message;
     status.add("Failure");
     print("response.................................................................."+response.message);
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text ("ERROR: " + response.code.toString() + " - " + response.message)));
+    Navigator.of(context, rootNavigator: true).pop('dialog');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content:Text("ERROR: " + response.code.toString() + " - " + response.message),
+        duration: Duration(seconds: 2),
+      ),
+    );
     status.add(response.message);
     /* Fluttertoast.showToast(
         msg: "ERROR: " + response.code.toString() + " - " + response.message!,
@@ -2156,8 +2166,13 @@ class _AddWalletState extends State<AddWallet> with TickerProviderStateMixin{
     print('External SDK Response: $response');
     String a = response.walletName;
     print("a="+response.walletName);
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text("EXTERNAL_WALLET: " + response.walletName)));
-
+    Navigator.of(context, rootNavigator: true).pop('dialog');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content:Text("EXTERNAL_WALLET: " + response.walletName),
+        duration: Duration(seconds: 2),
+      ),
+    );
     /* Fluttertoast.showToast(
         msg: "EXTERNAL_WALLET: " + response.walletName!,
         toastLength: Toast.LENGTH_SHORT); */

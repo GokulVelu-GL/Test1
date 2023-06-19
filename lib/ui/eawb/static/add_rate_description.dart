@@ -493,24 +493,27 @@ class _AddRateDescriptionFormState extends State<AddRateDescriptionForm> {
             dimensionsList[index]["height"]) *
             (indexPieces * int.parse(u.toString()));
       }
-      if (tempKVolume.isEmpty) {
-        tempKVolume.insert(index, volume);
+      if (tempLVolume.isEmpty) {
+        tempLVolume.insert(index, volume);
         print("$volume");
-      } else if (tempKVolume.length - 1 >= index) {
-        tempKVolume[index] = volume;
+      } else if (tempLVolume.length - 1 >= index) {
+        tempLVolume[index] = volume;
         print("$volume");
       } else {
-        tempKVolume.insert(index, volume);
+        tempLVolume.insert(index, volume);
         print("$volume");
       }
 
       print("$volume");
-      print("$tempKVolume");
+      print("temp value");
+      print("$tempLVolume");
       print("$index");
 
 
       var sum = 0;
       tempLVolume.forEach((element) => sum += element);
+      print("temo sum ");
+
       print("$sum");
 
       double incc = sum / inc;
@@ -2252,14 +2255,16 @@ class _AddRateDescriptionFormState extends State<AddRateDescriptionForm> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(bottom: 15, right: 8),
-                            child: FlatButton(
-                              textColor: Colors.black,
-                              color: Theme.of(context).accentColor,
+                            child: TextButton(
+                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                               onPressed: () {
                                 Navigator.of(context).pop(null);
                               },
                               child: Text(
                                 S.of(context).Discard,
+                                  style:TextStyle(
+                                      color:Theme.of(context).backgroundColor
+                                  )
                                 //"Discard"
                               ),
                             ),
@@ -2267,9 +2272,8 @@ class _AddRateDescriptionFormState extends State<AddRateDescriptionForm> {
                           // ! ADD ....
                           Padding(
                             padding: const EdgeInsets.only(bottom: 15),
-                            child: FlatButton(
-                                textColor: Colors.black,
-                                color: Theme.of(context).accentColor,
+                            child: TextButton(
+                                style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                                 onPressed: () {
                                   print("SLAC"+slacController.text);
                                   print(pieces);
@@ -2404,7 +2408,10 @@ class _AddRateDescriptionFormState extends State<AddRateDescriptionForm> {
                                   });
 
                                 },
-                                child: Text(S.of(context).Add
+                                child: Text(S.of(context).Add,
+                                    style:TextStyle(
+                                        color:Theme.of(context).backgroundColor
+                                    )
                                     //  "Add"
                                     )),
                           ),

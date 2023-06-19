@@ -117,9 +117,9 @@ class _ShippersCertificationState extends State<ShippersCertification> {
                           signatureOfShipper(model),
                           TextButton(
                               onPressed: (){
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    Signature()));
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //     builder: (BuildContext context) =>
+                            //         Signature()));
                           }, child: Text("Signature"))
                         ],
                       )),

@@ -741,9 +741,8 @@ class _AddEawbState extends State<AddEawb> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(bottom: 15, right: 8),
-            child: FlatButton(
-              textColor: Theme.of(context).backgroundColor,
-              color: Theme.of(context).accentColor,
+            child: TextButton(
+              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
               onPressed: () {
                 Navigator.of(context).pop(null);
               },
@@ -756,10 +755,8 @@ class _AddEawbState extends State<AddEawb> {
           // ! ADD ....
           Padding(
             padding: const EdgeInsets.only(bottom: 15),
-            child: FlatButton(
-                textColor: Theme.of(context).backgroundColor,
-                //   textColor: Colors.black,
-                color: Theme.of(context).accentColor,
+            child: TextButton(
+                style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                 onPressed: () async {
                   if (_addFHLHousesFormKey.currentState.validate()) {
                     // _fhlModel.sippercontactList = sippercontactList;

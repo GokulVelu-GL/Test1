@@ -463,7 +463,7 @@ class _AwbConsignmentDetailsState extends State<AwbConsignmentDetails> {
 
         //"AWB-Number"),
         maxLength: 12,
-        maxLengthEnforced: true,
+        // maxLengthEnforced: true,
       ),
     );
   }
@@ -475,7 +475,7 @@ class _AwbConsignmentDetailsState extends State<AwbConsignmentDetails> {
         initialValue: model.awbConsigmentDetailsDepAirportCode,
         focusNode: _awbConsignmentDetailsDepAirportCodeFocusNode,
         maxLength: 3,
-        maxLengthEnforced: true,
+        // maxLengthEnforced: true,
         keyboardType: TextInputType.text,
         textCapitalization: TextCapitalization.characters,
         textInputAction: TextInputAction.done,

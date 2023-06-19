@@ -79,8 +79,8 @@ class _EditHawbState extends State<EditHawb> {
                   S.of(context).Update,
                   //"Update",
                   style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontSize: 20),
+                      color: Theme.of(context).backgroundColor
+                  ),
                 ),
               ),
               SizedBox(
@@ -171,17 +171,15 @@ class _EditHawbState extends State<EditHawb> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      RaisedButton(
-                        color: Theme.of(context).primaryColor,
-                        textColor: Colors.white,
-                        elevation: 5,
+                      TextButton(
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                         onPressed: () {
                           insertAWBList();
                         },
                         child: Text(
                           S.of(context).Update,
                           style: TextStyle(
-                          //  color: Theme.of(context).accentColor
+                              color: Theme.of(context).backgroundColor
                           ),
                           // "Update"
                         ),
@@ -200,7 +198,7 @@ class _EditHawbState extends State<EditHawb> {
   Future<dynamic> insertAWBList() async {
     var result;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var response = await http.put(StringData.awblistAPI,
+    var response = await http.put(Uri.parse(StringData.awblistAPI),
         headers: <String, String>{
           'x-access-tokens': prefs.getString('token'),
           'Content-Type': 'application/json; charset=UTF-8',

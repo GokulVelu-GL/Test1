@@ -23,7 +23,7 @@ import 'package:rooster/ui/homescreen/telex.dart';
 import 'package:rooster/ui/homescreen/user_management.dart';
 import 'package:rooster/ui/loginscreen/main_logincardscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tutorial_coach_mark/animated_focus_light.dart';
+// import 'package:tutorial_coach_mark/animated_focus_light.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '../../color_picker.dart';
 import '../../theme_changer.dart';

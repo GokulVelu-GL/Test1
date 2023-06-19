@@ -1,7 +1,15 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hive/hive.dart';
 import 'package:rooster/generated/l10n.dart';
 import 'package:rooster/screenroute.dart';
 import 'package:rooster/ui/hawb/main_hawb.dart';
+import 'package:rooster/ui/hawb/offline_main_hawb/model_class.dart';
+
+import '../hawb/offline_main_hawb/show_data_screen.dart';
 //import 'package:rooster/screenroute.dart';
 
 class HAWB extends StatefulWidget {
@@ -13,6 +21,41 @@ class HAWB extends StatefulWidget {
 
 class _HAWBState extends State<HAWB> {
   var _expand = false;
+
+  StreamSubscription internetconnection;
+  bool isoffline = false;
+  @override
+  void initState() {
+    super.initState();
+    internetconnection = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      // whenevery connection status is changed.
+      if(result == ConnectivityResult.none){
+        //there is no any connection
+        setState(() {
+          isoffline = true;
+        });
+      }else if(result == ConnectivityResult.mobile){
+        //connection is mobile data network
+        setState(() {
+          isoffline = false;
+        });
+      }else if(result == ConnectivityResult.wifi){
+        //connection is from wifi
+        setState(() {
+          isoffline = false;
+        });
+      }
+    }); // using this listiner, you can get the medium of connection as well.
+
+    print("create album");
+    // print(localname);
+  }
+  @override
+  dispose() {
+    super.dispose();
+    internetconnection.cancel();
+    //cancel internent connection subscription after you are done
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +77,43 @@ class _HAWBState extends State<HAWB> {
           onTap: () {
             setState(() {
               // TODO: HAWB options....
-              Navigator.push(context, HomeScreenRoute(MyEawb()));
+              if(isoffline) {
+                Fluttertoast.showToast(
+                    msg: "Offline",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    textColor: Colors.white,
+                    backgroundColor: Colors.red,
+                    fontSize: 16.0
+                );
+                // Hive.openBox('AwbList');
+                // Hive.box('AwbList').add(
+                //     AwbListOffline(
+                //       airline: "hello",
+                //       pieces: "1",
+                //       weight: "1",
+                //     )
+                // );
+                Navigator.push(context, HomeScreenRoute(ShowDataScreen()));
+              }
+              else if(isoffline==false){
+                Navigator.push(context, HomeScreenRoute(MyEawb()));
+              }
+
             });
           },
           onLongPress: () {
             setState(() {
+              Fluttertoast.showToast(
+                  msg: "Online",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  textColor: Colors.white,
+                  backgroundColor: Colors.green,
+                  fontSize: 16.0
+              );
               // TODO: HAWB options....
               Navigator.push(context, HomeScreenRoute(MyEawb()));
             });

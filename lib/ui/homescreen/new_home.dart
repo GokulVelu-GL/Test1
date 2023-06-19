@@ -33,7 +33,7 @@ import 'package:rooster/ui/slot_booking/slot_homepage.dart';
 import 'package:rooster/ui/slot_booking/slot_manager.dart';
 import 'package:rooster/ui/todo_list/HomePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tutorial_coach_mark/animated_focus_light.dart';
+// import 'package:tutorial_coach_mark/animated_focus_light.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:http/http.dart' as http;
 import 'package:rooster/model/profile_model.dart';
@@ -49,7 +49,7 @@ import 'profile.dart';
 
 void refreshToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var response = await http.get(StringData.refreshTokenAPI,
+  var response = await http.get(Uri.parse(StringData.refreshTokenAPI),
       headers: {'x-access-tokens': prefs.getString('token')});
   var result = json.decode(response.body);
   if (result['result'] == 'verified') prefs.setString('token', result['token']);
@@ -59,7 +59,7 @@ void refreshToken() async {
 Future<dynamic> getAWBlist() async {
   var result;
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var response = await http.get(StringData.awblistAPI,
+  var response = await http.get(Uri.parse(StringData.awblistAPI),
       headers: {'x-access-tokens': prefs.getString('token')});
   result = json.decode(response.body);
   if (result['message'] == 'token expired') {
@@ -116,7 +116,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
         });
       }
       if (value.getBool('tutorial') ?? true) {
-        initTargets();
+        // initTargets();
         WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
         setState(() {
           tutorial = true;
@@ -183,7 +183,6 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                   ),
                 ],
               ),
-
               //         child: ListTile(
               //           tileColor: Colors.transparent,
               // // tileColor: Colors.black26,
@@ -208,10 +207,10 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
       ),
       actions: <Widget>[
         Center(
-          child: new FlatButton(
+          child:  TextButton(
             onPressed: () {
               Navigator.of(context).pop();
-            },
+            },  
             //textColor: Theme.of(context).primaryColor,
             child: const Text('Close'),
           ),
@@ -318,81 +317,81 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
         });
   }
 
-  void initTargets() {
-    targets.add(
-      TargetFocus(
-        identify: "Tile",
-        keyTarget: _tileTargetKey,
-        contents: [
-          ContentTarget(
-            align: AlignContent.bottom,
-            child: InkWell(
-              onTap: () {
-                tutorialCoachMark.next();
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                  S.of(context).ClickontheTilestoNavigate,
-                  // "Click on the Tiles to Navigate",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
-                ),
-              ),
-            ),
-          )
-        ],
-        shape: ShapeLightFocus.Circle,
-      ),
-    );
-    targets.add(
-      TargetFocus(
-        identify: "Setting",
-        keyTarget: _settingTargetKey,
-        contents: [
-          ContentTarget(
-            align: AlignContent.bottom,
-            child: InkWell(
-              onTap: () {
-                tutorialCoachMark.finish();
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                  S.of(context).Settings,
-                  //"Settings",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
-                ),
-              ),
-            ),
-          )
-        ],
-        shape: ShapeLightFocus.Circle,
-      ),
-    );
-  }
+  // void initTargets() {
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "Tile",
+  //       keyTarget: _tileTargetKey,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.bottom,
+  //           child: InkWell(
+  //             onTap: () {
+  //               tutorialCoachMark.next();
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(bottom: 20.0),
+  //               child: Text(
+  //                 S.of(context).ClickontheTilestoNavigate,
+  //                 // "Click on the Tiles to Navigate",
+  //                 style: TextStyle(
+  //                     color: Colors.white,
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 20.0),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.Circle,
+  //     ),
+  //   );
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "Setting",
+  //       keyTarget: _settingTargetKey,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.bottom,
+  //           child: InkWell(
+  //             onTap: () {
+  //               tutorialCoachMark.finish();
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(bottom: 20.0),
+  //               child: Text(
+  //                 S.of(context).Settings,
+  //                 //"Settings",
+  //                 style: TextStyle(
+  //                     color: Colors.white,
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 20.0),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.Circle,
+  //     ),
+  //   );
+  // }
 
   void _afterLayout(_) {
     Future.delayed(const Duration(seconds: 1), () {
-      showTutorial();
+      // showTutorial();
     });
   }
-
-  void showTutorial() {
-    tutorialCoachMark = TutorialCoachMark(
-      context,
-      targets: targets,
-      colorShadow: Colors.black,
-      textSkip: "SKIP",
-      paddingFocus: 10,
-      opacityShadow: 0.8,
-    )..show();
-  }
+  //
+  // void showTutorial() {
+  //   tutorialCoachMark = TutorialCoachMark(
+  //     context,
+  //     targets: targets,
+  //     colorShadow: Colors.black,
+  //     textSkip: "SKIP",
+  //     paddingFocus: 10,
+  //     opacityShadow: 0.8,
+  //   )..show();
+  // }
 
   _endDrawerUI() {
     ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
@@ -439,7 +438,9 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                       ), //customize this text
                       Text(
                        // "RoosterAirCargo1@gmail.com",
-                        emailId, //"icms_maa@aai.aero",
+                       //  emailId,
+                        // "icms_maa@aai.aero",
+                        "",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -628,7 +629,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
               //'Would you like to logout?'
             ),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: Text(
                   S.of(context).Yes,
                   //"Yes"
@@ -641,7 +642,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                       context, HomeScreenRoute(LoginPage()));
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text(
                   S.of(context).No,
                   //"No"
@@ -737,7 +738,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
           child: Container(
             height: 300,
             child: Stack(
-              overflow: Overflow.visible,
+              clipBehavior: Clip.none,
               alignment: Alignment.topCenter,
               fit: StackFit.loose,
               children: <Widget>[
@@ -816,6 +817,8 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                               )
                               // added AWB formatter....
                             ],
+
+
                             keyboardType: TextInputType.number,
                             cursorColor: Theme.of(context).primaryColor,
                             textInputAction: TextInputAction.done,
@@ -828,14 +831,12 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                               // "AWB-Number"
                             ),
                             maxLength: 12,
-                            maxLengthEnforced: true,
+                            // maxLengthEnforced: true,
                           ),
                         ),
                       ),
-                      RaisedButton(
-                        color: Theme.of(context).primaryColor,
-                        textColor: Colors.white,
-                        elevation: 5,
+                      TextButton(
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                         onPressed: () {
                           //print(model.awbConsigmentDetailsAWBNumber);
                           Navigator.of(context).push(MaterialPageRoute(
@@ -890,7 +891,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
       ),
       body: SafeArea(
         child: Stack(
-          overflow: Overflow.clip,
+          clipBehavior: Clip.none,
           children: <Widget>[
             TweenAnimationBuilder(
               tween: Tween(begin: 1.0, end: 0.0),

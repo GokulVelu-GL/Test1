@@ -71,13 +71,12 @@ class _EHouseFHLState extends State<EHouseFHL> {
         //   //_displayCreateAWBDialog();
         // }
         if (result == 'Not Found') {
-          Scaffold.of(context).showSnackBar(
+          Navigator.of(context, rootNavigator: true).pop('dialog');
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-                duration: Duration(seconds: 1),
-                content: Text(
-                  S.of(context).NotValidAWBNumber,
-                  // "Not Valid AWB Number"
-                )),
+              content:Text(S.of(context).NotValidAWBNumber),
+              duration: Duration(seconds: 2),
+            ),
           );
         } else {
           Navigator.pop(context);
@@ -111,7 +110,7 @@ class _EHouseFHLState extends State<EHouseFHL> {
           child: Container(
             height: 300,
             child: Stack(
-              overflow: Overflow.visible,
+              clipBehavior: Clip.none,
               alignment: Alignment.topCenter,
               fit: StackFit.loose,
               children: <Widget>[
@@ -216,14 +215,12 @@ class _EHouseFHLState extends State<EHouseFHL> {
                               // "AWB-Number"
                             ),
                             maxLength: 12,
-                            maxLengthEnforced: true,
+                            // maxLengthEnforced: true,
                           ),
                         ),
                       ),
-                      RaisedButton(
-                        color: Theme.of(context).accentColor,
-                        textColor: Theme.of(context).backgroundColor,
-                        elevation: 5,
+                      TextButton(
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                         onPressed: () {
                           _getAWBData(model);
                         },

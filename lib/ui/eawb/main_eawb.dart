@@ -5,9 +5,9 @@ import 'package:rooster/generated/l10n.dart';
 import 'package:rooster/model/eawb_model.dart';
 import 'package:rooster/screenroute.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tutorial_coach_mark/animated_focus_light.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-import 'dart:math' as math show sin, pi,sqrt;
+// import 'package:tutorial_coach_mark/animated_focus_light.dart';
+// import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
+import 'dart:math' as math show sin, pi, sqrt;
 
 import 'static/eawb_nav_pages.dart';
 import 'static/eawb_fab_menu.dart';
@@ -20,14 +20,12 @@ class MainEAWB extends StatefulWidget {
   _MainEAWBState createState() => _MainEAWBState();
 }
 
-class _MainEAWBState extends State<MainEAWB> with TickerProviderStateMixin{
+class _MainEAWBState extends State<MainEAWB> with TickerProviderStateMixin {
   EAWBModel model;
-  bool alertvalue=true;
+  bool alertvalue = true;
   Color color;
   AnimationController _controller;
   AnimationController _resizableController;
-  
-  
 
   void initState() {
     super.initState();
@@ -60,224 +58,246 @@ class _MainEAWBState extends State<MainEAWB> with TickerProviderStateMixin{
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    _controller.dispose();
+    _resizableController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         actions: <Widget>[
-          IconButton(onPressed: (){
-            showDialog(
-              context: context,
-              builder: (ctx) => AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30.0))),
-                title: AnimatedBuilder(
-                    animation: _resizableController,
-                    builder: (context, child) {
-                      return Container(
-                        padding: EdgeInsets.only(left: 15.0,
-                            top: 10.0,bottom: 10.0,
-                            right: 15.0),
-                        child: Center(child: Text("Alert")),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                          border: Border.all(
-                              color: Theme.of(context).backgroundColor, width: _resizableController.value * 10),
-                        ),
-                      );
-                    }),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Center(
-                          child: CustomPaint(
-                            painter: CirclePainter(
-                                _controller,
-                                color: Theme.of(context).accentColor
-                            ),
-                            child: SizedBox(
-                                height: 80,
-                                width:80,
-                                child: Icon(Icons.dangerous_outlined, size: 20,
+          IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30.0))),
+                    title: AnimatedBuilder(
+                        animation: _resizableController,
+                        builder: (context, child) {
+                          return Container(
+                            padding: EdgeInsets.only(
+                                left: 15.0,
+                                top: 10.0,
+                                bottom: 10.0,
+                                right: 15.0),
+                            child: Center(child: Text("Alert")),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12)),
+                              border: Border.all(
                                   color: Theme.of(context).backgroundColor,
-                                )
-                              //_button(),
+                                  width: _resizableController.value * 10),
                             ),
-                          ),
-                        ),
+                          );
+                        }),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
-                          // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Text("AWB Gross weight:350K\nAWB Chargeable Weight: 350 K \nGHA Acceptance Gross Weight:\n 500"
-                            //     "K \nThis means the AWB Gross Weight"
-                            // ,
-                            //   style: TextStyle(
-                            //     fontSize: 13
-                            //   ),
-                            // ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              // mainAxisAlignment: MainAxisAlignment.end,
+                            Center(
+                              child: CustomPaint(
+                                painter: CirclePainter(_controller,
+                                    color: Theme.of(context).accentColor),
+                                child: SizedBox(
+                                    height: 80,
+                                    width: 80,
+                                    child: Icon(
+                                      Icons.dangerous_outlined,
+                                      size: 20,
+                                      color: Theme.of(context).backgroundColor,
+                                    )
+                                    //_button(),
+                                    ),
+                              ),
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              // crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("AWB Gross weight ",
-                                  style: TextStyle(
-                                    color: Theme.of(context).accentColor,
-                                  ),
+                                // Text("AWB Gross weight:350K\nAWB Chargeable Weight: 350 K \nGHA Acceptance Gross Weight:\n 500"
+                                //     "K \nThis means the AWB Gross Weight"
+                                // ,
+                                //   style: TextStyle(
+                                //     fontSize: 13
+                                //   ),
+                                // ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  // mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "AWB Gross weight ",
+                                      style: TextStyle(
+                                        color: Theme.of(context).accentColor,
+                                      ),
+                                    ),
+                                    Text(
+                                      "--------------> 350K",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                Text("--------------> 350K",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  // mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "AWB Chargeable Weight  ",
+                                      style: TextStyle(
+                                        color: Theme.of(context).accentColor,
+                                      ),
+                                    ),
+                                    Text(
+                                      "--------> 350K",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  // mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "GHA Acceptance Gross Weight ",
+                                      style: TextStyle(
+                                        color: Theme.of(context).accentColor,
+                                      ),
+                                    ),
+                                    Text(
+                                      "-> 500K",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                // Text("This means the AWB Gross Weight & AWB",
+                                //   style: TextStyle(
+                                //       color: Theme.of(context).accentColor,
+                                //
+                                //   ),
+                                // ),
+                                // Text("Chargeable Weight captured by ",
+                                //   style: TextStyle(
+                                //       color: Theme.of(context).accentColor,
+                                //
+                                //   ),
+                                // ),
+                                // Text("Documentation Team are INCORRECT. This",
+                                //   style: TextStyle(
+                                //     color: Theme.of(context).accentColor,
+                                //
+                                //   ),
+                                // ),
+                                // Text("also potentially means the AWB Charges",
+                                //   style: TextStyle(
+                                //     color: Theme.of(context).accentColor,
+                                //
+                                //   ),
+                                // ),  Text("are INCORRECT,and a possible revenue loss",
+                                //   style: TextStyle(
+                                //     color: Theme.of(context).accentColor,
+                                //
+                                //   ),
+                                // )
                               ],
                             ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              // mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text("AWB Chargeable Weight  ",
-                                  style: TextStyle(
-                                    color: Theme.of(context).accentColor,
-
-                                  ),
-                                ),
-                                Text("--------> 350K",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                              ],
+                            Text(
+                              "This means the AWB Gross Weight & AWB Chargeable Weight captured by Documentation Team are INCORRECT. This also potentially means the AWB Charges are INCORRECT, and a possible revenue loss.",
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                color: Theme.of(context).accentColor,
+                              ),
                             ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              // mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text("GHA Acceptance Gross Weight ",
-                                  style: TextStyle(
-                                    color: Theme.of(context).accentColor,
-                                  ),
-                                ),
-                                Text("-> 500K",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            // Text("This means the AWB Gross Weight & AWB",
-                            //   style: TextStyle(
-                            //       color: Theme.of(context).accentColor,
-                            //
-                            //   ),
-                            // ),
-                            // Text("Chargeable Weight captured by ",
-                            //   style: TextStyle(
-                            //       color: Theme.of(context).accentColor,
-                            //
-                            //   ),
-                            // ),
-                            // Text("Documentation Team are INCORRECT. This",
-                            //   style: TextStyle(
-                            //     color: Theme.of(context).accentColor,
-                            //
-                            //   ),
-                            // ),
-                            // Text("also potentially means the AWB Charges",
-                            //   style: TextStyle(
-                            //     color: Theme.of(context).accentColor,
-                            //
-                            //   ),
-                            // ),  Text("are INCORRECT,and a possible revenue loss",
-                            //   style: TextStyle(
-                            //     color: Theme.of(context).accentColor,
-                            //
-                            //   ),
-                            // )
+                            Text(
+                              "Please Check!",
+                              style: TextStyle(
+                                color: Theme.of(context).accentColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            )
                           ],
                         ),
-                        Text("This means the AWB Gross Weight & AWB Chargeable Weight captured by Documentation Team are INCORRECT. This also potentially means the AWB Charges are INCORRECT, and a possible revenue loss.",
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                            color: Theme.of(context).accentColor,
-                          ),
-                        ),
-                        Text("Please Check!",
-                          style: TextStyle(
-                            color: Theme.of(context).accentColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            ElevatedButton(
+                                style: TextButton.styleFrom(
+                                  primary: Theme.of(context).backgroundColor,
+                                  backgroundColor: Colors.green,
+                                  // Text Color
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    alertvalue = false;
+                                    Navigator.pop(context);
+                                  });
+                                },
+                                child: Text(
+                                  "Accept",
+                                )),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            ElevatedButton(
+                                style: TextButton.styleFrom(
+                                  primary: Theme.of(context).backgroundColor,
+                                  backgroundColor: Colors.red,
+                                  // Text Color
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    alertvalue = true;
+                                    Navigator.pop(context);
+                                  });
+                                  // Navigator.pop(context);
+                                },
+                                child: Text(
+                                  "Reject",
+                                ))
+                          ],
                         )
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        ElevatedButton(
-
-                            style: TextButton.styleFrom(
-                              primary: Theme.of(context).backgroundColor,
-                              backgroundColor: Colors.green,
-                              // Text Color
-                            ),onPressed: (){
-                          setState(() {
-                            alertvalue=false;
-                            Navigator.pop(context);
-                          });
-
-                        }, child: Text("Accept",
-                        )),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        ElevatedButton(
-
-                            style: TextButton.styleFrom(
-                              primary: Theme.of(context).backgroundColor,
-                              backgroundColor: Colors.red,
-                              // Text Color
-                            ),
-                            onPressed: (){
-                              setState(() {
-                                alertvalue=true;
-                                Navigator.pop(context);
-                              });
-                              // Navigator.pop(context);
-                            }, child: Text("Reject",
-                        ))
-                      ],
-                    )
-                  ],
-                ),
-                // actions: <Widget>[
-                //   TextButton(
-                //     onPressed: () {
-                //       Navigator.of(ctx).pop();
-                //     },
-                //     child: Center(
-                //       child: Container(
-                //         padding: const EdgeInsets.all(14),
-                //         child:  Text("Close",
-                //           style: TextStyle(
-                //             color: Theme.of(context).accentColor,
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ],
-              ),
-            );
-          },  icon: Icon(Icons.developer_mode)),
+                    // actions: <Widget>[
+                    //   TextButton(
+                    //     onPressed: () {
+                    //       Navigator.of(ctx).pop();
+                    //     },
+                    //     child: Center(
+                    //       child: Container(
+                    //         padding: const EdgeInsets.all(14),
+                    //         child:  Text("Close",
+                    //           style: TextStyle(
+                    //             color: Theme.of(context).accentColor,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ],
+                  ),
+                );
+              },
+              icon: Icon(Icons.developer_mode)),
           IconButton(
             color: Theme.of(context).backgroundColor,
             onPressed: () {
@@ -288,8 +308,7 @@ class _MainEAWBState extends State<MainEAWB> with TickerProviderStateMixin{
                       .modalBarrierDismissLabel,
                   barrierColor: Colors.black45,
                   transitionDuration: const Duration(milliseconds: 200),
-                  pageBuilder: (BuildContext buildContext,
-                      Animation animation,
+                  pageBuilder: (BuildContext buildContext, Animation animation,
                       Animation secondaryAnimation) {
                     return SafeArea(
                       child: Scaffold(
@@ -304,30 +323,31 @@ class _MainEAWBState extends State<MainEAWB> with TickerProviderStateMixin{
                             children: [
                               Card(
                                 child: ListTile(
-                                  leading: Icon(Icons.done,
+                                  leading: Icon(
+                                    Icons.done,
                                     color: Colors.green[800],
                                   ),
                                   title: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Text("Fill all required fields",
-                                        style: TextStyle(
-                                            fontSize: 12.0
-                                        ),
+                                      Text(
+                                        "Fill all required fields",
+                                        style: TextStyle(fontSize: 12.0),
                                       ),
                                       Container(
                                           padding: EdgeInsets.all(8.0),
                                           decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(15),
-                                              color: Colors.green[800]
-                                          ),
-                                          child: Text("Completed",
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              color: Colors.green[800]),
+                                          child: Text(
+                                            "Completed",
                                             style: TextStyle(
-                                                color: Theme.of(context).backgroundColor
-                                            ),
+                                                color: Theme.of(context)
+                                                    .backgroundColor),
                                           )),
-
                                     ],
                                   ),
                                   // subtitle: Text("Fill all required fields"),
@@ -335,30 +355,31 @@ class _MainEAWBState extends State<MainEAWB> with TickerProviderStateMixin{
                               ),
                               Card(
                                 child: ListTile(
-                                  leading: Icon(Icons.error_outline,
+                                  leading: Icon(
+                                    Icons.error_outline,
                                     color: Colors.red,
                                   ),
                                   title: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Text("All fields Empty",
-                                        style: TextStyle(
-                                            fontSize: 12.0
-                                        ),
+                                      Text(
+                                        "All fields Empty",
+                                        style: TextStyle(fontSize: 12.0),
                                       ),
                                       Container(
                                           padding: EdgeInsets.all(8.0),
                                           decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(15),
-                                              color: Colors.red
-                                          ),
-                                          child: Text("No Data",
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              color: Colors.red),
+                                          child: Text(
+                                            "No Data",
                                             style: TextStyle(
-                                                color: Theme.of(context).backgroundColor
-                                            ),
+                                                color: Theme.of(context)
+                                                    .backgroundColor),
                                           )),
-
                                     ],
                                   ),
                                   // subtitle: Text("Fill all required fields"),
@@ -366,30 +387,31 @@ class _MainEAWBState extends State<MainEAWB> with TickerProviderStateMixin{
                               ),
                               Card(
                                 child: ListTile(
-                                  leading: Icon(Icons.done,
+                                  leading: Icon(
+                                    Icons.done,
                                     color: Colors.green,
                                   ),
                                   title: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Text("Optional fields",
-                                        style: TextStyle(
-                                            fontSize: 12.0
-                                        ),
+                                      Text(
+                                        "Optional fields",
+                                        style: TextStyle(fontSize: 12.0),
                                       ),
                                       Container(
                                           padding: EdgeInsets.all(8.0),
                                           decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(15),
-                                              color: Colors.green
-                                          ),
-                                          child: Text("Completed !",
-                                          style: TextStyle(
-                                            color: Theme.of(context).backgroundColor
-                                          ),
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              color: Colors.green),
+                                          child: Text(
+                                            "Completed !",
+                                            style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .backgroundColor),
                                           )),
-
                                     ],
                                   ),
                                   // subtitle: Text("Fill all required fields"),
@@ -397,36 +419,36 @@ class _MainEAWBState extends State<MainEAWB> with TickerProviderStateMixin{
                               ),
                               Card(
                                 child: ListTile(
-                                  leading: Icon(Icons.edit,
+                                  leading: Icon(
+                                    Icons.edit,
                                     color: Colors.blue,
                                   ),
                                   title: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Text("Some required fields are not filled",
-                                      style: TextStyle(
-                                        fontSize: 12.0
-                                      ),
+                                      Text(
+                                        "Some required fields are not filled",
+                                        style: TextStyle(fontSize: 12.0),
                                       ),
                                       Container(
                                           padding: EdgeInsets.all(8.0),
                                           decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(15),
-                                              color: Colors.blue
-                                          ),
-                                          child: Text("Incomplete",
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              color: Colors.blue),
+                                          child: Text(
+                                            "Incomplete",
                                             style: TextStyle(
-                                                color: Theme.of(context).backgroundColor
-                                            ),
+                                                color: Theme.of(context)
+                                                    .backgroundColor),
                                           )),
-
                                     ],
                                   ),
                                   // subtitle: Text("Fill all required fields"),
                                 ),
                               ),
-
                             ],
                           ),
                         ),
@@ -434,10 +456,10 @@ class _MainEAWBState extends State<MainEAWB> with TickerProviderStateMixin{
                     );
                   });
             },
-            icon: Icon(Icons.help,
+            icon: Icon(
+              Icons.help,
               color: Theme.of(context).backgroundColor,
             ),
-
           ),
           // IconButton(onPressed: () {}, icon: Icon(Icons.menu_open))
           PopupMenuButton(
@@ -461,7 +483,7 @@ class _MainEAWBState extends State<MainEAWB> with TickerProviderStateMixin{
                               ),
                               Text(
                                 S.of(context).eAWBSampleData1,
-                               // "eAWB Sample Data 1",
+                                // "eAWB Sample Data 1",
                                 style: TextStyle(
                                     color: Theme.of(context).accentColor),
                               )
@@ -477,9 +499,9 @@ class _MainEAWBState extends State<MainEAWB> with TickerProviderStateMixin{
                       //       Text("Sample Data 1")
                       //     ]))
                     ),
-                PopupMenuItem(
-                  child: Consumer<EAWBModel>(
-                      builder: (BuildContext context, model, Widget child) {
+                    PopupMenuItem(
+                      child: Consumer<EAWBModel>(
+                          builder: (BuildContext context, model, Widget child) {
                         return TextButton(
                             onPressed: () {
                               model.loadSampleData1();
@@ -490,23 +512,23 @@ class _MainEAWBState extends State<MainEAWB> with TickerProviderStateMixin{
                                 color: Theme.of(context).accentColor,
                               ),
                               Text(
-                               // S.of(context).eAWBSampleData1,
-                                 "eAWB Sample Data 2",
+                                // S.of(context).eAWBSampleData1,
+                                "eAWB Sample Data 2",
                                 style: TextStyle(
                                     color: Theme.of(context).accentColor),
                               )
                             ]));
                       }),
-                  // child: TextButton(
-                  //     onPressed: () {
-                  //       EAWBModel model;
-                  //       model.loadSampleData();
-                  //     },
-                  //     child: Row(children: [
-                  //       Icon(Icons.system_security_update),
-                  //       Text("Sample Data 1")
-                  //     ]))
-                )
+                      // child: TextButton(
+                      //     onPressed: () {
+                      //       EAWBModel model;
+                      //       model.loadSampleData();
+                      //     },
+                      //     child: Row(children: [
+                      //       Icon(Icons.system_security_update),
+                      //       Text("Sample Data 1")
+                      //     ]))
+                    )
                   ])
         ],
         backgroundColor: Theme.of(context).primaryColor,
@@ -519,9 +541,10 @@ class _MainEAWBState extends State<MainEAWB> with TickerProviderStateMixin{
         title: RichText(
           text: TextSpan(
             text: S.of(context).eAWB,
-
-            children:  <TextSpan>[
-              TextSpan(text: ' ${widget.awbNumber.substring(0, 3)}${widget.awbNumber.substring(3)}',
+            children: <TextSpan>[
+              TextSpan(
+                  text:
+                      ' ${widget.awbNumber.substring(0, 3)}${widget.awbNumber.substring(3)}',
                   style: TextStyle(fontWeight: FontWeight.bold)),
             ],
           ),
@@ -540,8 +563,8 @@ class EAWBPage extends StatefulWidget {
 }
 
 class _EAWBPageState extends State<EAWBPage> {
-  TutorialCoachMark tutorialCoachMark;
-  List<TargetFocus> targets = List();
+  // TutorialCoachMark tutorialCoachMark;
+  // List<TargetFocus> targets = List();
   bool tutorial = true;
 
   GlobalKey _listTargetKey = GlobalKey();
@@ -569,116 +592,116 @@ class _EAWBPageState extends State<EAWBPage> {
   //    "Carrier's execution"
   //  ];
 
-  void initTargets() {
-    targets.add(
-      TargetFocus(
-        identify: "Field Type",
-        keyTarget: _listTargetKey,
-        contents: [
-          ContentTarget(
-            align: AlignContent.bottom,
-            child: InkWell(
-              onTap: () {
-                tutorialCoachMark.next();
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                 S.of(context).ClickontheCardtoeditthefield,
-                  // "Click on the Card to edit the field",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
-                ),
-              ),
-            ),
-          )
-        ],
-        shape: ShapeLightFocus.RRect,
-      ),
-    );
-    targets.add(
-      TargetFocus(
-        identify: "Status",
-        keyTarget: _statusTargetKey,
-        contents: [
-          ContentTarget(
-            align: AlignContent.bottom,
-            child: InkWell(
-              onTap: () {
-                tutorialCoachMark.next();
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                 S.of(context).Statusofthedatayouhavefilled,
-                 // "Status of the data you have filled",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
-                ),
-              ),
-            ),
-          )
-        ],
-        shape: ShapeLightFocus.Circle,
-      ),
-    );
-    targets.add(
-      TargetFocus(
-        identify: "Fab",
-        keyTarget: _fabTargetKey,
-        contents: [
-          ContentTarget(
-            align: AlignContent.top,
-            child: InkWell(
-              onTap: () {
-                tutorialCoachMark.finish();
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: Text("Click This button to more options like (Save, Print, Clear)",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20.0),
-                ),
-              ),
-            ),
-          )
-        ],
-        shape: ShapeLightFocus.Circle,
-      ),
-    );
-  }
+  // void initTargets() {
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "Field Type",
+  //       keyTarget: _listTargetKey,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.bottom,
+  //           child: InkWell(
+  //             onTap: () {
+  //               tutorialCoachMark.next();
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(bottom: 20.0),
+  //               child: Text(
+  //                S.of(context).ClickontheCardtoeditthefield,
+  //                 // "Click on the Card to edit the field",
+  //                 style: TextStyle(
+  //                     color: Colors.white,
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 20.0),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.RRect,
+  //     ),
+  //   );
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "Status",
+  //       keyTarget: _statusTargetKey,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.bottom,
+  //           child: InkWell(
+  //             onTap: () {
+  //               tutorialCoachMark.next();
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(bottom: 20.0),
+  //               child: Text(
+  //                S.of(context).Statusofthedatayouhavefilled,
+  //                // "Status of the data you have filled",
+  //                 style: TextStyle(
+  //                     color: Colors.white,
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 20.0),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.Circle,
+  //     ),
+  //   );
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "Fab",
+  //       keyTarget: _fabTargetKey,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.top,
+  //           child: InkWell(
+  //             onTap: () {
+  //               tutorialCoachMark.finish();
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(bottom: 20.0),
+  //               child: Text("Click This button to more options like (Save, Print, Clear)",
+  //                 style: TextStyle(
+  //                     color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20.0),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.Circle,
+  //     ),
+  //   );
+  // }
 
   void _afterLayout(_) {
     Future.delayed(const Duration(seconds: 1), () {
-      showTutorial();
+      // showTutorial();
     });
   }
 
-  void showTutorial() {
-    tutorialCoachMark = TutorialCoachMark(
-      context,
-      targets: targets,
-      colorShadow: Colors.black,
-      textSkip: "SKIP",
-      paddingFocus: 10,
-      opacityShadow: 0.8,
-      onFinish: () {
-        setState(() {
-          tutorial = false;
-        });
-      },
-    )..show();
-  }
+  // void showTutorial() {
+  //   tutorialCoachMark = TutorialCoachMark(
+  //     context,
+  //     targets: targets,
+  //     colorShadow: Colors.black,
+  //     textSkip: "SKIP",
+  //     paddingFocus: 10,
+  //     opacityShadow: 0.8,
+  //     onFinish: () {
+  //       setState(() {
+  //         tutorial = false;
+  //       });
+  //     },
+  //   )..show();
+  // }
 
   @override
   void initState() {
     SharedPreferences.getInstance().then((value) {
       if (value.getBool('tutorial') ?? true) {
-        initTargets();
+        // initTargets();
         WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
         setState(() {
           tutorial = true;
@@ -714,9 +737,8 @@ class _EAWBPageState extends State<EAWBPage> {
     String Shipperscertification = S.of(context).Shipperscertification;
     String Carriersexecution = S.of(context).Carriersexecution;
     // ignore: non_constant_identifier_names
-    String SpecialHandlingDetails =
-        S.of(context).SpecialHandlingDetails;
-        //"Special Handling Details";
+    String SpecialHandlingDetails = S.of(context).SpecialHandlingDetails;
+    //"Special Handling Details";
 
     List<String> items = [
       AwbConsignmentdetails,
@@ -737,7 +759,6 @@ class _EAWBPageState extends State<EAWBPage> {
       CCchargesindestinationcurrency,
       Shipperscertification,
       Carriersexecution,
-
     ];
     //  String Shipper = S.of(context).Shipper;
 
@@ -766,7 +787,9 @@ class _EAWBPageState extends State<EAWBPage> {
                       ),
                     ),
                     content: new Text(
-                      S.of(context).YouhavemadeseveralchangesSavethefieldforfutureuse,
+                      S
+                          .of(context)
+                          .YouhavemadeseveralchangesSavethefieldforfutureuse,
                       style: TextStyle(
                         color: Theme.of(context).accentColor,
                       ),
@@ -774,7 +797,7 @@ class _EAWBPageState extends State<EAWBPage> {
                       textAlign: TextAlign.center,
                     ),
                     actions: <Widget>[
-                      FlatButton(
+                      TextButton(
                         onPressed: () => Navigator.of(context).pop(true),
                         child: Text(
                           S.of(context).Exit,
@@ -784,7 +807,7 @@ class _EAWBPageState extends State<EAWBPage> {
                           // "Exit"
                         ),
                       ),
-                      FlatButton(
+                      TextButton(
                         onPressed: () {
                           model.inserteAWB();
                           Navigator.of(context).pop(true);
@@ -900,7 +923,6 @@ class _EAWBPageState extends State<EAWBPage> {
                                                     fontWeight:
                                                         FontWeight.normal,
                                                     fontSize: 15)),
-
                                             setIcon(index, model),
                                           ],
                                         ),
@@ -910,7 +932,6 @@ class _EAWBPageState extends State<EAWBPage> {
                                             setSubTitle(index, model),
                                           ],
                                         ),
-
 
                                         // setSubTitle(index, model),
                                         // setIcon(index, model)
@@ -983,20 +1004,17 @@ class _EAWBPageState extends State<EAWBPage> {
           ),
         ),
       ),
-      2 :Container(
+      2: Container(
         height: 30,
-        padding: EdgeInsets.only(
-        right: 3.0),
+        padding: EdgeInsets.only(right: 3.0),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-             //color: Colors.red
+          borderRadius: BorderRadius.circular(15),
+          //color: Colors.red
         ),
         child: Container(
           padding: EdgeInsets.all(5),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.green
-          ),
+              borderRadius: BorderRadius.circular(15), color: Colors.green),
           child: Text(
             "Completed !",
             //  S.of(context).Incompleted,
@@ -1010,7 +1028,6 @@ class _EAWBPageState extends State<EAWBPage> {
           ),
         ),
       ),
-
     };
 
     switch (index) {
@@ -1103,14 +1120,14 @@ class _EAWBPageState extends State<EAWBPage> {
         ),
       ),
       2: Tooltip(
-    message: S.of(context).Completed,
-    //"Completed",
-    preferBelow: false,
-    child: Icon(
-    Icons.done,
-    color: Colors.green,
-    ),
-    ),
+        message: S.of(context).Completed,
+        //"Completed",
+        preferBelow: false,
+        child: Icon(
+          Icons.done,
+          color: Colors.green,
+        ),
+      ),
     };
     switch (index) {
       case 0:
@@ -1174,9 +1191,9 @@ class _EAWBPageState extends State<EAWBPage> {
 
 class CirclePainter extends CustomPainter {
   CirclePainter(
-      this._animation, {
-        @required this.color,
-      }) : super(repaint: _animation);
+    this._animation, {
+    @required this.color,
+  }) : super(repaint: _animation);
   final Color color;
   final Animation<double> _animation;
   void circle(Canvas canvas, Rect rect, double value) {
@@ -1188,6 +1205,7 @@ class CirclePainter extends CustomPainter {
     final Paint paint = Paint()..color = _color;
     canvas.drawCircle(rect.center, radius, paint);
   }
+
   @override
   void paint(Canvas canvas, Size size) {
     final Rect rect = Rect.fromLTRB(0.0, 0.0, size.width, size.height);
@@ -1195,7 +1213,7 @@ class CirclePainter extends CustomPainter {
       circle(canvas, rect, wave + _animation.value);
     }
   }
+
   @override
   bool shouldRepaint(CirclePainter oldDelegate) => true;
 }
-

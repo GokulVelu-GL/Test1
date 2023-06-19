@@ -26,7 +26,7 @@ class BulkandUldListloader extends StatefulWidget {
 class BulkandUldListloaderState extends State<BulkandUldListloader> {
   void refreshToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var response = await http.get(StringData.refreshTokenAPI,
+    var response = await http.get(Uri.parse(StringData.refreshTokenAPI),
         headers: {'x-access-tokens': prefs.getString('token')});
     var result = json.decode(response.body);
     if (result['result'] == 'verified')
@@ -168,34 +168,34 @@ class BulkandUldListState extends State<BulkandUldList>
             controller: _tabController,
             tabs: [
               Tab(
-                icon: Badge(
-                    showBadge: true,
-                    badgeContent: Text(bulkCount.toString(),
-                        style: const TextStyle(color: Colors.white)),
-                    animationType: BadgeAnimationType.scale,
-                    shape: BadgeShape.circle,
-                    //alignment: Alignment.topRight,
-                    position: BadgePosition.topEnd(),
-                    // child: const Icon(Icons),
-                    child: Text(
-                      "Bulk   ",
-                      style: TextStyle(fontSize: 18),
-                    )),
+                // icon: Badge(
+                //     showBadge: true,
+                //     badgeContent: Text(bulkCount.toString(),
+                //         style: const TextStyle(color: Colors.white)),
+                //     animationType: BadgeAnimationType.scale,
+                //     shape: BadgeShape.circle,
+                //     //alignment: Alignment.topRight,
+                //     position: BadgePosition.topEnd(),
+                //     // child: const Icon(Icons),
+                //     child: Text(
+                //       "Bulk   ",
+                //       style: TextStyle(fontSize: 18),
+                //     )),
               ),
               Tab(
-                icon: Badge(
-                    showBadge: true,
-                    badgeContent: Text(uldCount.toString(),
-                        style: const TextStyle(color: Colors.white)),
-                    animationType: BadgeAnimationType.scale,
-                    shape: BadgeShape.circle,
-                    alignment: Alignment.topRight,
-                    //position: BadgePosition.center(),
-                    // child: const Icon(Icons),
-                    child: Text(
-                      "ULD   ",
-                      style: TextStyle(fontSize: 18),
-                    )),
+                // icon: Badge(
+                //     showBadge: true,
+                //     badgeContent: Text(uldCount.toString(),
+                //         style: const TextStyle(color: Colors.white)),
+                //     animationType: BadgeAnimationType.scale,
+                //     shape: BadgeShape.circle,
+                //     alignment: Alignment.topRight,
+                //     //position: BadgePosition.center(),
+                //     // child: const Icon(Icons),
+                //     child: Text(
+                //       "ULD   ",
+                //       style: TextStyle(fontSize: 18),
+                //     )),
               ),
             ],
           ),

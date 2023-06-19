@@ -14,7 +14,7 @@ import 'package:http/http.dart' as http;
 
 void refreshToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var response = await http.get(StringData.refreshTokenAPI,
+  var response = await http.get(Uri.parse(StringData.refreshTokenAPI),
       headers: {'x-access-tokens': prefs.getString('token')});
   var result = json.decode(response.body);
   if (result['result'] == 'verified') prefs.setString('token', result['token']);
@@ -24,7 +24,7 @@ void refreshToken() async {
 Future<dynamic> getToDolist() async {
   var result;
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var response = await http.get(StringData.todoListAPI,
+  var response = await http.get(Uri.parse(StringData.todoListAPI),
       headers: {'x-access-tokens': prefs.getString('token')});
   result = json.decode(response.body);
   if (result['message'] == 'token expired') {

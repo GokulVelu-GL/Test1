@@ -21,51 +21,74 @@ environment:
   sdk: ">=2.10.0 <3.0.0"
 
 dependencies:
-  
+
   flutter:
     sdk: flutter
   flutter_localizations:
-    sdk: flutter  
-  provider: ^4.1.3
-  http: ^0.12.2
-  simple_animations: ^2.2.1
-  flare_flutter: ^2.0.3
+    sdk: flutter
+  provider: ^6.0.5
+  #old version
+  http: ^0.12.1
+  #http: ^0.13.5
+  simple_animations: ^5.0.0+3
+  flare_flutter: ^3.0.2
+  #old version
+#  flutter_speed_dial: ^6.2.0
   flutter_speed_dial: ^1.2.5
-  autocomplete_textfield: ^1.7.3
-  shared_preferences: ^0.5.8
+  autocomplete_textfield: ^2.0.1
+  shared_preferences: ^2.0.15
   crypto: any
-  cupertino_icons: ^0.1.3
-  path_provider: ^1.6.11
+  cupertino_icons: ^1.0.5
+  path_provider: ^2.0.11
   open_file: ^3.0.1
-  tutorial_coach_mark: ^0.5.1
+  tutorial_coach_mark: ^1.2.4
   #dropdownfield: 1.0.3
-  google_fonts: ^1.1.2
-  flutter_typeahead: ^3.0.0-nullsafety.0
+#  google_fonts: ^3.0.1
+  flutter_typeahead: 1.9.3
+  #flutter_typeahead: ^4.1.1
   #flash: ^2.0.3
+  #old version
   image_picker: ^0.6.7+22
   image_cropper: ^1.3.0
+
+#  image_picker: ^0.8.6
+#  image_cropper: ^3.0.1
   circular_profile_avatar: ^2.0.0
   flutter_easyloading: ^3.0.3
+  #old version
+#  fl_chart: ^0.55.2
   fl_chart: ^0.40.2
   intl: ^0.17.0
   convex_bottom_bar: ^3.0.0
-  bottom_navy_bar: ^5.6.0
+  bottom_navy_bar: ^6.0.0
   fab_circular_menu: ^1.0.2
   data_connection_checker: ^0.3.4
-  flutter_launcher_icons: ^0.9.2
+  flutter_launcher_icons: ^0.11.0
   intl_phone_field: ^3.0.1
+  #table_calendar: ^3.0.8
+  #old version
   table_calendar: ^2.2.3
+  #old version
+#  flutter_slidable: ^2.0.0
   flutter_slidable: ^0.5.7
+  #old version
   flutter_local_notifications: ^4.0.1+2
   cron:
   fluttertoast: ^8.0.9
   badges: ^2.0.3
-  hover_effect: ^0.0.0
-  percent_indicator: 4.2.0
-  razorpay_flutter:
+  hover_effect: ^0.6.0
+  percent_indicator: ^4.2.2
+  razorpay_flutter: ^1.3.0
   hand_signature: ^2.3.0+1
-  responsive_framework: ^0.0.7
-
+  responsive_framework: ^0.2.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  #old version uncommand remainder
+#  build_runner: ^2.0.0
+  internet_connection_checker: ^1.0.0+1
+  #old version
+  connectivity_plus: ^0.6.0
+  hive_generator: ^2.0.0
   #flash: ^2.0.5
 
 
@@ -83,8 +106,8 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.
 flutter:
-  
-      
+
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -148,8 +171,8 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-  - family: avenir
-    fonts:
+    - family: avenir
+      fonts:
         - asset: assets/font/Avenir-Medium.ttf
   #   - family: Trajan Pro
   #     fonts:

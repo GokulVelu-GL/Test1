@@ -56,7 +56,7 @@ class _EAWBState extends State<EAWB> {
         child: Container(
           height: 300,
           child: Stack(
-            overflow: Overflow.visible,
+            clipBehavior: Clip.none,
             alignment: Alignment.topCenter,
             fit: StackFit.loose,
             children: <Widget>[
@@ -107,10 +107,8 @@ class _EAWBState extends State<EAWB> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          RaisedButton(
-                            color: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                            elevation: 5,
+                          TextButton(
+                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                             onPressed: () {
                               Navigator.pop(context);
                               Navigator.push(
@@ -126,10 +124,8 @@ class _EAWBState extends State<EAWB> {
                               // "Yes"
                             ),
                           ),
-                          RaisedButton(
-                            color: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                            elevation: 5,
+                          TextButton(
+                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                             onPressed: () {
                               Navigator.pop(context);
                             },
@@ -175,10 +171,12 @@ class _EAWBState extends State<EAWB> {
           String id = await model.getAWBid(_eAWBNumber);
           if (id == null) {
             //Navigator.pop(context);
-            Scaffold.of(context).showSnackBar(
+            Navigator.of(context, rootNavigator: true).pop('dialog');
+            ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                  duration: Duration(seconds: 1),
-                  content: Text("Please To create a Awb number")),
+                content:Text('Please To create a Awb number'),
+                duration: Duration(seconds: 2),
+              ),
             );
           } else {
             String result = await model.getEAWB(id);
@@ -189,10 +187,12 @@ class _EAWBState extends State<EAWB> {
             }
             if (result == 'Not Valid AWB Number') {
               Navigator.pop(context);
-              Scaffold.of(context).showSnackBar(
+              Navigator.of(context, rootNavigator: true).pop('dialog');
+              ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                    duration: Duration(seconds: 1),
-                    content: Text("Not Valid AWB Number")),
+                  content:Text("Not Valid AWB Number"),
+                  duration: Duration(seconds: 2),
+                ),
               );
             }
             if (result == 'AWB Number Loaded') {
@@ -208,13 +208,15 @@ class _EAWBState extends State<EAWB> {
         }
       } catch (e) {
         print(e);
-        Navigator.pop(context);
-        Scaffold.of(context).showSnackBar(
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+        ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text("API Error"),
-            duration: Duration(seconds: 1),
+            content:Text("API Error"),
+            duration: Duration(seconds: 2),
           ),
         );
+
+        Navigator.pop(context);
       }
     }
   }
@@ -232,7 +234,7 @@ class _EAWBState extends State<EAWB> {
           child: Container(
             height: 300,
             child: Stack(
-              overflow: Overflow.visible,
+              clipBehavior: Clip.none,
               alignment: Alignment.topCenter,
               fit: StackFit.loose,
               children: <Widget>[
@@ -339,14 +341,15 @@ class _EAWBState extends State<EAWB> {
                               // "AWB-Number"
                             ),
                             maxLength: 12,
-                            maxLengthEnforced: true,
+                            // maxLengthEnforced: true,
                           ),
                         ),
                       ),
-                      RaisedButton(
-                        color: Theme.of(context).accentColor,
-                        textColor: Theme.of(context).backgroundColor,
-                        elevation: 5,
+                      TextButton(
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
+                        // color: Theme.of(context).accentColor,
+                        // textColor: Theme.of(context).backgroundColor,
+                        // elevation: 5,
                         onPressed: () {
                           print(model.awbConsigmentDetailsAWBNumber);
                           _getAWBData(model);

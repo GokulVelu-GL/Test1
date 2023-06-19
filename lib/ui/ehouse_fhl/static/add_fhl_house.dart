@@ -122,9 +122,8 @@ class _AddFHLHouseState extends State<AddFHLHouse> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(bottom: 15, right: 8),
-                  child: FlatButton(
-                    textColor: Colors.black,
-                    color: Theme.of(context).accentColor,
+                  child: TextButton(
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                     onPressed: () {
                       Navigator.of(context).pop(null);
                     },
@@ -137,9 +136,8 @@ class _AddFHLHouseState extends State<AddFHLHouse> {
                 // ! ADD ....
                 Padding(
                   padding: const EdgeInsets.only(bottom: 15),
-                  child: FlatButton(
-                      textColor: Colors.black,
-                      color: Theme.of(context).accentColor,
+                  child: TextButton(
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                       onPressed: () {
                         Navigator.pop(context, _fhlModel);
                       },

@@ -1,34 +1,58 @@
-import 'dart:convert';
-
-import 'package:autocomplete_textfield/autocomplete_textfield.dart';
-// import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
-import 'package:rooster/formatter.dart';
-import 'package:rooster/generated/l10n.dart';
-import 'package:rooster/screenroute.dart';
-import 'package:rooster/ui/drodowns/airline_code.dart';
-import 'package:rooster/ui/drodowns/airport_code.dart';
-import 'package:rooster/ui/hawb/offline_main_hawb/create_data_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:dropdownfield/dropdownfield.dart';
-import '../../../model/eawb_model.dart';
-import '../../../string.dart';
-import '../main_hawb.dart';
-import 'package:http/http.dart' as http;
+import 'package:rooster/model/eawb_model.dart';
+import 'package:rooster/string.dart';
+import '../../../formatter.dart';
+import '../../../generated/l10n.dart';
+import '../../drodowns/airline_code.dart';
+import '../../drodowns/airport_code.dart';
+import '../static/add_master_eawb.dart';
+import 'model_class.dart';
+// String Offlineairline="";
+// String OfflinemasterAWB="";
+// String Offlineorigin="";
+// String Offlinedestination="";
+// String Offlineshipment="";
+// String Offlinepieces="";
+// String Offlineweight="";
+// String OfflineweightUnit="N";
+// bool Offlinestatus=true;
 
-import '../offline_main_hawb/api.dart';
-import '../offline_main_hawb/model_class.dart';
+String iOfflineairline="";
+String iOfflinemasterAWB="";
+String iOfflineorigin="";
+String iOfflinedestination="";
+String iOfflineshipment="";
+String iOfflinepieces="";
+String iOfflineweight="";
+String iOfflineweightUnit="N";
+bool iOfflinestatus=true;
 
-class AddMasterAWB extends StatefulWidget {
+
+class CreateDataScreen extends StatefulWidget {
+  const CreateDataScreen({Key key}) : super(key: key);
+
   @override
-  _AddMasterAWBState createState() => _AddMasterAWBState();
+  State<CreateDataScreen> createState() => _CreateDataScreenState();
 }
 
-class _AddMasterAWBState extends State<AddMasterAWB> {
+class _CreateDataScreenState extends State<CreateDataScreen> {
+  String iOfflineairline="";
+  String iOfflinemasterAWB="";
+  String iOfflineorigin="";
+  String iOfflinedestination="";
+  String iOfflineshipment="";
+  String iOfflinepieces="";
+  String iOfflineweight="";
+  String iOfflineweightUnit="N";
+  bool iOfflinestatus=true;
+
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final _awbForm = GlobalKey<FormState>();
   String airline;
   String masterAWB;
@@ -38,29 +62,43 @@ class _AddMasterAWBState extends State<AddMasterAWB> {
   String pieces;
   String weight;
   String weightUnit = 'K';
+
   final TextEditingController originController = TextEditingController();
   final TextEditingController airlineController = TextEditingController();
   final TextEditingController destinationController = TextEditingController();
 
+  // Future<Album>? _futureAlbum;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _ageController.dispose();
+    _phoneController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<Api>(
-        builder: (BuildContext context, model, Widget child) {
+    return  Consumer<EAWBModel>(
+        builder: (BuildContext context,
+        model, Widget child) {
           return Scaffold(
               appBar: AppBar(
-                backgroundColor: Theme
-                    .of(context)
-                    .primaryColor,
+                backgroundColor: Theme.of(context).primaryColor,
                 title: Text(
-                  S
-                      .of(context)
-                      .AddMasterAirWaybill,
+                  S.of(context).AddMasterAirWaybill,
 
                   //  "Add Master Air Waybill"
                 ),
                 centerTitle: true,
               ),
-              body: Center(
+              body:
+              Center(
                 child: SingleChildScrollView(
                   child: Card(
                     child: Column(
@@ -70,15 +108,11 @@ class _AddMasterAWBState extends State<AddMasterAWB> {
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
                           child: Text(
-                            S
-                                .of(context)
-                                .Add,
+                            S.of(context).Add,
 
                             //"Add",
                             style: TextStyle(
-                                color: Theme
-                                    .of(context)
-                                    .accentColor, fontSize: 20),
+                                color: Theme.of(context).accentColor, fontSize: 20),
                           ),
                         ),
                         SizedBox(
@@ -90,18 +124,12 @@ class _AddMasterAWBState extends State<AddMasterAWB> {
                             padding: EdgeInsets.all(10.0),
                             child: Column(
                               children: [
-                                // Container(
-                                //   child:     offline(),
-                                // ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Row(
                                     children: [
                                       Expanded(
-                                        child:
-                                        //(Offlinestatus)?
-                                        airlineTF(),
-
+                                        child: airlineT(),
                                         flex: 3,
                                       ),
                                       SizedBox(
@@ -119,14 +147,14 @@ class _AddMasterAWBState extends State<AddMasterAWB> {
                                   child: Row(
                                     children: [
                                       Expanded(
-                                        child: originTF(),
+                                        child: originT(),
                                         flex: 4,
                                       ),
                                       SizedBox(
                                         width: 5,
                                       ),
                                       Expanded(
-                                        child: destinationTF(),
+                                        child: destinationT(),
                                         flex: 4,
                                       ),
                                       SizedBox(
@@ -178,24 +206,39 @@ class _AddMasterAWBState extends State<AddMasterAWB> {
                                 TextButton(
                                   style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                                   onPressed: () {
-                                     bool offlinestatus=false;
                                     if (_awbForm.currentState.validate()) {
-                                      Api().insertAWBList(
-                                        context,
-                                          airline,
-                                          masterAWB,
-                                          shipment,
-                                          originController.text,
-                                          destinationController.text,
-                                          pieces,
-                                          weight,
-                                          weightUnit,
-                                          offlinestatus
-                                      );
+                                      setState(() {
+                                        Hive.openBox('AwbList');
+                                        final value = AwbListOffline(
+                                          airline: airline,
+                                          masterAWB: masterAWB,
+                                          shipment: shipment,
+                                          origin: originController.text,
+                                          destination: destinationController.text,
+                                          pieces: pieces,
+                                          weight: weight,
+                                          weightUnit: weightUnit,
+                                        );
+                                        Hive.box('AwbList').add(value);
+                                         iOfflineairline = airline;
+                                         iOfflinemasterAWB = masterAWB;
+                                         iOfflineorigin = originController.text;
+                                         iOfflinedestination = destinationController.text;
+                                         iOfflineshipment = shipment;
+                                         iOfflinepieces = pieces;
+                                         iOfflineweight = weight;
+                                         iOfflineweightUnit = weightUnit;
+                                         iOfflinestatus=true;
+                                         print("offline data\n offline");
+                                         print(OfflineweightUnit);
+                                         print(Offlinepieces);
 
 
-                                      Navigator.push(
-                                          context, HomeScreenRoute(MyEawb()));
+
+                                      });
+                                      // insertAWBList();
+
+                                      // Navigator.push(context, HomeScreenRoute(MyEawb()));
                                     }
                                     // Navigator.pop(
                                     //   context,
@@ -213,9 +256,9 @@ class _AddMasterAWBState extends State<AddMasterAWB> {
                                   },
                                   child: Text(
                                     S.of(context).Submit,
-                                    style: TextStyle(
-                                      color: Theme.of(context).backgroundColor
-                                    ),
+                                      style:TextStyle(
+                                          color:Theme.of(context).backgroundColor
+                                      )
                                     //  "Submit"
                                   ),
                                 ),
@@ -228,283 +271,106 @@ class _AddMasterAWBState extends State<AddMasterAWB> {
                   ),
                 ),
               ));
+          //     SingleChildScrollView(
+          //       child: Padding(
+          //         padding: const EdgeInsets.all(15),
+          //         child: Column(
+          //           crossAxisAlignment: CrossAxisAlignment.stretch,
+          //           children: [
+          //             TextField(
+          //               controller: _nameController,
+          //               decoration: const InputDecoration(labelText: 'Name'),
+          //             ),
+          //             const SizedBox(height: 30),
+          //             TextField(
+          //               controller: _ageController,
+          //               decoration: const InputDecoration(labelText: 'Age'),
+          //             ),
+          //             const SizedBox(height: 30),
+          //             TextField(
+          //               controller: _phoneController,
+          //               decoration: const InputDecoration(labelText: 'Phone'),
+          //             ),
+          //             const SizedBox(height: 50),
+          //             ElevatedButton(
+          //               onPressed: () {
+          //                 Hive.openBox('AwbList');
+          //                 final value = AwbListOffline(
+          //                   airline: _nameController.text,
+          //                   pieces: _ageController.text,
+          //                   weight: _phoneController.text,
+          //                 );
+          //                 Hive.box('AwbList').add(value);
+          //                 // insertAWBList();
+          //                 // _futureAlbum = createAlbum(_nameController.text);
+          //               },
+          //
+          //               child: const Text('Create'),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          // );
         }
     );
   }
-  //
-  // Future<dynamic> insertAWBList() async {
-  //   var result;
-  //
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   var response = await http.post(StringData.awblistAPI,
-  //       headers: <String, String>{
-  //         'x-access-tokens': prefs.getString('token'),
-  //         'Content-Type': 'application/json; charset=UTF-8',
-  //       },
-  //       body: jsonEncode({
-  //         "prefix": airline,
-  //         "wayBillNumber": masterAWB,
-  //         "origin": origin,
-  //         "destination": destination,
-  //         "shipmentcode": shipment,
-  //         "pieces": pieces,
-  //         "weightcode": weightUnit,
-  //         "weight": weight,
-  //         "FlightList_id": 16,
-  //       }
-  //       ));
-  //   result = json.decode(response.body);
-  //   if (result['message'] == 'token expired') {
-  //     refreshToken();
-  //     insertAWBList();
-  //     final value = AwbListOffline(
-  //       airline: airline,
-  //       pieces: pieces,
-  //       weight: weight,
-  //     );
-  //
-  //     Hive.box('AwbList').add(value);
-  //     Fluttertoast.showToast(
-  //         msg: 'AWB Number Added',
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.BOTTOM,
-  //         timeInSecForIosWeb: 1,
-  //         backgroundColor: Colors.green,
-  //         textColor: Colors.white
-  //     );
-  //   } else {
-  //     result = json.decode(response.body);
-  //     print(prefs.getString('token'));
-  //     print("@@@@@@@@@@@@@@@@@");
-  //     if (response.statusCode == 201) {
-  //       print("insert...................."+result);
-  //       // insertAWB();
-  //       Fluttertoast.showToast(
-  //           msg: 'AWB Number Added',
-  //           toastLength: Toast.LENGTH_SHORT,
-  //           gravity: ToastGravity.BOTTOM,
-  //           timeInSecForIosWeb: 1,
-  //           backgroundColor: Colors.green,
-  //           textColor: Colors.white
-  //       );
-  //       final value = AwbListOffline(
-  //         airline: airline,
-  //         pieces: pieces,
-  //         weight: weight,
-  //       );
-  //
-  //       Hive.box('AwbList').add(value);
-  //       // Scaffold.of(context).showSnackBar(
-  //       //   SnackBar(
-  //       //     content: Text("AWB Number Added"),
-  //       //     duration: Duration(seconds: 1),
-  //       //   ),
-  //       // );
-  //       // _showMessage(
-  //       //     S.of(context).AWBNumberAdded
-  //       //     //"AWB Number Added"
-  //       //     ,
-  //       //     Colors.green,
-  //       //     Colors.white);
-  //       Navigator.push(context, HomeScreenRoute(MyEawb()));
-  //      //   Navigator.of(context).push(MyEawb());
-  //       print("Data inserted");
-  //     } else {
-  //       Fluttertoast.showToast(
-  //           msg: 'AWB Number Added Failed',
-  //           toastLength: Toast.LENGTH_SHORT,
-  //           gravity: ToastGravity.BOTTOM,
-  //            timeInSecForIosWeb: 1,
-  //           backgroundColor: Colors.red,
-  //           textColor: Colors.white
-  //       );
-  //       Navigator.push(context, HomeScreenRoute(MyEawb()));
-  //       print("Failed");
-  //       // Scaffold.of(context).showSnackBar(
-  //       //   SnackBar(
-  //       //     content: Text("AWB Number Added Failed"),
-  //       //     duration: Duration(seconds: 1),
-  //       //   ),
-  //       // );
-  //       // _showMessage(
-  //       //     S.of(context).AWBNumberAddedFailed
-  //       //     //"AWB Number Added Failed"
-  //       //     ,
-  //       //     Colors.red,
-  //       //     Colors.white);
-  //       print("Data insertion failed");
-  //     }
-  //   }
-  //   return result;
-  // }
-  //
-  // void _showMessage(String message, Color bgcolor, txtcolor) {
-  //   if (!mounted) return;
-  //   showFlash(
-  //       context: context,
-  //       duration: Duration(seconds: 3),
-  //       builder: (_, controller) {
-  //         return Flash(
-  //           borderRadius: BorderRadius.circular(20),
-  //           backgroundColor: bgcolor,
-  //           controller: controller,
-  //           position: FlashPosition.top,
-  //           behavior: FlashBehavior.fixed,
-  //           child: FlashBar(
-  //             icon: Icon(
-  //               Icons.flight_takeoff_outlined,
-  //               size: 36.0,
-  //               color: txtcolor,
-  //             ),
-  //             content: Text(
-  //               message,
-  //               textAlign: TextAlign.center,
-  //               style: TextStyle(fontSize: 20, color: txtcolor),
-  //             ),
-  //           ),
-  //         );
-  //       });
-  // }
-
-  // airlineTF() {
-  //   //final focus = FocusNode();
-  //   return TextFormField(
-  //     textInputAction: TextInputAction.next,
-  //     keyboardType: TextInputType.number,
-  //     maxLength: 3,
-  //     //focusNode: focus,
-  //     validator: (value) {
-  //       if (value.isEmpty || value == null) {
-  //         return "Please Enter the Airline code";
-  //       } else if (value.length != 3) {
-  //         return "Please Enter the 3 degit Airline Code";
-  //       }
-  //       return null;
-  //     },
-
-  //     // inputFormatters: [AllCapitalCase()],
-  //     decoration: InputDecoration(
-  //       border: OutlineInputBorder(
-  //           gapPadding: 2.0,
-  //           borderRadius: BorderRadius.all(Radius.circular(8.0))),
-  //       labelText: 'Airline',
-  //     ),
-  //     onChanged: (value) {
-  //       setState(() {
-  //         airline = value;
-  //       });
-  //     },
-  //   );
-  // }
-  List offlineairline;
-  MenuItem rateclassdropdown;
-  List<MenuItem> item = new List<MenuItem>();
-  List<MenuItem> items=[
-  ];
-
-
-  // offline(){
-  //   return
-  //   // Text(rateClass),
-  //   Container(
-  //     height: 40,
-  //     margin: const EdgeInsets.only(bottom: 15),
-  //     decoration: BoxDecoration(
-  //         borderRadius: BorderRadius.all(
-  //           Radius.circular(8.0),),
-  //         border: Border.all(color: Theme.of(context).accentColor,
-  //           width: 2,
-  //         )
-  //     ),
-  //     padding: const EdgeInsets.only(bottom:10),
-  //     child: DropdownButton<MenuItem>(
-  //         isExpanded: true,
-  //         icon: Visibility (visible:false, child: Icon(Icons.arrow_downward)),
-  //         // icon: Icon(Icons.keyboard_arrow_down),
-  //         underline: SizedBox(),
-  //         value: rateclassdropdown,
-  //         onChanged: (MenuItem newValue) {
-  //           setState(() {
-  //             rateclassdropdown = newValue;
-  //             airline = newValue.airlineprefix.toString();
-  //           });
-  //         },
-  //         items: items.map<DropdownMenuItem<MenuItem>>((MenuItem value) {
-  //           return DropdownMenuItem<MenuItem>(
-  //             value: value,
-  //             child: ListTile(
-  //               title: Text(value.airlineprefix.toString()),
-  //               trailing:  Text(value.airlinename),
-  //
-  //             ),
-  //           );
-  //         }).toList()),
-  //   );
-  // }
 
   airlineTF() {
 
     return TypeAheadFormField<AirlineCode>(
       getImmediateSuggestions: true,
-        suggestionsCallback: AirlineCodeApi.getAirlineCode,
-        itemBuilder: (context, AirlineCode suggestion) {
-        print("dropdown b");
-        print(suggestion.airlinePrifix);
-        // offlineairline.add(suggestion.airlinePrifix);
-        //  print(offlineairline);
-        // items.add(MenuItem(suggestion.airlinePrifix,suggestion.airlineName));
-
-          final code = suggestion;
-
-          return ListTile(
-            title: Text(code.airlineCode),
-            subtitle: Text(code.airlineName),
-          );
-        },
-        validator: (value) {
-          if (value.isEmpty) {
-            return S.of(context).SelectaAirline;
-            //'Select a Airline';
-          }
-          return null;
-        },
-        textFieldConfiguration: TextFieldConfiguration(
-          maxLength: 3,
-          controller: this.airlineController,
-          inputFormatters: [AllCapitalCase()],
-          decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Theme.of(context).accentColor),
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              ),
-              //border: InputBorder.none,
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Theme.of(context).accentColor),
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              ),
-              border: OutlineInputBorder(
-                  gapPadding: 2.0,
-                  borderRadius: BorderRadius.all(Radius.circular(8.0))),
-              labelText: S.of(context).Airline,
-              labelStyle: TextStyle(color: Theme.of(context).accentColor)
-            //'Airline',
-          ),
-        ),
-        onSuggestionSelected: (AirlineCode suggestion) {
-          this.airlineController.text = suggestion.airlinePrifix;
-          airline = suggestion.airlinePrifix;
-          //
-        },
-        // autovalidateMode: AutovalidateMode.onUserInteraction,
-        // onSuggestionSelected: (AirlineCode suggestion) {
-        //
-        //     this.airlineController.text = suggestion.airlinePrifix;
-        //     airline = suggestion.airlinePrifix;
-        //
-        //   print("airline 001"+airline);
-        //
-        // }
+      suggestionsCallback: AirlineCodeApi.getAirlineCode,
+      itemBuilder: (context, AirlineCode suggestion) {
+        final code = suggestion;
+        return ListTile(
+          title: Text(code.airlineCode),
+          subtitle: Text(code.airlineName),
         );
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          return S.of(context).SelectaAirline;
+          //'Select a Airline';
+        }
+        return null;
+      },
+      textFieldConfiguration: TextFieldConfiguration(
+        maxLength: 3,
+        controller: this.airlineController,
+        inputFormatters: [AllCapitalCase()],
+        decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).accentColor),
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
+            //border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).accentColor),
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
+            border: OutlineInputBorder(
+                gapPadding: 2.0,
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            labelText: S.of(context).Airline,
+            labelStyle: TextStyle(color: Theme.of(context).accentColor)
+          //'Airline',
+        ),
+      ),
+      onSuggestionSelected: (AirlineCode suggestion) {
+        this.airlineController.text = suggestion.airlinePrifix;
+        airline = suggestion.airlinePrifix;
+        //
+      },
+      // autovalidateMode: AutovalidateMode.onUserInteraction,
+      // onSuggestionSelected: (AirlineCode suggestion) {
+      //
+      //     this.airlineController.text = suggestion.airlinePrifix;
+      //     airline = suggestion.airlinePrifix;
+      //
+      //   print("airline 001"+airline);
+      //
+      // }
+    );
   }
 
   masterAWBTF() {
@@ -600,7 +466,7 @@ class _AddMasterAWBState extends State<AddMasterAWB> {
             print(origin);
           }
         }
-        );
+    );
   }
 
   destinationTF() {
@@ -840,6 +706,111 @@ class _AddMasterAWBState extends State<AddMasterAWB> {
       },
     );
   }
+  airlineT() {
+    return TextFormField(
+      textInputAction: TextInputAction.next,
+      inputFormatters: [AllCapitalCase()],
+      decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).accentColor),
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
+          //border: InputBorder.none,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).accentColor),
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
+          border: OutlineInputBorder(
+              gapPadding: 2.0,
+              borderRadius: BorderRadius.all(Radius.circular(8.0))),
+          labelText: S.of(context).Airline,
+          labelStyle: TextStyle(color: Theme.of(context).accentColor)
+        //'Weight',
+      ),
+      validator: (value) {
+        if (value.isEmpty || value == null) {
+          return S.of(context).PleaseEntertheweight;
+          //"Please Enter the weight";
+        }
+        return null;
+      },
+      onChanged: (value) {
+        setState(() {
+          airline = value;
+        });
+      },
+    );
+  }
+  originT() {
+    return TextFormField(
+      textInputAction: TextInputAction.next,
+      inputFormatters: [AllCapitalCase()],
+      decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).accentColor),
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
+          //border: InputBorder.none,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).accentColor),
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
+          border: OutlineInputBorder(
+              gapPadding: 2.0,
+              borderRadius: BorderRadius.all(Radius.circular(8.0))),
+          labelText: S.of(context).Origin,
+          labelStyle: TextStyle(color: Theme.of(context).accentColor)
+        //'Weight',
+      ),
+      validator: (value) {
+        if (value.isEmpty || value == null) {
+          return S.of(context).PleaseEntertheweight;
+          //"Please Enter the weight";
+        }
+        return null;
+      },
+      onChanged: (value) {
+        setState(() {
+          origin = value;
+        });
+      },
+    );
+  }
+  destinationT() {
+    return TextFormField(
+      textInputAction: TextInputAction.next,
+      inputFormatters: [AllCapitalCase()],
+      decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).accentColor),
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
+          //border: InputBorder.none,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).accentColor),
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
+          border: OutlineInputBorder(
+              gapPadding: 2.0,
+              borderRadius: BorderRadius.all(Radius.circular(8.0))),
+          labelText: S.of(context).Destination,
+          labelStyle: TextStyle(color: Theme.of(context).accentColor)
+        //'Weight',
+      ),
+      validator: (value) {
+        if (value.isEmpty || value == null) {
+          return S.of(context).PleaseEntertheDestination;
+          //"Please Enter the weight";
+        }
+        return null;
+      },
+      onChanged: (value) {
+        setState(() {
+          destination = value;
+        });
+      },
+    );
+  }
 
   weightUnitTF() {
     return DropdownButton<String>(
@@ -867,11 +838,13 @@ class _AddMasterAWBState extends State<AddMasterAWB> {
     );
   }
 }
-class MenuItem {
-  String airlineprefix;
-  String airlinename;
 
-  MenuItem(this.airlineprefix, this.airlinename);
-}
-
-
+String Offlineairline=iOfflineairline;
+String OfflinemasterAWB=iOfflinemasterAWB;
+String Offlineorigin=iOfflineorigin;
+String Offlinedestination=iOfflinedestination;
+String Offlineshipment=iOfflineshipment;
+String Offlinepieces=iOfflinepieces;
+String Offlineweight=iOfflineweight;
+String OfflineweightUnit=iOfflineweightUnit;
+bool Offlinestatus=iOfflinestatus;

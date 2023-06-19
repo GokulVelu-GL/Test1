@@ -45,27 +45,30 @@ class _SplashScreenState extends State<SplashScreen> {
     if (token == null || token.isEmpty) {
       Future.delayed(Duration(seconds: splashScreenDelay), () {
         if (dataConn) {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (BuildContext context) => LoginPage()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginPage()),
+          );
+          // Navigator.pushReplacement(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (BuildContext context) => LoginPage()));
         }
       });
     } else {
       Future.delayed(Duration(seconds: splashScreenDelay), () {
         if (dataConn) {
-          if (StringData.airportCodes == null ||
+          if (
+           StringData.airportCodes == null ||
               StringData.airportCodes.isEmpty ||
               StringData.specialhandlinggroup.isEmpty ||
-              StringData.contactType.isEmpty||
-              StringData.airlineCodes.isEmpty||
-              StringData.contactType.isEmpty||
-              StringData.CHGSCode.isEmpty||
+              StringData.contactType.isEmpty ||
+              StringData.airlineCodes.isEmpty ||
+              StringData.contactType.isEmpty ||
+              StringData.CHGSCode.isEmpty ||
               StringData.voulmeCodes.isEmpty
-
-
           ) {
-            StringData.loadAirportCode();
+           StringData.loadAirportCode();
             StringData.loadAirlineCode();
             StringData.loadVolumeCode();
             StringData.loadRateClassCode();
@@ -77,10 +80,14 @@ class _SplashScreenState extends State<SplashScreen> {
             StringData.loadExchangeRate();
             StringData.loadAirport();
           }
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (BuildContext context) => PlanPage()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  PlanPage()),
+          );
+          // Navigator.pushReplacement(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (BuildContext context) => PlanPage()));
         }
       });
     }
@@ -162,7 +169,7 @@ class _SplashScreenState extends State<SplashScreen> {
               title: new Text("Connection"),
               content: new Text(content),
               actions: <Widget>[
-                new FlatButton(
+                 TextButton(
                     onPressed: () {
                       exit(0);
                       // Navigator.of(context).pop();

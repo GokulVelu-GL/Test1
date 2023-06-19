@@ -55,13 +55,13 @@ class _EditHousesFHLState extends State<EditHousesFHL> {
 
                       ),
                       actions: <Widget>[
-                        FlatButton(
+                        TextButton(
                             onPressed: () => Navigator.of(context).pop(true),
                             child:  Text(
                                S.of(context).Delete,
                               // "Delete"
                             )),
-                        FlatButton(
+                        TextButton(
                           onPressed: () => Navigator.of(context).pop(false),
                           child:  Text(
                            S.of(context).Cancel,
