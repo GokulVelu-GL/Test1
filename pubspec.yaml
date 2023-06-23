@@ -44,7 +44,7 @@ dependencies:
   tutorial_coach_mark: ^1.2.4
   #dropdownfield: 1.0.3
 #  google_fonts: ^3.0.1
-  flutter_typeahead: 1.9.3
+  flutter_typeahead: ^3.0.0-nullsafety.0
   #flutter_typeahead: ^4.1.1
   #flash: ^2.0.3
   #old version
@@ -86,7 +86,7 @@ dependencies:
   #old version uncommand remainder
 #  build_runner: ^2.0.0
   internet_connection_checker: ^1.0.0+1
-  #old version
+  #old version-00
   connectivity_plus: ^0.6.0
   hive_generator: ^2.0.0
   #flash: ^2.0.5

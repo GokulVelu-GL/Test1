@@ -165,7 +165,8 @@ class _HomeScreenState extends State<HomeScreen> {
           onPageChanged: (index) {
             setState(() => _currentIndex = index);
           },
-          children: <Widget>[NewHomeScreen(),
+          children: <Widget>[
+            NewHomeScreen(),
             HomeDashboard()
             , UserProfile()],
         ),

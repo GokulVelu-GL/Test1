@@ -675,6 +675,9 @@ class _Slot_homeState extends State<Slot_home> {
                             },
                             child: Text(
                               S.of(context).Search,
+                              style: TextStyle(
+                                color: Colors.white
+                              ),
                               //  "Search"
                             ),
                           ),
@@ -810,6 +813,7 @@ class _Slot_homeState extends State<Slot_home> {
                             },
                             child: Text(
                               S.of(context).Search,
+                              style: TextStyle(color: Theme.of(context).backgroundColor),
 
                               //  "Search",
                             ),
@@ -1240,6 +1244,7 @@ class _MultipleAWBState extends State<MultipleAWB> {
             },
             child: Text(
               S.of(context).Search,
+              style: TextStyle(color: Theme.of(context).backgroundColor),
                 //"Search"
             ),
           ),

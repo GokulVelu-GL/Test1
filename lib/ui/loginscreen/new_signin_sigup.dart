@@ -224,7 +224,9 @@ class _SignInState extends State<SignIn> {
   Widget button = Text(
     //S.of(context).Login
       'Login',
-      style: TextStyle(fontSize: 20));
+      style: TextStyle(fontSize: 20,
+      color: Colors.white
+      ));
 
 
   @override
@@ -864,7 +866,9 @@ class _SignUpState extends State<SignUp> {
   String uid;
   String tenant;
 
-  Widget button = Text('Create Account', style: TextStyle(fontSize: 20));
+  Widget button = Text('Create Account', style: TextStyle(fontSize: 20,
+  color: Colors.white
+  ));
 
   bool _obscureTextNewPassword = true;
   final _formKey = GlobalKey<FormState>();

@@ -192,6 +192,10 @@ class _ChargesSummaryState extends State<ChargesSummary> {
                             _chargesSummaryWeightChargePostpaidFocusNode);
                       },
                       decoration: InputDecoration(
+    enabled: false,
+                        filled: true,
+                        fillColor:Theme.of(context).accentColor.withOpacity(0.2),
+
                         isDense: true,
                         enabledBorder: OutlineInputBorder(
                             borderSide: new BorderSide(
@@ -249,6 +253,11 @@ class _ChargesSummaryState extends State<ChargesSummary> {
                             _chargesSummaryValuationChargePrepaidFocusNode);
                       },
                       decoration: InputDecoration(
+                        enabled: false,
+                        filled: true,
+                        fillColor:Theme.of(context).accentColor.withOpacity(0.2),
+
+
                         isDense: true,
                         enabledBorder: OutlineInputBorder(
                             borderSide: new BorderSide(
@@ -573,7 +582,7 @@ class _ChargesSummaryState extends State<ChargesSummary> {
                   child: Container(
                     margin: EdgeInsets.all(10.0),
                     child: TextFormField(
-                      enabled: true,
+                      enabled: false,
                       initialValue: model.chargeSummaryDueAgentPrepaid,
                       focusNode:
                           _chargesSummaryTotalOtherChargesDueAgentPrepaidFocusNode,
@@ -586,6 +595,11 @@ class _ChargesSummaryState extends State<ChargesSummary> {
                             _chargesSummaryTotalOtherChargesDueAgentPostpaidFocusNode);
                       },
                       decoration: InputDecoration(
+                        enabled: false,
+                        filled: true,
+                        fillColor:Theme.of(context).accentColor.withOpacity(0.2),
+
+
                         isDense: true,
                         enabledBorder: OutlineInputBorder(
                             borderSide: new BorderSide(
@@ -625,7 +639,7 @@ class _ChargesSummaryState extends State<ChargesSummary> {
                   child: Container(
                     margin: EdgeInsets.all(10.0),
                     child: TextFormField(
-                      enabled: true,
+                      enabled: false,
                       initialValue: model.chargeSummaryDueAgentPostpaid,
                       focusNode:
                           _chargesSummaryTotalOtherChargesDueAgentPostpaidFocusNode,
@@ -638,6 +652,11 @@ class _ChargesSummaryState extends State<ChargesSummary> {
                             _chargesSummaryTotalOtherChargesDueCarrierPrepaidFocusNode);
                       },
                       decoration: InputDecoration(
+                        enabled: false,
+                        filled: true,
+                        fillColor:Theme.of(context).accentColor.withOpacity(0.2),
+
+
                         isDense: true,
                         enabledBorder: OutlineInputBorder(
                             borderSide: new BorderSide(
@@ -705,7 +724,7 @@ class _ChargesSummaryState extends State<ChargesSummary> {
                   child: Container(
                     margin: EdgeInsets.all(10.0),
                     child: TextFormField(
-                      enabled: true,
+                      enabled: false,
                       initialValue: model.chargeSummaryDueCarrierPrepaid,
                       focusNode:
                           _chargesSummaryTotalOtherChargesDueCarrierPrepaidFocusNode,
@@ -718,6 +737,11 @@ class _ChargesSummaryState extends State<ChargesSummary> {
                             _chargesSummaryTotalOtherChargesDueCarrierPostpaidFocusNode);
                       },
                       decoration: InputDecoration(
+                        enabled: false,
+                        filled: true,
+                        fillColor:Theme.of(context).accentColor.withOpacity(0.2),
+
+
                         isDense: true,
                         enabledBorder: OutlineInputBorder(
                             borderSide: new BorderSide(
@@ -757,7 +781,7 @@ class _ChargesSummaryState extends State<ChargesSummary> {
                   child: Container(
                     margin: EdgeInsets.all(10.0),
                     child: TextFormField(
-                      enabled: true,
+                      enabled: false,
                       initialValue: model.chargeSummaryDueCarrierPostpaid,
                       focusNode:
                           _chargesSummaryTotalOtherChargesDueCarrierPostpaidFocusNode,
@@ -770,20 +794,25 @@ class _ChargesSummaryState extends State<ChargesSummary> {
                             _chargesSummaryTotalPrepaidFocusNode);
                       },
                       decoration: InputDecoration(
+                        enabled: false,
+                        filled: true,
+                        fillColor:Theme.of(context).accentColor.withOpacity(0.2),
+
+
                         isDense: true,
                         enabledBorder: OutlineInputBorder(
                             borderSide: new BorderSide(
                                 color: Theme.of(context).accentColor,
-                                // color: Colors.deepPurple,
+                                //color: Colors.deepPurple,
                                 width: 2),
                             //gapPadding: 2.0,
                             borderRadius:
-                                BorderRadius.all(Radius.circular(8.0))),
+                            BorderRadius.all(Radius.circular(8.0))),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             width: 2,
                             color: Theme.of(context).accentColor,
-                            // color: Colors.deepPurple
+                            //color: Colors.deepPurple
                           ),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
@@ -791,14 +820,12 @@ class _ChargesSummaryState extends State<ChargesSummary> {
                         //     gapPadding: 2.0,
                         //     borderRadius:
                         //         BorderRadius.all(Radius.circular(8.0))),
-                        labelText:
-                        "Collect",
-                        //S.of(context).Postpaid,
+                        labelText: S.of(context).Prepaid,
                         labelStyle: new TextStyle(
                             color: Theme.of(context).accentColor,
-                            // color: Colors.deepPurple,
+                            //color: Colors.deepPurple,
                             fontSize: 16.0),
-                        //'Postpaid',
+                        //'Prepaid',
                       ),
                       onChanged: (text) {
                         model.chargeSummaryDueCarrierPostpaid = text;
@@ -852,6 +879,11 @@ class _ChargesSummaryState extends State<ChargesSummary> {
                             _chargesSummaryTotalPostpaidFocusNode);
                       },
                       decoration: InputDecoration(
+                        enabled: false,
+                        filled: true,
+                        fillColor:Theme.of(context).accentColor.withOpacity(0.2),
+
+
                         isDense: true,
                         enabledBorder: OutlineInputBorder(
                             borderSide: new BorderSide(
@@ -900,6 +932,11 @@ class _ChargesSummaryState extends State<ChargesSummary> {
                         _chargesSummaryTotalPostpaidFocusNode.unfocus();
                       },
                       decoration: InputDecoration(
+                        enabled: false,
+                        filled: true,
+                        fillColor:Theme.of(context).accentColor.withOpacity(0.2),
+
+
                         isDense: true,
                         enabledBorder: OutlineInputBorder(
                             borderSide: new BorderSide(

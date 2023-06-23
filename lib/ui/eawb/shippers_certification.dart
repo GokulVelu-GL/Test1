@@ -33,12 +33,11 @@ class _ShippersCertificationState extends State<ShippersCertification> {
         child: Scaffold(
           body: SafeArea(
             child: CustomBackground(
-              name:
-              S.of(context).Shipperscertification,
+              name: S.of(context).Shipperscertification,
               //"Shippers Certification",
               next: CarriersExecution(),
               previous: OtherCharges(),
-              help:   IconButton(
+              help: IconButton(
                 color: Theme.of(context).backgroundColor,
                 onPressed: () {
                   showGeneralDialog(
@@ -49,8 +48,7 @@ class _ShippersCertificationState extends State<ShippersCertification> {
                       barrierColor: Colors.black45,
                       transitionDuration: const Duration(milliseconds: 200),
                       pageBuilder: (BuildContext buildContext,
-                          Animation animation,
-                          Animation secondaryAnimation) {
+                          Animation animation, Animation secondaryAnimation) {
                         return SafeArea(
                           child: Scaffold(
                             appBar: AppBar(
@@ -64,20 +62,24 @@ class _ShippersCertificationState extends State<ShippersCertification> {
                                 children: [
                                   Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.contacts_rounded,
+                                      leading: Icon(
+                                        Icons.contacts_rounded,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("Name"),
-                                      subtitle: Text("Identification of individual or company involved in the movement of a consignment\nExample: K WILSON "),
+                                      subtitle: Text(
+                                          "Identification of individual or company involved in the movement of a consignment\nExample: K WILSON "),
                                     ),
                                   ),
                                   Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.note_alt,
+                                      leading: Icon(
+                                        Icons.note_alt,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("Signature"),
-                                      subtitle: Text("Name of signatory \nExample: K. WILSON"),
+                                      subtitle: Text(
+                                          "Name of signatory \nExample: K. WILSON"),
                                     ),
                                   ),
                                 ],
@@ -87,10 +89,10 @@ class _ShippersCertificationState extends State<ShippersCertification> {
                         );
                       });
                 },
-                icon: Icon(Icons.help,
+                icon: Icon(
+                  Icons.help,
                   color: Theme.of(context).accentColor,
                 ),
-
               ),
               child: Card(
                   elevation: 5,
@@ -101,9 +103,10 @@ class _ShippersCertificationState extends State<ShippersCertification> {
                       child: SingleChildScrollView(
                           child: Column(
                         children: <Widget>[
-
                           Text(
-                            S.of(context).ShippercertifiesthattheparticularsonthefacehereofarecorrectandthatinsofarasanypartoftheconsignmentcontainsdangerousgoodssuchpartisproperlydescribedbynameandisinproperconditionforcarriagebyairaccordingtotheapplicableDangerousGoodsRegulations,
+                            S
+                                .of(context)
+                                .ShippercertifiesthattheparticularsonthefacehereofarecorrectandthatinsofarasanypartoftheconsignmentcontainsdangerousgoodssuchpartisproperlydescribedbynameandisinproperconditionforcarriagebyairaccordingtotheapplicableDangerousGoodsRegulations,
                             // "Shipper certifies that the particulars on the face hereof are correct and that insofar as any part of the consignment contains dangerous goods, such part is properly described by name and is in proper condition for carriage by air according to the applicable Dangerous Goods Regulations.",
                             style: TextStyle(
                               color: Theme.of(context).accentColor,
@@ -116,11 +119,12 @@ class _ShippersCertificationState extends State<ShippersCertification> {
                           shipperParticulars(model),
                           signatureOfShipper(model),
                           TextButton(
-                              onPressed: (){
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //     builder: (BuildContext context) =>
-                            //         Signature()));
-                          }, child: Text("Signature"))
+                              onPressed: () {
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //     builder: (BuildContext context) =>
+                                //         Signature()));
+                              },
+                              child: Text("Signature"))
                         ],
                       )),
                     ),
@@ -152,37 +156,35 @@ class _ShippersCertificationState extends State<ShippersCertification> {
               _signatureOfShipperFocusNode);
         },
         decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-              borderSide: new BorderSide(
-                  color: Theme.of(context).accentColor,
-                // color: Colors.deepPurple,
-                  width:2),
-              //gapPadding: 2.0,
-              borderRadius: BorderRadius.all(Radius.circular(8.0))
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(width: 2,
-              color: Theme.of(context).accentColor,
-              // color: Colors.deepPurple
+            enabledBorder: OutlineInputBorder(
+                borderSide: new BorderSide(
+                    color: Theme.of(context).accentColor,
+                    // color: Colors.deepPurple,
+                    width: 2),
+                //gapPadding: 2.0,
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 2,
+                color: Theme.of(context).accentColor,
+                // color: Colors.deepPurple
+              ),
+              borderRadius: BorderRadius.circular(8.0),
             ),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          // border: OutlineInputBorder(
-          //     gapPadding: 2.0,
-          //     borderRadius: BorderRadius.all(Radius.circular(8.0))),
-          labelText:
-          S.of(context).Name+" *",
-          //"Name",
-          labelStyle:
-          new TextStyle(
-              color: Theme.of(context).accentColor,
-            //color: Colors.deepPurple,
-              fontSize: 16.0),
-            suffixIcon: Icon(Icons.contacts,
+            // border: OutlineInputBorder(
+            //     gapPadding: 2.0,
+            //     borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            labelText: S.of(context).Name + " *",
+            //"Name",
+            labelStyle: new TextStyle(
+                color: Theme.of(context).accentColor,
+                //color: Colors.deepPurple,
+                fontSize: 16.0),
+            suffixIcon: Icon(
+              Icons.contacts,
               color: Theme.of(context).accentColor,
               // color: Colors.deepPurple,
-            )
-        ),
+            )),
         onChanged: (text) {
           model.particularsOfShipper = text;
         },
@@ -203,37 +205,36 @@ class _ShippersCertificationState extends State<ShippersCertification> {
           _signatureOfShipperFocusNode.unfocus();
         },
         decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-              borderSide: new BorderSide(
-                  color: Theme.of(context).accentColor,
-                //color: Colors.deepPurple,
-                  width:2),
-              //gapPadding: 2.0,
-              borderRadius: BorderRadius.all(Radius.circular(8.0))
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(width: 2,
-              color: Theme.of(context).accentColor,
-              //  color: Colors.deepPurple
+            enabledBorder: OutlineInputBorder(
+                borderSide: new BorderSide(
+                    color: Theme.of(context).accentColor,
+                    //color: Colors.deepPurple,
+                    width: 2),
+                //gapPadding: 2.0,
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 2,
+                color: Theme.of(context).accentColor,
+                //  color: Colors.deepPurple
+              ),
+              borderRadius: BorderRadius.circular(8.0),
             ),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          // border: OutlineInputBorder(
-          //     gapPadding: 2.0,
-          //     borderRadius: BorderRadius.all(Radius.circular(8.0))),
-          labelText:
-          S.of(context).SignatureofShipperorhisAgent,
-          labelStyle:
-          new TextStyle(
-              color: Theme.of(context).accentColor,
-            //color: Colors.deepPurple,
-              fontSize: 16.0),
-            suffixIcon: Icon(Icons.note_alt,
+            // border: OutlineInputBorder(
+            //     gapPadding: 2.0,
+            //     borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            labelText: S.of(context).SignatureofShipperorhisAgent,
+            labelStyle: new TextStyle(
+                color: Theme.of(context).accentColor,
+                //color: Colors.deepPurple,
+                fontSize: 16.0),
+            suffixIcon: Icon(
+              Icons.note_alt,
               color: Theme.of(context).accentColor,
               // color: Colors.deepPurple,
             )
-          //'Signature of Shipper or his Agent',
-        ),
+            //'Signature of Shipper or his Agent',
+            ),
         onChanged: (text) {
           model.signatureOfShipper = text;
         },

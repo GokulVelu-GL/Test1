@@ -4,7 +4,7 @@ import 'package:rooster/ui/ehouse_fhl/edit_houses_fhl.dart';
 import 'package:rooster/ui/ehouse_fhl/static/add_master_awb.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:tutorial_coach_mark/animated_focus_light.dart';
-// import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class MainEHouseFHL extends StatefulWidget {
   @override
@@ -15,8 +15,8 @@ class _MainEHouseFHLState extends State<MainEHouseFHL> {
 /*
   final _awbForm = GlobalKey<FormState>();
 */
-  // TutorialCoachMark tutorialCoachMark;
-  // List<TargetFocus> targets = List();
+  TutorialCoachMark tutorialCoachMark;
+  List<TargetFocus> targets = List();
   bool tutorial = true;
 
   GlobalKey _listTargetKey = GlobalKey();

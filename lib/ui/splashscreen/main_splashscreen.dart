@@ -68,9 +68,10 @@ class _SplashScreenState extends State<SplashScreen> {
               StringData.CHGSCode.isEmpty ||
               StringData.voulmeCodes.isEmpty
           ) {
-           StringData.loadAirportCode();
+          StringData.loadAirportCode();
             StringData.loadAirlineCode();
             StringData.loadVolumeCode();
+            StringData.loadOtherChargesCode();
             StringData.loadRateClassCode();
             StringData.loadAccId();
             StringData.loadtCHGSCode();
@@ -91,8 +92,8 @@ class _SplashScreenState extends State<SplashScreen> {
         }
       });
     }
-    //}
-  }
+    }
+
 
   @override
   void initState() {

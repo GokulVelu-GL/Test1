@@ -10,7 +10,7 @@ import 'package:rooster/ui/eawb/static/custom_background.dart';
 import 'package:rooster/ui/eawb/handling_information.dart';
 import 'package:rooster/ui/eawb/static/update_rate_description.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'dart:math' as math show sin, pi,sqrt;
+import 'dart:math' as math show sin, pi, sqrt;
 import 'package:flutter/animation.dart';
 
 class RateDescription extends StatefulWidget {
@@ -20,27 +20,26 @@ class RateDescription extends StatefulWidget {
   _RateDescriptionState createState() => _RateDescriptionState();
 }
 
-class _RateDescriptionState extends State<RateDescription>  with TickerProviderStateMixin{
+class _RateDescriptionState extends State<RateDescription>
+    with TickerProviderStateMixin {
   int previousIndex = 0;
   bool cardExpanded = true;
-  bool alertvalue=false;
+  bool alertvalue = false;
   AnimationController _controller;
   bool consolidationvalue = false;
 
   AnimationController _resizableController;
   final animationDuration = Duration(milliseconds: 500);
 
-
   AnimationController _myAnimation;
 
-  int TotalPieces=0;
-  int TotalGWeight=0;
-  int overalltotal=0;
+  int TotalPieces = 0;
+  int TotalGWeight = 0;
+  int overalltotal = 0;
   var _currentIndex = 0;
 
   void initState() {
     super.initState();
-
 
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1000),
@@ -69,20 +68,18 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
 
     _resizableController.forward();
     _myAnimation = AnimationController(
-        duration: const Duration(seconds: 1),
-    vsync: this,
+      duration: const Duration(seconds: 1),
+      vsync: this,
     );
-
   }
-
 
   @override
   void dispose() {
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return Consumer<EAWBModel>(
       builder: (context, model, child) => WillPopScope(
         onWillPop: () async {
@@ -96,7 +93,7 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
               //"Rate Description",
               next: ChargesSummary(),
               previous: HandlingInformation(),
-              help:   IconButton(
+              help: IconButton(
                 color: Theme.of(context).backgroundColor,
                 onPressed: () {
                   showGeneralDialog(
@@ -107,8 +104,7 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                       barrierColor: Colors.black45,
                       transitionDuration: const Duration(milliseconds: 200),
                       pageBuilder: (BuildContext buildContext,
-                          Animation animation,
-                          Animation secondaryAnimation) {
+                          Animation animation, Animation secondaryAnimation) {
                         return SafeArea(
                           child: Scaffold(
                             appBar: AppBar(
@@ -122,61 +118,74 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                                 children: [
                                   Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.production_quantity_limits,
+                                      leading: Icon(
+                                        Icons.production_quantity_limits,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("Number of Pieces"),
-                                      subtitle: Text("Number of Loose Items and/or ULD’s as accepted for carriage\n Example: 10"),
+                                      subtitle: Text(
+                                          "Number of Loose Items and/or ULD’s as accepted for carriage\n Example: 10"),
                                     ),
                                   ),
                                   Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.monitor_weight,
+                                      leading: Icon(
+                                        Icons.monitor_weight,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("Weight"),
-                                      subtitle: Text("Weight measure\nExample: 140.0"),
+                                      subtitle: Text(
+                                          "Weight measure\nExample: 140.0"),
                                     ),
                                   ),
                                   Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.monitor_weight,
+                                      leading: Icon(
+                                        Icons.monitor_weight,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("WeightUnit"),
-                                      subtitle: Text("Weight measure\nExample: K"),
+                                      subtitle:
+                                          Text("Weight measure\nExample: K"),
                                     ),
                                   ),
                                   Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.class_,
+                                      leading: Icon(
+                                        Icons.class_,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("Rate Class Code"),
-                                      subtitle: Text("Code representing a specific rate category\nExample: M"),
+                                      subtitle: Text(
+                                          "Code representing a specific rate category\nExample: M"),
                                     ),
                                   ),
                                   Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.code,
+                                      leading: Icon(
+                                        Icons.code,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("Item Number"),
-                                      subtitle: Text("Number to identify a specific commodity\nExample: 9017"),
+                                      subtitle: Text(
+                                          "Number to identify a specific commodity\nExample: 9017"),
                                     ),
                                   ),
                                   Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.class_,
+                                      leading: Icon(
+                                        Icons.class_,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("Rate or Charge"),
-                                      subtitle: Text("Representation of a rate, charge or discount\nExample: 123"),
+                                      subtitle: Text(
+                                          "Representation of a rate, charge or discount\nExample: 123"),
                                     ),
                                   ),
                                   Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.monitor_weight,
+                                      leading: Icon(
+                                        Icons.monitor_weight,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("Total"),
@@ -185,75 +194,88 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                                   ),
                                   Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.monitor_weight,
+                                      leading: Icon(
+                                        Icons.monitor_weight,
                                         color: Theme.of(context).accentColor,
                                       ),
-                                      title: Text("Nature and Quantity of Goods"),
-                                      subtitle: Text(" Description of the goods\nExample: Laptop or consolidation"),
+                                      title:
+                                          Text("Nature and Quantity of Goods"),
+                                      subtitle: Text(
+                                          " Description of the goods\nExample: Laptop or consolidation"),
                                     ),
                                   ),
-                                  Text("Dimensions",
+                                  Text(
+                                    "Dimensions",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 20
-                                    ),
+                                        fontSize: 20),
                                   ),
                                   Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.height_outlined,
+                                      leading: Icon(
+                                        Icons.height_outlined,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("length"),
-                                      subtitle: Text("Length Dimension\nExample: 200"),
+                                      subtitle: Text(
+                                          "Length Dimension\nExample: 200"),
                                     ),
-                                  ),  Card(
+                                  ),
+                                  Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.panorama_wide_angle,
+                                      leading: Icon(
+                                        Icons.panorama_wide_angle,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("Width"),
-                                      subtitle: Text("Width of pieces\nExample: 150"),
+                                      subtitle:
+                                          Text("Width of pieces\nExample: 150"),
                                     ),
                                   ),
                                   Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.height,
+                                      leading: Icon(
+                                        Icons.height,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("Height"),
-                                      subtitle: Text("Height of pieces\nExample: 150"),
+                                      subtitle: Text(
+                                          "Height of pieces\nExample: 150"),
                                     ),
                                   ),
                                   Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.monitor_weight,
+                                      leading: Icon(
+                                        Icons.monitor_weight,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("Measurement Unit Code"),
-                                      subtitle: Text("Indication of the unit of measurement in which measurements are expressed\nExample: cm"),
+                                      subtitle: Text(
+                                          "Indication of the unit of measurement in which measurements are expressed\nExample: cm"),
                                     ),
                                   ),
-
-
-
                                   Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.production_quantity_limits,
+                                      leading: Icon(
+                                        Icons.production_quantity_limits,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("Volume"),
-                                      subtitle: Text("Cubic measure of a consignment\nExample: 12.00"),
+                                      subtitle: Text(
+                                          "Cubic measure of a consignment\nExample: 12.00"),
                                     ),
-                                  ), Card(
+                                  ),
+                                  Card(
                                     child: ListTile(
-                                      leading: Icon(Icons.production_quantity_limits,
+                                      leading: Icon(
+                                        Icons.production_quantity_limits,
                                         color: Theme.of(context).accentColor,
                                       ),
                                       title: Text("VolumeUnit"),
-                                      subtitle: Text("Code indicating unit of volume\nExample: CC"),
+                                      subtitle: Text(
+                                          "Code indicating unit of volume\nExample: CC"),
                                     ),
                                   ),
-
                                 ],
                               ),
                             ),
@@ -261,420 +283,422 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                         );
                       });
                 },
-                icon: Icon(Icons.help,
+                icon: Icon(
+                  Icons.help,
                   color: Theme.of(context).accentColor,
                 ),
-
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SingleChildScrollView(
                     child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        // Center(
-                        //   child: CustomPaint(
-                        //     painter: CirclePainter(
-                        //       _controller,
-                        //       color: Theme.of(context).accentColor
-                        //       // color: Colors.blue,
-                        //     ),
-                        //     child: SizedBox(
-                        //       height: 200,
-                        //       width: 200,
-                        //       child:
-                        //       Icon(Icons.dangerous_outlined, size: 44,)
-                        //       //_button(),
-                        //     ),
-                        //   ),
-                        // ),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // Center(
+                    //   child: CustomPaint(
+                    //     painter: CirclePainter(
+                    //       _controller,
+                    //       color: Theme.of(context).accentColor
+                    //       // color: Colors.blue,
+                    //     ),
+                    //     child: SizedBox(
+                    //       height: 200,
+                    //       width: 200,
+                    //       child:
+                    //       Icon(Icons.dangerous_outlined, size: 44,)
+                    //       //_button(),
+                    //     ),
+                    //   ),
+                    // ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
                             children: [
-                              Row(
-
-                                children: [
-                                  Checkbox(
-                                    value: consolidationvalue,
-                                    onChanged: (bool value) {
-                                      setState(() {
-                                        this.consolidationvalue = value;
-                                        if(consolidationvalue.toString()=="true") {
-                                          model.rateDescriptionItemList.forEach((element) {
-
-                                            element.natureAndQuantity = "CONSOLIDATION";
-                                          });
-                                          //  natureAndQuantity = "CONSOLIDATION";
-                                        }
-                                        else {
-                                            //
-                                            // element.natureAndQuantity= model.rateDescriptionItemList[1].natureAndQuantity;
-                                          model.rateDescriptionItemList.forEach((
-                                              element) {
-                                           //String secondToLastElement =  model.rateDescriptionItemList.elementAt( model.rateDescriptionItemList.length - 2).toString();
-                                            element.natureAndQuantity = element.previousnatureofgoods;
-
-
-                                          });
-                                        }
-                                          // natureofgoods.clear();
-                                          // this.widget.natureAndQuantity = "";
-                                        // print(natureofgoods.text);
-                                        // print(consolidationvalue);
-                                        // monVal = value;
+                              Checkbox(
+                                value: consolidationvalue,
+                                onChanged: (bool value) {
+                                  setState(() {
+                                    this.consolidationvalue = value;
+                                    if (consolidationvalue.toString() ==
+                                        "true") {
+                                      model.rateDescriptionItemList
+                                          .forEach((element) {
+                                        element.natureAndQuantity =
+                                            "CONSOLIDATION";
                                       });
-                                    },
-                                  ),
-                                  Text("Consolidation"),
-                                ],
+                                      //  natureAndQuantity = "CONSOLIDATION";
+                                    } else {
+                                      //
+                                      // element.natureAndQuantity= model.rateDescriptionItemList[1].natureAndQuantity;
+                                      model.rateDescriptionItemList
+                                          .forEach((element) {
+                                        //String secondToLastElement =  model.rateDescriptionItemList.elementAt( model.rateDescriptionItemList.length - 2).toString();
+                                        element.natureAndQuantity =
+                                            element.previousnatureofgoods;
+                                      });
+                                    }
+                                    // natureofgoods.clear();
+                                    // this.widget.natureAndQuantity = "";
+                                    // print(natureofgoods.text);
+                                    // print(consolidationvalue);
+                                    // monVal = value;
+                                  });
+                                },
                               ),
-                              TextButton(
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
-                                onPressed: (){
-                                showDialog(
-                                  context: context,
-                                  builder: (ctx) => AlertDialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(30.0))),
-                                    title: AnimatedBuilder(
-                                        animation: _resizableController,
-                                        builder: (context, child) {
-                                          return Container(
-                                            padding: EdgeInsets.only(left: 15.0,
-                                                top: 10.0,bottom: 10.0,
-                                                right: 15.0),
-                                            child: Center(child: Text("Alert")),
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.rectangle,
-                                              borderRadius: BorderRadius.all(Radius.circular(12)),
-                                              border: Border.all(
-                                                  color: Theme.of(context).backgroundColor, width: _resizableController.value * 10),
-                                            ),
-                                          );
-                                        }),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Center(
-                                              child: CustomPaint(
-                                                painter: CirclePainter(
-                                                    _controller,
-                                                    color: Theme.of(context).accentColor
-                                                ),
-                                                child: SizedBox(
-                                                    height: 80,
-                                                    width:80,
-                                                    child: Icon(Icons.dangerous_outlined, size: 20,
-                                                      color: Theme.of(context).backgroundColor,
-                                                    )
-                                                  //_button(),
-                                                ),
-                                              ),
-                                            ),
-                                            Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              // crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                // Text("AWB Gross weight:350K\nAWB Chargeable Weight: 350 K \nGHA Acceptance Gross Weight:\n 500"
-                                                //     "K \nThis means the AWB Gross Weight"
-                                                // ,
-                                                //   style: TextStyle(
-                                                //     fontSize: 13
-                                                //   ),
-                                                // ),
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  // mainAxisAlignment: MainAxisAlignment.end,
-                                                  children: [
-                                                    Text("AWB Gross weight ",
-                                                      style: TextStyle(
-                                                        color: Theme.of(context).accentColor,
-                                                      ),
-                                                    ),
-                                                    Text("--------------> 350K",
-                                                      style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  // mainAxisAlignment: MainAxisAlignment.end,
-                                                  children: [
-                                                    Text("AWB Chargeable Weight  ",
-                                                      style: TextStyle(
-                                                        color: Theme.of(context).accentColor,
-
-                                                      ),
-                                                    ),
-                                                    Text("--------> 350K",
-                                                      style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                                  // mainAxisAlignment: MainAxisAlignment.end,
-                                                  children: [
-                                                    Text("GHA Acceptance Gross Weight ",
-                                                      style: TextStyle(
-                                                        color: Theme.of(context).accentColor,
-                                                      ),
-                                                    ),
-                                                    Text("-> 500K",
-                                                      style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                // Text("This means the AWB Gross Weight & AWB",
-                                                //   style: TextStyle(
-                                                //       color: Theme.of(context).accentColor,
-                                                //
-                                                //   ),
-                                                // ),
-                                                // Text("Chargeable Weight captured by ",
-                                                //   style: TextStyle(
-                                                //       color: Theme.of(context).accentColor,
-                                                //
-                                                //   ),
-                                                // ),
-                                                // Text("Documentation Team are INCORRECT. This",
-                                                //   style: TextStyle(
-                                                //     color: Theme.of(context).accentColor,
-                                                //
-                                                //   ),
-                                                // ),
-                                                // Text("also potentially means the AWB Charges",
-                                                //   style: TextStyle(
-                                                //     color: Theme.of(context).accentColor,
-                                                //
-                                                //   ),
-                                                // ),  Text("are INCORRECT,and a possible revenue loss",
-                                                //   style: TextStyle(
-                                                //     color: Theme.of(context).accentColor,
-                                                //
-                                                //   ),
-                                                // )
-                                              ],
-                                            ),
-                                            Text("This means the AWB Gross Weight & AWB Chargeable Weight captured by Documentation Team are INCORRECT. This also potentially means the AWB Charges are INCORRECT, and a possible revenue loss.",
-                                              textAlign: TextAlign.justify,
-                                              style: TextStyle(
-                                                color: Theme.of(context).accentColor,
-                                              ),
-                                            ),
-                                            Text("Please Check!",
-                                              style: TextStyle(
-                                                color: Theme.of(context).accentColor,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              textAlign: TextAlign.center,
-
-                                            )
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            ElevatedButton(
-
-                                                style: TextButton.styleFrom(
-                                                  primary: Theme.of(context).backgroundColor,
-                                                  backgroundColor: Colors.green,
-                                                  // Text Color
-                                                ),onPressed: (){
-                                              setState(() {
-                                                alertvalue=false;
-                                                Navigator.pop(context);
-                                              });
-
-                                            }, child: Text("Accept",
-                                            )),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            ElevatedButton(
-
-                                                style: TextButton.styleFrom(
-                                                  primary: Theme.of(context).backgroundColor,
-                                                  backgroundColor: Colors.red,
-                                                  // Text Color
-                                                ),
-                                                onPressed: (){
-                                                  setState(() {
-                                                    alertvalue=true;
-                                                    Navigator.pop(context);
-                                                  });
-                                                  // Navigator.pop(context);
-                                                }, child: Text("Reject",
-                                            ))
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    // actions: <Widget>[
-                                    //   TextButton(
-                                    //     onPressed: () {
-                                    //       Navigator.of(ctx).pop();
-                                    //     },
-                                    //     child: Center(
-                                    //       child: Container(
-                                    //         padding: const EdgeInsets.all(14),
-                                    //         child:  Text("Close",
-                                    //           style: TextStyle(
-                                    //             color: Theme.of(context).accentColor,
-                                    //           ),
-                                    //         ),
-                                    //       ),
-                                    //     ),
-                                    //   ),
-                                    // ],
-                                  ),
-                                );
-                              },  child: Text("Test",
-                              style: TextStyle(
-                                color: Theme.of(context).backgroundColor
-                              ),
-                              ),),
+                              Text("Consolidation"),
                             ],
                           ),
-                        ),
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: buildExpansionPanelList(model,alertvalue),
-                ),
-            //         Stack(
-            //                     children: <Widget>[
-            //         Container(
-            //            height: 100.0,
-            //                 margin: new EdgeInsets.only(left: 26.0),
-            //             decoration: new BoxDecoration(
-            //          color: Colors.white,
-            //               border: Border.all(color: Theme.of(context).accentColor,
-            //               width: 3
-            //               ),
-            //             shape: BoxShape.rectangle,
-            //             borderRadius: new BorderRadius.circular(17.0),
-            //           boxShadow: <BoxShadow>[
-            //         new BoxShadow(
-            //           color: Colors.black12, blurRadius: 10.0,
-            //           offset: new Offset(0.0, 10.0),
-            //           ),
-            //      ],),
-            //           child: Container(
-            //             padding: const EdgeInsets.only(left: 15,top: 10.0),
-            //             child: Column(
-            //               //crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 Row(
-            //                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //                   children: [
-            //                     Column(
-            //                       children: [
-            //                         Text("Amount",
-            //                           style: TextStyle(
-            //                               color: Theme.of(context).accentColor,
-            //                               fontWeight: FontWeight.bold
-            //
-            //                           ),
-            //                         ),
-            //                         Text("100"),
-            //
-            //                       ],
-            //                     ),
-            //                     Column(
-            //                       children: [
-            //                         Text("Gross Weight",
-            //                           style: TextStyle(
-            //                               color: Theme.of(context).accentColor,
-            //                               fontWeight: FontWeight.bold
-            //
-            //                           ),
-            //                         ),
-            //                         Text("100"),
-            //
-            //                       ],
-            //                     ),
-            //                     Container(
-            //                         alignment: Alignment.topRight,
-            //                         child: Icon(Icons.info))
-            //                   ],
-            //                 ),
-            //                 SizedBox(
-            //                   height: 15.0,
-            //                 ),
-            //                 Text("Nature of Goods",
-            //                 style: TextStyle(
-            //                   color: Theme.of(context).accentColor,
-            //                   fontWeight: FontWeight.bold
-            //                 ),
-            //                 ),
-            //                 Text("Textiles")
-            //               ],
-            //             ),
-            //
-            //           ),
-            // ),
-            //         Positioned(
-            //          top: 7,
-            //           child: Container(
-            //             decoration: BoxDecoration(
-            //                 // border: Border.all(color: Theme.of(context).accentColor),
-            //               borderRadius: BorderRadius.circular(10),
-            //             ),
-            //               margin: new EdgeInsets.symmetric(
-            //                     vertical: 16.0
-            //                  ),
-            //               alignment: FractionalOffset.centerLeft,
-            //              child: CircleAvatar(
-            //                radius: 30.0,
-            //                backgroundColor:Theme.of(context).accentColor,
-            //                child: CircleAvatar(
-            //                  radius: 28.0,
-            //                  backgroundColor:Theme.of(context).backgroundColor,
-            //                  child: CircleAvatar(
-            //
-            //                    radius: 20.0,
-            //                    backgroundColor:Theme.of(context).accentColor,
-            //                    child: new Icon(Icons.money,
-            //                    color: Theme.of(context).backgroundColor,
-            //                    )
-            //                  ),
-            //                ),
-            //              ),),
-            //         ),
-            //                       // Positioned(
-            //                       //   right: 0,top: 0,
-            //                       //   child: CircleAvatar(
-            //                       //     radius: 20,
-            //                       //     backgroundColor: Theme.of(context).accentColor,
-            //                       //     child: CircleAvatar(
-            //                       //       radius: 18,
-            //                       //         backgroundColor: Theme.of(context).backgroundColor,
-            //                       //         child: Icon(Icons.info,
-            //                       //           color: Theme.of(context).accentColor,
-            //                       //
-            //                       //         )),
-            //                       //   ),
-            //                       // )
-            //                    ],
-            //                   )
-                      ],)),
-              ),),),
+                          // TextButton(
+                          //   style: ButtonStyle(
+                          //       backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
+                          //   onPressed: (){
+                          //   showDialog(
+                          //     context: context,
+                          //     builder: (ctx) => AlertDialog(
+                          //       shape: RoundedRectangleBorder(
+                          //           borderRadius: BorderRadius.all(Radius.circular(30.0))),
+                          //       title: AnimatedBuilder(
+                          //           animation: _resizableController,
+                          //           builder: (context, child) {
+                          //             return Container(
+                          //               padding: EdgeInsets.only(left: 15.0,
+                          //                   top: 10.0,bottom: 10.0,
+                          //                   right: 15.0),
+                          //               child: Center(child: Text("Alert")),
+                          //               decoration: BoxDecoration(
+                          //                 shape: BoxShape.rectangle,
+                          //                 borderRadius: BorderRadius.all(Radius.circular(12)),
+                          //                 border: Border.all(
+                          //                     color: Theme.of(context).backgroundColor, width: _resizableController.value * 10),
+                          //               ),
+                          //             );
+                          //           }),
+                          //       content: Column(
+                          //         mainAxisSize: MainAxisSize.min,
+                          //         crossAxisAlignment: CrossAxisAlignment.start,
+                          //         children: [
+                          //           Column(
+                          //             mainAxisAlignment: MainAxisAlignment.start,
+                          //             mainAxisSize: MainAxisSize.min,
+                          //             children: [
+                          //               Center(
+                          //                 child: CustomPaint(
+                          //                   painter: CirclePainter(
+                          //                       _controller,
+                          //                       color: Theme.of(context).accentColor
+                          //                   ),
+                          //                   child: SizedBox(
+                          //                       height: 80,
+                          //                       width:80,
+                          //                       child: Icon(Icons.dangerous_outlined, size: 20,
+                          //                         color: Theme.of(context).backgroundColor,
+                          //                       )
+                          //                     //_button(),
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //               Column(
+                          //                 mainAxisSize: MainAxisSize.min,
+                          //                 // crossAxisAlignment: CrossAxisAlignment.start,
+                          //                 children: [
+                          //                   // Text("AWB Gross weight:350K\nAWB Chargeable Weight: 350 K \nGHA Acceptance Gross Weight:\n 500"
+                          //                   //     "K \nThis means the AWB Gross Weight"
+                          //                   // ,
+                          //                   //   style: TextStyle(
+                          //                   //     fontSize: 13
+                          //                   //   ),
+                          //                   // ),
+                          //                   Row(
+                          //                     crossAxisAlignment: CrossAxisAlignment.start,
+                          //                     // mainAxisAlignment: MainAxisAlignment.end,
+                          //                     children: [
+                          //                       Text("AWB Gross weight ",
+                          //                         style: TextStyle(
+                          //                           color: Theme.of(context).accentColor,
+                          //                         ),
+                          //                       ),
+                          //                       Text("--------------> 350K",
+                          //                         style: TextStyle(
+                          //                           fontWeight: FontWeight.bold,
+                          //                         ),
+                          //                       )
+                          //                     ],
+                          //                   ),
+                          //                   Row(
+                          //                     crossAxisAlignment: CrossAxisAlignment.start,
+                          //                     // mainAxisAlignment: MainAxisAlignment.end,
+                          //                     children: [
+                          //                       Text("AWB Chargeable Weight  ",
+                          //                         style: TextStyle(
+                          //                           color: Theme.of(context).accentColor,
+                          //
+                          //                         ),
+                          //                       ),
+                          //                       Text("--------> 350K",
+                          //                         style: TextStyle(
+                          //                           fontWeight: FontWeight.bold,
+                          //                         ),
+                          //                       )
+                          //                     ],
+                          //                   ),
+                          //                   Row(
+                          //                     crossAxisAlignment: CrossAxisAlignment.end,
+                          //                     // mainAxisAlignment: MainAxisAlignment.end,
+                          //                     children: [
+                          //                       Text("GHA Acceptance Gross Weight ",
+                          //                         style: TextStyle(
+                          //                           color: Theme.of(context).accentColor,
+                          //                         ),
+                          //                       ),
+                          //                       Text("-> 500K",
+                          //                         style: TextStyle(
+                          //                           fontWeight: FontWeight.bold,
+                          //                         ),
+                          //                       ),
+                          //                     ],
+                          //                   ),
+                          //                   // Text("This means the AWB Gross Weight & AWB",
+                          //                   //   style: TextStyle(
+                          //                   //       color: Theme.of(context).accentColor,
+                          //                   //
+                          //                   //   ),
+                          //                   // ),
+                          //                   // Text("Chargeable Weight captured by ",
+                          //                   //   style: TextStyle(
+                          //                   //       color: Theme.of(context).accentColor,
+                          //                   //
+                          //                   //   ),
+                          //                   // ),
+                          //                   // Text("Documentation Team are INCORRECT. This",
+                          //                   //   style: TextStyle(
+                          //                   //     color: Theme.of(context).accentColor,
+                          //                   //
+                          //                   //   ),
+                          //                   // ),
+                          //                   // Text("also potentially means the AWB Charges",
+                          //                   //   style: TextStyle(
+                          //                   //     color: Theme.of(context).accentColor,
+                          //                   //
+                          //                   //   ),
+                          //                   // ),  Text("are INCORRECT,and a possible revenue loss",
+                          //                   //   style: TextStyle(
+                          //                   //     color: Theme.of(context).accentColor,
+                          //                   //
+                          //                   //   ),
+                          //                   // )
+                          //                 ],
+                          //               ),
+                          //               Text("This means the AWB Gross Weight & AWB Chargeable Weight captured by Documentation Team are INCORRECT. This also potentially means the AWB Charges are INCORRECT, and a possible revenue loss.",
+                          //                 textAlign: TextAlign.justify,
+                          //                 style: TextStyle(
+                          //                   color: Theme.of(context).accentColor,
+                          //                 ),
+                          //               ),
+                          //               Text("Please Check!",
+                          //                 style: TextStyle(
+                          //                   color: Theme.of(context).accentColor,
+                          //                   fontWeight: FontWeight.bold,
+                          //                 ),
+                          //                 textAlign: TextAlign.center,
+                          //
+                          //               )
+                          //             ],
+                          //           ),
+                          //           Row(
+                          //             mainAxisAlignment: MainAxisAlignment.end,
+                          //             crossAxisAlignment: CrossAxisAlignment.end,
+                          //             children: [
+                          //               ElevatedButton(
+                          //
+                          //                   style: TextButton.styleFrom(
+                          //                     primary: Theme.of(context).backgroundColor,
+                          //                     backgroundColor: Colors.green,
+                          //                     // Text Color
+                          //                   ),onPressed: (){
+                          //                 setState(() {
+                          //                   alertvalue=false;
+                          //                   Navigator.pop(context);
+                          //                 });
+                          //
+                          //               }, child: Text("Accept",
+                          //               )),
+                          //               SizedBox(
+                          //                 width: 10,
+                          //               ),
+                          //               ElevatedButton(
+                          //
+                          //                   style: TextButton.styleFrom(
+                          //                     primary: Theme.of(context).backgroundColor,
+                          //                     backgroundColor: Colors.red,
+                          //                     // Text Color
+                          //                   ),
+                          //                   onPressed: (){
+                          //                     setState(() {
+                          //                       alertvalue=true;
+                          //                       Navigator.pop(context);
+                          //                     });
+                          //                     // Navigator.pop(context);
+                          //                   }, child: Text("Reject",
+                          //               ))
+                          //             ],
+                          //           )
+                          //         ],
+                          //       ),
+                          //       // actions: <Widget>[
+                          //       //   TextButton(
+                          //       //     onPressed: () {
+                          //       //       Navigator.of(ctx).pop();
+                          //       //     },
+                          //       //     child: Center(
+                          //       //       child: Container(
+                          //       //         padding: const EdgeInsets.all(14),
+                          //       //         child:  Text("Close",
+                          //       //           style: TextStyle(
+                          //       //             color: Theme.of(context).accentColor,
+                          //       //           ),
+                          //       //         ),
+                          //       //       ),
+                          //       //     ),
+                          //       //   ),
+                          //       // ],
+                          //     ),
+                          //   );
+                          // },  child: Text("Test",
+                          // style: TextStyle(
+                          //   color: Theme.of(context).backgroundColor
+                          // ),
+                          // ),),
+                        ],
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: buildExpansionPanelList(model, alertvalue),
+                    ),
+                    //         Stack(
+                    //                     children: <Widget>[
+                    //         Container(
+                    //            height: 100.0,
+                    //                 margin: new EdgeInsets.only(left: 26.0),
+                    //             decoration: new BoxDecoration(
+                    //          color: Colors.white,
+                    //               border: Border.all(color: Theme.of(context).accentColor,
+                    //               width: 3
+                    //               ),
+                    //             shape: BoxShape.rectangle,
+                    //             borderRadius: new BorderRadius.circular(17.0),
+                    //           boxShadow: <BoxShadow>[
+                    //         new BoxShadow(
+                    //           color: Colors.black12, blurRadius: 10.0,
+                    //           offset: new Offset(0.0, 10.0),
+                    //           ),
+                    //      ],),
+                    //           child: Container(
+                    //             padding: const EdgeInsets.only(left: 15,top: 10.0),
+                    //             child: Column(
+                    //               //crossAxisAlignment: CrossAxisAlignment.start,
+                    //               children: [
+                    //                 Row(
+                    //                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //                   children: [
+                    //                     Column(
+                    //                       children: [
+                    //                         Text("Amount",
+                    //                           style: TextStyle(
+                    //                               color: Theme.of(context).accentColor,
+                    //                               fontWeight: FontWeight.bold
+                    //
+                    //                           ),
+                    //                         ),
+                    //                         Text("100"),
+                    //
+                    //                       ],
+                    //                     ),
+                    //                     Column(
+                    //                       children: [
+                    //                         Text("Gross Weight",
+                    //                           style: TextStyle(
+                    //                               color: Theme.of(context).accentColor,
+                    //                               fontWeight: FontWeight.bold
+                    //
+                    //                           ),
+                    //                         ),
+                    //                         Text("100"),
+                    //
+                    //                       ],
+                    //                     ),
+                    //                     Container(
+                    //                         alignment: Alignment.topRight,
+                    //                         child: Icon(Icons.info))
+                    //                   ],
+                    //                 ),
+                    //                 SizedBox(
+                    //                   height: 15.0,
+                    //                 ),
+                    //                 Text("Nature of Goods",
+                    //                 style: TextStyle(
+                    //                   color: Theme.of(context).accentColor,
+                    //                   fontWeight: FontWeight.bold
+                    //                 ),
+                    //                 ),
+                    //                 Text("Textiles")
+                    //               ],
+                    //             ),
+                    //
+                    //           ),
+                    // ),
+                    //         Positioned(
+                    //          top: 7,
+                    //           child: Container(
+                    //             decoration: BoxDecoration(
+                    //                 // border: Border.all(color: Theme.of(context).accentColor),
+                    //               borderRadius: BorderRadius.circular(10),
+                    //             ),
+                    //               margin: new EdgeInsets.symmetric(
+                    //                     vertical: 16.0
+                    //                  ),
+                    //               alignment: FractionalOffset.centerLeft,
+                    //              child: CircleAvatar(
+                    //                radius: 30.0,
+                    //                backgroundColor:Theme.of(context).accentColor,
+                    //                child: CircleAvatar(
+                    //                  radius: 28.0,
+                    //                  backgroundColor:Theme.of(context).backgroundColor,
+                    //                  child: CircleAvatar(
+                    //
+                    //                    radius: 20.0,
+                    //                    backgroundColor:Theme.of(context).accentColor,
+                    //                    child: new Icon(Icons.money,
+                    //                    color: Theme.of(context).backgroundColor,
+                    //                    )
+                    //                  ),
+                    //                ),
+                    //              ),),
+                    //         ),
+                    //                       // Positioned(
+                    //                       //   right: 0,top: 0,
+                    //                       //   child: CircleAvatar(
+                    //                       //     radius: 20,
+                    //                       //     backgroundColor: Theme.of(context).accentColor,
+                    //                       //     child: CircleAvatar(
+                    //                       //       radius: 18,
+                    //                       //         backgroundColor: Theme.of(context).backgroundColor,
+                    //                       //         child: Icon(Icons.info,
+                    //                       //           color: Theme.of(context).accentColor,
+                    //                       //
+                    //                       //         )),
+                    //                       //   ),
+                    //                       // )
+                    //                    ],
+                    //                   )
+                  ],
+                )),
+              ),
+            ),
+          ),
           floatingActionButton: cardExpanded
               ? Padding(
                   padding: const EdgeInsets.only(bottom: 55.0),
@@ -697,29 +721,26 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                     ),
                   ))
               : null,
-          bottomNavigationBar: Padding(
-            padding: const EdgeInsets.only(left: 60.0,right:55.0,bottom: 50),
+          bottomNavigationBar: Container(
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.only(bottom: 60),
             child: BottomNavyBar(
-
               selectedIndex: _currentIndex,
               showElevation: true, // use this to remove appBar's elevation
               onItemSelected: (index) => setState(() {
-
                 _currentIndex = index;
                 // _pageController.animateToPage(index,
                 //     duration: Duration(milliseconds: 300), curve: Curves.ease);
-              }
-              ),
+              }),
               items: [
                 BottomNavyBarItem(
                   icon: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(TotalPieces.toString(),
+                      Text(
+                        TotalPieces.toString(),
                         style: TextStyle(
-                            fontSize: 12,
-                          fontWeight: FontWeight.bold
-                        ),
+                            fontSize: 12, fontWeight: FontWeight.bold),
                       ),
                       // Text(
                       //     "Total Pieces"
@@ -727,30 +748,12 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                       // ),
                     ],
                   ),
-                   title: Text("Total Pieces"),
-                   //Text(
-                  //     TotalPieces.toString()
-                  //   //'Home'
-                  // ),
-                  activeColor: Theme.of(context).accentColor,
-                ),
-                BottomNavyBarItem(
-                  icon: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(TotalGWeight.toString(),
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12
-                        ),
+                  title: Text("Total Pieces",
+                      style: TextStyle(
+                        fontSize: 10,
                       ),
-                      // Text(
-                      //     "Total Pieces"
-                      //   //'Home'
-                      // ),
-                    ],
                   ),
-                  title: Text("Total GWeight"),
+
                   //Text(
                   //     TotalPieces.toString()
                   //   //'Home'
@@ -758,13 +761,33 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                   activeColor: Theme.of(context).accentColor,
                 ),
                 BottomNavyBarItem(
-                  icon: Text(overalltotal.toString(),
+                  icon: Text(
+                    TotalGWeight.toString(),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                  ),
+                  title: Text(
+                    "Total GWeight",
+                      style: TextStyle(
+                        fontSize: 10,
+                      )
+                  ),
+                  //Text(
+                  //     TotalPieces.toString()
+                  //   //'Home'
+                  // ),
+                  activeColor: Theme.of(context).accentColor,
+                ),
+                BottomNavyBarItem(
+                  icon: Text(
+                    overalltotal.toString(),
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                  ),
+                  title: Text("Weight Charges",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    fontSize: 12
-                  ),
-                  ),
-                  title: Text("Total"),
+                    fontSize: 10,
+                  )
+                    ,),
                   //Text(
                   //     TotalPieces.toString()
                   //   //'Home'
@@ -780,6 +803,7 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
       ),
     );
   }
+
   Widget _button() {
     return Center(
       child: ClipRRect(
@@ -797,42 +821,44 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
               scale: Tween(begin: 0.95, end: 1.0).animate(
                 CurvedAnimation(
                   parent: _controller,
-                  curve:  CurveWave(),
+                  curve: CurveWave(),
                 ),
               ),
-              child: Icon(Icons.dangerous_outlined, size: 44,)
-          ),
+              child: Icon(
+                Icons.dangerous_outlined,
+                size: 44,
+              )),
         ),
       ),
     );
   }
-  TotalValue(EAWBModel model){
-    int totalpieces=0;
+
+  TotalValue(EAWBModel model) {
+    int totalpieces = 0;
     model.rateDescriptionItemList.forEach((element) {
-      totalpieces+=element.pieces;
-      TotalPieces=totalpieces;
-    });
-  }
-  TotalGWEightValues(EAWBModel model){
-    int totalgrossweight=0;
-    model.rateDescriptionItemList.forEach((element) {
-      totalgrossweight+=element.grossWeight.toInt();
-      TotalGWeight=totalgrossweight;
-    });
-  }
-  OverallTotalValue(EAWBModel model){
-    int totaloverall=0;
-    model.rateDescriptionItemList.forEach((element) {
-      totaloverall+=element.total;
-      overalltotal =totaloverall;
+      totalpieces += element.pieces;
+      TotalPieces = totalpieces;
     });
   }
 
+  TotalGWEightValues(EAWBModel model) {
+    int totalgrossweight = 0;
+    model.rateDescriptionItemList.forEach((element) {
+      totalgrossweight += element.grossWeight.toInt();
+      TotalGWeight = totalgrossweight;
+    });
+  }
+
+  OverallTotalValue(EAWBModel model) {
+    int totaloverall = 0;
+    model.rateDescriptionItemList.forEach((element) {
+      totaloverall += element.total;
+      overalltotal = totaloverall;
+    });
+  }
 
   buildExpansionPanelList(EAWBModel model, bool alertvalue) {
-
     if (model.rateDescriptionItemList.isNotEmpty) {
-
       // load total value for pieces and gross weight over all total
       TotalValue(model);
       TotalGWEightValues(model);
@@ -840,7 +866,7 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
       return Container(
         child: Column(
           children: model.rateDescriptionItemList
-                 .map<Column>((RateDescriptionItem item) {
+              .map<Column>((RateDescriptionItem item) {
             return Column(
               children: [
                 // Text(TotalPieces.toString()),
@@ -854,20 +880,35 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                           return AlertDialog(
                             title: Text(
                               S.of(context).DeleteConfirmation,
-                              style: TextStyle(color: Theme.of(context).accentColor),
+                              style: TextStyle(
+                                  color: Theme.of(context).accentColor),
                               //"Delete Confirmation"
                             ),
                             content: Text(
                               S.of(context).Areyousureyouwanttodeletethisitem,
-                              style: TextStyle(color: Theme.of(context).accentColor),
+                              style: TextStyle(
+                                  color: Theme.of(context).accentColor),
                               //"Are you sure you want to delete this item?"
                             ),
                             actions: <Widget>[
                               TextButton(
                                   onPressed: () {
-                                    Navigator.of(context).pop(true);
-                                    model.deleteRateDescriptionItem(item);
 
+                                    setState(() {
+                                      model.deleteRateDescriptionItem(item);
+
+                                      TotalValue(model);
+                                      TotalGWEightValues(model);
+                                      OverallTotalValue(model);
+                                      if (model
+                                          .rateDescriptionItemList.length==0) {
+                                        // load total value for pieces and gross weight over all total
+                                        TotalValue(model);
+                                        TotalGWEightValues(model);
+                                        OverallTotalValue(model);
+                                      }
+                                      Navigator.of(context).pop(true);
+                                    });
                                     // model.deleteOtherChargesItem(item);
                                     // deleteAWB('${getawblist[index]["id"]}');
                                   },
@@ -879,11 +920,12 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                                     //"Delete"
                                   )),
                               TextButton(
-                                onPressed: () => Navigator.of(context).pop(false),
+                                onPressed: () =>
+                                    Navigator.of(context).pop(false),
                                 child: Text(
                                   S.of(context).Cancel,
-                                  style:
-                                  TextStyle(color: Theme.of(context).accentColor),
+                                  style: TextStyle(
+                                      color: Theme.of(context).accentColor),
                                   // "Cancel"
                                 ),
                               ),
@@ -893,34 +935,34 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                       );
                     } else {
                       RateDescriptionItem rateDescriptionItem =
-                      await Navigator.push(
-                          context,
-                          MaterialPageRoute<RateDescriptionItem>(
-                              builder: (context) =>
-                                  UpdateRateDescriptionForm(
-                                    consolidationstatus: consolidationvalue,
-                                    pieces: item.pieces,
-                                    grossWeight: item.grossWeight,
-                                    grossWeightUnit:
-                                    item.grossWeightUnit,
-                                    rateClass: item.rateClass,
-                                    itemNumber: item.itemNumber,
-                                    chargeableWeight:
-                                    item.chargeableWeight,
-                                    rateCharge: item.rateCharge,
-                                    total: item.total,
-                                    autoCalculations:
-                                    item.autoCalculations,
-                                    natureAndQuantity:
-                                    item.natureAndQuantity,
-                                    dimensionsList:
-                                    item.dimensionsList,
-                                    text: item.text,
-                                  )));
+                          await Navigator.push(
+                              context,
+                              MaterialPageRoute<RateDescriptionItem>(
+                                  builder: (context) =>
+                                      UpdateRateDescriptionForm(
+                                        consolidationstatus: consolidationvalue,
+                                        pieces: item.pieces,
+                                        grossWeight: item.grossWeight,
+                                        grossWeightUnit: item.grossWeightUnit,
+                                        rateClass: item.rateClass,
+                                        itemNumber: item.itemNumber,
+                                        chargeableWeight: item.chargeableWeight,
+                                        rateCharge: item.rateCharge,
+                                        total: item.total,
+                                        autoCalculations: item.autoCalculations,
+                                        natureAndQuantity:
+                                            item.natureAndQuantity,
+                                        dimensionsList: item.dimensionsList,
+                                        uldtype:item.uldtype,
+                                        uldserial:item.uldserial,
+                                        uldownercode:item.uldownercode,
+                                        hscode:item.HSCode,
+                                        text: item.text,
+                                        origin:item.origin
+                                      )));
                       if (rateDescriptionItem != null) {
                         model.deleteRateDescriptionItem(item);
-                        model.addRateDescriptionItem(
-                            rateDescriptionItem);
+                        model.addRateDescriptionItem(rateDescriptionItem);
                       }
                     }
                   },
@@ -971,10 +1013,9 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                       Container(
                         margin: new EdgeInsets.only(left: 26.0),
                         decoration: new BoxDecoration(
-                        //  color: Colors.white,
-                          border: Border.all(color: Theme.of(context).accentColor,
-                              width: 2
-                          ),
+                          //  color: Colors.white,
+                          border: Border.all(
+                              color: Theme.of(context).accentColor, width: 2),
                           shape: BoxShape.rectangle,
                           borderRadius: new BorderRadius.circular(13.0),
                           // boxShadow: <BoxShadow>[
@@ -983,882 +1024,1058 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                           //     offset: new Offset(0.0, 10.0),
                           //   ),
                           // ]
-                          ),
+                        ),
                         child: Container(
-                          padding: const EdgeInsets.only(left: 15,top: 4.0,bottom: 4),
+                          padding: const EdgeInsets.only(
+                              left: 15, top: 4.0, bottom: 4),
                           child: Column(
                             //crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Column(
                                     children: [
-                                      Text(S.of(context).Pieces,
+                                      Text(
+                                        S.of(context).Pieces,
                                         style: TextStyle(
-                                            color: Theme.of(context).accentColor,
-                                            fontWeight: FontWeight.bold
-
-                                        ),
+                                            color:
+                                                Theme.of(context).accentColor,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                       Text('${item.pieces ?? ' '} '),
                                     ],
                                   ),
                                   Column(
                                     children: [
-                                      Text("Gross Weight",
+                                      Text(
+                                        "Gross Weight",
                                         style: TextStyle(
-                                            color: Theme.of(context).accentColor,
-                                            fontWeight: FontWeight.bold
-
-                                        ),
+                                            color:
+                                                Theme.of(context).accentColor,
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                      Text('${item.grossWeight.ceil() ?? ' '} ${item.grossWeightUnit ?? 'K'}'),
-
+                                      Text(
+                                          '${item.grossWeight.ceil() ?? ' '} ${item.grossWeightUnit ?? 'K'}'),
                                     ],
                                   ),
                                   Container(
-                                      alignment: Alignment.topRight,
-                                      child:  Row(
-                                        children: [
-
-                                          IconButton(onPressed: (){
-                                            showGeneralDialog(
-                                                context: context,
-                                                barrierDismissible: true,
-                                                barrierLabel: MaterialLocalizations.of(context)
-                                                    .modalBarrierDismissLabel,
-                                                barrierColor: Colors.black45,
-                                                transitionDuration: const Duration(milliseconds: 200),
-                                                pageBuilder: (BuildContext buildContext,
-                                                    Animation animation,
-                                                    Animation secondaryAnimation) {
-                                                  return SafeArea(
-                                                    child: Scaffold(
-                                                      appBar: AppBar(
-                                                        backgroundColor: Theme.of(context).primaryColor,
-                                                        title: Text("Information"),
-                                                        centerTitle: true,
-                                                      ),
-                                                      body: SingleChildScrollView(
-                                                        child: Container(
-                                                          padding: EdgeInsets.all(30.0),
-                                                          child: Column(
-                                                            children: [
-                                                              // ListTile(
-                                                              //   title: Text(
-                                                              //     S.of(context).Information,
-                                                              //     //'Information',
-                                                              //     textAlign: TextAlign.center,
-                                                              //     style: TextStyle(
-                                                              //         fontWeight: FontWeight.bold,
-                                                              //         fontSize: 17,
-                                                              //         color: Theme.of(context).accentColor),
-                                                              //   ),
-                                                              // ),
-                                                              ListTile(
-                                                                title: Text(
-                                                                  S.of(context).Pieces,
-                                                                  //'Pieces',
-                                                                  style: TextStyle(
-                                                                      fontWeight: FontWeight.normal,
-                                                                      color: Theme.of(context).accentColor),
-                                                                ),
-                                                                trailing: Text(
-                                                                  '${item.pieces ?? "1"}',
-                                                                  style: TextStyle(
-                                                                    fontWeight: FontWeight.normal,
-                                                                    //    color: Colors.black
+                                    alignment: Alignment.topRight,
+                                    child: Row(
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              showGeneralDialog(
+                                                  context: context,
+                                                  barrierDismissible: true,
+                                                  barrierLabel:
+                                                      MaterialLocalizations.of(
+                                                              context)
+                                                          .modalBarrierDismissLabel,
+                                                  barrierColor: Colors.black45,
+                                                  transitionDuration:
+                                                      const Duration(
+                                                          milliseconds: 200),
+                                                  pageBuilder: (BuildContext
+                                                          buildContext,
+                                                      Animation animation,
+                                                      Animation
+                                                          secondaryAnimation) {
+                                                    return SafeArea(
+                                                      child: Scaffold(
+                                                        appBar: AppBar(
+                                                          backgroundColor:
+                                                              Theme.of(context)
+                                                                  .primaryColor,
+                                                          title: Text(
+                                                              "Information"),
+                                                          centerTitle: true,
+                                                        ),
+                                                        body:
+                                                            SingleChildScrollView(
+                                                          child: Container(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    30.0),
+                                                            child: Column(
+                                                              children: [
+                                                                // ListTile(
+                                                                //   title: Text(
+                                                                //     S.of(context).Information,
+                                                                //     //'Information',
+                                                                //     textAlign: TextAlign.center,
+                                                                //     style: TextStyle(
+                                                                //         fontWeight: FontWeight.bold,
+                                                                //         fontSize: 17,
+                                                                //         color: Theme.of(context).accentColor),
+                                                                //   ),
+                                                                // ),
+                                                                ListTile(
+                                                                  title: Text(
+                                                                    S
+                                                                        .of(context)
+                                                                        .Pieces,
+                                                                    //'Pieces',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .normal,
+                                                                        color: Theme.of(context)
+                                                                            .accentColor),
+                                                                  ),
+                                                                  trailing:
+                                                                      Text(
+                                                                    '${item.pieces ?? "1"}',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                      //    color: Colors.black
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              ListTile(
-                                                                title: Text(
-                                                                  S.of(context).GrossWeight,
-                                                                  //'Gross weight',
-                                                                  style: TextStyle(
-                                                                      fontWeight: FontWeight.normal,
-                                                                      color: Theme.of(context).accentColor),
-                                                                ),
-                                                                trailing: Text(
-                                                                  '${item.grossWeight.ceil() ?? "null"} ${item.grossWeightUnit ?? ""}',
-                                                                  style: TextStyle(
-                                                                    fontWeight: FontWeight.normal,
-                                                                    //    color: Colors.black
+                                                                ListTile(
+                                                                  title: Text(
+                                                                    S
+                                                                        .of(context)
+                                                                        .GrossWeight,
+                                                                    //'Gross weight',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .normal,
+                                                                        color: Theme.of(context)
+                                                                            .accentColor),
+                                                                  ),
+                                                                  trailing:
+                                                                      Text(
+                                                                    '${item.grossWeight.ceil() ?? "null"} ${item.grossWeightUnit ?? ""}',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                      //    color: Colors.black
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              ListTile(
-                                                                title: Text(
-                                                                  S.of(context).Rateclass,
-                                                                  //'Rate class',
-                                                                  style: TextStyle(
-                                                                      fontWeight: FontWeight.normal,
-                                                                      color:Theme.of(context).accentColor),
-                                                                ),
-                                                                trailing: Text(
-                                                                  '${item.rateClass ?? "null"}',
-                                                                  style: TextStyle(
-                                                                    fontWeight: FontWeight.normal,
-                                                                    //    color: Colors.black
+                                                                ListTile(
+                                                                  title: Text(
+                                                                    S
+                                                                        .of(context)
+                                                                        .Rateclass,
+                                                                    //'Rate class',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .normal,
+                                                                        color: Theme.of(context)
+                                                                            .accentColor),
+                                                                  ),
+                                                                  trailing:
+                                                                      Text(
+                                                                    '${item.rateClass ?? "null"}',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                      //    color: Colors.black
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              ListTile(
-                                                                title: Text(
-                                                                  S.of(context).ItemNumber,
-                                                                  // 'Item Number',
-                                                                  style: TextStyle(
-                                                                      fontWeight: FontWeight.normal,
-                                                                      color:Theme.of(context).accentColor),
-                                                                ),
-                                                                trailing: Text(
-                                                                  '${item.itemNumber ?? "null"}',
-                                                                  style: TextStyle(
-                                                                    fontWeight: FontWeight.normal,
-                                                                    //    color: Colors.black
+                                                                ListTile(
+                                                                  title: Text(
+                                                                    S
+                                                                        .of(context)
+                                                                        .ItemNumber,
+                                                                    // 'Item Number',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .normal,
+                                                                        color: Theme.of(context)
+                                                                            .accentColor),
+                                                                  ),
+                                                                  trailing:
+                                                                      Text(
+                                                                    '${item.itemNumber ?? "null"}',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                      //    color: Colors.black
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              ListTile(
-                                                                title: Text(
-                                                                  S.of(context).Chargeableweight,
-                                                                  // 'Chargeable weight',
-                                                                  style: TextStyle(
-                                                                      fontWeight: FontWeight.normal,
-                                                                      color: Theme.of(context).accentColor),
-                                                                ),
-                                                                trailing: Text(
-                                                                  '${item.chargeableWeight ?? "null"}',
-                                                                  style: TextStyle(
-                                                                    fontWeight: FontWeight.normal,
-                                                                    //    color: Colors.black
+                                                                ListTile(
+                                                                  title: Text(
+                                                                    S
+                                                                        .of(context)
+                                                                        .Chargeableweight,
+                                                                    // 'Chargeable weight',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .normal,
+                                                                        color: Theme.of(context)
+                                                                            .accentColor),
+                                                                  ),
+                                                                  trailing:
+                                                                      Text(
+                                                                    '${item.chargeableWeight ?? "null"}',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                      //    color: Colors.black
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              ListTile(
-                                                                title: Text(
-                                                                  S.of(context).RateCharge,
-                                                                  // 'Rate / Charge',
-                                                                  style: TextStyle(
-                                                                      fontWeight: FontWeight.normal,
-                                                                      color: Theme.of(context).accentColor),
-                                                                ),
-                                                                trailing: Text(
-                                                                  '${item.rateCharge ?? "null"}',
-                                                                  style: TextStyle(
-                                                                    fontWeight: FontWeight.normal,
-                                                                    //    color: Colors.black
+                                                                ListTile(
+                                                                  title: Text(
+                                                                    S
+                                                                        .of(context)
+                                                                        .RateCharge,
+                                                                    // 'Rate / Charge',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .normal,
+                                                                        color: Theme.of(context)
+                                                                            .accentColor),
+                                                                  ),
+                                                                  trailing:
+                                                                      Text(
+                                                                    '${item.rateCharge ?? "null"}',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                      //    color: Colors.black
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              ListTile(
-                                                                title: Text(
-                                                                  S.of(context).Total,
-                                                                  //'Total',
-                                                                  style: TextStyle(
-                                                                      fontWeight: FontWeight.normal,
-                                                                      color: Theme.of(context).accentColor),
-                                                                ),
-                                                                trailing: Text(
-                                                                  '${item.total ?? "null"}',
-                                                                  style: TextStyle(
-                                                                    fontWeight: FontWeight.normal,
-                                                                    //    color: Colors.black
+                                                                ListTile(
+                                                                  title: Text(
+                                                                    S
+                                                                        .of(context)
+                                                                        .Total,
+                                                                    //'Total',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .normal,
+                                                                        color: Theme.of(context)
+                                                                            .accentColor),
+                                                                  ),
+                                                                  trailing:
+                                                                      Text(
+                                                                    '${item.total ?? "null"}',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                      //    color: Colors.black
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              ListTile(
-                                                                title: Text(
-                                                                  S.of(context).Autocalculations,
-                                                                  //'Auto - calculations',
-                                                                  style: TextStyle(
-                                                                      fontWeight: FontWeight.normal,
-                                                                      color: Theme.of(context).accentColor),
-                                                                ),
-                                                                trailing: Text(
-                                                                  '${item.autoCalculations ?? "null"}',
-                                                                  style: TextStyle(
-                                                                    fontWeight: FontWeight.normal,
-                                                                    //    color: Colors.black
+                                                                ListTile(
+                                                                  title: Text(
+                                                                    S
+                                                                        .of(context)
+                                                                        .Autocalculations,
+                                                                    //'Auto - calculations',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .normal,
+                                                                        color: Theme.of(context)
+                                                                            .accentColor),
+                                                                  ),
+                                                                  trailing:
+                                                                      Text(
+                                                                    '${item.autoCalculations ?? "null"}',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                      //    color: Colors.black
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              ListTile(
-                                                                title: Text(
-                                                                  S.of(context).Natureandquantityofgoods,
-                                                                  //'Nature and quantity of goods',
-                                                                  textAlign: TextAlign.center,
-                                                                  style: TextStyle(
-                                                                      fontWeight: FontWeight.normal,
-                                                                      fontSize: 17,
-                                                                      color: Theme.of(context).accentColor),
-                                                                ),
-                                                              ),
-                                                              ListTile(
-                                                                title: Text(
-                                                                  S.of(context).NatureandQuantity,
-                                                                  // 'Nature and Quantity',
-                                                                  style: TextStyle(
-                                                                      fontWeight: FontWeight.normal,
-                                                                      color: Theme.of(context).accentColor),
-                                                                ),
-                                                                trailing: Text(
-                                                                  '${item.natureAndQuantity ?? "null"}',
-                                                                  style: TextStyle(
-                                                                    fontWeight: FontWeight.normal,
-                                                                    //    color: Colors.black
+                                                                ListTile(
+                                                                  title: Text(
+                                                                    S
+                                                                        .of(context)
+                                                                        .Natureandquantityofgoods,
+                                                                    //'Nature and quantity of goods',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .normal,
+                                                                        fontSize:
+                                                                            17,
+                                                                        color: Theme.of(context)
+                                                                            .accentColor),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              ListTile(
-                                                                title: Text(
-                                                                  S.of(context).Dimensions,
-                                                                  // 'Dimensions',
-                                                                  style: TextStyle(
-                                                                      fontWeight: FontWeight.normal,
-                                                                      color: Theme.of(context).accentColor),
+                                                                ListTile(
+                                                                  title: Text(
+                                                                    S
+                                                                        .of(context)
+                                                                        .NatureandQuantity,
+                                                                    // 'Nature and Quantity',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .normal,
+                                                                        color: Theme.of(context)
+                                                                            .accentColor),
+                                                                  ),
+                                                                  trailing:
+                                                                      Text(
+                                                                    '${item.natureAndQuantity ?? "null"}',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                      //    color: Colors.black
+                                                                    ),
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                              SingleChildScrollView(
-                                                                scrollDirection: Axis.horizontal,
-                                                                child: DataTable(
-                                                                  columnSpacing: 15,
-                                                                  columns: [
-                                                                    DataColumn(
-                                                                        label: Text(
-                                                                          S.of(context).Length,
-                                                                          //'Length',
-                                                                          style: TextStyle(
-                                                                              color: Theme.of(context).accentColor
-                                                                          ),
-                                                                        )),
-                                                                    DataColumn(
-                                                                        label: Text(
-                                                                          S.of(context).Width,
-                                                                          //'Width',
-                                                                          style: TextStyle(
-                                                                              color: Theme.of(context).accentColor
-                                                                          ),
-                                                                        )),
-                                                                    DataColumn(
-                                                                        label: Text(
-                                                                          S.of(context).height,
-                                                                          //'Height',
-                                                                          style: TextStyle(
-                                                                              color: Theme.of(context).accentColor
-                                                                          ),
-                                                                        )),
-                                                                    DataColumn(
-                                                                        label: Text(
-                                                                          S.of(context).Unit,
-                                                                          //'Unit',
-                                                                          style: TextStyle(color: Theme.of(context).accentColor),
-                                                                        )),
-                                                                    DataColumn(
-                                                                        label: Text(
-                                                                          S.of(context).Pieces,
-                                                                          //'Pieces',
-                                                                          style: TextStyle(
-                                                                              color:Theme.of(context).accentColor
-                                                                          ),
-                                                                        )),
-                                                                    DataColumn(
-                                                                        label: Text(
-                                                                          S.of(context).Weight,
-                                                                          //'Weight',
-                                                                          style: TextStyle(color: Theme.of(context).accentColor),
-                                                                        )),
-                                                                    DataColumn(
-                                                                        label: Text(
-                                                                          S.of(context).Unit,
-                                                                          //'Unit',
-                                                                          style: TextStyle(color: Theme.of(context).accentColor),
-                                                                        )),
+                                                                ListTile(
+                                                                  title: Text(
+                                                                    S
+                                                                        .of(context)
+                                                                        .Dimensions,
+                                                                    // 'Dimensions',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .normal,
+                                                                        color: Theme.of(context)
+                                                                            .accentColor),
+                                                                  ),
+                                                                ),
+                                                                SingleChildScrollView(
+                                                                  scrollDirection:
+                                                                      Axis.horizontal,
+                                                                  child:
+                                                                      DataTable(
+                                                                    columnSpacing:
+                                                                        15,
+                                                                    columns: [
+                                                                      DataColumn(
+                                                                          label:
+                                                                              Text(
+                                                                        S
+                                                                            .of(context)
+                                                                            .Length,
+                                                                        //'Length',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Theme.of(context).accentColor),
+                                                                      )),
+                                                                      DataColumn(
+                                                                          label:
+                                                                              Text(
+                                                                        S
+                                                                            .of(context)
+                                                                            .Width,
+                                                                        //'Width',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Theme.of(context).accentColor),
+                                                                      )),
+                                                                      DataColumn(
+                                                                          label:
+                                                                              Text(
+                                                                        S
+                                                                            .of(context)
+                                                                            .height,
+                                                                        //'Height',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Theme.of(context).accentColor),
+                                                                      )),
+                                                                      DataColumn(
+                                                                          label:
+                                                                              Text(
+                                                                        S
+                                                                            .of(context)
+                                                                            .Unit,
+                                                                        //'Unit',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Theme.of(context).accentColor),
+                                                                      )),
+                                                                      DataColumn(
+                                                                          label:
+                                                                              Text(
+                                                                        S
+                                                                            .of(context)
+                                                                            .Pieces,
+                                                                        //'Pieces',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Theme.of(context).accentColor),
+                                                                      )),
+                                                                      DataColumn(
+                                                                          label:
+                                                                              Text(
+                                                                        S
+                                                                            .of(context)
+                                                                            .Weight,
+                                                                        //'Weight',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Theme.of(context).accentColor),
+                                                                      )),
+                                                                      DataColumn(
+                                                                          label:
+                                                                              Text(
+                                                                        S
+                                                                            .of(context)
+                                                                            .Unit,
+                                                                        //'Unit',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Theme.of(context).accentColor),
+                                                                      )),
+                                                                    ],
+                                                                    rows: item
+                                                                        .dimensionsList
+                                                                        .map<DataRow>((e) =>
+                                                                            DataRow(cells: [
+                                                                              DataCell(Text(
+                                                                                e['length'].toString(),
+                                                                                style: TextStyle(
+                                                                                    //color: Colors.black
+                                                                                    ),
+                                                                              )),
+                                                                              DataCell(Text(
+                                                                                e['width'].toString(),
+                                                                                style: TextStyle(
+                                                                                    //    color: Colors.black
+                                                                                    ),
+                                                                              )),
+                                                                              DataCell(Text(
+                                                                                e['height'].toString(),
+                                                                                style: TextStyle(
+                                                                                    //    color: Colors.black
+                                                                                    ),
+                                                                              )),
+                                                                              DataCell(Text(
+                                                                                e['lwhUnit'] ??= "cm",
+                                                                                style: TextStyle(
+                                                                                    //    color: Colors.black
+                                                                                    ),
+                                                                              )),
+                                                                              DataCell(Text(
+                                                                                (e['pieces'] ??= 1).toString(),
+                                                                                style: TextStyle(
+                                                                                    //    color: Colors.black
+                                                                                    ),
+                                                                              )),
+                                                                              DataCell(Text(
+                                                                                (e['weight'] ??= 0).toString(),
+                                                                                style: TextStyle(
+                                                                                    //    color: Colors.black
+                                                                                    ),
+                                                                              )),
+                                                                              DataCell(Text(
+                                                                                e['pwUnit'] ??= "K",
+                                                                                style: TextStyle(
+                                                                                    //    color: Colors.black
+                                                                                    ),
+                                                                              )),
+                                                                            ]))
+                                                                        .toList(),
+                                                                  ),
+                                                                ),
+                                                                ListTile(
+                                                                  title: Text(
+                                                                    S
+                                                                        .of(context)
+                                                                        .ExtraDescription,
+                                                                    //   'Extra Description',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .normal,
+                                                                        fontSize:
+                                                                            17,
+                                                                        color: Theme.of(context)
+                                                                            .accentColor),
+                                                                  ),
+                                                                ),
+                                                                ListTile(
+                                                                  title: Text(
+                                                                    S
+                                                                        .of(context)
+                                                                        .Text,
+                                                                    //'Text',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                      //    color: Colors.black
+                                                                    ),
+                                                                  ),
+                                                                  trailing:
+                                                                      Text(
+                                                                    '${item.text ?? S.of(context).Nodescription
+                                                                    // "No description"
+                                                                    }',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                      //    color: Colors.black
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceEvenly,
+                                                                  children: [
+                                                                    TextButton(
+                                                                      style: ButtonStyle(
+                                                                          backgroundColor:
+                                                                              MaterialStateProperty.all(Theme.of(context).accentColor)),
+                                                                      onPressed:
+                                                                          () {
+                                                                        model.deleteRateDescriptionItem(
+                                                                            item);
+                                                                        setState(
+                                                                            () {
+                                                                          cardExpanded =
+                                                                              true;
+                                                                          previousIndex =
+                                                                              0;
+                                                                        });
+                                                                      },
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .delete,
+                                                                        color: Theme.of(context)
+                                                                            .backgroundColor,
+                                                                        // S.of(context).Delete,
+                                                                        // //"Delete",
+                                                                        // style: TextStyle(
+                                                                        //   color: Theme.of(context).backgroundColor,
+                                                                        // ),
+                                                                      ),
+                                                                    ),
+                                                                    TextButton(
+                                                                      style:
+                                                                          ButtonStyle(
+                                                                        backgroundColor:
+                                                                            MaterialStateProperty.all(Theme.of(context).accentColor),
+                                                                      ),
+                                                                      onPressed:
+                                                                          () {
+                                                                        Navigator.of(context)
+                                                                            .pop();
+                                                                      },
+                                                                      child:
+                                                                          Text(
+                                                                        "Close",
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Theme.of(context).backgroundColor),
+                                                                      ),
+                                                                    ),
+                                                                    TextButton(
+                                                                      style: ButtonStyle(
+                                                                          backgroundColor:
+                                                                              MaterialStateProperty.all(Theme.of(context).accentColor)),
+                                                                      onPressed:
+                                                                          () async {
+                                                                        RateDescriptionItem rateDescriptionItem = await Navigator.push(
+                                                                            context,
+                                                                            MaterialPageRoute<RateDescriptionItem>(
+                                                                                builder: (context) => UpdateRateDescriptionForm(
+                                                                                      consolidationstatus: consolidationvalue,
+                                                                                      pieces: item.pieces,
+                                                                                      grossWeight: item.grossWeight,
+                                                                                      grossWeightUnit: item.grossWeightUnit,
+                                                                                      rateClass: item.rateClass,
+                                                                                      itemNumber: item.itemNumber,
+                                                                                      chargeableWeight: item.chargeableWeight,
+                                                                                      rateCharge: item.rateCharge,
+                                                                                      total: item.total,
+                                                                                      autoCalculations: item.autoCalculations,
+                                                                                      natureAndQuantity: item.natureAndQuantity,
+                                                                                      dimensionsList: item.dimensionsList,
+                                                                                      text: item.text,
+                                                                                    )));
+                                                                        if (rateDescriptionItem !=
+                                                                            null) {
+                                                                          model.deleteRateDescriptionItem(
+                                                                              item);
+                                                                          model.addRateDescriptionItem(
+                                                                              rateDescriptionItem);
+                                                                        }
+                                                                      },
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .edit,
+                                                                        color: Theme.of(context)
+                                                                            .backgroundColor,
+                                                                        // S.of(context).Edit,
+                                                                        // // "Edit",
+                                                                        // style: TextStyle(
+                                                                        //   color: Theme.of(context).backgroundColor,
+                                                                        // ),
+                                                                      ),
+                                                                    )
                                                                   ],
-                                                                  rows: item.dimensionsList
-                                                                      .map<DataRow>((e) => DataRow(cells: [
-                                                                    DataCell(Text(
-                                                                      e['length'].toString(),
-                                                                      style: TextStyle(
-                                                                        //color: Colors.black
-                                                                      ),
-                                                                    )),
-                                                                    DataCell(Text(
-                                                                      e['width'].toString(),
-                                                                      style: TextStyle(
-                                                                        //    color: Colors.black
-                                                                      ),
-                                                                    )),
-                                                                    DataCell(Text(
-                                                                      e['height'].toString(),
-                                                                      style: TextStyle(
-                                                                        //    color: Colors.black
-                                                                      ),
-                                                                    )),
-                                                                    DataCell(Text(
-                                                                      e['lwhUnit'] ??= "cm",
-                                                                      style: TextStyle(
-                                                                        //    color: Colors.black
-                                                                      ),
-                                                                    )),
-                                                                    DataCell(Text(
-                                                                      (e['pieces'] ??= 1).toString(),
-                                                                      style: TextStyle(
-                                                                        //    color: Colors.black
-                                                                      ),
-                                                                    )),
-                                                                    DataCell(Text(
-                                                                      (e['weight'] ??= 0).toString(),
-                                                                      style: TextStyle(
-                                                                        //    color: Colors.black
-                                                                      ),
-                                                                    )),
-                                                                    DataCell(Text(
-                                                                      e['pwUnit'] ??= "K",
-                                                                      style: TextStyle(
-                                                                        //    color: Colors.black
-                                                                      ),
-                                                                    )),
-                                                                  ]))
-                                                                      .toList(),
                                                                 ),
-                                                              ),
-                                                              ListTile(
-                                                                title: Text(
-                                                                  S.of(context).ExtraDescription,
-                                                                  //   'Extra Description',
-                                                                  textAlign: TextAlign.center,
-                                                                  style: TextStyle(
-                                                                      fontWeight: FontWeight.normal,
-                                                                      fontSize: 17,
-                                                                      color: Theme.of(context).accentColor),
-                                                                ),
-                                                              ),
-                                                              ListTile(
-                                                                title: Text(
-                                                                  S.of(context).Text,
-                                                                  //'Text',
-                                                                  style: TextStyle(
-                                                                    fontWeight: FontWeight.normal,
-                                                                    //    color: Colors.black
-                                                                  ),
-                                                                ),
-                                                                trailing: Text(
-                                                                  '${item.text ?? S.of(context).Nodescription
-                                                                  // "No description"
-                                                                  }',
-                                                                  style: TextStyle(
-                                                                    fontWeight: FontWeight.normal,
-                                                                    //    color: Colors.black
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Row(
-                                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                children: [
-                                                                  TextButton(
-                                                                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
-                                                                    onPressed: () {
-                                                                      model.deleteRateDescriptionItem(item);
-                                                                      setState(() {
-                                                                        cardExpanded = true;
-                                                                        previousIndex = 0;
-                                                                      });
-                                                                    },
-                                                                    child: Icon(
-                                                                      Icons.delete,
-                                                                      color: Theme.of(context).backgroundColor,
-                                                                      // S.of(context).Delete,
-                                                                      // //"Delete",
-                                                                      // style: TextStyle(
-                                                                      //   color: Theme.of(context).backgroundColor,
-                                                                      // ),
-                                                                    ),
-                                                                  ),
-                                                                  TextButton(
-
-                                                                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor),
-
-                                                                    ),
-                                                                    onPressed: () {
-                                                                      Navigator.of(context).pop();
-                                                                    },
-                                                                    child: Text("Close",
-                                                                      style: TextStyle(
-                                                                          color: Theme.of(context).backgroundColor
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  TextButton(
-                                                                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
-                                                                    onPressed: () async {
-                                                                      RateDescriptionItem rateDescriptionItem =
-                                                                      await Navigator.push(
-                                                                          context,
-                                                                          MaterialPageRoute<RateDescriptionItem>(
-                                                                              builder: (context) =>
-                                                                                  UpdateRateDescriptionForm(
-                                                                                    consolidationstatus: consolidationvalue,
-                                                                                    pieces: item.pieces,
-                                                                                    grossWeight: item.grossWeight,
-                                                                                    grossWeightUnit:
-                                                                                    item.grossWeightUnit,
-                                                                                    rateClass: item.rateClass,
-                                                                                    itemNumber: item.itemNumber,
-                                                                                    chargeableWeight:
-                                                                                    item.chargeableWeight,
-                                                                                    rateCharge: item.rateCharge,
-                                                                                    total: item.total,
-                                                                                    autoCalculations:
-                                                                                    item.autoCalculations,
-                                                                                    natureAndQuantity:
-                                                                                    item.natureAndQuantity,
-                                                                                    dimensionsList:
-                                                                                    item.dimensionsList,
-                                                                                    text: item.text,
-                                                                                  )));
-                                                                      if (rateDescriptionItem != null) {
-                                                                        model.deleteRateDescriptionItem(item);
-                                                                        model.addRateDescriptionItem(
-                                                                            rateDescriptionItem);
-                                                                      }
-                                                                    },
-                                                                    child: Icon(
-                                                                      Icons.edit,
-                                                                      color: Theme.of(context).backgroundColor,
-                                                                      // S.of(context).Edit,
-                                                                      // // "Edit",
-                                                                      // style: TextStyle(
-                                                                      //   color: Theme.of(context).backgroundColor,
-                                                                      // ),
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            ],
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  );
-                                                });
-                // showDialog(
-                //   context: context,
-                //   builder: (ctx) => SingleChildScrollView(
-                //     child: AlertDialog(
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(20),
-                //       ),
-                //       content: Container(
-                //
-                //         child: Column(
-                //           children: [
-                //             ListTile(
-                //               title: Text(
-                //                 S.of(context).Information,
-                //                 //'Information',
-                //                 textAlign: TextAlign.center,
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.bold,
-                //                     fontSize: 17,
-                //                     color: Theme.of(context).accentColor),
-                //               ),
-                //             ),
-                //             ListTile(
-                //               title: Text(
-                //                 S.of(context).Pieces,
-                //                 //'Pieces',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                     color: Theme.of(context).accentColor),
-                //               ),
-                //               trailing: Text(
-                //                 '${item.pieces ?? "1"}',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                 //    color: Colors.black
-                //                 ),
-                //               ),
-                //             ),
-                //             ListTile(
-                //               title: Text(
-                //                 S.of(context).GrossWeight,
-                //                 //'Gross weight',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                     color: Theme.of(context).accentColor),
-                //               ),
-                //               trailing: Text(
-                //                 '${item.grossWeight.ceil() ?? "null"} ${item.grossWeightUnit ?? ""}',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                 //    color: Colors.black
-                //                 ),
-                //               ),
-                //             ),
-                //             ListTile(
-                //               title: Text(
-                //                 S.of(context).Rateclass,
-                //                 //'Rate class',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                     color:Theme.of(context).accentColor),
-                //               ),
-                //               trailing: Text(
-                //                 '${item.rateClass ?? "null"}',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                 //    color: Colors.black
-                //                 ),
-                //               ),
-                //             ),
-                //             ListTile(
-                //               title: Text(
-                //                 S.of(context).ItemNumber,
-                //                 // 'Item Number',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                     color:Theme.of(context).accentColor),
-                //               ),
-                //               trailing: Text(
-                //                 '${item.itemNumber ?? "null"}',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                 //    color: Colors.black
-                //                 ),
-                //               ),
-                //             ),
-                //             ListTile(
-                //               title: Text(
-                //                 S.of(context).Chargeableweight,
-                //                 // 'Chargeable weight',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                     color: Theme.of(context).accentColor),
-                //               ),
-                //               trailing: Text(
-                //                 '${item.chargeableWeight ?? "null"}',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                 //    color: Colors.black
-                //                 ),
-                //               ),
-                //             ),
-                //             ListTile(
-                //               title: Text(
-                //                 S.of(context).RateCharge,
-                //                 // 'Rate / Charge',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                     color: Theme.of(context).accentColor),
-                //               ),
-                //               trailing: Text(
-                //                 '${item.rateCharge ?? "null"}',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                 //    color: Colors.black
-                //                 ),
-                //               ),
-                //             ),
-                //             ListTile(
-                //               title: Text(
-                //                 S.of(context).Total,
-                //                 //'Total',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                     color: Theme.of(context).accentColor),
-                //               ),
-                //               trailing: Text(
-                //                 '${item.total ?? "null"}',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                 //    color: Colors.black
-                //                 ),
-                //               ),
-                //             ),
-                //             ListTile(
-                //               title: Text(
-                //                 S.of(context).Autocalculations,
-                //                 //'Auto - calculations',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                     color: Theme.of(context).accentColor),
-                //               ),
-                //               trailing: Text(
-                //                 '${item.autoCalculations ?? "null"}',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                 //    color: Colors.black
-                //                 ),
-                //               ),
-                //             ),
-                //             ListTile(
-                //               title: Text(
-                //                 S.of(context).Natureandquantityofgoods,
-                //                 //'Nature and quantity of goods',
-                //                 textAlign: TextAlign.center,
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                     fontSize: 17,
-                //                     color: Theme.of(context).accentColor),
-                //               ),
-                //             ),
-                //             ListTile(
-                //               title: Text(
-                //                 S.of(context).NatureandQuantity,
-                //                 // 'Nature and Quantity',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                     color: Theme.of(context).accentColor),
-                //               ),
-                //               trailing: Text(
-                //                 '${item.natureAndQuantity ?? "null"}',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                 //    color: Colors.black
-                //                 ),
-                //               ),
-                //             ),
-                //             ListTile(
-                //               title: Text(
-                //                 S.of(context).Dimensions,
-                //                 // 'Dimensions',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                     color: Theme.of(context).accentColor),
-                //               ),
-                //             ),
-                //             SingleChildScrollView(
-                //               scrollDirection: Axis.horizontal,
-                //               child: DataTable(
-                //                 columnSpacing: 15,
-                //                 columns: [
-                //                   DataColumn(
-                //                       label: Text(
-                //                         S.of(context).Length,
-                //                         //'Length',
-                //                         style: TextStyle(
-                //                             color: Theme.of(context).accentColor
-                //                         ),
-                //                       )),
-                //                   DataColumn(
-                //                       label: Text(
-                //                         S.of(context).Width,
-                //                         //'Width',
-                //                         style: TextStyle(
-                //                             color: Theme.of(context).accentColor
-                //                         ),
-                //                       )),
-                //                   DataColumn(
-                //                       label: Text(
-                //                         S.of(context).height,
-                //                         //'Height',
-                //                         style: TextStyle(
-                //                             color: Theme.of(context).accentColor
-                //                         ),
-                //                       )),
-                //                   DataColumn(
-                //                       label: Text(
-                //                         S.of(context).Unit,
-                //                         //'Unit',
-                //                         style: TextStyle(color: Theme.of(context).accentColor),
-                //                       )),
-                //                   DataColumn(
-                //                       label: Text(
-                //                         S.of(context).Pieces,
-                //                         //'Pieces',
-                //                         style: TextStyle(
-                //                             color:Theme.of(context).accentColor
-                //                         ),
-                //                       )),
-                //                   DataColumn(
-                //                       label: Text(
-                //                         S.of(context).Weight,
-                //                         //'Weight',
-                //                         style: TextStyle(color: Theme.of(context).accentColor),
-                //                       )),
-                //                   DataColumn(
-                //                       label: Text(
-                //                         S.of(context).Unit,
-                //                         //'Unit',
-                //                         style: TextStyle(color: Theme.of(context).accentColor),
-                //                       )),
-                //                 ],
-                //                 rows: item.dimensionsList
-                //                     .map<DataRow>((e) => DataRow(cells: [
-                //                   DataCell(Text(
-                //                     e['length'].toString(),
-                //                     style: TextStyle(
-                //                         //color: Colors.black
-                //                     ),
-                //                   )),
-                //                   DataCell(Text(
-                //                     e['width'].toString(),
-                //                     style: TextStyle(
-                //                     //    color: Colors.black
-                //                     ),
-                //                   )),
-                //                   DataCell(Text(
-                //                     e['height'].toString(),
-                //                     style: TextStyle(
-                //                     //    color: Colors.black
-                //                     ),
-                //                   )),
-                //                   DataCell(Text(
-                //                     e['lwhUnit'] ??= "cm",
-                //                     style: TextStyle(
-                //                     //    color: Colors.black
-                //                     ),
-                //                   )),
-                //                   DataCell(Text(
-                //                     (e['pieces'] ??= 1).toString(),
-                //                     style: TextStyle(
-                //                     //    color: Colors.black
-                //                     ),
-                //                   )),
-                //                   DataCell(Text(
-                //                     (e['weight'] ??= 0).toString(),
-                //                     style: TextStyle(
-                //                     //    color: Colors.black
-                //                     ),
-                //                   )),
-                //                   DataCell(Text(
-                //                     e['pwUnit'] ??= "K",
-                //                     style: TextStyle(
-                //                     //    color: Colors.black
-                //                     ),
-                //                   )),
-                //                 ]))
-                //                     .toList(),
-                //               ),
-                //             ),
-                //             ListTile(
-                //               title: Text(
-                //                 S.of(context).ExtraDescription,
-                //                 //   'Extra Description',
-                //                 textAlign: TextAlign.center,
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                     fontSize: 17,
-                //                     color: Theme.of(context).accentColor),
-                //               ),
-                //             ),
-                //             ListTile(
-                //               title: Text(
-                //                 S.of(context).Text,
-                //                 //'Text',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                 //    color: Colors.black
-                //                 ),
-                //               ),
-                //               trailing: Text(
-                //                 '${item.text ?? S.of(context).Nodescription
-                //                 // "No description"
-                //                 }',
-                //                 style: TextStyle(
-                //                     fontWeight: FontWeight.normal,
-                //                 //    color: Colors.black
-                //                 ),
-                //               ),
-                //             ),
-                //             Row(
-                //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //               children: [
-                //                 FlatButton(
-                //                   color: Theme.of(context).accentColor,
-                //                   onPressed: () {
-                //                     model.deleteRateDescriptionItem(item);
-                //                     setState(() {
-                //                       cardExpanded = true;
-                //                       previousIndex = 0;
-                //                     });
-                //                   },
-                //                   child: Icon(
-                //                     Icons.delete,
-                //                     color: Theme.of(context).backgroundColor,
-                //                     // S.of(context).Delete,
-                //                     // //"Delete",
-                //                     // style: TextStyle(
-                //                     //   color: Theme.of(context).backgroundColor,
-                //                     // ),
-                //                   ),
-                //                 ),
-                //                 TextButton(
-                //
-                //                   style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor),
-                //
-                //                   ),
-                //                   onPressed: () {
-                //                     Navigator.of(ctx).pop();
-                //                   },
-                //                   child: Text("Close",
-                //                     style: TextStyle(
-                //                         color: Theme.of(context).backgroundColor
-                //                     ),
-                //                   ),
-                //                 ),
-                //                 FlatButton(
-                //                   color: Theme.of(context).accentColor,
-                //                   onPressed: () async {
-                //                     RateDescriptionItem rateDescriptionItem =
-                //                     await Navigator.push(
-                //                         context,
-                //                         MaterialPageRoute<RateDescriptionItem>(
-                //                             builder: (context) =>
-                //                                 UpdateRateDescriptionForm(
-                //                                   pieces: item.pieces,
-                //                                   grossWeight: item.grossWeight,
-                //                                   grossWeightUnit:
-                //                                   item.grossWeightUnit,
-                //                                   rateClass: item.rateClass,
-                //                                   itemNumber: item.itemNumber,
-                //                                   chargeableWeight:
-                //                                   item.chargeableWeight,
-                //                                   rateCharge: item.rateCharge,
-                //                                   total: item.total,
-                //                                   autoCalculations:
-                //                                   item.autoCalculations,
-                //                                   natureAndQuantity:
-                //                                   item.natureAndQuantity,
-                //                                   dimensionsList:
-                //                                   item.dimensionsList,
-                //                                   text: item.text,
-                //                                 )));
-                //                     if (rateDescriptionItem != null) {
-                //                       model.deleteRateDescriptionItem(item);
-                //                       model.addRateDescriptionItem(
-                //                           rateDescriptionItem);
-                //                     }
-                //                   },
-                //                   child: Icon(
-                //                     Icons.edit,
-                //                     color: Theme.of(context).backgroundColor,
-                //                     // S.of(context).Edit,
-                //                     // // "Edit",
-                //                     // style: TextStyle(
-                //                     //   color: Theme.of(context).backgroundColor,
-                //                     // ),
-                //                   ),
-                //                 )
-                //               ],
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //
-                //     ),
-                //   ),
-                // );
-              }, icon: Icon(Icons.info,
-                color: Theme.of(context).accentColor,
-              )),
-                                          // Text(alertvalue.toString()),
-
-                                        ],
-                                      ),
-
+                                                    );
+                                                  });
+                                              // showDialog(
+                                              //   context: context,
+                                              //   builder: (ctx) => SingleChildScrollView(
+                                              //     child: AlertDialog(
+                                              //       shape: RoundedRectangleBorder(
+                                              //         borderRadius: BorderRadius.circular(20),
+                                              //       ),
+                                              //       content: Container(
+                                              //
+                                              //         child: Column(
+                                              //           children: [
+                                              //             ListTile(
+                                              //               title: Text(
+                                              //                 S.of(context).Information,
+                                              //                 //'Information',
+                                              //                 textAlign: TextAlign.center,
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.bold,
+                                              //                     fontSize: 17,
+                                              //                     color: Theme.of(context).accentColor),
+                                              //               ),
+                                              //             ),
+                                              //             ListTile(
+                                              //               title: Text(
+                                              //                 S.of(context).Pieces,
+                                              //                 //'Pieces',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                     color: Theme.of(context).accentColor),
+                                              //               ),
+                                              //               trailing: Text(
+                                              //                 '${item.pieces ?? "1"}',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                 //    color: Colors.black
+                                              //                 ),
+                                              //               ),
+                                              //             ),
+                                              //             ListTile(
+                                              //               title: Text(
+                                              //                 S.of(context).GrossWeight,
+                                              //                 //'Gross weight',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                     color: Theme.of(context).accentColor),
+                                              //               ),
+                                              //               trailing: Text(
+                                              //                 '${item.grossWeight.ceil() ?? "null"} ${item.grossWeightUnit ?? ""}',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                 //    color: Colors.black
+                                              //                 ),
+                                              //               ),
+                                              //             ),
+                                              //             ListTile(
+                                              //               title: Text(
+                                              //                 S.of(context).Rateclass,
+                                              //                 //'Rate class',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                     color:Theme.of(context).accentColor),
+                                              //               ),
+                                              //               trailing: Text(
+                                              //                 '${item.rateClass ?? "null"}',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                 //    color: Colors.black
+                                              //                 ),
+                                              //               ),
+                                              //             ),
+                                              //             ListTile(
+                                              //               title: Text(
+                                              //                 S.of(context).ItemNumber,
+                                              //                 // 'Item Number',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                     color:Theme.of(context).accentColor),
+                                              //               ),
+                                              //               trailing: Text(
+                                              //                 '${item.itemNumber ?? "null"}',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                 //    color: Colors.black
+                                              //                 ),
+                                              //               ),
+                                              //             ),
+                                              //             ListTile(
+                                              //               title: Text(
+                                              //                 S.of(context).Chargeableweight,
+                                              //                 // 'Chargeable weight',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                     color: Theme.of(context).accentColor),
+                                              //               ),
+                                              //               trailing: Text(
+                                              //                 '${item.chargeableWeight ?? "null"}',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                 //    color: Colors.black
+                                              //                 ),
+                                              //               ),
+                                              //             ),
+                                              //             ListTile(
+                                              //               title: Text(
+                                              //                 S.of(context).RateCharge,
+                                              //                 // 'Rate / Charge',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                     color: Theme.of(context).accentColor),
+                                              //               ),
+                                              //               trailing: Text(
+                                              //                 '${item.rateCharge ?? "null"}',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                 //    color: Colors.black
+                                              //                 ),
+                                              //               ),
+                                              //             ),
+                                              //             ListTile(
+                                              //               title: Text(
+                                              //                 S.of(context).Total,
+                                              //                 //'Total',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                     color: Theme.of(context).accentColor),
+                                              //               ),
+                                              //               trailing: Text(
+                                              //                 '${item.total ?? "null"}',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                 //    color: Colors.black
+                                              //                 ),
+                                              //               ),
+                                              //             ),
+                                              //             ListTile(
+                                              //               title: Text(
+                                              //                 S.of(context).Autocalculations,
+                                              //                 //'Auto - calculations',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                     color: Theme.of(context).accentColor),
+                                              //               ),
+                                              //               trailing: Text(
+                                              //                 '${item.autoCalculations ?? "null"}',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                 //    color: Colors.black
+                                              //                 ),
+                                              //               ),
+                                              //             ),
+                                              //             ListTile(
+                                              //               title: Text(
+                                              //                 S.of(context).Natureandquantityofgoods,
+                                              //                 //'Nature and quantity of goods',
+                                              //                 textAlign: TextAlign.center,
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                     fontSize: 17,
+                                              //                     color: Theme.of(context).accentColor),
+                                              //               ),
+                                              //             ),
+                                              //             ListTile(
+                                              //               title: Text(
+                                              //                 S.of(context).NatureandQuantity,
+                                              //                 // 'Nature and Quantity',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                     color: Theme.of(context).accentColor),
+                                              //               ),
+                                              //               trailing: Text(
+                                              //                 '${item.natureAndQuantity ?? "null"}',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                 //    color: Colors.black
+                                              //                 ),
+                                              //               ),
+                                              //             ),
+                                              //             ListTile(
+                                              //               title: Text(
+                                              //                 S.of(context).Dimensions,
+                                              //                 // 'Dimensions',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                     color: Theme.of(context).accentColor),
+                                              //               ),
+                                              //             ),
+                                              //             SingleChildScrollView(
+                                              //               scrollDirection: Axis.horizontal,
+                                              //               child: DataTable(
+                                              //                 columnSpacing: 15,
+                                              //                 columns: [
+                                              //                   DataColumn(
+                                              //                       label: Text(
+                                              //                         S.of(context).Length,
+                                              //                         //'Length',
+                                              //                         style: TextStyle(
+                                              //                             color: Theme.of(context).accentColor
+                                              //                         ),
+                                              //                       )),
+                                              //                   DataColumn(
+                                              //                       label: Text(
+                                              //                         S.of(context).Width,
+                                              //                         //'Width',
+                                              //                         style: TextStyle(
+                                              //                             color: Theme.of(context).accentColor
+                                              //                         ),
+                                              //                       )),
+                                              //                   DataColumn(
+                                              //                       label: Text(
+                                              //                         S.of(context).height,
+                                              //                         //'Height',
+                                              //                         style: TextStyle(
+                                              //                             color: Theme.of(context).accentColor
+                                              //                         ),
+                                              //                       )),
+                                              //                   DataColumn(
+                                              //                       label: Text(
+                                              //                         S.of(context).Unit,
+                                              //                         //'Unit',
+                                              //                         style: TextStyle(color: Theme.of(context).accentColor),
+                                              //                       )),
+                                              //                   DataColumn(
+                                              //                       label: Text(
+                                              //                         S.of(context).Pieces,
+                                              //                         //'Pieces',
+                                              //                         style: TextStyle(
+                                              //                             color:Theme.of(context).accentColor
+                                              //                         ),
+                                              //                       )),
+                                              //                   DataColumn(
+                                              //                       label: Text(
+                                              //                         S.of(context).Weight,
+                                              //                         //'Weight',
+                                              //                         style: TextStyle(color: Theme.of(context).accentColor),
+                                              //                       )),
+                                              //                   DataColumn(
+                                              //                       label: Text(
+                                              //                         S.of(context).Unit,
+                                              //                         //'Unit',
+                                              //                         style: TextStyle(color: Theme.of(context).accentColor),
+                                              //                       )),
+                                              //                 ],
+                                              //                 rows: item.dimensionsList
+                                              //                     .map<DataRow>((e) => DataRow(cells: [
+                                              //                   DataCell(Text(
+                                              //                     e['length'].toString(),
+                                              //                     style: TextStyle(
+                                              //                         //color: Colors.black
+                                              //                     ),
+                                              //                   )),
+                                              //                   DataCell(Text(
+                                              //                     e['width'].toString(),
+                                              //                     style: TextStyle(
+                                              //                     //    color: Colors.black
+                                              //                     ),
+                                              //                   )),
+                                              //                   DataCell(Text(
+                                              //                     e['height'].toString(),
+                                              //                     style: TextStyle(
+                                              //                     //    color: Colors.black
+                                              //                     ),
+                                              //                   )),
+                                              //                   DataCell(Text(
+                                              //                     e['lwhUnit'] ??= "cm",
+                                              //                     style: TextStyle(
+                                              //                     //    color: Colors.black
+                                              //                     ),
+                                              //                   )),
+                                              //                   DataCell(Text(
+                                              //                     (e['pieces'] ??= 1).toString(),
+                                              //                     style: TextStyle(
+                                              //                     //    color: Colors.black
+                                              //                     ),
+                                              //                   )),
+                                              //                   DataCell(Text(
+                                              //                     (e['weight'] ??= 0).toString(),
+                                              //                     style: TextStyle(
+                                              //                     //    color: Colors.black
+                                              //                     ),
+                                              //                   )),
+                                              //                   DataCell(Text(
+                                              //                     e['pwUnit'] ??= "K",
+                                              //                     style: TextStyle(
+                                              //                     //    color: Colors.black
+                                              //                     ),
+                                              //                   )),
+                                              //                 ]))
+                                              //                     .toList(),
+                                              //               ),
+                                              //             ),
+                                              //             ListTile(
+                                              //               title: Text(
+                                              //                 S.of(context).ExtraDescription,
+                                              //                 //   'Extra Description',
+                                              //                 textAlign: TextAlign.center,
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                     fontSize: 17,
+                                              //                     color: Theme.of(context).accentColor),
+                                              //               ),
+                                              //             ),
+                                              //             ListTile(
+                                              //               title: Text(
+                                              //                 S.of(context).Text,
+                                              //                 //'Text',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                 //    color: Colors.black
+                                              //                 ),
+                                              //               ),
+                                              //               trailing: Text(
+                                              //                 '${item.text ?? S.of(context).Nodescription
+                                              //                 // "No description"
+                                              //                 }',
+                                              //                 style: TextStyle(
+                                              //                     fontWeight: FontWeight.normal,
+                                              //                 //    color: Colors.black
+                                              //                 ),
+                                              //               ),
+                                              //             ),
+                                              //             Row(
+                                              //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              //               children: [
+                                              //                 FlatButton(
+                                              //                   color: Theme.of(context).accentColor,
+                                              //                   onPressed: () {
+                                              //                     model.deleteRateDescriptionItem(item);
+                                              //                     setState(() {
+                                              //                       cardExpanded = true;
+                                              //                       previousIndex = 0;
+                                              //                     });
+                                              //                   },
+                                              //                   child: Icon(
+                                              //                     Icons.delete,
+                                              //                     color: Theme.of(context).backgroundColor,
+                                              //                     // S.of(context).Delete,
+                                              //                     // //"Delete",
+                                              //                     // style: TextStyle(
+                                              //                     //   color: Theme.of(context).backgroundColor,
+                                              //                     // ),
+                                              //                   ),
+                                              //                 ),
+                                              //                 TextButton(
+                                              //
+                                              //                   style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor),
+                                              //
+                                              //                   ),
+                                              //                   onPressed: () {
+                                              //                     Navigator.of(ctx).pop();
+                                              //                   },
+                                              //                   child: Text("Close",
+                                              //                     style: TextStyle(
+                                              //                         color: Theme.of(context).backgroundColor
+                                              //                     ),
+                                              //                   ),
+                                              //                 ),
+                                              //                 FlatButton(
+                                              //                   color: Theme.of(context).accentColor,
+                                              //                   onPressed: () async {
+                                              //                     RateDescriptionItem rateDescriptionItem =
+                                              //                     await Navigator.push(
+                                              //                         context,
+                                              //                         MaterialPageRoute<RateDescriptionItem>(
+                                              //                             builder: (context) =>
+                                              //                                 UpdateRateDescriptionForm(
+                                              //                                   pieces: item.pieces,
+                                              //                                   grossWeight: item.grossWeight,
+                                              //                                   grossWeightUnit:
+                                              //                                   item.grossWeightUnit,
+                                              //                                   rateClass: item.rateClass,
+                                              //                                   itemNumber: item.itemNumber,
+                                              //                                   chargeableWeight:
+                                              //                                   item.chargeableWeight,
+                                              //                                   rateCharge: item.rateCharge,
+                                              //                                   total: item.total,
+                                              //                                   autoCalculations:
+                                              //                                   item.autoCalculations,
+                                              //                                   natureAndQuantity:
+                                              //                                   item.natureAndQuantity,
+                                              //                                   dimensionsList:
+                                              //                                   item.dimensionsList,
+                                              //                                   text: item.text,
+                                              //                                 )));
+                                              //                     if (rateDescriptionItem != null) {
+                                              //                       model.deleteRateDescriptionItem(item);
+                                              //                       model.addRateDescriptionItem(
+                                              //                           rateDescriptionItem);
+                                              //                     }
+                                              //                   },
+                                              //                   child: Icon(
+                                              //                     Icons.edit,
+                                              //                     color: Theme.of(context).backgroundColor,
+                                              //                     // S.of(context).Edit,
+                                              //                     // // "Edit",
+                                              //                     // style: TextStyle(
+                                              //                     //   color: Theme.of(context).backgroundColor,
+                                              //                     // ),
+                                              //                   ),
+                                              //                 )
+                                              //               ],
+                                              //             ),
+                                              //           ],
+                                              //         ),
+                                              //       ),
+                                              //
+                                              //     ),
+                                              //   ),
+                                              // );
+                                            },
+                                            icon: Icon(
+                                              Icons.info,
+                                              color:
+                                                  Theme.of(context).accentColor,
+                                            )),
+                                        // Text(alertvalue.toString()),
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
@@ -1866,51 +2083,50 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                                 height: 5.0,
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 14.0,right: 25.0),
+                                padding: const EdgeInsets.only(
+                                    left: 14.0, right: 25.0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
                                       children: [
-                                        Text("Nature of Goods",
+                                        Text(
+                                          "Nature of Goods",
                                           style: TextStyle(
-                                              color: Theme.of(context).accentColor,
-                                              fontWeight: FontWeight.bold
-                                          ),
+                                              color:
+                                                  Theme.of(context).accentColor,
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                        Text( '${item.natureAndQuantity ?? ' '}')
+                                        Text('${item.natureAndQuantity ?? ' '}')
                                       ],
                                     ),
-                                    (alertvalue)?CustomPaint(
-                                      painter: CirclePainter(
-                                          _controller,
-                                          color: Colors.red
-                                      ),
-                                      child: SizedBox(
-                                          height: 40,
-                                          width:40,
-                                          child: Text("")
-                                        //_button(),
-                                      ),
-                                    ):CustomPaint(
-                                      painter: CirclePainter(
-                                          _controller,
-                                          color: Colors.green
-                                      ),
-                                      child: SizedBox(
-                                          height: 40,
-                                          width:40,
-                                          child: Text("")
-                                        //_button(),
-                                      ),
-                                    )
+                                    (alertvalue)
+                                        ? CustomPaint(
+                                            painter: CirclePainter(_controller,
+                                                color: Colors.red),
+                                            child: SizedBox(
+                                                height: 40,
+                                                width: 40,
+                                                child: Text("")
+                                                //_button(),
+                                                ),
+                                          )
+                                        : CustomPaint(
+                                            painter: CirclePainter(_controller,
+                                                color: Colors.green),
+                                            child: SizedBox(
+                                                height: 40,
+                                                width: 40,
+                                                child: Text("")
+                                                //_button(),
+                                                ),
+                                          )
                                   ],
                                 ),
                               ),
-
                             ],
                           ),
-
                         ),
                       ),
                       Positioned(
@@ -1920,27 +2136,27 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
                             // border: Border.all(color: Theme.of(context).accentColor),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          margin: new EdgeInsets.symmetric(
-                              vertical: 16.0
-                          ),
+                          margin: new EdgeInsets.symmetric(vertical: 16.0),
                           alignment: FractionalOffset.centerLeft,
                           child: CircleAvatar(
                             radius: 25.0,
-                            backgroundColor:Theme.of(context).accentColor,
+                            backgroundColor: Theme.of(context).accentColor,
                             child: CircleAvatar(
                               radius: 23.0,
-                              backgroundColor:Theme.of(context).backgroundColor,
+                              backgroundColor:
+                                  Theme.of(context).backgroundColor,
                               child: CircleAvatar(
-
                                   radius: 18.0,
-                                  backgroundColor:Theme.of(context).accentColor,
-                                  child: new Icon(Icons.money,
+                                  backgroundColor:
+                                      Theme.of(context).accentColor,
+                                  child: new Icon(
+                                    Icons.money,
                                     size: 20,
                                     color: Theme.of(context).backgroundColor,
-                                  )
-                              ),
+                                  )),
                             ),
-                          ),),
+                          ),
+                        ),
                       ),
                       // Positioned(
                       //   right: 0,top: 0,
@@ -3179,6 +3395,7 @@ class _RateDescriptionState extends State<RateDescription>  with TickerProviderS
     }
   }
 }
+
 class CurveWave extends Curve {
   const CurveWave();
   @override
@@ -3192,9 +3409,9 @@ class CurveWave extends Curve {
 
 class CirclePainter extends CustomPainter {
   CirclePainter(
-      this._animation, {
-        @required this.color,
-      }) : super(repaint: _animation);
+    this._animation, {
+    @required this.color,
+  }) : super(repaint: _animation);
   final Color color;
   final Animation<double> _animation;
   void circle(Canvas canvas, Rect rect, double value) {
@@ -3206,6 +3423,7 @@ class CirclePainter extends CustomPainter {
     final Paint paint = Paint()..color = _color;
     canvas.drawCircle(rect.center, radius, paint);
   }
+
   @override
   void paint(Canvas canvas, Size size) {
     final Rect rect = Rect.fromLTRB(0.0, 0.0, size.width, size.height);
@@ -3213,6 +3431,7 @@ class CirclePainter extends CustomPainter {
       circle(canvas, rect, wave + _animation.value);
     }
   }
+
   @override
   bool shouldRepaint(CirclePainter oldDelegate) => true;
 }

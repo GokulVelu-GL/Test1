@@ -83,7 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "BookYourSlotNow" : MessageLookupByLibrary.simpleMessage("Book Your Slot Now"),
     "Booked" : MessageLookupByLibrary.simpleMessage("Booked"),
     "BookedAirwayBills" : MessageLookupByLibrary.simpleMessage("Booked\nAirwayBills"),
-    "BookingDockandSlot" : MessageLookupByLibrary.simpleMessage("Booking Dockand Slot"),
+    "BookingDockandSlot" : MessageLookupByLibrary.simpleMessage("Booking Dock and Slot"),
     "BounceRate" : MessageLookupByLibrary.simpleMessage("Bounce Rate"),
     "Bulk" : MessageLookupByLibrary.simpleMessage("Bulk"),
     "ByfirstCarrier" : MessageLookupByLibrary.simpleMessage("By First Carrier"),

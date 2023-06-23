@@ -8,6 +8,7 @@ import '../../../formatter.dart';
 import '../../../generated/l10n.dart';
 import '../../drodowns/airline_code.dart';
 import '../../drodowns/airport_code.dart';
+import '../main_hawb.dart';
 import '../static/add_master_eawb.dart';
 import 'model_class.dart';
 // String Offlineairline="";
@@ -133,11 +134,15 @@ class _CreateDataScreenState extends State<CreateDataScreen> {
                                         flex: 3,
                                       ),
                                       SizedBox(
-                                        width: 5,
+                                        width: 10,
                                       ),
                                       Expanded(
-                                        child: masterAWBTF(),
                                         flex: 7,
+                                        child:
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 20.0),
+                                       child: masterAWBTF(),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -148,21 +153,21 @@ class _CreateDataScreenState extends State<CreateDataScreen> {
                                     children: [
                                       Expanded(
                                         child: originT(),
-                                        flex: 4,
+                                        flex: 3,
                                       ),
                                       SizedBox(
                                         width: 5,
                                       ),
                                       Expanded(
                                         child: destinationT(),
-                                        flex: 4,
+                                        flex: 3,
                                       ),
                                       SizedBox(
                                         width: 5,
                                       ),
                                       Expanded(
                                         child: shipmentTF(),
-                                        flex: 2,
+                                        flex: 3,
                                       ),
                                     ],
                                   ),
@@ -236,8 +241,15 @@ class _CreateDataScreenState extends State<CreateDataScreen> {
 
 
                                       });
+
                                       // insertAWBList();
 
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => MyEawb(),
+
+                                          ));
                                       // Navigator.push(context, HomeScreenRoute(MyEawb()));
                                     }
                                     // Navigator.pop(
@@ -603,33 +615,36 @@ class _CreateDataScreenState extends State<CreateDataScreen> {
   // }
 
   shipmentTF() {
-    return TextFormField(
-      initialValue: shipment,
-      textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.text,
-      inputFormatters: [AllCapitalCase()],
-      decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Theme.of(context).accentColor),
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-          ),
-          //border: InputBorder.none,
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Theme.of(context).accentColor),
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-          ),
-          border: OutlineInputBorder(
-              gapPadding: 2.0,
-              borderRadius: BorderRadius.all(Radius.circular(8.0))),
-          labelText: S.of(context).Shipment,
-          labelStyle: TextStyle(color: Theme.of(context).accentColor)
-        //'Shipment',
+    return Padding(
+      padding: EdgeInsets.only(top: 20),
+      child: TextFormField(
+        initialValue: shipment,
+        textInputAction: TextInputAction.next,
+        keyboardType: TextInputType.text,
+        inputFormatters: [AllCapitalCase()],
+        decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).accentColor),
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
+            //border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).accentColor),
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
+            border: OutlineInputBorder(
+                gapPadding: 2.0,
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            labelText: S.of(context).Shipment,
+            labelStyle: TextStyle(color: Theme.of(context).accentColor)
+          //'Shipment',
+        ),
+        onChanged: (value) {
+          setState(() {
+            shipment = value;
+          });
+        },
       ),
-      onChanged: (value) {
-        setState(() {
-          shipment = value;
-        });
-      },
     );
   }
 
@@ -744,6 +759,7 @@ class _CreateDataScreenState extends State<CreateDataScreen> {
   originT() {
     return TextFormField(
       textInputAction: TextInputAction.next,
+      maxLength: 3,
       inputFormatters: [AllCapitalCase()],
       decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
@@ -779,6 +795,7 @@ class _CreateDataScreenState extends State<CreateDataScreen> {
   destinationT() {
     return TextFormField(
       textInputAction: TextInputAction.next,
+      maxLength: 3,
       inputFormatters: [AllCapitalCase()],
       decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(

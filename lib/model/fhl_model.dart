@@ -2,6 +2,7 @@ import 'dart:convert';
 
 // import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rooster/screenroute.dart';
 import 'package:rooster/string.dart';
 import 'package:rooster/ui/hawb/house_details.dart';
@@ -27,17 +28,17 @@ class FHLModel
         FHLQuantityDetailsModel,
         FHLShipperModel,
         FHLSpecialRequirementModel {
-  clear() {
-    clearChargeDeclaration();
-    clearConsignee();
-    clearCustomsSecurity();
-    clearHouseDetails();
-    clearQuantityDetails();
-    clearShipper();
-    clearSpecialRequirement();
-  }
+  // clear() {
+  //   clearChargeDeclaration();
+  //   clearConsignee();
+  //   clearCustomsSecurity();
+  //   clearHouseDetails();
+  //   clearQuantityDetails();
+  //   clearShipper();
+  //   clearSpecialRequirement();
+  // }
 
-  Future<dynamic> updateFHL(int fhlawbid) async {
+  Future<dynamic> updateFHL(int fhlawbid,int houseDetailCustomSecurityid) async {
     var result;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print("Update FHL");
@@ -51,87 +52,177 @@ class FHLModel
     hormoCode.forEach(
         (item) => item.removeWhere((key, value) => key == "isSelected"));
     print("iddddd"+fhlawbid.toString());
+    print("custom security iddddd"+houseDetailCustomSecurityid.toString());
+
 
     print("Shipper contact list" +
         jsonEncode(sippercontactList) +
         jsonEncode(consigneeContactList));
 
     var response = await http.put(Uri.parse(StringData.hawblistAPI),
-        body: jsonEncode({
-          "id": fhlawbid,
-          "serialNumber": houseDetailsNumber,
-          "origin": houseDetailsOrigin,
-          "destination": houseDetailsDestination,
-          "description": houseDetailsNatureGoods,
-          "currencyCode": chargeDeclarationCurrencyCode,
-          "weightVal": chargeDeclarationWeightValue,
-          "charges": "C",
-          "carriageValue": chargeDeclarationCarriageValue,
-          "customsValue": chargeDeclarationCustomsValue,
-          "insuranceValue": chargeDeclarationInsuranceValue,
-          "s_name": shipperName,
-          "s_address": shipperAddress,
-          "s_place": shipperPlace,
-          "s_state": shipperState,
-          "s_countryCode": shipperCode,
-          "s_postCode": shipperPostCode,
-          "s_customertype": shipperIdentifier,
-          "c_name": consigneeName,
-          "c_address": consigneeAddress,
-          "c_place": consigneePlace,
-          "c_state": consigneeState,
-          "c_countryCode": consigneeCode,
-          "c_postCode": consigneePostCode,
-          "c_customertype": "T",
-          "pieces": 10,
-          "weightCode": quantityDetailsWeightUnit,
-          //"weight": int.tryParse(quantityDetailsWeight),
-          //"SLAC": int.tryParse(quantityDetailsSLAC),
-          "spl1": specialRequirementSpecialCode,
-          "spl2": "",
-          "spl3": "",
-          "spl4": "",
-          "spl5": "",
-          "spl6": "",
-          "spl7": "",
-          "spl8": "",
-          "spl9": "",
-          "harmonisedCode1": specialRequirementHarmonisedCode,
-          "harmonisedCode2": "FEGRG",
-          "harmonisedCode3": "",
-          "harmonisedCode4": "",
-          "harmonisedCode5": "",
-          "harmonisedCode6": "",
-          "harmonisedCode7": "",
-          "harmonisedCode8": "",
-          "harmonisedCode9": "",
-          "Extended_description": houseDetailsDescription,
-          "customsSecurity": [
+        body: jsonEncode(
+        //     {
+        //   "id": fhlawbid,
+        //   "serialNumber": houseDetailsNumber,
+        //   "origin": houseDetailsOrigin,
+        //   "destination": houseDetailsDestination,
+        //   "description": houseDetailsNatureGoods,
+        //   "currencyCode": chargeDeclarationCurrencyCode,
+        //   "weightVal": chargeDeclarationWeightValue,
+        //   "charges": "C",
+        //   "carriageValue": chargeDeclarationCarriageValue,
+        //   "customsValue": chargeDeclarationCustomsValue,
+        //   "insuranceValue": chargeDeclarationInsuranceValue,
+        //   "s_name": shipperName,
+        //   "s_address": shipperAddress,
+        //   "s_place": shipperPlace,
+        //   "s_state": shipperState,
+        //   "s_countryCode": shipperCode,
+        //   "s_postCode": shipperPostCode,
+        //   "s_customertype": shipperIdentifier,
+        //   "c_name": consigneeName,
+        //   "c_address": consigneeAddress,
+        //   "c_place": consigneePlace,
+        //   "c_state": consigneeState,
+        //   "c_countryCode": consigneeCode,
+        //   "c_postCode": consigneePostCode,
+        //   "c_customertype": "T",
+        //   "pieces": 10,
+        //   "weightCode": quantityDetailsWeightUnit,
+        //   //"weight": int.tryParse(quantityDetailsWeight),
+        //   //"SLAC": int.tryParse(quantityDetailsSLAC),
+        //   "spl1": specialRequirementSpecialCode,
+        //   "spl2": "",
+        //   "spl3": "",
+        //   "spl4": "",
+        //   "spl5": "",
+        //   "spl6": "",
+        //   "spl7": "",
+        //   "spl8": "",
+        //   "spl9": "",
+        //   "harmonisedCode1": specialRequirementHarmonisedCode,
+        //   "harmonisedCode2": "FEGRG",
+        //   "harmonisedCode3": "",
+        //   "harmonisedCode4": "",
+        //   "harmonisedCode5": "",
+        //   "harmonisedCode6": "",
+        //   "harmonisedCode7": "",
+        //   "harmonisedCode8": "",
+        //   "harmonisedCode9": "",
+        //   "Extended_description": houseDetailsDescription,
+        //   "customsSecurity": [
+        //     {
+        //       "countryCode": customsSecurityCountryCode,
+        //       "informationIdentifier": customsSecurityInfoIdentifier,
+        //       "csrcIdentifier": customsSecurityCSRCIdentifier,
+        //       "scsrcInformation": customsSecuritySCSRCIdentifier
+        //     },
+        //     {
+        //       "countryCode": "SK",
+        //       "informationIdentifier": "SD",
+        //       "csrcIdentifier": "ED",
+        //       "scsrcInformation": "SD"
+        //     }
+        //   ],
+        //   "contactshipper": sippercontactList.toList(),
+        //   "consigneeContact": consigneeContactList.toList(),
+        // }
+
             {
-              "countryCode": customsSecurityCountryCode,
-              "informationIdentifier": customsSecurityInfoIdentifier,
-              "csrcIdentifier": customsSecurityCSRCIdentifier,
-              "scsrcInformation": customsSecuritySCSRCIdentifier
-            },
-            {
-              "countryCode": "SK",
-              "informationIdentifier": "SD",
-              "csrcIdentifier": "ED",
-              "scsrcInformation": "SD"
+              "id": fhlawbid,
+              "serialNumber": houseDetailsNumber,
+              "origin": houseDetailsOrigin,
+              "destination": houseDetailsDestination,
+              "pieces": quantityDetailsPieces,
+              "weightCode": quantityDetailsWeightUnit,
+              "weight": quantityDetailsWeight,
+              "SLAC": quantityDetailsSLAC,
+              "Extended_description": houseDetailsDescription,
+              "currencyCode": chargeDeclarationCurrencyCode,
+              "weightVal": chargeDeclarationWeightValue,
+              "charges": "C",
+              "carriageValue": chargeDeclarationCarriageValue,
+              "customsValue": chargeDeclarationCustomsValue,
+              "insuranceValue": chargeDeclarationInsuranceValue,
+              "s_name": shipperName,
+            //  "s_address": shipperAddress,
+                 "s_address": shipperAddress,
+                 "s_place": shipperPlace,
+                 "s_state": shipperState,
+                 "s_countryCode": shipperCode,
+                 "s_postCode": shipperPostCode,
+                "c_name": consigneeName,
+                "c_address": consigneeAddress,
+                "c_place": consigneePlace,
+                "c_state": consigneeState,
+                "c_countryCode": consigneeCode,
+                "c_postCode": consigneePostCode,
+                "spl1": specialRequirementSpecialCode,
+                "spl2": "",
+                "spl3": "",
+                "spl4": "",
+                "spl5": "",
+                "spl6": "",
+                "spl7": "",
+                "spl8": "",
+                "spl9": "",
+                "harmonisedCode1": specialRequirementHarmonisedCode,
+                "harmonisedCode2": "FEGRG",
+                "harmonisedCode3": "",
+                "harmonisedCode4": "",
+                "harmonisedCode5": "",
+                "harmonisedCode6": "",
+                "harmonisedCode7": "",
+                "harmonisedCode8": "",
+                "harmonisedCode9": "",
+              //"AWBList_id":2,
+              "customsSecurity": [
+                // {
+                //   "id": 2,
+                //   "countryCode": "DE"
+                // },
+                {
+                  "id": houseDetailCustomSecurityid,
+                  "countryCode": customsSecurityCountryCode,
+                  "informationIdentifier": customsSecurityInfoIdentifier,
+                  "csrcIdentifier": customsSecurityCSRCIdentifier,
+                  "scsrcInformation": customsSecuritySCSRCIdentifier
+                }
+              ],
+
+              "contactshipper": [],
+              "consigneeContact": []
             }
-          ],
-          "contactshipper": sippercontactList.toList(),
-          "consigneeContact": consigneeContactList.toList(),
-        }),
+        ),
         headers: {
           'x-access-tokens': prefs.getString('token'),
           'Content-Type': 'application/json; charset=UTF-8',
         });
 
      result = json.decode(response.body);
-    if (response.statusCode == 200) {
-      return "house added sucess";
+
+     print(" response data house update");
+     print(response.body);
+     print(result.toString());
+    if (response.statusCode == 202) {
+      Fluttertoast.showToast(
+          msg: 'House list edited',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          // timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white
+      );
+      return "house updated success";
     } else {
+      Fluttertoast.showToast(
+          msg: 'House list edited failed',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          // timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white
+      );
       return "failed";
     }
   }
@@ -193,7 +284,7 @@ class FHLModel
           "weightCode": quantityDetailsWeightUnit,
           "weight": quantityDetailsWeight,
           "SLAC": quantityDetailsSLAC,
-          "spl1": "DC",
+          "spl1": "VAL",
           //"spl1": specialCode[0]['specialcode'].toString(),
           "spl2": "",
           "spl3": "",
@@ -305,7 +396,9 @@ class FHLModel
           //     "Consignee_Contact_Type": "TL"
           //   }
           // ]
-        }),);
+        }
+        ),
+    );
 
     //print("@@@@@@@@@@@@@@@@@");
 
@@ -319,7 +412,7 @@ class FHLModel
 
       return "sucess";
     } else {
-      print("Data insertion failed" + result);
+      //print("Data insertion failed" + result);
       return "faild";
     }
   }

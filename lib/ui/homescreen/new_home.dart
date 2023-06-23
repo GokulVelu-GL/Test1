@@ -427,20 +427,20 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                               //"https://png.pngitem.com/pimgs/s/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"),
                         ),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: 15),
                       //These can go here or below the header with the same background color
-                      Text(
-                        "Hi Gokul",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ), //customize this text
+                      // Text(
+                      //   "Hi Gokul",
+                      //   style: TextStyle(
+                      //       color: Colors.white,
+                      //       fontSize: 20,
+                      //       fontWeight: FontWeight.bold),
+                      // ), //customize this text
                       Text(
                        // "RoosterAirCargo1@gmail.com",
-                       //  emailId,
+                        emailId,
                         // "icms_maa@aai.aero",
-                        "",
+                        // "",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -514,12 +514,92 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                 },
               ),
               ListTile(
+                leading: Icon(
+                  Icons.refresh,
+                  color: Theme.of(context).accentColor,
+                ),
+                title: Text(
+                  "Refresh"
+                  //S.of(context).Theme,
+                  //"Theme"
+                ),
+                onTap: () {
+                  setState(() {
+                    if (
+                    StringData.airportCodes == null ||
+                        StringData.airportCodes.isEmpty ||
+                        StringData.specialhandlinggroup.isEmpty ||
+                        StringData.contactType.isEmpty ||
+                        StringData.airlineCodes.isEmpty ||
+                        StringData.contactType.isEmpty ||
+                        StringData.CHGSCode.isEmpty ||
+                        StringData.voulmeCodes.isEmpty
+                    ) {
+                      StringData.loadAirportCode();
+                      StringData.loadAirlineCode();
+                      StringData.loadVolumeCode();
+                      StringData.loadOtherChargesCode();
+                      StringData.loadRateClassCode();
+                      StringData.loadAccId();
+                      StringData.loadtCHGSCode();
+                      StringData.loadtContactType();
+                      StringData.loadShgCode();
+                      StringData.loadCurrency();
+                      StringData.loadExchangeRate();
+                      StringData.loadAirport();
+                    }
+                  });
+                  Navigator.pop(context);
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: Center(
+                        child: const Text('Success',
+                        style: TextStyle(
+                          color: Colors.greenAccent
+                        ),),
+                      ),
+                      content: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(Icons.table_chart,
+                            color:Theme.of(context).accentColor,
+                          ),
+                           Text('Refresh Reference table',
+                          textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                      actions: <Widget>[
+                        Center(
+                          child: TextButton(
+                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
+                            onPressed: () => Navigator.pop(context, 'Cancel'),
+                            child:  Text('Close',
+                            style: TextStyle(
+
+                              color:Theme.of(context).backgroundColor,)
+                            ),
+                          ),
+                        ),
+                        // TextButton(
+                        //   onPressed: () => Navigator.pop(context, 'OK'),
+                        //   child: const Text('OK'),
+                        // ),
+                      ],
+                    ),
+                  );
+                //  _colorPicker(_themeChanger);
+                },
+              ),
+              ListTile(
                 leading: Transform.rotate(
                     angle: pi,
                     child: Icon(
                       Icons.exit_to_app,
                       color: Theme.of(context).accentColor,
-                    )),
+                    )
+                ),
                 title: Text(
                   S.of(context).Logout,
                   //"Logout"
@@ -846,6 +926,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                         },
                         child: Text(
                           S.of(context).Search,
+                          style: TextStyle(color: Theme.of(context).backgroundColor),
                           // "Search"
                         ),
                       ),

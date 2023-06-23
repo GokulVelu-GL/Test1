@@ -9,8 +9,8 @@ class AccId {
   });
 
   static AccId fromJson(Map<String, dynamic> json) => AccId(
-    abbrcode: json['Abbr_Code'],
-    meaning: json['Meaning'],
+    abbrcode: json['AccountingInformation_AbbrCode'],
+    meaning: json['AccountingInformation_Meaning'],
   );
 }
 

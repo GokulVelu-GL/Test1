@@ -67,7 +67,7 @@ class _EditEditEawbState extends State<EditEawb> {
       triggerMode: RefreshIndicatorTriggerMode.onEdge,
       onRefresh: refreshhouse,
       child: new Scaffold(
-          floatingActionButton: buildAddButton(),
+
           body: Center(
             child: FutureBuilder<dynamic>(
               future: getAWBHouseList(widget.awbid),
@@ -81,6 +81,7 @@ class _EditEditEawbState extends State<EditEawb> {
                     );
                   } else {
                     return GetHouseList(
+                      awbid: widget.awbid,
                         gethouselist: snapshot.data,
                         awbNumber: widget.masterAWB);
                   }
@@ -98,30 +99,6 @@ class _EditEditEawbState extends State<EditEawb> {
     );
   }
 
-  Widget buildAddButton() {
-    return Builder(
-      builder: (context) => FloatingActionButton(
-        backgroundColor: Theme.of(context).accentColor,
-        onPressed: () async {
-          FHLModel _newFHLModel = await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    AddEawb(isView: false, awbid: widget.awbid),
-                fullscreenDialog: true,
-              ));
-
-          if (_newFHLModel != null) {
-            setState(() {
-              // _listFHLModel.add(_newFHLModel);
-            });
-          }
-        },
-        child: Icon(Icons.add),
-      ),
-    );
-  }
-
   Future<void> refreshhouse() async {
     await Future.delayed(Duration(milliseconds: 500));
     FutureBuilder<dynamic>(
@@ -136,7 +113,9 @@ class _EditEditEawbState extends State<EditEawb> {
             );
           } else {
             return GetHouseList(
-                gethouselist: snapshot.data, awbNumber: widget.masterAWB);
+                gethouselist: snapshot.data, awbNumber: widget.masterAWB,
+            awbid:widget.awbid
+            );
           }
         } else if (snapshot.hasError) {
           return Text(S.of(context).DataNotFound
@@ -153,7 +132,8 @@ class _EditEditEawbState extends State<EditEawb> {
 class GetHouseList extends StatefulWidget {
   var gethouselist;
   var awbNumber;
-  GetHouseList({Key key, this.gethouselist, this.awbNumber}) : super(key: key);
+  var awbid;
+  GetHouseList({Key key, this.gethouselist, this.awbNumber,this.awbid}) : super(key: key);
 
   @override
   State<GetHouseList> createState() => _GetHouseListState();
@@ -247,10 +227,37 @@ class _GetHouseListState extends State<GetHouseList> {
     setState(() {});
   }
 
+
+  Widget buildAddButton() {
+    return Builder(
+      builder: (context) => FloatingActionButton(
+        backgroundColor: Theme.of(context).accentColor,
+        onPressed: () async {
+          FHLModel _newFHLModel = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    AddEawb(isView: false, awbid: widget.awbid,houselist:widget.gethouselist),
+                fullscreenDialog: true,
+              ));
+
+          if (_newFHLModel != null) {
+            setState(() {
+              // _listFHLModel.add(_newFHLModel);
+            });
+          }
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: buildAddButton(),
         appBar: AppBar(
           centerTitle: true,
           shape: RoundedRectangleBorder(
@@ -300,6 +307,7 @@ class _GetHouseListState extends State<GetHouseList> {
           ),
         ),
       ),
+
     );
   }
 

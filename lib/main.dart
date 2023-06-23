@@ -27,6 +27,7 @@ import 'package:cron/cron.dart';
 import 'package:rooster/string.dart';
 
 Future<void> main() async {
+
   HttpOverrides.global = new MyHttpOverrides();
   // final cron = Cron();
   // cron.schedule(Schedule.parse('*/5 * * * * *'), () async {
@@ -98,6 +99,7 @@ class MyApp extends StatelessWidget {
       create: (context) => LanguageChangeProvider(),
       child: Builder(
         builder: (context) => MaterialApp(
+
           builder: (context, widget) {
             return ResponsiveWrapper.builder(
               BouncingScrollWrapper.builder(context, widget),
@@ -137,9 +139,9 @@ class MyApp extends StatelessWidget {
 
           themeMode: theme.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
           home:
-              // LoginPage(),
-              //  ContentCard(),
-              SplashScreen(),
+          // LoginPage(),
+          //  ContentCard(),
+          SplashScreen(),
           // builder: EasyLoading.init(),
         ),
       ),
@@ -147,11 +149,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHttpOverrides extends HttpOverrides {
+class MyHttpOverrides extends HttpOverrides{
   @override
-  HttpClient createHttpClient(SecurityContext context) {
+  HttpClient createHttpClient(SecurityContext context){
     return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }

@@ -446,7 +446,7 @@ class StringData {
       'https://ec2-44-204-173-113.compute-1.amazonaws.com:8008/api/printpdf';
 
   static String fileEAWBAPI(fileName) =>
-      'https://roostertech6.herokuapp.com$fileName';
+      'https://ec2-44-204-173-113.compute-1.amazonaws.com:8008$fileName';
   static final String flightlistAPI =
       'https://ec2-44-204-173-113.compute-1.amazonaws.com:8008/api/eawb/flightlist';
 
@@ -470,6 +470,7 @@ class StringData {
 
   static final String eawbbyid =
       'https://ec2-44-204-173-113.compute-1.amazonaws.com:8008/api/eawb/awbdetails';
+
 
   // FHL APIs
 
@@ -521,9 +522,11 @@ class StringData {
   // rate description Rate Class
 
   static List<dynamic> AccountIdCode;
+  static String OtherChargeCodeApi =
+      "https://ec2-44-204-173-113.compute-1.amazonaws.com:8008/api/reference/Charge_codes";
+  // rate description Rate Class
 
-
-  static List<dynamic> RateClassCodes;
+  static List<dynamic> OtherChargeCodeList;
   static Future loadRateClassCode() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final url = Uri.parse(
@@ -543,6 +546,32 @@ class StringData {
     } else {
       var result = json.decode(response.body);
       print("RateClass Code Not found");
+      print(result);
+      return "data not found";
+    }
+  }
+
+
+  static List<dynamic> RateClassCodes;
+  static Future loadOtherChargesCode() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final url = Uri.parse(
+        'https://ec2-44-204-173-113.compute-1.amazonaws.com:8008/api/reference/Charge_codes');
+    final response = await http.get(
+      url,
+      headers: <String, String>{
+        'x-access-tokens': prefs.getString('token'),
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    if (response.statusCode == 200) {
+      var result = json.decode(response.body);
+      print(result['records']);
+      OtherChargeCodeList = result['records'];
+      return OtherChargeCodeList;
+    } else {
+      var result = json.decode(response.body);
+      print("Other Charge Code Not found");
       print(result);
       return "data not found";
     }
@@ -712,7 +741,9 @@ class StringData {
   static Future loadShgCode() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final url = Uri.parse(
-        'https://ec2-44-204-173-113.compute-1.amazonaws.com:8008/api/reference/GroupSpecialHandling');
+      'https://ec2-44-204-173-113.compute-1.amazonaws.com:8008/api/reference/SpecialHandlingCodes'
+    //    'https://ec2-44-204-173-113.compute-1.amazonaws.com:8008/api/reference/GroupSpecialHandling'
+    );
     final response = await http.get(
       url,
       headers: <String, String>{

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:rooster/model/dimension_item.dart';
 import 'package:rooster/model/eawb_models/accounting_information_model.dart';
 import 'package:rooster/model/eawb_models/awb_consigment_details_model.dart';
@@ -88,12 +89,13 @@ class EAWBModel
       }
     });
     if (chargesDeclarationOtherCharges == 'PPD') {
-      chargeSummaryTotalPrepaid  = (int.parse(chargeSummaryTotalPrepaid)+totalCalc).toString();
-
+      chargeSummaryTotalPrepaid =
+          (int.parse(chargeSummaryTotalPrepaid) + totalCalc).toString();
     }
-    if(chargesDeclarationOtherCharges == 'COLL') {
-       // chargeSummaryTotalPrepaid  = (int.parse(chargeSummaryTotalPrepaid)-totalCalc).toString();
-      chargeSummaryTotalPostpaid =(int.parse(chargeSummaryTotalPostpaid)+ totalCalc).toString();
+    if (chargesDeclarationOtherCharges == 'COLL') {
+      // chargeSummaryTotalPrepaid  = (int.parse(chargeSummaryTotalPrepaid)-totalCalc).toString();
+      chargeSummaryTotalPostpaid =
+          (int.parse(chargeSummaryTotalPostpaid) + totalCalc).toString();
     }
 
     notifyListeners();
@@ -279,32 +281,35 @@ class EAWBModel
     int carrierAgentPrepaid = 0;
     int carrierAgentPostpaid = 0;
     int totalCalc = 0;
-    int totalCalcPost=0;
-    int totprepaid=0;
-    int totpostpaid=0;
+    int totalCalcPost = 0;
+    int totprepaid = 0;
+    int totpostpaid = 0;
     int initialprepaid;
     String prestatus;
     String poststatus;
     otherChargesList.forEach((element) {
-
-
       //totalCalc += element.amount;
-      print("total calc"+totalCalc.toString());
+      print("total calc" + totalCalc.toString());
       if (element.entitlement == 'Due agent') {
-        if (element.prepaidcollect=="PPD") {
-          prestatus=element.prepaidcollect;
-          totalCalc=element.amount;
-          print("ini"+chargeSummaryTotalPrepaid);
-          dueAgentPrepaid =(dueAgentPrepaid==0)?dueAgentPrepaid=dueAgentPrepaid:dueAgentPrepaid-= element.amount;
+        if (element.prepaidcollect == "PPD") {
+          prestatus = element.prepaidcollect;
+          totalCalc = element.amount;
+          print("ini" + chargeSummaryTotalPrepaid);
+          dueAgentPrepaid = (dueAgentPrepaid == 0)
+              ? dueAgentPrepaid = dueAgentPrepaid
+              : dueAgentPrepaid -= element.amount;
 
-          if(totprepaid==0) {
+          if (totprepaid == 0) {
             totprepaid = 0;
             print("000" + totprepaid.toString());
           } else {
             totprepaid -= element.amount;
-            print("ballance"+totprepaid.toString());
+            print("ballance" + totprepaid.toString());
           }
-          print("preprepaid "+totprepaid.toString()+"element"+element.amount.toString());
+          print("preprepaid " +
+              totprepaid.toString() +
+              "element" +
+              element.amount.toString());
           // chargeSummaryTotalPostpaid+=  (int.parse(
           //     chargeSummaryTotalPostpaid)+element.amount)
           // // ) -totprepaid)
@@ -321,68 +326,82 @@ class EAWBModel
           // ).toString();
           //  totprepaid-=element.amount;
         }
-        if (element.prepaidcollect=="COLL") {
-          prestatus=element.prepaidcollect;
+        if (element.prepaidcollect == "COLL") {
+          prestatus = element.prepaidcollect;
           // print(" post status"+poststatus);
-          totalCalcPost=element.amount;
-          print("ini"+chargeSummaryTotalPrepaid);
+          totalCalcPost = element.amount;
+          print("ini" + chargeSummaryTotalPrepaid);
           // dueAgentPostpaid -= element.amount;
-          dueAgentPostpaid =(dueAgentPostpaid==0)?dueAgentPostpaid=dueAgentPostpaid:dueAgentPostpaid-= element.amount;
-
+          dueAgentPostpaid = (dueAgentPostpaid == 0)
+              ? dueAgentPostpaid = dueAgentPostpaid
+              : dueAgentPostpaid -= element.amount;
 
           // totpostpaid+= element.amount;
           chargeSummaryDueAgentPostpaid = dueAgentPostpaid.toString();
-          if(totpostpaid==0) {
+          if (totpostpaid == 0) {
             totpostpaid = 0;
             print("000" + totprepaid.toString());
           } else {
             totpostpaid -= element.amount;
-            print("ballance post "+totpostpaid.toString());
+            print("ballance post " + totpostpaid.toString());
           }
-          print("pOSTprepaid "+totprepaid.toString()+" POSTelement "+element.amount.toString());
+          print("pOSTprepaid " +
+              totprepaid.toString() +
+              " POSTelement " +
+              element.amount.toString());
           // chargeSummaryTotalPostpaid =(int.parse(chargeSummaryTotalPostpaid)
           //     + element.amount
           // ).toString();
         }
       } else {
-        if (element.prepaidcollect=="PPD") {
-          prestatus=element.prepaidcollect;
-          totalCalc=element.amount;
-          print("ini"+chargeSummaryTotalPrepaid);
+        if (element.prepaidcollect == "PPD") {
+          prestatus = element.prepaidcollect;
+          totalCalc = element.amount;
+          print("ini" + chargeSummaryTotalPrepaid);
           // carrierAgentPrepaid += element.amount;
-          carrierAgentPrepaid =(carrierAgentPrepaid==0)?carrierAgentPrepaid=carrierAgentPrepaid:carrierAgentPrepaid-= element.amount;
+          carrierAgentPrepaid = (carrierAgentPrepaid == 0)
+              ? carrierAgentPrepaid = carrierAgentPrepaid
+              : carrierAgentPrepaid -= element.amount;
           // totprepaid+= element.amount;
           chargeSummaryDueCarrierPrepaid = carrierAgentPrepaid.toString();
-          if(totprepaid==0) {
+          if (totprepaid == 0) {
             totprepaid = 0;
             print("000" + totprepaid.toString());
           } else {
             totprepaid -= element.amount;
-            print("ballance"+totprepaid.toString());
+            print("ballance" + totprepaid.toString());
           }
-          print("preprepaid "+totprepaid.toString()+"element"+element.amount.toString());
+          print("preprepaid " +
+              totprepaid.toString() +
+              "element" +
+              element.amount.toString());
           // chargeSummaryTotalPostpaid =(int.parse(chargeSummaryTotalPostpaid)
           //     // + element.amount
           // ).toString();
         }
-        if (element.prepaidcollect=="COLL") {
-          prestatus=element.prepaidcollect;
-          totalCalcPost=element.amount;
-          print("ini"+chargeSummaryTotalPrepaid);
+        if (element.prepaidcollect == "COLL") {
+          prestatus = element.prepaidcollect;
+          totalCalcPost = element.amount;
+          print("ini" + chargeSummaryTotalPrepaid);
           carrierAgentPostpaid += element.amount;
-          carrierAgentPostpaid =(carrierAgentPostpaid==0)?carrierAgentPostpaid=carrierAgentPostpaid:carrierAgentPostpaid-= element.amount;
+          carrierAgentPostpaid = (carrierAgentPostpaid == 0)
+              ? carrierAgentPostpaid = carrierAgentPostpaid
+              : carrierAgentPostpaid -= element.amount;
 
           // totpostpaid+= element.amount;
 
           chargeSummaryDueCarrierPostpaid = carrierAgentPostpaid.toString();
-          if(totpostpaid==0) {
+          if (totpostpaid == 0) {
             totpostpaid = 0;
             print("000" + totprepaid.toString());
           } else {
             totpostpaid -= element.amount;
-            print("ballance post "+totpostpaid.toString());
+            print("ballance post " + totpostpaid.toString());
           }
-          print("pOSTprepaid "+totprepaid.toString()+" POSTelement "+element.amount.toString());
+          print("pOSTprepaid " +
+              totprepaid.toString() +
+              " POSTelement " +
+              element.amount.toString());
           // chargeSummaryTotalPostpaid =(int.parse(chargeSummaryTotalPostpaid)
           //     // + element.amount
           // ).toString();
@@ -419,34 +438,42 @@ class EAWBModel
     //   totalCalc=0;
     // }
     if (
-    //chargesDeclarationOtherCharges
-    prestatus == 'PPD') {
-      print("Pre change"+totalCalc.toString());
-      (totprepaid==0)?
-      chargeSummaryTotalPrepaid =(int.parse(chargeSummaryTotalPrepaid)
-          //  +initialprepaid
-          - totalCalc+ totprepaid
-      ).toString():
-      chargeSummaryTotalPrepaid =(int.parse(chargeSummaryTotalPrepaid)
-          - totalCalc
-          + totprepaid
-      ).toString();
-      print("1Prepaid "+totprepaid.toString()+" "+chargeSummaryTotalPrepaid);
+        //chargesDeclarationOtherCharges
+        prestatus == 'PPD') {
+      print("Pre change" + totalCalc.toString());
+      (totprepaid == 0)
+          ? chargeSummaryTotalPrepaid = (int.parse(chargeSummaryTotalPrepaid)
+                  //  +initialprepaid
+                  -
+                  totalCalc +
+                  totprepaid)
+              .toString()
+          : chargeSummaryTotalPrepaid =
+              (int.parse(chargeSummaryTotalPrepaid) - totalCalc + totprepaid)
+                  .toString();
+      print("1Prepaid " +
+          totprepaid.toString() +
+          " " +
+          chargeSummaryTotalPrepaid);
     }
-    if(prestatus=="COLL"){
+    if (prestatus == "COLL") {
       // print("COLL  ............"+poststatus);
-      (totpostpaid==0)?
-      chargeSummaryTotalPostpaid =(int.parse(chargeSummaryTotalPostpaid)
-          //  +initialprepaid
-          - totalCalcPost -totpostpaid
-      ).toString():
-      // chargeSummaryTotalPostpaid = totalCalc.toString();
-      chargeSummaryTotalPostpaid =(int.parse(chargeSummaryTotalPostpaid)
-          -totalCalcPost
-          -totpostpaid
-          // + element.amount
-      ).toString();
-      print("Postpaid "+chargeSummaryTotalPostpaid);
+      (totpostpaid == 0)
+          ? chargeSummaryTotalPostpaid = (int.parse(chargeSummaryTotalPostpaid)
+                  //  +initialprepaid
+                  -
+                  totalCalcPost -
+                  totpostpaid)
+              .toString()
+          :
+          // chargeSummaryTotalPostpaid = totalCalc.toString();
+          chargeSummaryTotalPostpaid = (int.parse(chargeSummaryTotalPostpaid) -
+                  totalCalcPost -
+                  totpostpaid
+              // + element.amount
+              )
+              .toString();
+      print("Postpaid " + chargeSummaryTotalPostpaid);
     }
 
     // int dueAgentPrepaid = 0;
@@ -552,57 +579,58 @@ class EAWBModel
     notifyListeners();
   }
 
-  void summaryratedescription(){
-    int total=0;
+  void summaryratedescription() {
+    int total = 0;
     // rateDescriptionItemList.forEach((element) {
     //   total+=element.total;
     // });
     // chargeSummaryWeightChargePrepaid=total.toString();
-      int tott=0;
-      int pt=0;
-      rateDescriptionItemList.forEach((element) {
-         pt= element.total;
-        tott+=int.parse(element.total.toString());
-        // int to=
-        //     //int.parse(model.chargeSummaryWeightChargePrepaid)+
-        //     tott;
-        // print(to.toString());
+    int tott = 0;
+    int pt = 0;
+    rateDescriptionItemList.forEach((element) {
+      pt = element.total;
+      tott += int.parse(element.total.toString());
+      // int to=
+      //     //int.parse(model.chargeSummaryWeightChargePrepaid)+
+      //     tott;
+      // print(to.toString());
 
-        // model.chargeSummaryWeightChargePrepaid=to.toString();
-        //
+      // model.chargeSummaryWeightChargePrepaid=to.toString();
+      //
 
-        print("chargesumm"+chargeSummaryWeightChargePrepaid);
-        print("single"+pt.toString());
-
-      });
-      chargeSummaryWeightChargePrepaid=tott.toString();
-      chargeSummaryTotalPrepaid=(int.parse(chargeSummaryTotalPrepaid)+pt).toString();
-      // model.summaryratedescription();
-
+      print("chargesumm" + chargeSummaryWeightChargePrepaid);
+      print("single" + pt.toString());
+    });
+    chargeSummaryWeightChargePrepaid = tott.toString();
+    chargeSummaryTotalPrepaid =
+        (int.parse(chargeSummaryTotalPrepaid) + pt).toString();
+    // model.summaryratedescription();
   }
+
   void addRateDescriptionItem(RateDescriptionItem item) {
     rateDescriptionItemList.add(item);
-    if(chargesDeclarationWTVALCharges=="PPD"){
-      int weightchargepre=0;
-      int totalpre =0;
+    if (chargesDeclarationWTVALCharges == "PPD") {
+      int weightchargepre = 0;
+      int totalpre = 0;
       rateDescriptionItemList.forEach((element) {
-        totalpre=element.total;
-        weightchargepre+=element.total;
+        totalpre = element.total;
+        weightchargepre += element.total;
       });
-      chargeSummaryWeightChargePrepaid=weightchargepre.toString();
-      chargeSummaryTotalPrepaid=(int.parse(chargeSummaryTotalPrepaid)+totalpre).toString();
-          //(int.parse(chargeSummaryWeightChargePrepaid)+weightchargepre).toString();
+      chargeSummaryWeightChargePrepaid = weightchargepre.toString();
+      chargeSummaryTotalPrepaid =
+          (int.parse(chargeSummaryTotalPrepaid) + totalpre).toString();
+      //(int.parse(chargeSummaryWeightChargePrepaid)+weightchargepre).toString();
     }
-    if(chargesDeclarationWTVALCharges=="COLL"){
-      int weightchargepost=0;
-      int totalpost=0;
+    if (chargesDeclarationWTVALCharges == "COLL") {
+      int weightchargepost = 0;
+      int totalpost = 0;
       rateDescriptionItemList.forEach((element) {
-        totalpost=element.total;
-        weightchargepost+=element.total;
+        totalpost = element.total;
+        weightchargepost += element.total;
       });
-      chargeSummaryWeightChargePostpaid=
-      weightchargepost.toString();
-      chargeSummaryTotalPostpaid=(int.parse(chargeSummaryTotalPostpaid)+totalpost).toString();
+      chargeSummaryWeightChargePostpaid = weightchargepost.toString();
+      chargeSummaryTotalPostpaid =
+          (int.parse(chargeSummaryTotalPostpaid) + totalpost).toString();
       //(int.parse(chargeSummaryWeightChargePostpaid)+weightchargepost).toString();
     }
     notifyListeners();
@@ -689,11 +717,19 @@ class EAWBModel
       refreshToken();
       getEAWB(eawbid);
     } else {
+
       var jsonData = eawbData["eawb"];
+      print(jsonData);
 
       if (jsonData.length != 0) {
         clearEAWB();
         jsonData = jsonData[0];
+        print("id get awb details id");
+        print(jsonData['id']);
+       prefs.setString('Awb_id', jsonData['id'].toString());
+       prefs.setString('updateawbdetails', "true");
+       print("update awb details bool");
+       print(prefs.getString("Awb_id"));
         //   if (eawbData['message'] == "Valid AWB Number") {
         String data;
         // ! 1 - Shipper....
@@ -725,7 +761,7 @@ class EAWBModel
         // ! convert ISSUING_CARRIER_AGENT_NAME_AND_CITY to name and address
         // data = jsonData['Carrier_Agent_NameAndCity'].replaceAll('\\n', '\n');
         issuingCarrierAgentName = jsonData[
-        'Carrier_Agent_NameAndCity']; //data.substring(0, data.indexOf('\n'));
+            'Carrier_Agent_NameAndCity']; //data.substring(0, data.indexOf('\n'));
         //issuingCarrierAgentCity = data.substring(data.indexOf('\n') + 2);
         issuingCarrierAgentPlace = jsonData['Carrier_Agent_Place'];
         issuingCarrierAgentCassAddress = jsonData['Carrier_Agent_CASS_Address'];
@@ -791,19 +827,19 @@ class EAWBModel
         chargesDeclarationCurrency = jsonData['Chargedec_Currency'];
         chargesDeclarationCHGSCode = jsonData['Chargedec_CHCG'];
         chargesDeclarationValueForCarriage =
-        jsonData['Chargedec_Value_For_Carriage'].toString() == ""
-            ? "NVD"
-            : jsonData['Chargedec_Value_For_Carriage'];
+            jsonData['Chargedec_Value_For_Carriage'].toString() == ""
+                ? "NVD"
+                : jsonData['Chargedec_Value_For_Carriage'];
         chargesDeclarationValueForCustoms =
-        jsonData['Chargedec_Value_For_Customs'].toString() == ""
-            ? "NCV"
-            : jsonData['Chargedec_Value_For_Customs'];
+            jsonData['Chargedec_Value_For_Customs'].toString() == ""
+                ? "NCV"
+                : jsonData['Chargedec_Value_For_Customs'];
         chargesDeclarationWTVALCharges = jsonData['Chargedec_WT_Or_VAL'];
         chargesDeclarationOtherCharges = jsonData['Chargedec_Other'];
         chargesDeclarationAmountOfInsurance =
-        jsonData['Chargedec_Amount_Of_Insurance'].toString() == ""
-            ? "NCV"
-            : jsonData['Chargedec_Amount_Of_Insurance'];
+            jsonData['Chargedec_Amount_Of_Insurance'].toString() == ""
+                ? "NCV"
+                : jsonData['Chargedec_Amount_Of_Insurance'];
 
         SPH1 = jsonData['SHC1'];
         SPH2 = jsonData['SHC2'];
@@ -831,21 +867,47 @@ class EAWBModel
         chargeSummaryWeightChargePrepaid = jsonData['Prepaid_Weight_Charge'];
         chargeSummaryWeightChargePostpaid = jsonData['Collect_Weight_Charge'];
         chargeSummaryValuationChargePrepaid =
-        jsonData['Prepaid_Valuation_Charge'];
+            jsonData['Prepaid_Valuation_Charge'];
         chargeSummaryValuationChargePostpaid =
-        jsonData['Collect_Valuation_Charge'];
+            jsonData['Collect_Valuation_Charge'];
         chargeSummaryTaxPrepaid = jsonData['Prepaid_Tax'];
         chargeSummaryTaxPostpaid = jsonData['Collect_Tax'];
         chargeSummaryDueAgentPrepaid =
-        jsonData['Prepaid_Other_Charges_Due_Agent'];
+            jsonData['Prepaid_Other_Charges_Due_Agent'];
         chargeSummaryDueAgentPostpaid =
-        jsonData['Collect_Other_Charges_Due_Agent'];
+            jsonData['Collect_Other_Charges_Due_Agent'];
         chargeSummaryDueCarrierPrepaid =
-        jsonData['Prepaid_Other_Charges_Due_Carrier'];
+            jsonData['Prepaid_Other_Charges_Due_Carrier'];
         chargeSummaryDueCarrierPostpaid =
-        jsonData['Collect_Other_Charges_Due_Carrier'];
+            jsonData['Collect_Other_Charges_Due_Carrier'];
         chargeSummaryTotalPrepaid = jsonData['Prepaid_Total'];
         chargeSummaryTotalPostpaid = jsonData['Collect_Total'];
+
+         routeAndFlightTo1= jsonData['Routing_To'];
+     routeAndFlightBy1 = jsonData['Routing_By_First_Carrier'];
+
+        routeAndFlightTo2= jsonData['Routing_To1'];
+     routeAndFlightBy2= jsonData['Routing_By1'];
+     routeAndFlightTo3 =jsonData['Routing_To2'];
+     routeAndFlightBy3 =jsonData['Routing_By2'];
+     referenceNumber =jsonData['Reference_Number'];
+     information = jsonData['Information'];
+
+     routeAndFlightNumber1 =jsonData['Flight1'];
+     routeAndFlightDate1 = jsonData['Date1'];
+     routeAndFlightNumber2 =jsonData['Flight2'];
+     routeAndFlightDate2 = jsonData['Date2'];
+
+         destCurrencyCode =jsonData['CC_Charges_Destination_Currency'];
+     currencyConversionRates= jsonData['CC_Charges_Currency_Conv_Rates'];
+   // "CC_Charges_Destination_Currency2": "",
+   // "CC_Charges_Currency_Conv_Rates2": "",
+     ccChargesInDest =  jsonData['CC_Charges_In_Dest'];
+     chargesAtDest=  jsonData['CC_Charges_At_Dest'];
+     totalCollect = jsonData['CC_Charges_Total'];
+
+      //  rateDescriptionItemList =  jsonData['AWB_RateDescription'];
+      //  otherChargesList = jsonData['AWB_OtherCharges'];
 
         // // ! 13 - CC charges in destination currency....
         // currencyConversionRates = jsonData['CURRENCY_CONVERSION_RATES'];
@@ -863,6 +925,14 @@ class EAWBModel
         for (int i = 0; i < otherList.length; i++) {
           otherChargesList.add(OtherChargesItem.fromJson(
               Map<String, dynamic>.from(otherList[i])));
+        }
+
+
+        var map2 = Map.fromIterable(jsonData['AWB_RateDescription'] as List);
+        List<dynamic> ratedescriptionList = map2.keys.toList();
+        for (int i = 0; i < ratedescriptionList.length; i++) {
+          rateDescriptionItemList.add(RateDescriptionItem.fromJson(
+              Map<String, dynamic>.from(ratedescriptionList[i])));
         }
         // var map2 = Map.fromIterable(jsonData['description'] as List);
         // List<dynamic> dimenList = map2.keys.toList();
@@ -892,16 +962,596 @@ class EAWBModel
         atPlace = jsonData['Carrier_Place'];
         signatureOfIssuingCarrier = jsonData['Carrier_Signature'];
 
+        print(jsonData);
         notifyListeners();
         setStatus();
+
         return "AWB Number Loaded";
       } else {
+
         return 'New Air Waybill Number';
       }
+
     }
     notifyListeners();
     return 'New Air Waybill Number';
   }
+  Future<dynamic> updateeAWB() async {
+    /**
+        Two char code fields:
+        Shipper_Contact1_Type
+        Shipper_Contact2_Type
+        Consignee_Contact1_Type
+        Consignee_Contact2_Type
+        Consigment_Weight_Code
+        Consigment_Volume_Code
+        Notify_Contact1_Type
+        Notify_Contact2_Type
+        Sender_Reference_Sender_Office_Function_Designator
+        Sender_Reference_Sender_Office_Company_Designator
+        Commision_Information_CASS_Indicator
+        Sales_Incentive_Charge_Amount
+     */
+    var result;
+
+
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print("awb update id");
+    print(prefs.getString("Awb_id"));
+    //  final url = Uri.parse(StringData.eawbbyid);
+    //  final request = http.Request("OPTIONS", url);
+    //  request.headers.addAll(<String, String>{
+    //    'Content-Type': 'application/json; charset=UTF-8',
+    //    'x-access-tokens': prefs.getString('token')
+    //  });
+    //
+    //  request.body = jsonEncode({
+    //    "AWBList_id": prefs.getString("awbListid"),
+    //    "Shipper_Account_Number": shipperAccountNumber.toString(),
+    //    "Shipper_Name": shipperName.toString(),
+    //    "Shipper_Street_Address": shipperAddress.toString(),
+    //    "Shipper_Place": shipperPlace.toString(),
+    //    "Shipper_StateorProvince": shipperState.toString(),
+    //    "Shipper_Country_code": shipperCountryCode.toString(),
+    //    "Shipper_Post_Code": shipperPostCode.toString(),
+    //    "Shipper_Contact1_Type": shipperContactType,
+    //    "Shipper_Contact1_Number": shipperContactNumber,
+    //    "Shipper_Contact2_Type": "yu",
+    //    "Shipper_Contact2_Number": "srty",
+    //    "Consignee_Account_Number": consigneeAccountNumber.toString(),
+    //    "Consignee_Name": consigneeName.toString(),
+    //    "Consignee_Street_Address": consigneeAddress.toString(),
+    //    "Consignee_Place": consigneePlace.toString(),
+    //    "Consignee_StateorProvince": consigneeState.toString(),
+    //    "Consignee_Country_code": consigneeCountryCode.toString(),
+    //    "Consignee_Post_Code": consigneePostCode.toString(),
+    //    "Consignee_Contact1_Type": consigneeContactType,
+    //    "Consignee_Contact1_Number": consigneeContactNumber,
+    //    "Consignee_Contact2_Type": "",
+    //    "Consignee_Contact2_Number": "",
+    //    "Consigment_AWB_Prefix":
+    //    awbConsigmentDetailsAWBNumber.substring(0, 3),
+    //    "Consigment_Serial_Number":
+    //    awbConsigmentDetailsAWBNumber.substring(4),
+    //    "Consigment_Origin_Prefix": awbConsigmentOriginPrefix.toString(),
+    //    "Consigment_Destination": awbConsigmentDestination.toString(),
+    //    "Consigment_Number_Of_Pieces": awbConsigmentPices.toString(),
+    //    "Consigment_Weight_Code": awbConsigmentWeightCode.toString(),
+    //    "Consigment_Weight": awbConsigmentWeight.toString(),
+    //    "Consigment_Volume_Code": awbConsigmentVolumeCode.toString(),
+    //    "Consigment_Volume": awbConsigmentVolume,
+    //    "Consigment_Density_Group": awbConsigmentDensity,
+    //    "Notify_Name": notifyName,
+    //    "Notify_Street_Address": notifyState,
+    //    "Notify_Place": notifyPlace,
+    //    "Notify_StateorProvince": notifyState,
+    //    "Notify_Country_code": notifyCountryCode,
+    //    "Notify_Post_Code": notifyPostCode,
+    //    "Notify_Contact1_Type": notifyContactType,
+    //    "Notify_Contact1_Number": notifyContactNumber,
+    //    "Notify_Contact2_Type": "",
+    //    "Notify_Contact2_Number": "",
+    //    "Carrier_Agent_NameAndCity": issuingCarrierAgentName,
+    //    "Carrier_Agent_Place": issuingCarrierAgentPlace,
+    //    "Carrier_Agent_IATA_Code": issuingCarrierAgentIATACode,
+    //    "Carrier_Agent_CASS_Address": issuingCarrierAgentCassAddress,
+    //    "Carrier_Agent_Account_No": issuingCarrierAgentAccountNumber,
+    //    "Routing_To": routeAndFlightTo1,
+    //    "Routing_By_First_Carrier": routeAndFlightBy1,
+    //    "Routing_To1": routeAndFlightTo2,
+    //    "Routing_By1": routeAndFlightBy2,
+    //    "Routing_To2": routeAndFlightTo3,
+    //    "Routing_By2": routeAndFlightBy3,
+    //    "Reference_Number": referenceNumber,
+    //    "Information": information,
+    //    //"Airline": airline,
+    //    "Flight1": flight,
+    //    "Date1": date,
+    //    // "Airline1": airline1,
+    //    "Flight1": flight1,
+    //    "Date1": date1,
+    //    "Chargedec_Currency": chargesDeclarationCurrency,
+    //    "Chargedec_Value_For_Carriage": chargesDeclarationValueForCarriage,
+    //    "Chargedec_Value_For_Customs": chargesDeclarationValueForCustoms,
+    //    "Chargedec_Amount_Of_Insurance": chargesDeclarationAmountOfInsurance,
+    //    "Chargedec_CHCG": chargesDeclarationCHGSCode,
+    //    "Chargedec_WT_Or_VAL": chargesDeclarationWTVALCharges,
+    //    "Chargedec_Other": chargesDeclarationOtherCharges,
+    //    "SHC1": SPH1,
+    //    "SHC2": SPH2,
+    //    "SHC3": SPH3,
+    //    "SHC4": SPH4,
+    //    "SHC5": SPH5,
+    //    "SHC6": SPH6,
+    //    "SHC7": SPH7,
+    //    "SHC8": SPH8,
+    //    "SHC9": SPH9,
+    //    "Special_Service_Request": SpecialServiceRequest,
+    //    "Other_Service_Information": OtherServiceInformation,
+    //    "Customs_origin_SCI_code": SCI,
+    //    "Prepaid_Weight_Charge": chargeSummaryWeightChargePrepaid,
+    //    "Prepaid_Valuation_Charge": chargeSummaryValuationChargePrepaid,
+    //    "Prepaid_Tax": chargeSummaryTaxPrepaid,
+    //    "Prepaid_Other_Charges_Due_Agent": chargeSummaryDueAgentPrepaid,
+    //    "Prepaid_Other_Charges_Due_Carrier": chargeSummaryDueCarrierPrepaid,
+    //    "Prepaid_Total": chargeSummaryTotalPrepaid,
+    //    "Collect_Weight_Charge": chargeSummaryWeightChargePostpaid,
+    //    "Collect_Valuation_Charge": chargeSummaryValuationChargePostpaid,
+    //    "Collect_Tax": chargeSummaryTaxPostpaid,
+    //    "Collect_Other_Charges_Due_Agent": chargeSummaryDueAgentPostpaid,
+    //    "Collect_Other_Charges_Due_Carrier": chargeSummaryDueCarrierPostpaid,
+    //    "Collect_Total": chargeSummaryTotalPostpaid,
+    //    "CC_Charges_Destination_Currency": destCurrencyCode,
+    //    "CC_Charges_Currency_Conv_Rates": currencyConversionRates,
+    //    "CC_Charges_In_Dest": ccChargesInDest,
+    //    "CC_Charges_At_Dest": chargesAtDest,
+    //    "CC_Charges_Total": totalCollect,
+    //    "Shipper_Signature": signatureOfShipper,
+    //    "Carrier_Date":
+    //    executedOn.replaceAll("-", "/").toString(), //"03/05/2022"
+    //    "Carrier_Place": atPlace,
+    //    "Carrier_Signature": signatureOfIssuingCarrier,
+    //    "AWB_AccountInformation": [
+    //      {"AccountId": "fgdfgsf", "Information": "fghdfhhdtrt"},
+    //      // {"AccountId": "lkjhl", "Information": "yui"},
+    //      // {"AccountId": "mhfj", "Information": "sery"},
+    //      // {"AccountId": "brg", "Information": "my"}
+    //    ],
+    //    "AWB_OtherCharges": otherChargesList,
+    //    "AWB_Othercustomsinformation": [
+    //      {
+    //        "Countrycode": "mhf",
+    //        "InformationIdentifier": "sery",
+    //        "CustomsIdentifier": "mhfj",
+    //        "Information": "sery"
+    //      },
+    //      {
+    //        "Countrycode": "brg",
+    //        "InformationIdentifier": "my",
+    //        "CustomsIdentifier": "mhfj",
+    //        "Information": "sery"
+    //      }
+    //    ],
+    //    "AWB_RateDescription": [
+    //      {
+    //        "Pieces": 99,
+    //        "Grossweight": 4567,
+    //        "Weight_Code": "K",
+    //        "Servicecode": 45,
+    //        "Rateclass": "L",
+    //        "Itemnumber": "6987678",
+    //        "Chargeableweight": 989,
+    //        "RateorCharge": "Rate",
+    //        "Total": 45,
+    //        "Autocalculations": "N",
+    //        "DimensionsRateDescription": [
+    //          {
+    //            "Length": 87,
+    //            "Width": 46,
+    //            "Height": 68,
+    //            "HeightCode": "cm",
+    //            "Pieces_dim": 45,
+    //            "Weight": 687,
+    //            "WeightCode": "K"
+    //          },
+    //          {
+    //            "Length": 58,
+    //            "Width": 69,
+    //            "Height": 48,
+    //            "HeightCode": "cm",
+    //            "Pieces_dim": 54,
+    //            "Weight": 78,
+    //            "WeightCode": "K"
+    //          }
+    //        ],
+    //        "ULDRateDescription": [
+    //          {"Type": "fgfgh", "Serial": "mhuji", "Ownercode": "SE"},
+    //          {"Type": "GTR", "Serial": "DER", "Ownercode": "ER"}
+    //        ]
+    //      },
+    //      {
+    //        "Pieces": 55,
+    //        "Grossweight": 65,
+    //        "Weight_Code": "K",
+    //        "Servicecode": 455,
+    //        "Rateclass": "L",
+    //        "Itemnumber": "13456",
+    //        "Chargeableweight": 68,
+    //        "RateorCharge": "Rate",
+    //        "Total": 45,
+    //        "Autocalculations": "Y",
+    //        "DimensionsRateDescription": [
+    //          {
+    //            "Length": 87,
+    //            "Width": 46,
+    //            "Height": 68,
+    //            "HeightCode": "cm",
+    //            "Pieces_dim": 45,
+    //            "Weight": 687,
+    //            "WeightCode": "K"
+    //          },
+    //          {
+    //            "Length": 58,
+    //            "Width": 69,
+    //            "Height": 48,
+    //            "HeightCode": "cm",
+    //            "Pieces_dim": 54,
+    //            "Weight": 78,
+    //            "WeightCode": "K"
+    //          }
+    //        ],
+    //        "ULDRateDescription": [
+    //          {"Type": "fgfgh", "Serial": "mhuji", "Ownercode": "SE"},
+    //          {"Type": "GTR", "Serial": "DER", "Ownercode": "ER"}
+    //        ]
+    //      }
+    //    ],
+    //    "AWB_OTHER_PARTICIPANT_INFORMATION": [],
+    //    "AWB_Contacts": [
+    //      {"Shipper_Contact1_Type":"Mobile","Shipper_Contact1_Number":"6381939229"}
+    //    ],
+    //  });
+    //  result = await request.send();
+    //
+    //  final respStr = await result.stream.bytesToString();
+    //  var response = result.statusCode;
+    // // var body = result.body;
+    //  result = jsonDecode(respStr);
+
+    var response = await http.put(Uri.parse(StringData.eawbbyid),
+        headers: <String, String>{
+          'x-access-tokens': prefs.getString('token'),
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(
+            {
+              "id": int.tryParse(prefs.getString("Awb_id")),
+            //  "AWBList_id": prefs.getString("awbListid"),
+              "Shipper_Account_Number": shipperAccountNumber.toString(),
+              "Shipper_Name": shipperName.toString(),
+              "Shipper_Street_Address": shipperAddress.toString(),
+              "Shipper_Place": shipperPlace.toString(),
+              "AWB_RateDescription": rateDescriptionItemList,
+              // [
+              //   {
+              //     "ULDRateDescription": [
+              //   {
+              //   "Type1": "AKE",
+              //   "Serial1": "10023",
+              //   "Ownercode1": "6P"
+              //   }
+              //     ],
+              //     "DimensionsRateDescription": [
+              //       {
+              //         "Length": "10",
+              //         "Width": "20",
+              //         "Height":"30",
+              //         "HeightCode": "cm",
+              //         "Pieces_dim": "10",
+              //         "Weight": "100",
+              //         "WeightCode": "K"
+              //       }
+              //     ],
+              //     "Pieces": "54",
+              //     "Weight_Code": "K",
+              //     "Grossweight": "1500",
+              //     "Rateclass": "Q",
+              //     "Itemnumber": "",
+              //     "Chargeableweight": "1500",
+              //     "RateorCharge": "19.15",
+              //     "Total": "28725",
+              //     "Description": "COMPUTERS",
+              //     "Volumetype": "",
+              //     "Volume": "",
+              //     "Servicecode": "",
+              //     "SLAC": ""
+              //   },
+              //
+              // ],
+              "AWB_OtherCharges": otherChargesList,
+              // [
+              //
+              //   {
+              //     "Code": "MY",
+              //     "Amount":"100",
+              //     "Entitlement": "C"
+              //   }
+              // ],
+              "AWB_AccountInformation": [
+                {
+                  "AccountId": accountingInformationId,
+                  "Information": accountingInformationDetails
+                }
+              ],
+              "AWB_OTHER_PARTICIPANT_INFORMATION": [],
+              "AWB_Contacts": [],
+              "AWB_Othercustomsinformation": [
+                {
+                  "Countrycode": "IN",
+                  "InformationIdentifier": "",
+                  "CustomsIdentifier": "MUST BE SAFE",
+                  "Information": "T1"
+                }
+              ],
+              "Shipper_StateorProvince": shipperState.toString(),
+              "Shipper_Country_code": shipperCountryCode.toString(),
+              "Shipper_Post_Code": shipperPostCode.toString(),
+
+              "Consignee_Account_Number": consigneeAccountNumber.toString(),
+              "Consignee_Name": consigneeName.toString(),
+              "Consignee_Street_Address": consigneeAddress.toString(),
+              "Consignee_Place":consigneePlace.toString(),
+              "Consignee_StateorProvince": consigneeState.toString(),
+              "Consignee_Country_code": consigneeCountryCode.toString(),
+              "Consignee_Post_Code": consigneePostCode.toString(),
+              "Consignee_Contact1_Type": consigneeContactType,
+              "Consignee_Contact1_Number": consigneeContactNumber,
+              "Consigment_AWB_Prefix":  awbConsigmentDetailsAWBNumber.substring(0, 3),
+              "Consigment_Serial_Number":  awbConsigmentDetailsAWBNumber.substring(4),
+              "Consigment_Origin_Prefix": awbConsigmentOriginPrefix.toString(),
+
+              "Consigment_Destination": awbConsigmentDestination.toString(),
+              "Consigment_Number_Of_Pieces":awbConsigmentPices.toString(),
+              "Consigment_Weight_Code":awbConsigmentWeightCode.toString(),
+              "Consigment_Weight":awbConsigmentWeight.toString(),
+              "Consigment_Volume_Code": awbConsigmentVolumeCode.toString(),
+              "Consigment_Volume": awbConsigmentVolume,
+              "Consigment_Density_Group": awbConsigmentDensity,
+              "Notify_Name": notifyName,
+              "Notify_Street_Address": notifyState,
+              "Notify_Place": notifyPlace,
+              "Notify_StateorProvince": notifyState,
+              "Notify_Country_code": notifyCountryCode,
+              "Notify_Post_Code": notifyPostCode,
+              "Notify_Contact1_Type": notifyContactType,
+              "Notify_Contact1_Number": notifyContactNumber,
+              "Carrier_Agent_NameAndCity": issuingCarrierAgentName,
+              "Carrier_Agent_Place": issuingCarrierAgentPlace,
+              "Carrier_Agent_IATA_Code": issuingCarrierAgentIATACode,
+              "Carrier_Agent_CASS_Address": issuingCarrierAgentCassAddress,
+              "Carrier_Agent_Account_No": issuingCarrierAgentAccountNumber,
+              "Routing_To": routeAndFlightTo1,
+              "Routing_By_First_Carrier": routeAndFlightBy1,
+              "Routing_To1": routeAndFlightTo2,
+              "Routing_By1": routeAndFlightBy2,
+              "Routing_To2": routeAndFlightTo3,
+              "Routing_By2": routeAndFlightBy3,
+              "Reference_Number": referenceNumber,
+              "Information": information,
+
+              "Flight1": routeAndFlightNumber1,
+              "Date1": routeAndFlightDate1,
+              "Flight2": routeAndFlightNumber2,
+              "Date2": routeAndFlightDate2,
+              "Chargedec_Currency": chargesDeclarationCurrency,
+              "Chargedec_Value_For_Carriage": chargesDeclarationValueForCarriage,
+              "Chargedec_Value_For_Customs": chargesDeclarationValueForCustoms,
+              "Chargedec_Amount_Of_Insurance": chargesDeclarationAmountOfInsurance,
+              "Chargedec_CHCG": chargesDeclarationCHGSCode,
+              "Chargedec_WT_Or_VAL": chargesDeclarationWTVALCharges,
+              "Chargedec_Other": chargesDeclarationOtherCharges,
+              "SHC1": SPH1,
+              "SHC2": SPH2,
+              "SHC3": SPH3,
+              "SHC4": SPH4,
+              "SHC5": SPH5,
+              "SHC6": SPH6,
+              "SHC7": SPH7,
+              "SHC8": SPH8,
+              "SHC9": SPH9,
+              "Special_Service_Request": SpecialServiceRequest,
+              "Other_Service_Information": OtherServiceInformation,
+              "Customs_origin_SCI_code": SCI,
+              "Prepaid_Weight_Charge": chargeSummaryWeightChargePrepaid,
+              "Prepaid_Valuation_Charge": chargeSummaryValuationChargePrepaid,
+              "Prepaid_Tax": chargeSummaryTaxPrepaid,
+              "Prepaid_Other_Charges_Due_Agent": chargeSummaryDueAgentPrepaid,
+              "Prepaid_Other_Charges_Due_Carrier": chargeSummaryDueCarrierPrepaid,
+              "Prepaid_Total": chargeSummaryTotalPrepaid,
+              "Collect_Weight_Charge": chargeSummaryWeightChargePostpaid,
+              "Collect_Valuation_Charge": chargeSummaryValuationChargePostpaid,
+              "Collect_Tax": chargeSummaryTaxPostpaid,
+              "Collect_Other_Charges_Due_Agent": chargeSummaryDueAgentPostpaid,
+              "Collect_Other_Charges_Due_Carrier": chargeSummaryDueCarrierPostpaid,
+              "Collect_Total": chargeSummaryTotalPostpaid,
+              "CC_Charges_Destination_Currency": destCurrencyCode,
+              "CC_Charges_Currency_Conv_Rates": currencyConversionRates,
+              "CC_Charges_Destination_Currency2": "",
+              "CC_Charges_Currency_Conv_Rates2": "",
+              "CC_Charges_In_Dest": ccChargesInDest,
+              "CC_Charges_At_Dest": chargesAtDest,
+              "CC_Charges_Total": totalCollect,
+              "Shipper_Signature": signatureOfShipper,
+              "Carrier_Date":
+              executedOn.replaceAll("-", "/").toString(), //"03/05/2022"
+              "Carrier_Place": atPlace,
+              "Carrier_Signature": signatureOfIssuingCarrier,
+            }
+          //     {
+          //   "AWBList_id": prefs.getString("awbListid"),
+          //   "Shipper_Account_Number": shipperAccountNumber.toString(),
+          //   "Shipper_Name": shipperName.toString(),
+          //   "Shipper_Street_Address": shipperAddress.toString(),
+          //   "Shipper_Place": shipperPlace.toString(),
+          //   "Shipper_StateorProvince": shipperState.toString(),
+          //   "Shipper_Country_code": shipperCountryCode.toString(),
+          //   "Shipper_Post_Code": shipperPostCode.toString(),
+          //   // "Shipper_Contact1_Type": shipperContactType,
+          //   // "Shipper_Contact1_Number": shipperContactNumber,
+          //   // "Shipper_Contact2_Type": "yu",
+          //   // "Shipper_Contact2_Number": "srty",
+          //   "Consignee_Account_Number": consigneeAccountNumber.toString(),
+          //   "Consignee_Name": consigneeName.toString(),
+          //   "Consignee_Street_Address": consigneeAddress.toString(),
+          //   "Consignee_Place": consigneePlace.toString(),
+          //   "Consignee_StateorProvince": consigneeState.toString(),
+          //   "Consignee_Country_code": consigneeCountryCode.toString(),
+          //   "Consignee_Post_Code": consigneePostCode.toString(),
+          //   "Consignee_Contact1_Type": consigneeContactType,
+          //   "Consignee_Contact1_Number": consigneeContactNumber,
+          //   // "Consignee_Contact2_Type": "",
+          //   // "Consignee_Contact2_Number": "",
+          //   "Consigment_AWB_Prefix":
+          //       awbConsigmentDetailsAWBNumber.substring(0, 3),
+          //   "Consigment_Serial_Number":
+          //       awbConsigmentDetailsAWBNumber.substring(4),
+          //   "Consigment_Origin_Prefix": awbConsigmentOriginPrefix.toString(),
+          //   "Consigment_Destination": awbConsigmentDestination.toString(),
+          //   "Consigment_Number_Of_Pieces": awbConsigmentPices.toString(),
+          //   "Consigment_Weight_Code": awbConsigmentWeightCode.toString(),
+          //   "Consigment_Weight": awbConsigmentWeight.toString(),
+          //   "Consigment_Volume_Code": awbConsigmentVolumeCode.toString(),
+          //   "Consigment_Volume": awbConsigmentVolume,
+          //   "Consigment_Density_Group": awbConsigmentDensity,
+          //   "Notify_Name": notifyName,
+          //   "Notify_Street_Address": notifyState,
+          //   "Notify_Place": notifyPlace,
+          //   "Notify_StateorProvince": notifyState,
+          //   "Notify_Country_code": notifyCountryCode,
+          //   "Notify_Post_Code": notifyPostCode,
+          //   "Notify_Contact1_Type": notifyContactType,
+          //   // "Notify_Contact1_Number": notifyContactNumber,
+          //   // "Notify_Contact2_Type": "",
+          //   // "Notify_Contact2_Number": "",
+          //   "Carrier_Agent_NameAndCity": issuingCarrierAgentName,
+          //   "Carrier_Agent_Place": issuingCarrierAgentPlace,
+          //   "Carrier_Agent_IATA_Code": issuingCarrierAgentIATACode,
+          //   "Carrier_Agent_CASS_Address": issuingCarrierAgentCassAddress,
+          //   "Carrier_Agent_Account_No": issuingCarrierAgentAccountNumber,
+          //   "Routing_To": routeAndFlightTo1,
+          //   "Routing_By_First_Carrier": routeAndFlightBy1,
+          //   "Routing_To1": routeAndFlightTo2,
+          //   "Routing_By1": routeAndFlightBy2,
+          //   "Routing_To2": routeAndFlightTo3,
+          //   "Routing_By2": routeAndFlightBy3,
+          //   "Reference_Number": referenceNumber,
+          //   "Information": information,
+          //   //"Airline": airline,
+          //   "Flight1": flight,
+          //   "Date1": date,
+          //   // "Airline1": airline1,
+          //   "Flight2": flight1,
+          //   "Date2": date1,
+          //   "Chargedec_Currency": chargesDeclarationCurrency,
+          //   "Chargedec_Value_For_Carriage": chargesDeclarationValueForCarriage,
+          //   "Chargedec_Value_For_Customs": chargesDeclarationValueForCustoms,
+          //   "Chargedec_Amount_Of_Insurance": chargesDeclarationAmountOfInsurance,
+          //   "Chargedec_CHCG": chargesDeclarationCHGSCode,
+          //   "Chargedec_WT_Or_VAL": chargesDeclarationWTVALCharges,
+          //   "Chargedec_Other": chargesDeclarationOtherCharges,
+          //   "SHC1": SPH1,
+          //   "SHC2": SPH2,
+          //   "SHC3": SPH3,
+          //   "SHC4": SPH4,
+          //   "SHC5": SPH5,
+          //   "SHC6": SPH6,
+          //   "SHC7": SPH7,
+          //   "SHC8": SPH8,
+          //   "SHC9": SPH9,
+          //   "Special_Service_Request": SpecialServiceRequest,
+          //   "Other_Service_Information": OtherServiceInformation,
+          //   "Customs_origin_SCI_code": SCI,
+          //   "Prepaid_Weight_Charge": chargeSummaryWeightChargePrepaid,
+          //   "Prepaid_Valuation_Charge": chargeSummaryValuationChargePrepaid,
+          //   "Prepaid_Tax": chargeSummaryTaxPrepaid,
+          //   "Prepaid_Other_Charges_Due_Agent": chargeSummaryDueAgentPrepaid,
+          //   "Prepaid_Other_Charges_Due_Carrier": chargeSummaryDueCarrierPrepaid,
+          //   "Prepaid_Total": chargeSummaryTotalPrepaid,
+          //   "Collect_Weight_Charge": chargeSummaryWeightChargePostpaid,
+          //   "Collect_Valuation_Charge": chargeSummaryValuationChargePostpaid,
+          //   "Collect_Tax": chargeSummaryTaxPostpaid,
+          //   "Collect_Other_Charges_Due_Agent": chargeSummaryDueAgentPostpaid,
+          //   "Collect_Other_Charges_Due_Carrier": chargeSummaryDueCarrierPostpaid,
+          //   "Collect_Total": chargeSummaryTotalPostpaid,
+          //   "CC_Charges_Destination_Currency": destCurrencyCode,
+          //   "CC_Charges_Currency_Conv_Rates": currencyConversionRates,
+          //       "CC_Charges_Destination_Currency2": "",
+          //       "CC_Charges_Currency_Conv_Rates2": "",
+          //       "CC_Charges_In_Dest": ccChargesInDest,
+          //   "CC_Charges_At_Dest": chargesAtDest,
+          //   "CC_Charges_Total": totalCollect,
+          //   "Shipper_Signature": signatureOfShipper,
+          //   "Carrier_Date":
+          //       executedOn.replaceAll("-", "/").toString(), //"03/05/2022"
+          //   "Carrier_Place": atPlace,
+          //   "Carrier_Signature": signatureOfIssuingCarrier,
+          //   "AWB_AccountInformation": [
+          //     {
+          //       "AccountId": "",
+          //       "Information": "GOLD"
+          //     }  ],
+          //   "AWB_OtherCharges": [],
+          //       "AWB_Othercustomsinformation": [
+          //         {
+          //           "Countrycode": "",
+          //           "InformationIdentifier": "",
+          //           "CustomsIdentifier": "",
+          //           "Information": ""
+          //         }
+          //       ],
+          //   "AWB_RateDescription": [
+          //
+          //   ],
+          //   "AWB_OTHER_PARTICIPANT_INFORMATION": [],
+          //   "AWB_Contacts": [
+          // ],
+          // }
+        ));
+    result = jsonDecode(response.body);
+    print(result);
+    print(prefs.getString("awbListid"));
+    if (result['Message'] == 'token expired') {
+      refreshToken();
+      inserteAWB();
+    } else {
+      result = jsonDecode(response.body);
+
+      print("update eawb result");
+      print(response.body);
+      print(prefs.getString('token'));
+      print("date '${executedOn.replaceAll("-", "/").toString()}'");
+      if (response.statusCode == 202) {
+        print("Data inserted");
+        return true;
+        // Scaffold.of(context).showSnackBar(SnackBar(
+        //   content: Text("Data inserted"),
+        //   duration: Duration(seconds: 1),
+        // ));
+        // Navigator.push(context, HomeScreenRoute(MyEawb()));
+        // print("Data inserted");
+      } else {
+        // Scaffold.of(context).showSnackBar(SnackBar(
+        //   content: Text("Data inserted faild"),
+        //   duration: Duration(seconds: 1),
+        // ));
+        print("Data insertion failed");
+        return false;
+      }
+    }
+    //return response.body == 'eAWB Saved';
+  }
+
 
   Future<dynamic> inserteAWB() async {
     /**
@@ -922,226 +1572,536 @@ class EAWBModel
     var result;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    //  final url = Uri.parse(StringData.eawbbyid);
+    //  final request = http.Request("OPTIONS", url);
+    //  request.headers.addAll(<String, String>{
+    //    'Content-Type': 'application/json; charset=UTF-8',
+    //    'x-access-tokens': prefs.getString('token')
+    //  });
+    //
+    //  request.body = jsonEncode({
+    //    "AWBList_id": prefs.getString("awbListid"),
+    //    "Shipper_Account_Number": shipperAccountNumber.toString(),
+    //    "Shipper_Name": shipperName.toString(),
+    //    "Shipper_Street_Address": shipperAddress.toString(),
+    //    "Shipper_Place": shipperPlace.toString(),
+    //    "Shipper_StateorProvince": shipperState.toString(),
+    //    "Shipper_Country_code": shipperCountryCode.toString(),
+    //    "Shipper_Post_Code": shipperPostCode.toString(),
+    //    "Shipper_Contact1_Type": shipperContactType,
+    //    "Shipper_Contact1_Number": shipperContactNumber,
+    //    "Shipper_Contact2_Type": "yu",
+    //    "Shipper_Contact2_Number": "srty",
+    //    "Consignee_Account_Number": consigneeAccountNumber.toString(),
+    //    "Consignee_Name": consigneeName.toString(),
+    //    "Consignee_Street_Address": consigneeAddress.toString(),
+    //    "Consignee_Place": consigneePlace.toString(),
+    //    "Consignee_StateorProvince": consigneeState.toString(),
+    //    "Consignee_Country_code": consigneeCountryCode.toString(),
+    //    "Consignee_Post_Code": consigneePostCode.toString(),
+    //    "Consignee_Contact1_Type": consigneeContactType,
+    //    "Consignee_Contact1_Number": consigneeContactNumber,
+    //    "Consignee_Contact2_Type": "",
+    //    "Consignee_Contact2_Number": "",
+    //    "Consigment_AWB_Prefix":
+    //    awbConsigmentDetailsAWBNumber.substring(0, 3),
+    //    "Consigment_Serial_Number":
+    //    awbConsigmentDetailsAWBNumber.substring(4),
+    //    "Consigment_Origin_Prefix": awbConsigmentOriginPrefix.toString(),
+    //    "Consigment_Destination": awbConsigmentDestination.toString(),
+    //    "Consigment_Number_Of_Pieces": awbConsigmentPices.toString(),
+    //    "Consigment_Weight_Code": awbConsigmentWeightCode.toString(),
+    //    "Consigment_Weight": awbConsigmentWeight.toString(),
+    //    "Consigment_Volume_Code": awbConsigmentVolumeCode.toString(),
+    //    "Consigment_Volume": awbConsigmentVolume,
+    //    "Consigment_Density_Group": awbConsigmentDensity,
+    //    "Notify_Name": notifyName,
+    //    "Notify_Street_Address": notifyState,
+    //    "Notify_Place": notifyPlace,
+    //    "Notify_StateorProvince": notifyState,
+    //    "Notify_Country_code": notifyCountryCode,
+    //    "Notify_Post_Code": notifyPostCode,
+    //    "Notify_Contact1_Type": notifyContactType,
+    //    "Notify_Contact1_Number": notifyContactNumber,
+    //    "Notify_Contact2_Type": "",
+    //    "Notify_Contact2_Number": "",
+    //    "Carrier_Agent_NameAndCity": issuingCarrierAgentName,
+    //    "Carrier_Agent_Place": issuingCarrierAgentPlace,
+    //    "Carrier_Agent_IATA_Code": issuingCarrierAgentIATACode,
+    //    "Carrier_Agent_CASS_Address": issuingCarrierAgentCassAddress,
+    //    "Carrier_Agent_Account_No": issuingCarrierAgentAccountNumber,
+    //    "Routing_To": routeAndFlightTo1,
+    //    "Routing_By_First_Carrier": routeAndFlightBy1,
+    //    "Routing_To1": routeAndFlightTo2,
+    //    "Routing_By1": routeAndFlightBy2,
+    //    "Routing_To2": routeAndFlightTo3,
+    //    "Routing_By2": routeAndFlightBy3,
+    //    "Reference_Number": referenceNumber,
+    //    "Information": information,
+    //    //"Airline": airline,
+    //    "Flight1": flight,
+    //    "Date1": date,
+    //    // "Airline1": airline1,
+    //    "Flight1": flight1,
+    //    "Date1": date1,
+    //    "Chargedec_Currency": chargesDeclarationCurrency,
+    //    "Chargedec_Value_For_Carriage": chargesDeclarationValueForCarriage,
+    //    "Chargedec_Value_For_Customs": chargesDeclarationValueForCustoms,
+    //    "Chargedec_Amount_Of_Insurance": chargesDeclarationAmountOfInsurance,
+    //    "Chargedec_CHCG": chargesDeclarationCHGSCode,
+    //    "Chargedec_WT_Or_VAL": chargesDeclarationWTVALCharges,
+    //    "Chargedec_Other": chargesDeclarationOtherCharges,
+    //    "SHC1": SPH1,
+    //    "SHC2": SPH2,
+    //    "SHC3": SPH3,
+    //    "SHC4": SPH4,
+    //    "SHC5": SPH5,
+    //    "SHC6": SPH6,
+    //    "SHC7": SPH7,
+    //    "SHC8": SPH8,
+    //    "SHC9": SPH9,
+    //    "Special_Service_Request": SpecialServiceRequest,
+    //    "Other_Service_Information": OtherServiceInformation,
+    //    "Customs_origin_SCI_code": SCI,
+    //    "Prepaid_Weight_Charge": chargeSummaryWeightChargePrepaid,
+    //    "Prepaid_Valuation_Charge": chargeSummaryValuationChargePrepaid,
+    //    "Prepaid_Tax": chargeSummaryTaxPrepaid,
+    //    "Prepaid_Other_Charges_Due_Agent": chargeSummaryDueAgentPrepaid,
+    //    "Prepaid_Other_Charges_Due_Carrier": chargeSummaryDueCarrierPrepaid,
+    //    "Prepaid_Total": chargeSummaryTotalPrepaid,
+    //    "Collect_Weight_Charge": chargeSummaryWeightChargePostpaid,
+    //    "Collect_Valuation_Charge": chargeSummaryValuationChargePostpaid,
+    //    "Collect_Tax": chargeSummaryTaxPostpaid,
+    //    "Collect_Other_Charges_Due_Agent": chargeSummaryDueAgentPostpaid,
+    //    "Collect_Other_Charges_Due_Carrier": chargeSummaryDueCarrierPostpaid,
+    //    "Collect_Total": chargeSummaryTotalPostpaid,
+    //    "CC_Charges_Destination_Currency": destCurrencyCode,
+    //    "CC_Charges_Currency_Conv_Rates": currencyConversionRates,
+    //    "CC_Charges_In_Dest": ccChargesInDest,
+    //    "CC_Charges_At_Dest": chargesAtDest,
+    //    "CC_Charges_Total": totalCollect,
+    //    "Shipper_Signature": signatureOfShipper,
+    //    "Carrier_Date":
+    //    executedOn.replaceAll("-", "/").toString(), //"03/05/2022"
+    //    "Carrier_Place": atPlace,
+    //    "Carrier_Signature": signatureOfIssuingCarrier,
+    //    "AWB_AccountInformation": [
+    //      {"AccountId": "fgdfgsf", "Information": "fghdfhhdtrt"},
+    //      // {"AccountId": "lkjhl", "Information": "yui"},
+    //      // {"AccountId": "mhfj", "Information": "sery"},
+    //      // {"AccountId": "brg", "Information": "my"}
+    //    ],
+    //    "AWB_OtherCharges": otherChargesList,
+    //    "AWB_Othercustomsinformation": [
+    //      {
+    //        "Countrycode": "mhf",
+    //        "InformationIdentifier": "sery",
+    //        "CustomsIdentifier": "mhfj",
+    //        "Information": "sery"
+    //      },
+    //      {
+    //        "Countrycode": "brg",
+    //        "InformationIdentifier": "my",
+    //        "CustomsIdentifier": "mhfj",
+    //        "Information": "sery"
+    //      }
+    //    ],
+    //    "AWB_RateDescription": [
+    //      {
+    //        "Pieces": 99,
+    //        "Grossweight": 4567,
+    //        "Weight_Code": "K",
+    //        "Servicecode": 45,
+    //        "Rateclass": "L",
+    //        "Itemnumber": "6987678",
+    //        "Chargeableweight": 989,
+    //        "RateorCharge": "Rate",
+    //        "Total": 45,
+    //        "Autocalculations": "N",
+    //        "DimensionsRateDescription": [
+    //          {
+    //            "Length": 87,
+    //            "Width": 46,
+    //            "Height": 68,
+    //            "HeightCode": "cm",
+    //            "Pieces_dim": 45,
+    //            "Weight": 687,
+    //            "WeightCode": "K"
+    //          },
+    //          {
+    //            "Length": 58,
+    //            "Width": 69,
+    //            "Height": 48,
+    //            "HeightCode": "cm",
+    //            "Pieces_dim": 54,
+    //            "Weight": 78,
+    //            "WeightCode": "K"
+    //          }
+    //        ],
+    //        "ULDRateDescription": [
+    //          {"Type": "fgfgh", "Serial": "mhuji", "Ownercode": "SE"},
+    //          {"Type": "GTR", "Serial": "DER", "Ownercode": "ER"}
+    //        ]
+    //      },
+    //      {
+    //        "Pieces": 55,
+    //        "Grossweight": 65,
+    //        "Weight_Code": "K",
+    //        "Servicecode": 455,
+    //        "Rateclass": "L",
+    //        "Itemnumber": "13456",
+    //        "Chargeableweight": 68,
+    //        "RateorCharge": "Rate",
+    //        "Total": 45,
+    //        "Autocalculations": "Y",
+    //        "DimensionsRateDescription": [
+    //          {
+    //            "Length": 87,
+    //            "Width": 46,
+    //            "Height": 68,
+    //            "HeightCode": "cm",
+    //            "Pieces_dim": 45,
+    //            "Weight": 687,
+    //            "WeightCode": "K"
+    //          },
+    //          {
+    //            "Length": 58,
+    //            "Width": 69,
+    //            "Height": 48,
+    //            "HeightCode": "cm",
+    //            "Pieces_dim": 54,
+    //            "Weight": 78,
+    //            "WeightCode": "K"
+    //          }
+    //        ],
+    //        "ULDRateDescription": [
+    //          {"Type": "fgfgh", "Serial": "mhuji", "Ownercode": "SE"},
+    //          {"Type": "GTR", "Serial": "DER", "Ownercode": "ER"}
+    //        ]
+    //      }
+    //    ],
+    //    "AWB_OTHER_PARTICIPANT_INFORMATION": [],
+    //    "AWB_Contacts": [
+    //      {"Shipper_Contact1_Type":"Mobile","Shipper_Contact1_Number":"6381939229"}
+    //    ],
+    //  });
+    //  result = await request.send();
+    //
+    //  final respStr = await result.stream.bytesToString();
+    //  var response = result.statusCode;
+    // // var body = result.body;
+    //  result = jsonDecode(respStr);
+
     var response = await http.post(Uri.parse(StringData.eawbbyid),
         headers: <String, String>{
           'x-access-tokens': prefs.getString('token'),
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode({
-          "AWBList_id": prefs.getString("awbListid"),
-          "Shipper_Account_Number": shipperAccountNumber.toString(),
-          "Shipper_Name": shipperName.toString(),
-          "Shipper_Street_Address": shipperAddress.toString(),
-          "Shipper_Place": shipperPlace.toString(),
-          "Shipper_StateorProvince": shipperState.toString(),
-          "Shipper_Country_code": shipperCountryCode.toString(),
-          "Shipper_Post_Code": shipperPostCode.toString(),
-          "Shipper_Contact1_Type": shipperContactType,
-          "Shipper_Contact1_Number": shipperContactNumber,
-          "Shipper_Contact2_Type": "yu",
-          "Shipper_Contact2_Number": "srty",
-          "Consignee_Account_Number": consigneeAccountNumber.toString(),
-          "Consignee_Name": consigneeName.toString(),
-          "Consignee_Street_Address": consigneeAddress.toString(),
-          "Consignee_Place": consigneePlace.toString(),
-          "Consignee_StateorProvince": consigneeState.toString(),
-          "Consignee_Country_code": consigneeCountryCode.toString(),
-          "Consignee_Post_Code": consigneePostCode.toString(),
-          "Consignee_Contact1_Type": consigneeContactType,
-          "Consignee_Contact1_Number": consigneeContactNumber,
-          "Consignee_Contact2_Type": "",
-          "Consignee_Contact2_Number": "",
-          "Consigment_AWB_Prefix":
-          awbConsigmentDetailsAWBNumber.substring(0, 3),
-          "Consigment_Serial_Number":
-          awbConsigmentDetailsAWBNumber.substring(4),
-          "Consigment_Origin_Prefix": awbConsigmentOriginPrefix.toString(),
-          "Consigment_Destination": awbConsigmentDestination.toString(),
-          "Consigment_Number_Of_Pieces": awbConsigmentPices.toString(),
-          "Consigment_Weight_Code": awbConsigmentWeightCode.toString(),
-          "Consigment_Weight": awbConsigmentWeight.toString(),
-          "Consigment_Volume_Code": awbConsigmentVolumeCode.toString(),
-          "Consigment_Volume": awbConsigmentVolume,
-          "Consigment_Density_Group": awbConsigmentDensity,
-          "Notify_Name": notifyName,
-          "Notify_Street_Address": notifyState,
-          "Notify_Place": notifyPlace,
-          "Notify_StateorProvince": notifyState,
-          "Notify_Country_code": notifyCountryCode,
-          "Notify_Post_Code": notifyPostCode,
-          "Notify_Contact1_Type": notifyContactType,
-          "Notify_Contact1_Number": notifyContactNumber,
-          "Notify_Contact2_Type": "",
-          "Notify_Contact2_Number": "",
-          "Carrier_Agent_NameAndCity": issuingCarrierAgentName,
-          "Carrier_Agent_Place": issuingCarrierAgentPlace,
-          "Carrier_Agent_IATA_Code": issuingCarrierAgentIATACode,
-          "Carrier_Agent_CASS_Address": issuingCarrierAgentCassAddress,
-          "Carrier_Agent_Account_No": issuingCarrierAgentAccountNumber,
-          "Routing_To": routeAndFlightTo1,
-          "Routing_By_First_Carrier": routeAndFlightBy1,
-          "Routing_To1": routeAndFlightTo2,
-          "Routing_By1": routeAndFlightBy2,
-          "Routing_To2": routeAndFlightTo3,
-          "Routing_By2": routeAndFlightBy3,
-          "Reference_Number": referenceNumber,
-          "Information": information,
-          "Airline": airline,
-          "Flight": flight,
-          "Date": date,
-          "Airline1": airline1,
-          "Flight1": flight1,
-          "Date1": date1,
-          "Chargedec_Currency": chargesDeclarationCurrency,
-          "Chargedec_Value_For_Carriage": chargesDeclarationValueForCarriage,
-          "Chargedec_Value_For_Customs": chargesDeclarationValueForCustoms,
-          "Chargedec_Amount_Of_Insurance": chargesDeclarationAmountOfInsurance,
-          "Chargedec_CHCG": chargesDeclarationCHGSCode,
-          "Chargedec_WT_Or_VAL": chargesDeclarationWTVALCharges,
-          "Chargedec_Other": chargesDeclarationOtherCharges,
-          "SHC1": SPH1,
-          "SHC2": SPH2,
-          "SHC3": SPH3,
-          "SHC4": SPH4,
-          "SHC5": SPH5,
-          "SHC6": SPH6,
-          "SHC7": SPH7,
-          "SHC8": SPH8,
-          "SHC9": SPH9,
-          "Special_Service_Request": SpecialServiceRequest,
-          "Other_Service_Information": OtherServiceInformation,
-          "Customs_origin_SCI_code": SCI,
-          "Prepaid_Weight_Charge": chargeSummaryWeightChargePrepaid,
-          "Prepaid_Valuation_Charge": chargeSummaryValuationChargePrepaid,
-          "Prepaid_Tax": chargeSummaryTaxPrepaid,
-          "Prepaid_Other_Charges_Due_Agent": chargeSummaryDueAgentPrepaid,
-          "Prepaid_Other_Charges_Due_Carrier": chargeSummaryDueCarrierPrepaid,
-          "Prepaid_Total": chargeSummaryTotalPrepaid,
-          "Collect_Weight_Charge": chargeSummaryWeightChargePostpaid,
-          "Collect_Valuation_Charge": chargeSummaryValuationChargePostpaid,
-          "Collect_Tax": chargeSummaryTaxPostpaid,
-          "Collect_Other_Charges_Due_Agent": chargeSummaryDueAgentPostpaid,
-          "Collect_Other_Charges_Due_Carrier": chargeSummaryDueCarrierPostpaid,
-          "Collect_Total": chargeSummaryTotalPostpaid,
-          "CC_Charges_Destination_Currency": destCurrencyCode,
-          "CC_Charges_Currency_Conv_Rates": currencyConversionRates,
-          "CC_Charges_In_Dest": ccChargesInDest,
-          "CC_Charges_At_Dest": chargesAtDest,
-          "CC_Charges_Total": totalCollect,
-          "Shipper_Signature": signatureOfShipper,
-          "Carrier_Date":
-          executedOn.replaceAll("-", "/").toString(), //"03/05/2022"
-          "Carrier_Place": atPlace,
-          "Carrier_Signature": signatureOfIssuingCarrier,
-          "AWB_AccountInformation": [
-            {"AccountId": "fgdfgsf", "Information": "fghdfhhdtrt"},
-            {"AccountId": "lkjhl", "Information": "yui"},
-            {"AccountId": "mhfj", "Information": "sery"},
-            {"AccountId": "brg", "Information": "my"}
-          ],
-          "AWB_OtherCharges": otherChargesList,
-          "AWB_Othercustomsinformation": [
+        body: jsonEncode(
             {
-              "Countrycode": "mhf",
-              "InformationIdentifier": "sery",
-              "CustomsIdentifier": "mhfj",
-              "Information": "sery"
-            },
-            {
-              "Countrycode": "brg",
-              "InformationIdentifier": "my",
-              "CustomsIdentifier": "mhfj",
-              "Information": "sery"
-            }
-          ],
-          "AWB_RateDescription": [
-            {
-              "Pieces": 99,
-              "Grossweight": 4567,
-              "Weight_Code": "K",
-              "Servicecode": 45,
-              "Rateclass": "L",
-              "Itemnumber": "6987678",
-              "Chargeableweight": 989,
-              "RateorCharge": "Rate",
-              "Total": 45,
-              "Autocalculations": "N",
-              "DimensionsRateDescription": [
+              "AWBList_id": prefs.getString("awbListid"),
+              "Shipper_Account_Number": shipperAccountNumber.toString(),
+              "Shipper_Name": shipperName.toString(),
+              "Shipper_Street_Address": shipperAddress.toString(),
+              "Shipper_Place": shipperPlace.toString(),
+              "AWB_RateDescription": rateDescriptionItemList,
+              // [
+              //   {
+              //     "ULDRateDescription": [
+              //   {
+              //   "Type1": "AKE",
+              //   "Serial1": "10023",
+              //   "Ownercode1": "6P"
+              //   }
+              //     ],
+              //     "DimensionsRateDescription": [
+              //       {
+              //         "Length": "10",
+              //         "Width": "20",
+              //         "Height":"30",
+              //         "HeightCode": "cm",
+              //         "Pieces_dim": "10",
+              //         "Weight": "100",
+              //         "WeightCode": "K"
+              //       }
+              //     ],
+              //     "Pieces": "54",
+              //     "Weight_Code": "K",
+              //     "Grossweight": "1500",
+              //     "Rateclass": "Q",
+              //     "Itemnumber": "",
+              //     "Chargeableweight": "1500",
+              //     "RateorCharge": "19.15",
+              //     "Total": "28725",
+              //     "Description": "COMPUTERS",
+              //     "Volumetype": "",
+              //     "Volume": "",
+              //     "Servicecode": "",
+              //     "SLAC": ""
+              //   },
+              //
+              // ],
+              "AWB_OtherCharges": otherChargesList,
+              // [
+              //
+              //   {
+              //     "Code": "MY",
+              //     "Amount":"100",
+              //     "Entitlement": "C"
+              //   }
+              // ],
+              "AWB_AccountInformation": [
                 {
-                  "Length": 87,
-                  "Width": 46,
-                  "Height": 68,
-                  "HeightCode": "cm",
-                  "Pieces_dim": 45,
-                  "Weight": 687,
-                  "WeightCode": "K"
-                },
-                {
-                  "Length": 58,
-                  "Width": 69,
-                  "Height": 48,
-                  "HeightCode": "cm",
-                  "Pieces_dim": 54,
-                  "Weight": 78,
-                  "WeightCode": "K"
+                  "AccountId": accountingInformationId,
+                  "Information": accountingInformationDetails
                 }
               ],
-              "ULDRateDescription": [
-                {"Type": "fgfgh", "Serial": "mhuji", "Ownercode": "SE"},
-                {"Type": "GTR", "Serial": "DER", "Ownercode": "ER"}
-              ]
-            },
-            {
-              "Pieces": 55,
-              "Grossweight": 65,
-              "Weight_Code": "K",
-              "Servicecode": 455,
-              "Rateclass": "L",
-              "Itemnumber": "13456",
-              "Chargeableweight": 68,
-              "RateorCharge": "Rate",
-              "Total": 45,
-              "Autocalculations": "Y",
-              "DimensionsRateDescription": [
+              "AWB_OTHER_PARTICIPANT_INFORMATION": [],
+              "AWB_Contacts": [],
+              "AWB_Othercustomsinformation": [
                 {
-                  "Length": 87,
-                  "Width": 46,
-                  "Height": 68,
-                  "HeightCode": "cm",
-                  "Pieces_dim": 45,
-                  "Weight": 687,
-                  "WeightCode": "K"
-                },
-                {
-                  "Length": 58,
-                  "Width": 69,
-                  "Height": 48,
-                  "HeightCode": "cm",
-                  "Pieces_dim": 54,
-                  "Weight": 78,
-                  "WeightCode": "K"
+                  "Countrycode": "IN",
+                  "InformationIdentifier": "",
+                  "CustomsIdentifier": "MUST BE SAFE",
+                  "Information": "T1"
                 }
               ],
-              "ULDRateDescription": [
-                {"Type": "fgfgh", "Serial": "mhuji", "Ownercode": "SE"},
-                {"Type": "GTR", "Serial": "DER", "Ownercode": "ER"}
-              ]
-            }
-          ],
-          "AWB_OTHER_PARTICIPANT_INFORMATION": [],
-          "AWB_Contacts": [
-            {"Shipper_Contact1_Type":"Mobile","Shipper_Contact1_Number":"6381939229"}
-          ],
-        }));
+              "Shipper_StateorProvince": shipperState.toString(),
+              "Shipper_Country_code": shipperCountryCode.toString(),
+              "Shipper_Post_Code": shipperPostCode.toString(),
 
-    result = json.decode(response.body);
+              "Consignee_Account_Number": consigneeAccountNumber.toString(),
+              "Consignee_Name": consigneeName.toString(),
+              "Consignee_Street_Address": consigneeAddress.toString(),
+              "Consignee_Place":consigneePlace.toString(),
+              "Consignee_StateorProvince": consigneeState.toString(),
+              "Consignee_Country_code": consigneeCountryCode.toString(),
+              "Consignee_Post_Code": consigneePostCode.toString(),
+              "Consignee_Contact1_Type": consigneeContactType,
+              "Consignee_Contact1_Number": consigneeContactNumber,
+              "Consigment_AWB_Prefix":  awbConsigmentDetailsAWBNumber.substring(0, 3),
+              "Consigment_Serial_Number":  awbConsigmentDetailsAWBNumber.substring(4),
+              "Consigment_Origin_Prefix": awbConsigmentOriginPrefix.toString(),
+
+              "Consigment_Destination": awbConsigmentDestination.toString(),
+              "Consigment_Number_Of_Pieces":awbConsigmentPices.toString(),
+              "Consigment_Weight_Code":awbConsigmentWeightCode.toString(),
+              "Consigment_Weight":awbConsigmentWeight.toString(),
+              "Consigment_Volume_Code": awbConsigmentVolumeCode.toString(),
+              "Consigment_Volume": awbConsigmentVolume,
+              "Consigment_Density_Group": awbConsigmentDensity,
+              "Notify_Name": notifyName,
+              "Notify_Street_Address": notifyState,
+              "Notify_Place": notifyPlace,
+              "Notify_StateorProvince": notifyState,
+              "Notify_Country_code": notifyCountryCode,
+              "Notify_Post_Code": notifyPostCode,
+              "Notify_Contact1_Type": notifyContactType,
+              "Notify_Contact1_Number": notifyContactNumber,
+              "Carrier_Agent_NameAndCity": issuingCarrierAgentName,
+              "Carrier_Agent_Place": issuingCarrierAgentPlace,
+              "Carrier_Agent_IATA_Code": issuingCarrierAgentIATACode,
+              "Carrier_Agent_CASS_Address": issuingCarrierAgentCassAddress,
+              "Carrier_Agent_Account_No": issuingCarrierAgentAccountNumber,
+              "Routing_To": routeAndFlightTo1,
+              "Routing_By_First_Carrier": routeAndFlightBy1,
+              "Routing_To1": routeAndFlightTo2,
+              "Routing_By1": routeAndFlightBy2,
+              "Routing_To2": routeAndFlightTo3,
+              "Routing_By2": routeAndFlightBy3,
+              "Reference_Number": referenceNumber,
+              "Information": information,
+
+              "Flight1": routeAndFlightNumber1,
+              "Date1": routeAndFlightDate1,
+              "Flight2": routeAndFlightNumber2,
+              "Date2": routeAndFlightDate2,
+              "Chargedec_Currency": chargesDeclarationCurrency,
+              "Chargedec_Value_For_Carriage": chargesDeclarationValueForCarriage,
+              "Chargedec_Value_For_Customs": chargesDeclarationValueForCustoms,
+              "Chargedec_Amount_Of_Insurance": chargesDeclarationAmountOfInsurance,
+              "Chargedec_CHCG": chargesDeclarationCHGSCode,
+              "Chargedec_WT_Or_VAL": chargesDeclarationWTVALCharges,
+              "Chargedec_Other": chargesDeclarationOtherCharges,
+              "SHC1": SPH1,
+              "SHC2": SPH2,
+              "SHC3": SPH3,
+              "SHC4": SPH4,
+              "SHC5": SPH5,
+              "SHC6": SPH6,
+              "SHC7": SPH7,
+              "SHC8": SPH8,
+              "SHC9": SPH9,
+              "Special_Service_Request": SpecialServiceRequest,
+              "Other_Service_Information": OtherServiceInformation,
+              "Customs_origin_SCI_code": SCI,
+              "Prepaid_Weight_Charge": chargeSummaryWeightChargePrepaid,
+              "Prepaid_Valuation_Charge": chargeSummaryValuationChargePrepaid,
+              "Prepaid_Tax": chargeSummaryTaxPrepaid,
+              "Prepaid_Other_Charges_Due_Agent": chargeSummaryDueAgentPrepaid,
+              "Prepaid_Other_Charges_Due_Carrier": chargeSummaryDueCarrierPrepaid,
+              "Prepaid_Total": chargeSummaryTotalPrepaid,
+              "Collect_Weight_Charge": chargeSummaryWeightChargePostpaid,
+              "Collect_Valuation_Charge": chargeSummaryValuationChargePostpaid,
+              "Collect_Tax": chargeSummaryTaxPostpaid,
+              "Collect_Other_Charges_Due_Agent": chargeSummaryDueAgentPostpaid,
+              "Collect_Other_Charges_Due_Carrier": chargeSummaryDueCarrierPostpaid,
+              "Collect_Total": chargeSummaryTotalPostpaid,
+              "CC_Charges_Destination_Currency": destCurrencyCode,
+              "CC_Charges_Currency_Conv_Rates": currencyConversionRates,
+              "CC_Charges_Destination_Currency2": "",
+              "CC_Charges_Currency_Conv_Rates2": "",
+              "CC_Charges_In_Dest": ccChargesInDest,
+              "CC_Charges_At_Dest": chargesAtDest,
+              "CC_Charges_Total": totalCollect,
+              "Shipper_Signature": signatureOfShipper,
+              "Carrier_Date":
+              executedOn.replaceAll("-", "/").toString(), //"03/05/2022"
+              "Carrier_Place": atPlace,
+              "Carrier_Signature": signatureOfIssuingCarrier,
+            }
+        //     {
+        //   "AWBList_id": prefs.getString("awbListid"),
+        //   "Shipper_Account_Number": shipperAccountNumber.toString(),
+        //   "Shipper_Name": shipperName.toString(),
+        //   "Shipper_Street_Address": shipperAddress.toString(),
+        //   "Shipper_Place": shipperPlace.toString(),
+        //   "Shipper_StateorProvince": shipperState.toString(),
+        //   "Shipper_Country_code": shipperCountryCode.toString(),
+        //   "Shipper_Post_Code": shipperPostCode.toString(),
+        //   // "Shipper_Contact1_Type": shipperContactType,
+        //   // "Shipper_Contact1_Number": shipperContactNumber,
+        //   // "Shipper_Contact2_Type": "yu",
+        //   // "Shipper_Contact2_Number": "srty",
+        //   "Consignee_Account_Number": consigneeAccountNumber.toString(),
+        //   "Consignee_Name": consigneeName.toString(),
+        //   "Consignee_Street_Address": consigneeAddress.toString(),
+        //   "Consignee_Place": consigneePlace.toString(),
+        //   "Consignee_StateorProvince": consigneeState.toString(),
+        //   "Consignee_Country_code": consigneeCountryCode.toString(),
+        //   "Consignee_Post_Code": consigneePostCode.toString(),
+        //   "Consignee_Contact1_Type": consigneeContactType,
+        //   "Consignee_Contact1_Number": consigneeContactNumber,
+        //   // "Consignee_Contact2_Type": "",
+        //   // "Consignee_Contact2_Number": "",
+        //   "Consigment_AWB_Prefix":
+        //       awbConsigmentDetailsAWBNumber.substring(0, 3),
+        //   "Consigment_Serial_Number":
+        //       awbConsigmentDetailsAWBNumber.substring(4),
+        //   "Consigment_Origin_Prefix": awbConsigmentOriginPrefix.toString(),
+        //   "Consigment_Destination": awbConsigmentDestination.toString(),
+        //   "Consigment_Number_Of_Pieces": awbConsigmentPices.toString(),
+        //   "Consigment_Weight_Code": awbConsigmentWeightCode.toString(),
+        //   "Consigment_Weight": awbConsigmentWeight.toString(),
+        //   "Consigment_Volume_Code": awbConsigmentVolumeCode.toString(),
+        //   "Consigment_Volume": awbConsigmentVolume,
+        //   "Consigment_Density_Group": awbConsigmentDensity,
+        //   "Notify_Name": notifyName,
+        //   "Notify_Street_Address": notifyState,
+        //   "Notify_Place": notifyPlace,
+        //   "Notify_StateorProvince": notifyState,
+        //   "Notify_Country_code": notifyCountryCode,
+        //   "Notify_Post_Code": notifyPostCode,
+        //   "Notify_Contact1_Type": notifyContactType,
+        //   // "Notify_Contact1_Number": notifyContactNumber,
+        //   // "Notify_Contact2_Type": "",
+        //   // "Notify_Contact2_Number": "",
+        //   "Carrier_Agent_NameAndCity": issuingCarrierAgentName,
+        //   "Carrier_Agent_Place": issuingCarrierAgentPlace,
+        //   "Carrier_Agent_IATA_Code": issuingCarrierAgentIATACode,
+        //   "Carrier_Agent_CASS_Address": issuingCarrierAgentCassAddress,
+        //   "Carrier_Agent_Account_No": issuingCarrierAgentAccountNumber,
+        //   "Routing_To": routeAndFlightTo1,
+        //   "Routing_By_First_Carrier": routeAndFlightBy1,
+        //   "Routing_To1": routeAndFlightTo2,
+        //   "Routing_By1": routeAndFlightBy2,
+        //   "Routing_To2": routeAndFlightTo3,
+        //   "Routing_By2": routeAndFlightBy3,
+        //   "Reference_Number": referenceNumber,
+        //   "Information": information,
+        //   //"Airline": airline,
+        //   "Flight1": flight,
+        //   "Date1": date,
+        //   // "Airline1": airline1,
+        //   "Flight2": flight1,
+        //   "Date2": date1,
+        //   "Chargedec_Currency": chargesDeclarationCurrency,
+        //   "Chargedec_Value_For_Carriage": chargesDeclarationValueForCarriage,
+        //   "Chargedec_Value_For_Customs": chargesDeclarationValueForCustoms,
+        //   "Chargedec_Amount_Of_Insurance": chargesDeclarationAmountOfInsurance,
+        //   "Chargedec_CHCG": chargesDeclarationCHGSCode,
+        //   "Chargedec_WT_Or_VAL": chargesDeclarationWTVALCharges,
+        //   "Chargedec_Other": chargesDeclarationOtherCharges,
+        //   "SHC1": SPH1,
+        //   "SHC2": SPH2,
+        //   "SHC3": SPH3,
+        //   "SHC4": SPH4,
+        //   "SHC5": SPH5,
+        //   "SHC6": SPH6,
+        //   "SHC7": SPH7,
+        //   "SHC8": SPH8,
+        //   "SHC9": SPH9,
+        //   "Special_Service_Request": SpecialServiceRequest,
+        //   "Other_Service_Information": OtherServiceInformation,
+        //   "Customs_origin_SCI_code": SCI,
+        //   "Prepaid_Weight_Charge": chargeSummaryWeightChargePrepaid,
+        //   "Prepaid_Valuation_Charge": chargeSummaryValuationChargePrepaid,
+        //   "Prepaid_Tax": chargeSummaryTaxPrepaid,
+        //   "Prepaid_Other_Charges_Due_Agent": chargeSummaryDueAgentPrepaid,
+        //   "Prepaid_Other_Charges_Due_Carrier": chargeSummaryDueCarrierPrepaid,
+        //   "Prepaid_Total": chargeSummaryTotalPrepaid,
+        //   "Collect_Weight_Charge": chargeSummaryWeightChargePostpaid,
+        //   "Collect_Valuation_Charge": chargeSummaryValuationChargePostpaid,
+        //   "Collect_Tax": chargeSummaryTaxPostpaid,
+        //   "Collect_Other_Charges_Due_Agent": chargeSummaryDueAgentPostpaid,
+        //   "Collect_Other_Charges_Due_Carrier": chargeSummaryDueCarrierPostpaid,
+        //   "Collect_Total": chargeSummaryTotalPostpaid,
+        //   "CC_Charges_Destination_Currency": destCurrencyCode,
+        //   "CC_Charges_Currency_Conv_Rates": currencyConversionRates,
+        //       "CC_Charges_Destination_Currency2": "",
+        //       "CC_Charges_Currency_Conv_Rates2": "",
+        //       "CC_Charges_In_Dest": ccChargesInDest,
+        //   "CC_Charges_At_Dest": chargesAtDest,
+        //   "CC_Charges_Total": totalCollect,
+        //   "Shipper_Signature": signatureOfShipper,
+        //   "Carrier_Date":
+        //       executedOn.replaceAll("-", "/").toString(), //"03/05/2022"
+        //   "Carrier_Place": atPlace,
+        //   "Carrier_Signature": signatureOfIssuingCarrier,
+        //   "AWB_AccountInformation": [
+        //     {
+        //       "AccountId": "",
+        //       "Information": "GOLD"
+        //     }  ],
+        //   "AWB_OtherCharges": [],
+        //       "AWB_Othercustomsinformation": [
+        //         {
+        //           "Countrycode": "",
+        //           "InformationIdentifier": "",
+        //           "CustomsIdentifier": "",
+        //           "Information": ""
+        //         }
+        //       ],
+        //   "AWB_RateDescription": [
+        //
+        //   ],
+        //   "AWB_OTHER_PARTICIPANT_INFORMATION": [],
+        //   "AWB_Contacts": [
+        // ],
+        // }
+        ));
+    result = jsonDecode(response.body);
     print(result);
-    if (result['message'] == 'token expired') {
+    print(prefs.getString("awbListid"));
+    if (result['Message'] == 'token expired') {
       refreshToken();
       inserteAWB();
     } else {
-      result = json.decode(response.body);
-      print("insert eawb result"+response.body);
+      result = jsonDecode(response.body);
+
+      print("insert eawb result");
+       print(response.body);
       print(prefs.getString('token'));
       print("date '${executedOn.replaceAll("-", "/").toString()}'");
       if (response.statusCode == 201) {
@@ -1163,7 +2123,6 @@ class EAWBModel
       }
     }
     //return response.body == 'eAWB Saved';
-
   }
 
   Future<String> getAWBid(String awbnumber) async {
@@ -1176,12 +2135,10 @@ class EAWBModel
       'x-access-tokens': prefs.getString('token')
     });
     print(awbnumber.substring(3));
-    request.body = jsonEncode(
-        {
+    request.body = jsonEncode({
       "prefix": awbnumber.substring(0, 3),
       "wayBillNumber": awbnumber.substring(4)
-    }
-    );
+    });
     var jsonData;
     var res = await request.send();
     final respStr = await res.stream.bytesToString();
@@ -1193,7 +2150,6 @@ class EAWBModel
       print("Respstr ${respStr}");
 
       if (jsonData.length != 0) {
-
         var data = jsonData["awb"][0]['id'].toString();
 
         print("object ${data}");
@@ -1206,11 +2162,10 @@ class EAWBModel
   }
 
   Future<String> printEAWB() async {
-
     String jsonList = jsonEncode(otherChargesList);
     print(jsonList);
     SharedPreferences prefs =
-    await SharedPreferences.getInstance(); // ! get SharedPreferences....
+        await SharedPreferences.getInstance(); // ! get SharedPreferences....
     var response = await http.post(Uri.parse(StringData.printEAWBAPI),
         headers: {
           'x-access-tokens': prefs.getString('token'),
@@ -1220,47 +2175,37 @@ class EAWBModel
           {
             "I33": "AWB",
             "Shipper_Account_Number": shipperAccountNumber.toString(),
-            "Shipper_Name": shipperName.toString() +
-                "\n" +
-                shipperAddress.toString() +
-                "," +
-                shipperPlace +
-                "," +
-                shipperState +
-                ",\n" +
-                shipperCountryCode +
-                "," +
-                shipperPostCode.toString() +
-                "," +
-                "\n" +
-                newshipperContactList[0].Shipper_Contact_Type.toUpperCase()+"," +
+            "Shipper_Name": shipperName.toString(),
+            "Shipper_Street_Address": shipperAddress.toString(),
+            "Shipper_Place": shipperPlace,
+            "Shipper_StateorProvince": shipperState,
+            "Shipper_Country_code": shipperCountryCode,
+            "Shipper_Post_Code": shipperPostCode.toString(),
+            "AWB_Contacts_type":
+                newshipperContactList[0].Shipper_Contact_Type.toUpperCase(),
+            "AWB_Contacts_detail":
                 newshipperContactList[0].Shipper_Contact_Detail,
-                // shipperContactType.toString() +
-                // "," +
-                // shipperContactNumber.toString(),
+            // shipperContactType.toString() +
+            // "," +
+            // shipperContactNumber.toString(),
             "Consignee_Account_Number": consigneeAccountNumber.toString(),
-            "Consignee_Name": consigneeName.toString() +
-                "\n" +
-                consigneeAddress.toString() +
-                "," +
-                consigneePlace +
-                "," +
-                consigneeState +
-                ",\n" +
-                consigneeCountryCode +
-                "," +
-                consigneePostCode.toString() +
-                "," +
-                "\n" +
-                newconsigneeContactList[0].Consignee_Contact_Type.toUpperCase()+","+
+            "Consignee_Name": consigneeName.toString(),
+            "Consignee_Street_Address": consigneeAddress.toString(),
+            "Consignee_Place": consigneePlace,
+            "Consignee_StateorProvince": consigneeState,
+            "Consignee_Country_code": consigneeCountryCode,
+            "Consignee_Post_Code": consigneePostCode.toString(),
+            "AWB_Contacts_type1":
+                newconsigneeContactList[0].Consignee_Contact_Type.toUpperCase(),
+            "AWB_Contacts_detail1":
                 newconsigneeContactList[0].Consignee_Contact_Detail,
-                // consigneeContactType.toString() +
-                // "," +
-                // consigneeContactNumber.toString(),
+            // consigneeContactType.toString() +
+            // "," +
+            // consigneeContactNumber.toString(),
             "Consigment_AWB_Prefix":
-            awbConsigmentDetailsAWBNumber.substring(0, 3),
+                awbConsigmentDetailsAWBNumber.substring(0, 3),
             "Consigment_Serial_Number":
-            awbConsigmentDetailsAWBNumber.substring(4),
+                awbConsigmentDetailsAWBNumber.substring(4),
             "Consigment_Origin_Prefix": awbConsigmentOriginPrefix,
             "Consigment_Destination": awbConsigmentDestination,
             "Consigment_Number_Of_Pieces": awbConsigmentPices,
@@ -1269,24 +2214,19 @@ class EAWBModel
             "Consigment_Volume_Code": awbConsigmentVolumeCode,
             "Consigment_Volume": awbConsigmentVolume,
             "Consigment_Density_Group": awbConsigmentDensity,
-            "Notify_Name": notifyName +
-                "\n" +
-                nofityStreetAddress +
-                "," +
-                notifyPlace +
-                "," +
-                notifyState +
-                "," +
-                notifyCountryCode +
-                "," +
-                notifyPostCode.toString() +
-                "," +
-                "\n" +
-                newnotifyContactList[0].Notify_Contact_Type.toUpperCase()+","+
+            "Notify_Name": notifyName,
+            "Notify_Street_Address": nofityStreetAddress,
+            "Notify_Place": notifyPlace,
+            "Notify_StateorProvince": notifyState,
+            "Notify_Country_code": notifyCountryCode,
+            "Notify_Post_Code": notifyPostCode.toString(),
+            "Notify_Contact1_Type":
+                newnotifyContactList[0].Notify_Contact_Type.toUpperCase(),
+            "Notify_Contact1_Number":
                 newnotifyContactList[0].Notify_Contact_Detail,
-                // notifyContactType.toString() +
-                // "," +
-                // notifyContactNumber.toString(),
+            // notifyContactType.toString() +
+            // "," +
+            // notifyContactNumber.toString(),
             "Carrier_Agent_NameAndCity": issuingCarrierAgentName,
             "Carrier_Agent_Place": issuingCarrierAgentCity,
             "Carrier_Agent_IATA_Code": issuingCarrierAgentIATACode,
@@ -1300,18 +2240,27 @@ class EAWBModel
             "Routing_By2": routeAndFlightBy3,
             "Reference_Number": referenceNumber,
             "Information": information,
-            "Flight": routeAndFlightNumber1 + "/" + routeAndFlightDate1,
-            "Flight1": routeAndFlightNumber2 + "/" + routeAndFlightDate2,
+            "Flight1": routeAndFlightNumber1 + "/" + routeAndFlightDate1,
+            "Flight": routeAndFlightNumber2 + "/" + routeAndFlightDate2,
             "Chargedec_Currency": chargesDeclarationCurrency,
             "Chargedec_Value_For_Carriage": chargesDeclarationValueForCarriage,
             "Chargedec_Value_For_Customs": chargesDeclarationValueForCustoms,
             "Chargedec_Amount_Of_Insurance":
-            chargesDeclarationAmountOfInsurance,
+                chargesDeclarationAmountOfInsurance,
             "Chargedec_CHCG": chargesDeclarationCHGSCode,
             "Chargedec_WT_Or_VAL": chargesDeclarationWTVALCharges,
             "Chargedec_Other": chargesDeclarationOtherCharges,
-            "SHC1":
-            "EAP ELI       \n MUST BE KEPT ABOVE 5 DEGREES CELSIUS\nEXTRA CHARGE DUE TO SPECIAL HANDLING REQUIREMENTS",
+            "SHC1": SPH1,
+            "SHC2": SPH2,
+            "SHC3": SPH3,
+            "SHC4": SPH4,
+            "SHC5": SPH5,
+            "SHC6": SPH6,
+            "SHC7": SPH7,
+            "SHC8": SPH8,
+            "SHC9": SPH9,
+            "Special_Service_Request": SpecialServiceRequest,
+            "Other_Service_Information": OtherServiceInformation,
             "Customs_origin_SCI_code": "T1",
             "Prepaid_Weight_Charge": chargeSummaryWeightChargePrepaid,
             "Prepaid_Valuation_Charge": chargeSummaryValuationChargePrepaid,
@@ -1324,12 +2273,12 @@ class EAWBModel
             "Collect_Tax": chargeSummaryTaxPostpaid,
             "Collect_Other_Charges_Due_Agent": chargeSummaryDueAgentPostpaid,
             "Collect_Other_Charges_Due_Carrier":
-            chargeSummaryDueCarrierPostpaid,
+                chargeSummaryDueCarrierPostpaid,
             "Collect_Total": chargeSummaryTotalPostpaid,
             "CC_Charges_Currency_Conv_Rates":
-            "USD to " + destCurrencyCode + ":" + currencyConversionRates,
+                "USD to " + destCurrencyCode + ":" + currencyConversionRates,
             "CC_Charges_Currency_Conv_Rates2":
-            chargesDeclarationCurrency + " to USD:" + baseCurencyrate,
+                chargesDeclarationCurrency + " to USD:" + baseCurencyrate,
             "CC_Charges_In_Dest": ccChargesInDest,
             "CC_Charges_At_Dest": chargesAtDest,
             "CC_Charges_Total": totalCollect,
@@ -1345,7 +2294,7 @@ class EAWBModel
             "Chargeableweight": "50",
             "RateorCharge": "60",
             "Description":
-            "CONSOLIDATION \nORIGIN:MV\nSLAC:5\nVOLUME:15\n11X12X13/14",
+                "CONSOLIDATION \nORIGIN:MV\nSLAC:5\nVOLUME:15\n11X12X13/14",
             "contactshipper": [
               {
                 "AWB_Contacts_type": "TE",
@@ -1353,7 +2302,73 @@ class EAWBModel
                 "AWB_Contact_Entity": "shipper"
               }
             ],
+            // "Volumetype": "",
+            // "Volume": "0".toUpperCase(),
+            // "SLAC": "0",
             "Ratedescription": rateDescriptionItemList,
+            "DimensionsRateDescription": [
+             for(int i = 0; i <rateDescriptionItemList[0].dimensionsList.length; i++)
+              {
+                // totdim += dimensionsList[i]['length'].toString() + "X" +
+                //     dimensionsList[i]['width'].toString() + "X" +
+                //     dimensionsList[i]['height'].toString() + " " +
+                //     dimensionsList[i]['lwhUnit'].toString() + " " +
+                //     dimensionsList[i]['pieces'].toString()+" "+
+                //     dimensionsList[i]['weight'].toString() +
+                //     dimensionsList[i]['pwUnit'].toString() + "\n"
+                  "Length":  rateDescriptionItemList[0].dimensionsList[i]['length'].toString(),
+                  "Width":  rateDescriptionItemList[0].dimensionsList[i]['width'].toString(),
+                  "Height":   rateDescriptionItemList[0].dimensionsList[i]['height'].toString(),
+                  "HeightCode":  rateDescriptionItemList[0].dimensionsList[i]['lwhUnit'].toString(),
+                  "Pieces_dim":    rateDescriptionItemList[0].dimensionsList[i]['pieces'].toString(),
+                  "Weight":  rateDescriptionItemList[0].dimensionsList[i]['weight'].toString(),
+                  "WeightCode":   rateDescriptionItemList[0].dimensionsList[i]['pwUnit'].toString()
+              }
+            // for(int i = 0; i <dimensionsList.length; i++)
+            // {
+            //   // totdim += dimensionsList[i]['length'].toString() + "X" +
+            //   //     dimensionsList[i]['width'].toString() + "X" +
+            //   //     dimensionsList[i]['height'].toString() + " " +
+            //   //     dimensionsList[i]['lwhUnit'].toString() + " " +
+            //   //     dimensionsList[i]['pieces'].toString()+" "+
+            //   //     dimensionsList[i]['weight'].toString() +
+            //   //     dimensionsList[i]['pwUnit'].toString() + "\n"
+            //     "Length":  dimensionsList[i]['length'].toString(),
+            //     "Width":  dimensionsList[i]['width'].toString(),
+            //     "Height":   dimensionsList[i]['height'].toString(),
+            //     "HeightCode":  dimensionsList[i]['lwhUnit'].toString(),
+            //     "Pieces_dim":    dimensionsList[i]['pieces'].toString(),
+            //     "Weight":  dimensionsList[i]['weight'].toString(),
+            //     "WeightCode":   dimensionsList[i]['pwUnit'].toString()
+            // }
+            // {
+            //   "Length": "10",
+            //   "Width": "20",
+            //   "Height":"30",
+            //   "HeightCode": "cm",
+            //   "Pieces_dim": "10",
+            //   "Weight": "100",
+            //   "WeightCode": "K"
+            // },
+            //   {
+            //     "Length": "30",
+            //     "Width": "40",
+            //     "Height":"50",
+            //     "HeightCode": "cm",
+            //     "Pieces_dim": "60",
+            //     "Weight": "600",
+            //     "WeightCode": "K"
+            //   },
+            ],
+          //   "Length": "10",
+          // "Width": "20",
+          // "Height":"30",
+          // "HeightCode": "cm",
+          // "Pieces_dim": "10",
+          // "Weight": "100",
+          // "WeightCode": "K",
+           // "AWB_RateDescription": rateDescriptionItemList,
+
             // "Ratedescription": [
             //   {
             //     "Pieces": "4",
@@ -1378,17 +2393,135 @@ class EAWBModel
             //   }
             // ]
           },
-        ));
 
+          // {
+          //   "current_user":"admin@rooster.com",
+          //   "current_Tenant":"1",
+          //   "current_RoleId":"1",
+          //   "I33":"AWB",
+          //   "requestJsondata":
+          //
+          //   {
+          //
+          //     "Shipper_Account_Number":"343434343434",
+          //     "Shipper_Name":"MAHOGANY PRIVATE LIMITED",
+          //     "Shipper_Street_Address":"REETHI RESORT",
+          //     "Shipper_Place": "Tsim Sha Tsui",
+          //     "Shipper_StateorProvince":"Kowloon ",
+          //     "Shipper_Country_code":"HKG",
+          //     "Shipper_Post_Code":"654565",
+          //     "Shipper_Contact1_Type":"TE",
+          //     "Shipper_Contact1_Number":"8789878787",
+          //     "Shipper_Contact2_Type":"",
+          //     "Shipper_Contact2_Number":"",
+          //     "Consignee_Account_Number":"121212121212",
+          //     "Consignee_Name":"SAWHNEY FOOD STUFF TRD CO LL",
+          //     "Consignee_Street_Address":"SPICES RESTAURANT",
+          //     "Consignee_Place":"Male",
+          //     "Consignee_StateorProvince":"",
+          //     "Consignee_Country_code":"MLE",
+          //     "Consignee_Post_Code":"",
+          //     "Consignee_Contact1_Type":"TX",
+          //     "Consignee_Contact1_Number":"9999998888",
+          //     "Consignee_Contact2_Type":"",
+          //     "Consignee_Contact2_Number":"",
+          //     "Consigment_AWB_Prefix":"339",
+          //     "Consigment_Serial_Number":"00000011",
+          //     "Consigment_Origin_Prefix":"",
+          //     "Consigment_Destination":"SIN",
+          //     "Consigment_Number_Of_Pieces":"120",
+          //     "Consigment_Weight_Code":"K",
+          //     "Consigment_Weight":"150",
+          //     "Consigment_Volume_Code":"cm",
+          //     "Consigment_Volume":"176",
+          //     "Consigment_Density_Group":"DC",
+          //     "Notify_Name":"SPICES RESTAURANT",
+          //     "Notify_Street_Address":"Hong Kong Pacific Centre",
+          //     "Notify_Place":"28 Hankow Road",
+          //     "Notify_StateorProvince":"Tsim Sha Tsui",
+          //     "Notify_Country_code":"Kowloon ",
+          //     "Notify_Post_Code":"676878",
+          //     "Notify_Contact1_Type":"TE",
+          //     "Notify_Contact1_Number":"9897967543",
+          //     "Notify_Contact2_Type":"",
+          //     "Notify_Contact2_Number":"",
+          //     "Carrier_Agent_NameAndCity":"MORRISON EXPRESS LOGISTICS PTE LTD",
+          //     "Carrier_Agent_Place":"SINGAPORE",
+          //     "Carrier_Agent_IATA_Code":"3230043",
+          //     "Carrier_Agent_CASS_Address":"1234",
+          //     "Carrier_Agent_Account_No":"ABC94269",
+          //     "Routing_To":"HKG",
+          //     "Routing_By_First_Carrier":"SQ",
+          //     "Routing_To1":"DXB",
+          //     "Routing_By1":"CX",
+          //     "Routing_To2":"MLE",
+          //     "Routing_By2":"EK",
+          //     "Reference_Number":"",
+          //     "Information":"",
+          //     "Airline":"",
+          //     "Flight":"SQ1234",
+          //     "Date":"12NOV2019",
+          //     "Airline1":"",
+          //     "Flight1":"",
+          //     "Date1":"",
+          //     "Chargedec_Currency":"SGD",
+          //     "Chargedec_Value_For_Carriage":"NVD",
+          //     "Chargedec_Value_For_Customs":"NCV",
+          //     "Chargedec_Amount_Of_Insurance":"XXX",
+          //     "Chargedec_CHCG":"PP",
+          //     "Chargedec_WT_Or_VAL":"P",
+          //     "Chargedec_Other":"P",
+          //     "SHC1":"PEP",
+          //     "SHC2":"ICE",
+          //     "SHC3":"",
+          //     "SHC4":"",
+          //     "SHC5":"",
+          //     "SHC6":"",
+          //     "SHC7":"",
+          //     "SHC8":"",
+          //     "SHC9":"",
+          //     "Special_Service_Request":"MUST BE KEPT ABOVE 5 DEGREES CELSIUS",
+          //     "Other_Service_Information":"EXTRA CHARGE DUE TO SPECIAL HANDLING REQUIREMENTS",
+          //     "Customs_origin_SCI_code":"",
+          //     "Prepaid_Weight_Charge":"9584.08",
+          //     "Prepaid_Valuation_Charge":"",
+          //     "Prepaid_Tax":"",
+          //     "Prepaid_Other_Charges_Due_Agent":"",
+          //     "Prepaid_Other_Charges_Due_Carrier":"944.44",
+          //     "Prepaid_Total":"9828.52",
+          //     "Collect_Weight_Charge":"",
+          //     "Collect_Valuation_Charge":"",
+          //     "Collect_Tax":"",
+          //     "Collect_Other_Charges_Due_Agent":"",
+          //     "Collect_Other_Charges_Due_Carrier":"",
+          //     "Collect_Total":"",
+          //     "CC_Charges_Destination_Currency":"",
+          //     "CC_Charges_Currency_Conv_Rates":"",
+          //     "CC_Charges_In_Dest":"",
+          //     "CC_Charges_At_Dest":"",
+          //     "CC_Charges_Total":"",
+          //     "Shipper_Signature":"",
+          //     "Carrier_Date":"",
+          //     "Carrier_Place":"",
+          //     "Carrier_Signature":""
+          //
+          //   }}
+          //
+        ));
+    print(rateDescriptionItemList[0].dimensionsList[0]['length'].toString());
+    print("key data" + response.body);
     response = await http.get(Uri.parse(StringData.fileEAWBAPI(response.body)),
         headers: {'x-access-tokens': prefs.getString('token')});
 
-    print("print pdf ---"+response.body);
+    print("print pdf ---" + response.body);
 
     var data = response.bodyBytes;
 
     //Get external storage directory
-    Directory directory = await getExternalStorageDirectory();
+    //Directory directory = await getExternalStorageDirectory();
+    Directory directory = Platform.isAndroid
+        ? await getExternalStorageDirectory() //FOR ANDROID
+        : await getApplicationSupportDirectory();
     //Get directory path
     String path = directory.path;
     //Create an empty file to write PDF data
@@ -1685,12 +2818,10 @@ class EAWBModel
     shipperPostCode = '654564';
     // shipperContactType = 'TE';
     // shipperContactNumber = '9876543212';
-    newshipperContactList.add(
-        ShipperExpenseList (
-            Shipper_Contact_Type:"MOBILE",
-            Shipper_Contact_Detail:"+916381929090",
-            flag:flag
-        ));
+    newshipperContactList.add(ShipperExpenseList(
+        Shipper_Contact_Type: "TE",
+        Shipper_Contact_Detail: "+916381929090",
+        flag: flag));
 //     // ! 2 - Consignee....
     consigneeAccountNumber = "222222222222";
     // ! convert CONSIGNEE_NAME_AND_ADDRESS to name and address....
@@ -1703,22 +2834,20 @@ class EAWBModel
     consigneePostCode = "000000";
     String Consigneecountry = consigneeCountryCode;
 
-    int ConsigneefirstChar = Consigneecountry.codeUnitAt(0) - asciiOffset + flagOffset;
-    int ConsigneesecondChar = Consigneecountry.codeUnitAt(1) - asciiOffset + flagOffset;
-    String Consigneeflag =
-        String.fromCharCode(ConsigneefirstChar) + String.fromCharCode(ConsigneesecondChar);
+    int ConsigneefirstChar =
+        Consigneecountry.codeUnitAt(0) - asciiOffset + flagOffset;
+    int ConsigneesecondChar =
+        Consigneecountry.codeUnitAt(1) - asciiOffset + flagOffset;
+    String Consigneeflag = String.fromCharCode(ConsigneefirstChar) +
+        String.fromCharCode(ConsigneesecondChar);
     // consigneeContactType = "TE";
     // consigneeContactNumber = "8300803649";
-    newconsigneeContactList.add(
-        ConsigneeExpenseList(
-            Consignee_Contact_Type:"Telegram",
-            Consignee_Contact_Detail: "+971950086762",
-            flag:Consigneeflag
-        )
-    );
+    newconsigneeContactList.add(ConsigneeExpenseList(
+        Consignee_Contact_Type: "TE",
+        Consignee_Contact_Detail: "+971950086762",
+        flag: Consigneeflag));
     // consigneeContactType = "TE";
     // consigneeContactNumber = "8300803649";
-
 
 //
 //       // ! 3 - Issuing carrier's agent....
@@ -1742,7 +2871,7 @@ class EAWBModel
     information = "";
     airline = "";
     routeAndFlightNumber1 = "EK885";
-    routeAndFlightDate1 = "07NOV2022";
+    routeAndFlightDate1 = "28JUN023";
     airline1 = "";
     routeAndFlightNumber2 = "";
     routeAndFlightDate2 = "";
@@ -1769,22 +2898,21 @@ class EAWBModel
     notifyPostCode = "676767";
     String Notifycountry = notifyCountryCode;
 
-    int NotifyfirstChar = Notifycountry.codeUnitAt(0) - asciiOffset + flagOffset;
-    int NotifysecondChar = Notifycountry.codeUnitAt(1) - asciiOffset + flagOffset;
-    String Notifyflag =
-        String.fromCharCode(NotifyfirstChar) + String.fromCharCode(NotifysecondChar);
-    newnotifyContactList.add(
-        NotifyExpenseList(
-            Notify_Contact_Type: "Telegram",
-            Notify_Contact_Detail: "+918300803649",
-            flag:Notifyflag
-        )
-    );
+    int NotifyfirstChar =
+        Notifycountry.codeUnitAt(0) - asciiOffset + flagOffset;
+    int NotifysecondChar =
+        Notifycountry.codeUnitAt(1) - asciiOffset + flagOffset;
+    String Notifyflag = String.fromCharCode(NotifyfirstChar) +
+        String.fromCharCode(NotifysecondChar);
+    newnotifyContactList.add(NotifyExpenseList(
+        Notify_Contact_Type: "Telegram",
+        Notify_Contact_Detail: "+918300803649",
+        flag: Notifyflag));
 
     // notifyContactType = "TE";
     // notifyContactNumber = "8300803649";
     issuerBy = "MORRISON EXPRESS LOGISTICS PVT LTD";
-    accountingInformationId ="A124";
+    accountingInformationId = "A124";
     accountingInformationDetails = "MUST BE SAFE";
     referenceNumber = "88888888";
     refNo2 = " ";
@@ -1795,17 +2923,17 @@ class EAWBModel
     chargesDeclarationAmountOfInsurance = "99";
     handlingInformationSCI = "T1";
     handlingInformationRequirements =
-    "EXTRA CHARGE DUE TO SPECIAL HANDLING REQUIREMENTS";
+        "EXTRA CHARGE DUE TO SPECIAL HANDLING REQUIREMENTS";
     chargeSummaryWeightChargePrepaid = "15750";
     chargeSummaryWeightChargePostpaid = "0";
     chargeSummaryValuationChargePrepaid = "0";
     chargeSummaryValuationChargePostpaid = "350";
     chargeSummaryTaxPrepaid = "100";
     chargeSummaryTaxPostpaid = "10";
-    chargeSummaryDueAgentPrepaid ="100";
-    chargeSummaryDueAgentPostpaid ="0";
-    chargeSummaryDueCarrierPrepaid ="0";
-    chargeSummaryDueCarrierPostpaid ="0";
+    chargeSummaryDueAgentPrepaid = "100";
+    chargeSummaryDueAgentPostpaid = "0";
+    chargeSummaryDueCarrierPrepaid = "0";
+    chargeSummaryDueCarrierPostpaid = "0";
     chargeSummaryTotalPrepaid = "15950";
     chargeSummaryTotalPostpaid = "360";
     currencyConversionRates = "3";
@@ -1814,10 +2942,11 @@ class EAWBModel
     ccChargesInDest = "15.98";
     chargesAtDest = "3";
     totalCollect = "18.98";
-    particularsOfShipper="MAHOGANY";
+    particularsOfShipper = "MAHOGANY";
     signatureOfShipper = "MAHOGANY PRIVATE";
-    rateDescriptionItemList.add(RateDescriptionItem(
-      // isExpanded: false,
+    rateDescriptionItemList.add(
+        RateDescriptionItem(
+        // isExpanded: false,
         pieces: 35,
         grossWeight: 350,
         grossWeightUnit: "K",
@@ -1835,11 +2964,12 @@ class EAWBModel
             'width': '10',
             'height': '10',
             'pwUnit': 'K',
-            'lwhUnit': 'cm',
+            'lwhUnit': 'CM',
             'pieces': '35',
             'weight': '350'
           },
         ],
+        origin: "IN",
         volume: "35000 CM3",
         natureAndQuantity: "TEXTILES",
         slac: "35",
@@ -1881,10 +3011,10 @@ class EAWBModel
           amount: 100,
           minimum: 10,
           rate: 10,
-          prepaidcollect:"PPD",
+          prepaidcollect: "PPD",
           useRate: false),
     );
-    executedOn = "08NOV2022";
+    executedOn = "28JUN2023";
     atPlace = "COIMBATORE";
     signatureOfIssuingCarrier = "MAHOGANY PRIVATE";
     //rateDescriptionItemList.add();
@@ -1901,11 +3031,12 @@ class EAWBModel
     // rateModel.natureAndQuantity =
     //     "CONSOLIDATION\nOrigin:MV\nSLAC:6\nVolume:20CM3\n12X12X12MMT/550K";
 
-    SPH1="EAWB";
-    SPH2="EAWB";
-    SpecialServiceRequest="T1";
-    OtherServiceInformation="T2";
-    SCI="T1";
+    SPH1 = "VAL";
+    SPH2 = "VAL";
+    SpecialServiceRequest = "T1";
+    OtherServiceInformation =
+        "EXTRA CHARGE DUE TO SPECIAL HANDLING REQUIREMENTS";
+    SCI = "T1";
 
     notifyListeners();
     setStatus();
@@ -1954,12 +3085,10 @@ class EAWBModel
     shipperPostCode = '110001';
     // shipperContactType = 'TE';
     // shipperContactNumber = '9876543212';
-    newshipperContactList.add(
-        ShipperExpenseList (
-            Shipper_Contact_Type:"MOBILE",
-            Shipper_Contact_Detail:"+916381929090",
-            flag:flag
-        ));
+    newshipperContactList.add(ShipperExpenseList(
+        Shipper_Contact_Type: "TE",
+        Shipper_Contact_Detail: "+916381929090",
+        flag: flag));
 //     // ! 2 - Consignee....
     consigneeAccountNumber = "222222222222";
     // ! convert CONSIGNEE_NAME_AND_ADDRESS to name and address....
@@ -1972,22 +3101,20 @@ class EAWBModel
     consigneePostCode = "000000";
     String Consigneecountry = consigneeCountryCode;
 
-    int ConsigneefirstChar = Consigneecountry.codeUnitAt(0) - asciiOffset + flagOffset;
-    int ConsigneesecondChar = Consigneecountry.codeUnitAt(1) - asciiOffset + flagOffset;
-    String Consigneeflag =
-        String.fromCharCode(ConsigneefirstChar) + String.fromCharCode(ConsigneesecondChar);
+    int ConsigneefirstChar =
+        Consigneecountry.codeUnitAt(0) - asciiOffset + flagOffset;
+    int ConsigneesecondChar =
+        Consigneecountry.codeUnitAt(1) - asciiOffset + flagOffset;
+    String Consigneeflag = String.fromCharCode(ConsigneefirstChar) +
+        String.fromCharCode(ConsigneesecondChar);
     // consigneeContactType = "TE";
     // consigneeContactNumber = "8300803649";
-    newconsigneeContactList.add(
-        ConsigneeExpenseList(
-            Consignee_Contact_Type:"Telegram",
-            Consignee_Contact_Detail: "+8495008676211",
-            flag:Consigneeflag
-        )
-    );
+    newconsigneeContactList.add(ConsigneeExpenseList(
+        Consignee_Contact_Type: "Telegram",
+        Consignee_Contact_Detail: "+8495008676211",
+        flag: Consigneeflag));
     // consigneeContactType = "TE";
     // consigneeContactNumber = "8300803649";
-
 
 //
 //       // ! 3 - Issuing carrier's agent....
@@ -2011,7 +3138,7 @@ class EAWBModel
     information = "";
     airline = "";
     routeAndFlightNumber1 = "6P174";
-    routeAndFlightDate1 = "07NOV2022";
+    routeAndFlightDate1 = "28JUN2023";
     airline1 = "";
     routeAndFlightNumber2 = "";
     routeAndFlightDate2 = "";
@@ -2022,9 +3149,9 @@ class EAWBModel
 
     awbConsigmentOriginPrefix = "DEL";
     awbConsigmentDestination = "HAN";
-    awbConsigmentPices = "20";
+    awbConsigmentPices = "50";
     awbConsigmentWeightCode = "K";
-    awbConsigmentWeight = "50";
+    awbConsigmentWeight = "100";
     awbConsigmentVolumeCode = "CC";
     awbConsigmentVolume = "60";
     awbConsigmentDensity = "DC";
@@ -2038,22 +3165,21 @@ class EAWBModel
     notifyPostCode = "676767";
     String Notifycountry = notifyCountryCode;
 
-    int NotifyfirstChar = Notifycountry.codeUnitAt(0) - asciiOffset + flagOffset;
-    int NotifysecondChar = Notifycountry.codeUnitAt(1) - asciiOffset + flagOffset;
-    String Notifyflag =
-        String.fromCharCode(NotifyfirstChar) + String.fromCharCode(NotifysecondChar);
-    newnotifyContactList.add(
-        NotifyExpenseList(
-            Notify_Contact_Type: "Telegram",
-            Notify_Contact_Detail: "+918300803649",
-            flag:Notifyflag
-        )
-    );
+    int NotifyfirstChar =
+        Notifycountry.codeUnitAt(0) - asciiOffset + flagOffset;
+    int NotifysecondChar =
+        Notifycountry.codeUnitAt(1) - asciiOffset + flagOffset;
+    String Notifyflag = String.fromCharCode(NotifyfirstChar) +
+        String.fromCharCode(NotifysecondChar);
+    newnotifyContactList.add(NotifyExpenseList(
+        Notify_Contact_Type: "Telegram",
+        Notify_Contact_Detail: "+918300803649",
+        flag: Notifyflag));
 
     // notifyContactType = "TE";
     // notifyContactNumber = "8300803649";
     issuerBy = "MORRISON EXPRESS LOGISTICS PVT LTD";
-    accountingInformationId ="A124";
+    accountingInformationId = "A124";
     accountingInformationDetails = "MUST BE SAFE";
     referenceNumber = "88888888";
     refNo2 = " ";
@@ -2064,17 +3190,17 @@ class EAWBModel
     chargesDeclarationAmountOfInsurance = "99";
     handlingInformationSCI = "T1";
     handlingInformationRequirements =
-    "EXTRA CHARGE DUE TO SPECIAL HANDLING REQUIREMENTS";
+        "EXTRA CHARGE DUE TO SPECIAL HANDLING REQUIREMENTS";
     chargeSummaryWeightChargePrepaid = "15750";
     chargeSummaryWeightChargePostpaid = "0";
     chargeSummaryValuationChargePrepaid = "0";
     chargeSummaryValuationChargePostpaid = "350";
     chargeSummaryTaxPrepaid = "100";
     chargeSummaryTaxPostpaid = "10";
-    chargeSummaryDueAgentPrepaid ="100";
-    chargeSummaryDueAgentPostpaid ="0";
-    chargeSummaryDueCarrierPrepaid ="0";
-    chargeSummaryDueCarrierPostpaid ="0";
+    chargeSummaryDueAgentPrepaid = "100";
+    chargeSummaryDueAgentPostpaid = "0";
+    chargeSummaryDueCarrierPrepaid = "0";
+    chargeSummaryDueCarrierPostpaid = "0";
     chargeSummaryTotalPrepaid = "15950";
     chargeSummaryTotalPostpaid = "360";
     currencyConversionRates = "302.45";
@@ -2083,10 +3209,10 @@ class EAWBModel
     ccChargesInDest = "108882.13";
     chargesAtDest = "3";
     totalCollect = "108885.13";
-    particularsOfShipper="MAHOGANY";
+    particularsOfShipper = "MAHOGANY";
     signatureOfShipper = "MAHOGANY PRIVATE";
     rateDescriptionItemList.add(RateDescriptionItem(
-      // isExpanded: false,
+        // isExpanded: false,
         pieces: 35,
         grossWeight: 350,
         grossWeightUnit: "K",
@@ -2113,6 +3239,7 @@ class EAWBModel
         volume: "35000 CM3",
         natureAndQuantity: "TEXTILES",
         slac: "35",
+        origin: "IN",
         text: ""));
     //Ratedescription
     // rateDescriptionItemList.add(RateDescriptionItem(
@@ -2151,10 +3278,10 @@ class EAWBModel
           amount: 100,
           minimum: 10,
           rate: 10,
-          prepaidcollect:"PPD",
+          prepaidcollect: "PPD",
           useRate: false),
     );
-    executedOn = "07NOV2022";
+    executedOn = "28JUN2023";
     atPlace = "NEW DELHI";
     signatureOfIssuingCarrier = "MAHOGANY PRIVATE";
     //rateDescriptionItemList.add();
@@ -2171,11 +3298,12 @@ class EAWBModel
     // rateModel.natureAndQuantity =
     //     "CONSOLIDATION\nOrigin:MV\nSLAC:6\nVolume:20CM3\n12X12X12MMT/550K";
 
-    SPH1="EAWB";
-    SPH2="EAWB";
-    SpecialServiceRequest="T1";
-    OtherServiceInformation="T2";
-    SCI="T1";
+    SPH1 = "VAL";
+    SPH2 = "VAL";
+    SpecialServiceRequest = "HANDLE WITH CARE";
+    OtherServiceInformation =
+        "EXTRA CHARGE DUE TO SPECIAL HANDLING REQUIREMENTS";
+    SCI = "T1";
 
     notifyListeners();
     setStatus();

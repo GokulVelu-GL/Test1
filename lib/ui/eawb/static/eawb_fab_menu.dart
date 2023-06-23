@@ -168,11 +168,25 @@ class EawbFabMenu extends StatelessWidget {
                 color: Colors.black,
               ),
               onTap: () async {
+                bool isSaved;
+                bool updateorinsert;
+                SharedPreferences prefs = await SharedPreferences.getInstance();
                 if (await _saveConfirmDialog(model)) {
+
                   _loaderDialog();
-                  bool isSaved = await model.inserteAWB();
+                  if(prefs.getString("updateawbdetails") != "true"
+                  //    || prefs.getString("Awb_id").isEmpty
+                  ){
+                    print(prefs.getString("Awb_id"));
+                     isSaved = await model.inserteAWB();
+                  }
+                  else{
+                    isSaved = await model.updateeAWB();
+                  }
+
                   Navigator.pop(context);
                   if (isSaved) {
+                    prefs.setString('updateawbdetails', "");
                     Navigator.of(context, rootNavigator: true).pop('dialog');
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -181,8 +195,10 @@ class EawbFabMenu extends StatelessWidget {
                         ),
                         duration: Duration(seconds: 2),
                       ),
+
                     );
                   } else {
+                    prefs.setString('updateawbdetails', "");
                     Navigator.of(context, rootNavigator: true).pop('dialog');
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

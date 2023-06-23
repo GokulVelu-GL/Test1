@@ -13,7 +13,7 @@ import 'package:rooster/ui/hawb/static/edit_hawb.dart';
 import 'package:rooster/ui/hawb/house_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:tutorial_coach_mark/animated_focus_light.dart';
-// import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:http/http.dart' as http;
 import 'package:rooster/model/eawb_model.dart';
 import 'package:rooster/screenroute.dart';
@@ -29,10 +29,9 @@ void refreshToken() async {
       headers: {'x-access-tokens': prefs.getString('token')});
   var result = json.decode(response.body);
   if (result['result'] == 'verified') prefs.setString('token', result['token']);
-  print("refreshToken : " + result);
+  print(result);
 }
-
-Future<dynamic> getAWBlistMethod() async {
+Future<dynamic> getAWBlist() async {
   var result;
   SharedPreferences prefs = await SharedPreferences.getInstance();
   //var response = await http.get(StringData.awblistAPI,
@@ -55,20 +54,22 @@ Future<dynamic> getAWBlistMethod() async {
     //"FFM_PointOfUnLoading_AirportCode": flightUnloading
   });
   result = await request.send();
+
   final respStr = await result.stream.bytesToString();
   result = jsonDecode(respStr);
+
   //Alternative
 
-  if (result['message'] != null && result['message'] == 'token expired') {
-    print("getAWBlistMethod: request value " + '${request}');
+  if (result['message'] == 'token expired') {
     refreshToken();
-    getAWBlistMethod();
-    //return;
+    getAWBlist();
   }
-  //print("getAWBlistMethod: " + prefs.getString('token'));
-  print("getAWBlistMethod: " + '${result["awb"]}');
+  print(prefs.getString('token'));
+  print("AWB List Details " + '${result["awb"]}');
   return result["awb"];
 }
+
+
 
 //var duplicateAwbList = [];
 
@@ -79,7 +80,8 @@ class MyEawb extends StatefulWidget {
 
 class _MyEawbState extends State<MyEawb> with TickerProviderStateMixin {
   var now = new DateTime.now();
-  final Future myAWBList = getAWBlistMethod();
+  final Future myAWBList = getAWBlist();
+
   void _loaderDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -92,8 +94,8 @@ class _MyEawbState extends State<MyEawb> with TickerProviderStateMixin {
     );
   }
 
-  // TutorialCoachMark tutorialCoachMark;
-  // List<TargetFocus> targets = List();
+  TutorialCoachMark tutorialCoachMark;
+  List<TargetFocus> targets = List();
   bool tutorial = false;
 
   GlobalKey _listTargetKey = GlobalKey();
@@ -101,24 +103,203 @@ class _MyEawbState extends State<MyEawb> with TickerProviderStateMixin {
   GlobalKey _originToDestinationTargetKey = GlobalKey();
   GlobalKey _piecesAndWeightTargetKey = GlobalKey();
   GlobalKey _fabTarget = GlobalKey();
+  //
+  // void initTargets() {
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "List",
+  //       keyTarget: _listTargetKey,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.bottom,
+  //           child: InkWell(
+  //             onTap: () {
+  //               tutorialCoachMark.next();
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(bottom: 20.0),
+  //               child: Text(
+  //                 S.of(context).SwipeLefttoDeteleandRighttoAddHouses,
+  //                 // "Swipe Left to Detele and Right to Add Houses",
+  //                 style: TextStyle(
+  //                     color: Colors.white,
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 20.0),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.RRect,
+  //     ),
+  //   );
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "Master AWB",
+  //       keyTarget: _masterAWBTargetKey,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.bottom,
+  //           child: InkWell(
+  //             onTap: () {
+  //               tutorialCoachMark.next();
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(bottom: 20.0),
+  //               child: Text(
+  //                 S.of(context).MasterAirWaybillofHouses,
+  //                 // "Master Air Waybill of Houses",
+  //                 style: TextStyle(
+  //                     color: Colors.white,
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 20.0),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.RRect,
+  //     ),
+  //   );
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "Origin to Destination",
+  //       keyTarget: _originToDestinationTargetKey,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.bottom,
+  //           child: InkWell(
+  //             onTap: () {
+  //               tutorialCoachMark.next();
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(bottom: 20.0),
+  //               child: Text(
+  //                 S.of(context).OrigintoDestinationShipmentTotal,
+  //                 // 'Origin to Destination\nShipment - Total',
+  //                 style: TextStyle(
+  //                     color: Colors.white,
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 20.0),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.RRect,
+  //     ),
+  //   );
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "Pieces and Weight",
+  //       keyTarget: _piecesAndWeightTargetKey,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.bottom,
+  //           child: InkWell(
+  //             onTap: () {
+  //               tutorialCoachMark.next();
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(bottom: 20.0),
+  //               child: Text(
+  //                 S.of(context).Numberofpiecesandtotalweight,
+  //                 // "Number of pieces and total weight",
+  //                 style: TextStyle(
+  //                     color: Colors.white,
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 20.0),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.RRect,
+  //     ),
+  //   );
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "Add Master AWB here.",
+  //       keyTarget: _fabTarget,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.top,
+  //           child: InkWell(
+  //             onTap: () {
+  //               tutorialCoachMark.finish();
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.only(bottom: 20.0),
+  //               child: Text(
+  //                 S.of(context).AddMasterAWBhere,
+  //                 // "Add Master AWB here.",
+  //                 style: TextStyle(
+  //                     color: Colors.white,
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 20.0),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.Circle,
+  //     ),
+  //   );
+  // }
 
-  // void _afterLayout(_) {
-  //   Future.delayed(const Duration(seconds: 1), () {
-  //     // showTutorial();
-  //   });
+  void _afterLayout(_) {
+    Future.delayed(const Duration(seconds: 1), () {
+      // showTutorial();
+    });
+  }
+
+  // void showTutorial() {
+  //   BuildContext context;
+  //   tutorialCoachMark = TutorialCoachMark(
+  //     context,
+  //     targets: targets,
+  //     colorShadow: Colors.black,
+  //     alignSkip: Alignment.topRight,
+  //     textSkip: "SKIP",
+  //     paddingFocus: 10,
+  //     opacityShadow: 0.8,
+  //     onFinish: () {
+  //       setState(() {
+  //         tutorial = false;
+  //       });
+  //     },
+  //   )..show();
   // }
 
 // Animation Part
   AnimationController _anicontroller;
 
+  Animation _profilePictureAnimation;
+  Animation _contentAnimation;
   Animation _listAnimation;
   Animation _fabAnimation;
   int count = 0;
 
   @override
   void initState() {
+    // SharedPreferences.getInstance().then((value) {
+    //   if (value.getBool('tutorial') ?? true) {
+    //     initTargets();
+    //     WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
+    //     setState(() {
+    //       tutorial = true;
+    //     });
+    //     //getAWBlist();
+    //   } else {
     _anicontroller =
         AnimationController(vsync: this, duration: Duration(seconds: 4));
+    _profilePictureAnimation = Tween(begin: 0.0, end: 50.0).animate(
+        CurvedAnimation(
+            parent: _anicontroller,
+            curve: Interval(0.0, 0.20, curve: Curves.easeOut)));
+    _contentAnimation = Tween(begin: 0.0, end: 34.0).animate(CurvedAnimation(
+        parent: _anicontroller,
+        curve: Interval(0.20, 0.40, curve: Curves.easeOut)));
     _listAnimation = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
         parent: _anicontroller,
         curve: Interval(0.40, 0.75, curve: Curves.easeOut)));
@@ -141,7 +322,18 @@ class _MyEawbState extends State<MyEawb> with TickerProviderStateMixin {
 
     for (int i = 0; i < hiveBox.length; i++) {
       final helper = hiveBox.getAt(i) as AwbListOffline;
-
+      // Hive.box('AwbList').add(
+      //     AwbListOffline(
+      //       airline: (widget.getawblist[i]['prefix']).toString(),
+      //       masterAWB: (widget.getawblist[i]['wayBillNumber']).toString(),
+      //       origin: (widget.getawblist[i]['origin']).toString(),
+      //       destination: (widget.getawblist[i]['destination']).toString(),
+      //       shipment: (widget.getawblist[i]['shipmentcode']).toString(),
+      //       pieces: (widget.getawblist[i]['pieces'].toString()),
+      //       weight: (widget.getawblist[i]['weight']).toString(),
+      //       weightUnit: (widget.getawblist[i]['weightcode']).toString(),
+      //     )
+      // );
       setState(() {
         Api().insertAWBList(
             context,
@@ -179,15 +371,22 @@ class _MyEawbState extends State<MyEawb> with TickerProviderStateMixin {
           backgroundColor: Colors.green,
           textColor: Colors.white);
     }
+
+    // }
+
+    // getAWBlist();
+    // }
+    //});
     super.initState();
   }
 
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   _anicontroller.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _anicontroller.dispose();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -195,58 +394,37 @@ class _MyEawbState extends State<MyEawb> with TickerProviderStateMixin {
     var now_1m = new DateTime(now.year, now.month - 1, now.day);
     var now_1y = new DateTime(now.year - 1, now.month, now.day);
     return Scaffold(
-        floatingActionButton: Transform.scale(
-          scale: _fabAnimation.value,
-          child: Builder(
-            builder: (context) => FloatingActionButton(
-              key: _fabTarget,
-              backgroundColor: Theme.of(context).accentColor,
-              onPressed: () async {
-                Map<String, String> newMasterAWB = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AddMasterAWB(),
-                      fullscreenDialog: true,
-                    ));
-                if (newMasterAWB != null) {
-                  setState(() {
-                    //masterAWB.add(newMasterAWB);
-                  });
-                }
-              },
-              child: Icon(Icons.add),
-            ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      body: Container(
+        //height: MediaQuery.of(context).size.height - 185.0,
+        child: Center(
+          child: FutureBuilder<dynamic>(
+            future: myAWBList,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                // duplicateAwbList.clear();
+                // duplicateAwbList=snapshot.data;
+                //EasyLoading.show();
+                print("Awwblist");
+                print("Snapshot Data ${snapshot.data}");
+                //getawblist=snapshot.data;
+                return GetAWBList(getawblist: snapshot .data);
+              } else if (snapshot.hasError) {
+                return Text(S.of(context).DataNotFound
+                    // "Data Not Found"
+                    );
+              }
+
+              // By default, show a loading spinner
+              return CircularProgressIndicator();
+              //return EasyLoading.show();
+            },
           ),
         ),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: Container(
-          //height: MediaQuery.of(context).size.height - 185.0,
-          child: Center(
-            child: FutureBuilder<dynamic>(
-              //future: getAWBlistMethod(),
-              future: myAWBList,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  print("myAWBList: ${myAWBList}");
-
-                  //EasyLoading.show();
-                  print("Snapshot Data ${snapshot.data}");
-                  //getawblist=snapshot.data;
-                  return GetAWBList(getawblist: snapshot.data);
-                } else if (snapshot.hasError) {
-                  return Text(S.of(context).DataNotFound
-                      // "Data Not Found"
-                      );
-                }
-
-                // By default, show a loading spinner
-                return CircularProgressIndicator();
-                //return EasyLoading.show();
-              },
-            ),
-          ),
-        ));
+      ),
+    );
   }
+
 }
 
 class GetAWBList extends StatefulWidget {
@@ -264,6 +442,12 @@ class _MyAWBState extends State<GetAWBList> with TickerProviderStateMixin {
   AnimationController _controller;
   AnimationController _resizableController;
   bool alertvalue = false;
+
+  Animation _fabAnimation;
+  AnimationController _anicontroller;
+
+  GlobalKey _fabTarget = GlobalKey();
+
   Color color;
 
   Widget _buildSearchBox() {
@@ -345,8 +529,18 @@ class _MyAWBState extends State<GetAWBList> with TickerProviderStateMixin {
     setState(() {});
   }
 
-  initState() {
+  void initState() {
     super.initState();
+    _anicontroller =
+        AnimationController(vsync: this, duration: Duration(seconds: 4));
+
+    _fabAnimation = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+        parent: _anicontroller,
+        curve: Interval(0.75, 1.0, curve: Curves.easeOut)));
+    _anicontroller.forward();
+    _anicontroller.addListener(() {
+      setState(() {});
+    });
     _resizableController = new AnimationController(
       vsync: this,
       duration: new Duration(
@@ -456,244 +650,219 @@ class _MyAWBState extends State<GetAWBList> with TickerProviderStateMixin {
               ),
               elevation: 1,
               actions: [
-                IconButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (ctx) => AlertDialog(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(30.0))),
-                          title: AnimatedBuilder(
-                              animation: _resizableController,
-                              builder: (context, child) {
-                                return Container(
-                                  padding: EdgeInsets.only(
-                                      left: 15.0,
-                                      top: 10.0,
-                                      bottom: 10.0,
-                                      right: 15.0),
-                                  child: Center(child: Text("Alert")),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(12)),
-                                    border: Border.all(
-                                        color:
-                                            Theme.of(context).backgroundColor,
-                                        width: _resizableController.value * 10),
-                                  ),
-                                );
-                              }),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Center(
-                                    child: CustomPaint(
-                                      painter: CirclePainter(_controller,
-                                          color: Theme.of(context).accentColor),
-                                      child: SizedBox(
-                                          height: 80,
-                                          width: 80,
-                                          child: Icon(
-                                            Icons.dangerous_outlined,
-                                            size: 20,
-                                            color: Theme.of(context)
-                                                .backgroundColor,
-                                          )
-                                          //_button(),
-                                          ),
-                                    ),
-                                  ),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    // crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      // Text("AWB Gross weight:350K\nAWB Chargeable Weight: 350 K \nGHA Acceptance Gross Weight:\n 500"
-                                      //     "K \nThis means the AWB Gross Weight"
-                                      // ,
-                                      //   style: TextStyle(
-                                      //     fontSize: 13
-                                      //   ),
-                                      // ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        // mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            "AWB Gross weight ",
-                                            style: TextStyle(
-                                              color:
-                                                  Theme.of(context).accentColor,
-                                            ),
-                                          ),
-                                          Text(
-                                            "--------------> 350K",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        // mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            "AWB Chargeable Weight  ",
-                                            style: TextStyle(
-                                              color:
-                                                  Theme.of(context).accentColor,
-                                            ),
-                                          ),
-                                          Text(
-                                            "--------> 350K",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        // mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            "GHA Acceptance Gross Weight ",
-                                            style: TextStyle(
-                                              color:
-                                                  Theme.of(context).accentColor,
-                                            ),
-                                          ),
-                                          Text(
-                                            "-> 500K",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      // Text("This means the AWB Gross Weight & AWB",
-                                      //   style: TextStyle(
-                                      //       color: Theme.of(context).accentColor,
-                                      //
-                                      //   ),
-                                      // ),
-                                      // Text("Chargeable Weight captured by ",
-                                      //   style: TextStyle(
-                                      //       color: Theme.of(context).accentColor,
-                                      //
-                                      //   ),
-                                      // ),
-                                      // Text("Documentation Team are INCORRECT. This",
-                                      //   style: TextStyle(
-                                      //     color: Theme.of(context).accentColor,
-                                      //
-                                      //   ),
-                                      // ),
-                                      // Text("also potentially means the AWB Charges",
-                                      //   style: TextStyle(
-                                      //     color: Theme.of(context).accentColor,
-                                      //
-                                      //   ),
-                                      // ),  Text("are INCORRECT,and a possible revenue loss",
-                                      //   style: TextStyle(
-                                      //     color: Theme.of(context).accentColor,
-                                      //
-                                      //   ),
-                                      // )
-                                    ],
-                                  ),
-                                  Text(
-                                    "This means the AWB Gross Weight & AWB Chargeable Weight captured by Documentation Team are INCORRECT. This also potentially means the AWB Charges are INCORRECT, and a possible revenue loss.",
-                                    textAlign: TextAlign.justify,
-                                    style: TextStyle(
-                                      color: Theme.of(context).accentColor,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Please Check!",
-                                    style: TextStyle(
-                                      color: Theme.of(context).accentColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  )
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  ElevatedButton(
-                                      style: TextButton.styleFrom(
-                                        primary:
-                                            Theme.of(context).backgroundColor,
-                                        backgroundColor: Colors.green,
-                                        // Text Color
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          alertvalue = false;
-                                          Navigator.pop(context);
-                                        });
-                                      },
-                                      child: Text(
-                                        "Accept",
-                                      )),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  ElevatedButton(
-                                      style: TextButton.styleFrom(
-                                        primary:
-                                            Theme.of(context).backgroundColor,
-                                        backgroundColor: Colors.red,
-                                        // Text Color
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          alertvalue = true;
-                                          Navigator.pop(context);
-                                        });
-                                        // Navigator.pop(context);
-                                      },
-                                      child: Text(
-                                        "Reject",
-                                      ))
-                                ],
-                              )
-                            ],
-                          ),
-                          // actions: <Widget>[
-                          //   TextButton(
-                          //     onPressed: () {
-                          //       Navigator.of(ctx).pop();
-                          //     },
-                          //     child: Center(
-                          //       child: Container(
-                          //         padding: const EdgeInsets.all(14),
-                          //         child:  Text("Close",
-                          //           style: TextStyle(
-                          //             color: Theme.of(context).accentColor,
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ],
-                        ),
-                      );
-                    },
-                    icon: Icon(Icons.developer_mode)),
+                // IconButton(onPressed: (){
+                //   showDialog(
+                //     context: context,
+                //     builder: (ctx) => AlertDialog(
+                //       shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.all(Radius.circular(30.0))),
+                //       title: AnimatedBuilder(
+                //           animation: _resizableController,
+                //           builder: (context, child) {
+                //             return Container(
+                //               padding: EdgeInsets.only(left: 15.0,
+                //                   top: 10.0,bottom: 10.0,
+                //                   right: 15.0),
+                //               child: Center(child: Text("Alert")),
+                //               decoration: BoxDecoration(
+                //                 shape: BoxShape.rectangle,
+                //                 borderRadius: BorderRadius.all(Radius.circular(12)),
+                //                 border: Border.all(
+                //                     color: Theme.of(context).backgroundColor, width: _resizableController.value * 10),
+                //               ),
+                //             );
+                //           }),
+                //       content: Column(
+                //         mainAxisSize: MainAxisSize.min,
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         children: [
+                //           Column(
+                //             mainAxisAlignment: MainAxisAlignment.start,
+                //             mainAxisSize: MainAxisSize.min,
+                //             children: [
+                //               Center(
+                //                 child: CustomPaint(
+                //                   painter: CirclePainter(
+                //                       _controller,
+                //                       color: Theme.of(context).accentColor
+                //                   ),
+                //                   child: SizedBox(
+                //                       height: 80,
+                //                       width:80,
+                //                       child: Icon(Icons.dangerous_outlined, size: 20,
+                //                         color: Theme.of(context).backgroundColor,
+                //                       )
+                //                     //_button(),
+                //                   ),
+                //                 ),
+                //               ),
+                //               Column(
+                //                 mainAxisSize: MainAxisSize.min,
+                //                 // crossAxisAlignment: CrossAxisAlignment.start,
+                //                 children: [
+                //                   // Text("AWB Gross weight:350K\nAWB Chargeable Weight: 350 K \nGHA Acceptance Gross Weight:\n 500"
+                //                   //     "K \nThis means the AWB Gross Weight"
+                //                   // ,
+                //                   //   style: TextStyle(
+                //                   //     fontSize: 13
+                //                   //   ),
+                //                   // ),
+                //                   Row(
+                //                     crossAxisAlignment: CrossAxisAlignment.start,
+                //                     // mainAxisAlignment: MainAxisAlignment.end,
+                //                     children: [
+                //                       Text("AWB Gross weight ",
+                //                         style: TextStyle(
+                //                           color: Theme.of(context).accentColor,
+                //                         ),
+                //                       ),
+                //                       Text("--------------> 350K",
+                //                         style: TextStyle(
+                //                           fontWeight: FontWeight.bold,
+                //                         ),
+                //                       )
+                //                     ],
+                //                   ),
+                //                   Row(
+                //                     crossAxisAlignment: CrossAxisAlignment.start,
+                //                     // mainAxisAlignment: MainAxisAlignment.end,
+                //                     children: [
+                //                       Text("AWB Chargeable Weight  ",
+                //                         style: TextStyle(
+                //                           color: Theme.of(context).accentColor,
+                //
+                //                         ),
+                //                       ),
+                //                       Text("--------> 350K",
+                //                         style: TextStyle(
+                //                           fontWeight: FontWeight.bold,
+                //                         ),
+                //                       )
+                //                     ],
+                //                   ),
+                //                   Row(
+                //                     crossAxisAlignment: CrossAxisAlignment.end,
+                //                     // mainAxisAlignment: MainAxisAlignment.end,
+                //                     children: [
+                //                       Text("GHA Acceptance Gross Weight ",
+                //                         style: TextStyle(
+                //                           color: Theme.of(context).accentColor,
+                //                         ),
+                //                       ),
+                //                       Text("-> 500K",
+                //                         style: TextStyle(
+                //                           fontWeight: FontWeight.bold,
+                //                         ),
+                //                       ),
+                //                     ],
+                //                   ),
+                //                   // Text("This means the AWB Gross Weight & AWB",
+                //                   //   style: TextStyle(
+                //                   //       color: Theme.of(context).accentColor,
+                //                   //
+                //                   //   ),
+                //                   // ),
+                //                   // Text("Chargeable Weight captured by ",
+                //                   //   style: TextStyle(
+                //                   //       color: Theme.of(context).accentColor,
+                //                   //
+                //                   //   ),
+                //                   // ),
+                //                   // Text("Documentation Team are INCORRECT. This",
+                //                   //   style: TextStyle(
+                //                   //     color: Theme.of(context).accentColor,
+                //                   //
+                //                   //   ),
+                //                   // ),
+                //                   // Text("also potentially means the AWB Charges",
+                //                   //   style: TextStyle(
+                //                   //     color: Theme.of(context).accentColor,
+                //                   //
+                //                   //   ),
+                //                   // ),  Text("are INCORRECT,and a possible revenue loss",
+                //                   //   style: TextStyle(
+                //                   //     color: Theme.of(context).accentColor,
+                //                   //
+                //                   //   ),
+                //                   // )
+                //                 ],
+                //               ),
+                //               Text("This means the AWB Gross Weight & AWB Chargeable Weight captured by Documentation Team are INCORRECT. This also potentially means the AWB Charges are INCORRECT, and a possible revenue loss.",
+                //                 textAlign: TextAlign.justify,
+                //                 style: TextStyle(
+                //                   color: Theme.of(context).accentColor,
+                //                 ),
+                //               ),
+                //               Text("Please Check!",
+                //                 style: TextStyle(
+                //                   color: Theme.of(context).accentColor,
+                //                   fontWeight: FontWeight.bold,
+                //                 ),
+                //                 textAlign: TextAlign.center,
+                //
+                //               )
+                //             ],
+                //           ),
+                //           Row(
+                //             mainAxisAlignment: MainAxisAlignment.end,
+                //             crossAxisAlignment: CrossAxisAlignment.end,
+                //             children: [
+                //               ElevatedButton(
+                //
+                //                   style: TextButton.styleFrom(
+                //                     primary: Theme.of(context).backgroundColor,
+                //                     backgroundColor: Colors.green,
+                //                     // Text Color
+                //                   ),onPressed: (){
+                //                 setState(() {
+                //                   alertvalue=false;
+                //                   Navigator.pop(context);
+                //                 });
+                //
+                //               }, child: Text("Accept",
+                //               )),
+                //               SizedBox(
+                //                 width: 10,
+                //               ),
+                //               ElevatedButton(
+                //
+                //                   style: TextButton.styleFrom(
+                //                     primary: Theme.of(context).backgroundColor,
+                //                     backgroundColor: Colors.red,
+                //                     // Text Color
+                //                   ),
+                //                   onPressed: (){
+                //                     setState(() {
+                //                       alertvalue=true;
+                //                       Navigator.pop(context);
+                //                     });
+                //                     // Navigator.pop(context);
+                //                   }, child: Text("Reject",
+                //               ))
+                //             ],
+                //           )
+                //         ],
+                //       ),
+                //       // actions: <Widget>[
+                //       //   TextButton(
+                //       //     onPressed: () {
+                //       //       Navigator.of(ctx).pop();
+                //       //     },
+                //       //     child: Center(
+                //       //       child: Container(
+                //       //         padding: const EdgeInsets.all(14),
+                //       //         child:  Text("Close",
+                //       //           style: TextStyle(
+                //       //             color: Theme.of(context).accentColor,
+                //       //           ),
+                //       //         ),
+                //       //       ),
+                //       //     ),
+                //       //   ),
+                //       // ],
+                //     ),
+                //   );
+                // },  icon: Icon(Icons.developer_mode)),
                 IconButton(
                     onPressed: () {
                       showDialog(
@@ -762,12 +931,36 @@ class _MyAWBState extends State<GetAWBList> with TickerProviderStateMixin {
                             : widget.getawblist))
               ],
             ),
+            floatingActionButton: Transform.scale(
+              scale: _fabAnimation.value,
+              child: Builder(
+                builder: (context) => FloatingActionButton(
+                  //  key: _fabTarget,
+                  backgroundColor: Theme.of(context).accentColor,
+                  onPressed: () async {
+                    Map<String, String> newMasterAWB = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              AddMasterAWB(awblist: widget.getawblist),
+                          fullscreenDialog: true,
+                        ));
+                    if (newMasterAWB != null) {
+                      setState(() {
+                        //masterAWB.add(newMasterAWB);
+                      });
+                    }
+                  },
+                  child: Icon(Icons.add),
+                ),
+              ),
+            ),
           );
   }
 
   Widget _buildAWBList1(BuildContext context, var getawblist) {
     return ListView(
-      reverse: true,
+      //reverse: true,
       padding: EdgeInsets.only(top: 0, bottom: 0),
       children: new List<Widget>.generate(getawblist.length, (index) {
         return Dismissible(
@@ -797,8 +990,7 @@ class _MyAWBState extends State<GetAWBList> with TickerProviderStateMixin {
                             child: Text(
                               // BuildContext context,
                               S.of(context).Delete,
-                              style: TextStyle(
-                                  color: Theme.of(context).accentColor),
+                              style: TextStyle(color: Colors.white),
                               //"Delete"
                             )),
                         TextButton(
@@ -1051,7 +1243,7 @@ class _MyAWBState extends State<GetAWBList> with TickerProviderStateMixin {
                                   width: 60,
                                 ),
                                 SizedBox(
-                                  width: 180,
+                                  width: 218,
                                 ),
                                 Container(
                                     child: Text(
@@ -1285,6 +1477,7 @@ class _MyAWBState extends State<GetAWBList> with TickerProviderStateMixin {
                                                                 (value) async {
                                                           if (value ==
                                                               'New Air Waybill Number') {
+                                                            print("New Air Waybill Number");
                                                             SharedPreferences
                                                                 prefs =
                                                                 await SharedPreferences
@@ -1554,11 +1747,10 @@ class _MyAWBState extends State<GetAWBList> with TickerProviderStateMixin {
                         padding: EdgeInsets.only(left: 5, right: 5),
                         child: Center(
                             child: Text(
-                                S
-                                    .of(context)
-                                    .WouldyouliketoupdateAirWaybillDetails,
-                                //"Would you like to update Air Waybill Details?",
-                                textAlign: TextAlign.center))),
+                          S.of(context).WouldyouliketoupdateAirWaybillDetails,
+                          //"Would you like to update Air Waybill Details?",
+                          textAlign: TextAlign.center,
+                        ))),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Row(
@@ -1573,9 +1765,12 @@ class _MyAWBState extends State<GetAWBList> with TickerProviderStateMixin {
                               Navigator.push(context,
                                   HomeScreenRoute(MainEAWB(awbNumber: awb)));
                             },
-                            child: Text(S.of(context).Yes
-                                //"Yes"
-                                ),
+                            child: Text(
+                              S.of(context).Yes,
+                              style: TextStyle(
+                                  color: Theme.of(context).backgroundColor),
+                              //"Yes"
+                            ),
                           ),
                           TextButton(
                             style: ButtonStyle(
@@ -1586,6 +1781,8 @@ class _MyAWBState extends State<GetAWBList> with TickerProviderStateMixin {
                             },
                             child: Text(
                               S.of(context).Cancel,
+                              style: TextStyle(
+                                  color: Theme.of(context).backgroundColor),
                               //"Cancel"
                             ),
                           ),

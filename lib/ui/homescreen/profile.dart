@@ -217,181 +217,184 @@ class _ProfileState extends State<Profile> {
               color: Theme.of(context).accentColor,
             ),
           ),
-          content: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TypeAheadField<ContactType>(
-                    suggestionsCallback: ContacTypeApi.getContactType,
-                    itemBuilder: (context, ContactType suggestion) {
-                      final code = suggestion;
-                      return ListTile(
-                        title: Text(code.contactType,
-                            style: TextStyle(
-                                color: Theme.of(context).accentColor)),
-                        subtitle: Text(code.contactCode,
-                            style: TextStyle(
-                                color: Theme.of(context).accentColor)),
-                      );
-                    },
-                    textFieldConfiguration: TextFieldConfiguration(
-                      controller: ProfileEmailType,
-                      // controller: Consigneecontype,
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Theme.of(context).accentColor),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8.0)),
-                          ),
-                          //border: InputBorder.none,
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Theme.of(context).accentColor),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8.0)),
-                          ),
-                          border: OutlineInputBorder(
-                              gapPadding: 2.0,
+          content: Scrollable(
+            viewportBuilder: (BuildContext context, ViewportOffset position) =>
+             Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TypeAheadField<ContactType>(
+                      suggestionsCallback: ContacTypeApi.getContactType,
+                      itemBuilder: (context, ContactType suggestion) {
+                        final code = suggestion;
+                        return ListTile(
+                          title: Text(code.contactType,
+                              style: TextStyle(
+                                  color: Theme.of(context).accentColor)),
+                          subtitle: Text(code.contactCode,
+                              style: TextStyle(
+                                  color: Theme.of(context).accentColor)),
+                        );
+                      },
+                      textFieldConfiguration: TextFieldConfiguration(
+                        controller: ProfileEmailType,
+                        // controller: Consigneecontype,
+                        decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).accentColor),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0))),
-                          labelText: "Type",
-                          //S.of(context).Origin,
-                          labelStyle:
-                              TextStyle(color: Theme.of(context).accentColor)
-                          //'Origin',
-                          ),
-                    ),
-                    onSuggestionSelected: (ContactType suggestion) {
-                      List.generate(
-                          profilecontactList.length,
-                          (index) => profilecontactList[index]
-                                  ['Consignee_Contact_Type'] =
-                              suggestion.contactCode);
-                      // sippercontactList[index]['Shipper_Contact_Type'] =
-                      //     suggestion.contactCode;
-                      ProfileEmailType.text = suggestion.contactType;
-                      //_fhlModel.houseDetailsOrigin = suggestion.airportCode;
-                      //
-                    }),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  // initialValue: mailList[dimensionIndex]
-                  // ['Shipper_Contact_Detail'] ==
-                  //     0.0
-                  //     ? ''
-                  //     : '${mailList[dimensionI
-                  //     ndex]}',
-                  // onChanged: (value) {
-                  //   setState(() {
-                  //     mailList[dimensionIndex]=
-                  //         value;
-                  //   });
-                  // },
-                  autofocus: true,
-                  decoration: InputDecoration(
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Theme.of(context).accentColor,
-                        ),
+                                  BorderRadius.all(Radius.circular(8.0)),
+                            ),
+                            //border: InputBorder.none,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).accentColor),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
+                            ),
+                            border: OutlineInputBorder(
+                                gapPadding: 2.0,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8.0))),
+                            labelText: "Type",
+                            //S.of(context).Origin,
+                            labelStyle:
+                                TextStyle(color: Theme.of(context).accentColor)
+                            //'Origin',
+                            ),
                       ),
-                      hintText: "Enter the Email"),
-                  controller: Emailcontroller,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter the email address';
-                    }
-                    return null;
-                  },
-                ),
+                      onSuggestionSelected: (ContactType suggestion) {
+                        List.generate(
+                            profilecontactList.length,
+                            (index) => profilecontactList[index]
+                                    ['Consignee_Contact_Type'] =
+                                suggestion.contactCode);
+                        // sippercontactList[index]['Shipper_Contact_Type'] =
+                        //     suggestion.contactCode;
+                        ProfileEmailType.text = suggestion.contactType;
+                        //_fhlModel.houseDetailsOrigin = suggestion.airportCode;
+                        //
+                      }),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    // initialValue: mailList[dimensionIndex]
+                    // ['Shipper_Contact_Detail'] ==
+                    //     0.0
+                    //     ? ''
+                    //     : '${mailList[dimensionI
+                    //     ndex]}',
+                    // onChanged: (value) {
+                    //   setState(() {
+                    //     mailList[dimensionIndex]=
+                    //         value;
+                    //   });
+                    // },
+                    autofocus: true,
+                    decoration: InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ),
+                        hintText: "Enter the Email"),
+                    controller: Emailcontroller,
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the email address';
+                      }
+                      return null;
+                    },
+                  ),
 
-                // TextField(
-                //   // initialValue: mailList[dimensionIndex]
-                //   // ['Shipper_Contact_Detail'] ==
-                //   //     0.0
-                //   //     ? ''
-                //   //     : '${mailList[dimensionI
-                //   //     ndex]}',
-                //   // onChanged: (value) {
-                //   //   setState(() {
-                //   //     mailList[dimensionIndex]=
-                //   //         value;
-                //   //   });
-                //   // },
-                //   autofocus: true,
-                //   decoration: InputDecoration(hintText: "Enter the  type"),
-                //   controller: Etypecontroller,
-                // ),
-                SizedBox(
-                  height: 5,
-                ),
+                  // TextField(
+                  //   // initialValue: mailList[dimensionIndex]
+                  //   // ['Shipper_Contact_Detail'] ==
+                  //   //     0.0
+                  //   //     ? ''
+                  //   //     : '${mailList[dimensionI
+                  //   //     ndex]}',
+                  //   // onChanged: (value) {
+                  //   //   setState(() {
+                  //   //     mailList[dimensionIndex]=
+                  //   //         value;
+                  //   //   });
+                  //   // },
+                  //   autofocus: true,
+                  //   decoration: InputDecoration(hintText: "Enter the  type"),
+                  //   controller: Etypecontroller,
+                  // ),
+                  SizedBox(
+                    height: 5,
+                  ),
 
-                //static value for drop down
+                  //static value for drop down
 
-                // FormField<String>(validator: (value) {
-                //   if (value == null || value.isEmpty) {
-                //     return 'Please select the type';
-                //   }
-                //   return null;
-                // }, builder: (FormFieldState<String> state) {
-                //   return InputDecorator(
-                //     decoration: InputDecoration(
-                //       enabledBorder: UnderlineInputBorder(
-                //         borderSide: BorderSide(
-                //           color: Theme.of(context).accentColor,
-                //         ),
-                //       ),
-                //       errorStyle:
-                //           TextStyle(color: Colors.redAccent, fontSize: 16.0),
-                //       hintText: 'Select Email type',
-                //       // border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)
-                //       // )
-                //     ),
-                //     isEmpty: selectEtype == '',
-                //     child: DropdownButtonHideUnderline(
-                //       child: DropdownButton<String>(
-                //         value: selectEtype,
-                //         isDense: true,
-                //         onChanged: (String newValue) {
-                //           setState(() {
-                //             selectEtype = newValue;
-                //             state.didChange(newValue);
-                //           });
-                //         },
-                //         items: EmailType.map((String value) {
-                //           return DropdownMenuItem<String>(
-                //             value: value,
-                //             child: Text(value),
-                //           );
-                //         }).toList(),
-                //       ),
-                //     ),
-                //   );
-                // }),
+                  // FormField<String>(validator: (value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return 'Please select the type';
+                  //   }
+                  //   return null;
+                  // }, builder: (FormFieldState<String> state) {
+                  //   return InputDecorator(
+                  //     decoration: InputDecoration(
+                  //       enabledBorder: UnderlineInputBorder(
+                  //         borderSide: BorderSide(
+                  //           color: Theme.of(context).accentColor,
+                  //         ),
+                  //       ),
+                  //       errorStyle:
+                  //           TextStyle(color: Colors.redAccent, fontSize: 16.0),
+                  //       hintText: 'Select Email type',
+                  //       // border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)
+                  //       // )
+                  //     ),
+                  //     isEmpty: selectEtype == '',
+                  //     child: DropdownButtonHideUnderline(
+                  //       child: DropdownButton<String>(
+                  //         value: selectEtype,
+                  //         isDense: true,
+                  //         onChanged: (String newValue) {
+                  //           setState(() {
+                  //             selectEtype = newValue;
+                  //             state.didChange(newValue);
+                  //           });
+                  //         },
+                  //         items: EmailType.map((String value) {
+                  //           return DropdownMenuItem<String>(
+                  //             value: value,
+                  //             child: Text(value),
+                  //           );
+                  //         }).toList(),
+                  //       ),
+                  //     ),
+                  //   );
+                  // }),
 
-                // DropdownButton<String>(
-                //   hint: Text("type"),
-                //   value: _chosenValue,
-                //   items: <String>['Professional',
-                //     'Personal',
-                //     'office',]
-                //       .map((String value) {
-                //     return new DropdownMenuItem<String>(
-                //       value: value,
-                //       child: new Text(value),
-                //     );
-                //   }).toList(),
-                //   onChanged: (String val) {
-                //     setState(() {
-                //       _chosenValue = val;
-                //     });
-                //   },
-                // ),
-              ],
+                  // DropdownButton<String>(
+                  //   hint: Text("type"),
+                  //   value: _chosenValue,
+                  //   items: <String>['Professional',
+                  //     'Personal',
+                  //     'office',]
+                  //       .map((String value) {
+                  //     return new DropdownMenuItem<String>(
+                  //       value: value,
+                  //       child: new Text(value),
+                  //     );
+                  //   }).toList(),
+                  //   onChanged: (String val) {
+                  //     setState(() {
+                  //       _chosenValue = val;
+                  //     });
+                  //   },
+                  // ),
+                ],
+              ),
             ),
           ),
           actions: [
@@ -455,102 +458,105 @@ class _ProfileState extends State<Profile> {
               ),
             ),
           ]),
-          content: Form(
-            key: _TeleKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TypeAheadField<ContactType>(
-                    suggestionsCallback: ContacTypeApi.getContactType,
-                    itemBuilder: (context, ContactType suggestion) {
-                      final code = suggestion;
-                      return ListTile(
-                        title: Text(code.contactType,
-                            style: TextStyle(
-                                color: Theme.of(context).accentColor)),
-                        subtitle: Text(code.contactCode,
-                            style: TextStyle(
-                                color: Theme.of(context).accentColor)),
-                      );
-                    },
-                    textFieldConfiguration: TextFieldConfiguration(
-                      controller: ProfileContactType,
-                      // controller: Consigneecontype,
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Theme.of(context).accentColor),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8.0)),
-                          ),
-                          //border: InputBorder.none,
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Theme.of(context).accentColor),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8.0)),
-                          ),
-                          border: OutlineInputBorder(
-                              gapPadding: 2.0,
+          content: Scrollable(
+            viewportBuilder: (BuildContext context, ViewportOffset position) =>
+                   Form(
+              key: _TeleKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TypeAheadField<ContactType>(
+                      suggestionsCallback: ContacTypeApi.getContactType,
+                      itemBuilder: (context, ContactType suggestion) {
+                        final code = suggestion;
+                        return ListTile(
+                          title: Text(code.contactType,
+                              style: TextStyle(
+                                  color: Theme.of(context).accentColor)),
+                          subtitle: Text(code.contactCode,
+                              style: TextStyle(
+                                  color: Theme.of(context).accentColor)),
+                        );
+                      },
+                      textFieldConfiguration: TextFieldConfiguration(
+                        controller: ProfileContactType,
+                        // controller: Consigneecontype,
+                        decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).accentColor),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0))),
-                          labelText: "Type",
-                          //S.of(context).Origin,
-                          labelStyle:
-                              TextStyle(color: Theme.of(context).accentColor)
-                          //'Origin',
-                          ),
-                    ),
-                    onSuggestionSelected: (ContactType suggestion) {
-                      List.generate(
-                          profilecontactList.length,
-                          (index) => profilecontactList[index]
-                                  ['Consignee_Contact_Type'] =
-                              suggestion.contactCode);
-                      // sippercontactList[index]['Shipper_Contact_Type'] =
-                      //     suggestion.contactCode;
-                      ProfileContactType.text = suggestion.contactType;
-                      //_fhlModel.houseDetailsOrigin = suggestion.airportCode;
-                      //
-                    }),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                    child: IntlPhoneField(
-                  controller: Telecontroller,
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Theme.of(context).accentColor),
-                      // borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                    ),
-                    //border: InputBorder.none,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Theme.of(context).accentColor),
-                      // borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                    ),
-
-                    //decoration for Input Field
-                    labelText: 'Phone Number',
-                    labelStyle: TextStyle(color: Theme.of(context).accentColor),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                    ),
+                                  BorderRadius.all(Radius.circular(8.0)),
+                            ),
+                            //border: InputBorder.none,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).accentColor),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
+                            ),
+                            border: OutlineInputBorder(
+                                gapPadding: 2.0,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8.0))),
+                            labelText: "Type",
+                            //S.of(context).Origin,
+                            labelStyle:
+                                TextStyle(color: Theme.of(context).accentColor)
+                            //'Origin',
+                            ),
+                      ),
+                      onSuggestionSelected: (ContactType suggestion) {
+                        List.generate(
+                            profilecontactList.length,
+                            (index) => profilecontactList[index]
+                                    ['Consignee_Contact_Type'] =
+                                suggestion.contactCode);
+                        // sippercontactList[index]['Shipper_Contact_Type'] =
+                        //     suggestion.contactCode;
+                        ProfileContactType.text = suggestion.contactType;
+                        //_fhlModel.houseDetailsOrigin = suggestion.airportCode;
+                        //
+                      }),
+                  SizedBox(
+                    height: 10,
                   ),
-                  initialCountryCode: 'IN', //default contry code, NP for Nepal
-                  onChanged: (phone) {
-                    setState(() {
-                      initialCountryCode = phone.countryCode as String;
-                    });
-                    //when phone number country code is changed
-                    print(phone.completeNumber); //get complete number
-                    print(phone.countryCode); // get country code only
-                    print(phone.number); // only phone number
-                  },
-                )),
-              ],
+                  Container(
+                      child: IntlPhoneField(
+                    controller: Telecontroller,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Theme.of(context).accentColor),
+                        // borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                      ),
+                      //border: InputBorder.none,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Theme.of(context).accentColor),
+                        // borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                      ),
+
+                      //decoration for Input Field
+                      labelText: 'Phone Number',
+                      labelStyle: TextStyle(color: Theme.of(context).accentColor),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(),
+                      ),
+                    ),
+                    initialCountryCode: 'IN', //default contry code, NP for Nepal
+                    onChanged: (phone) {
+                      setState(() {
+                        initialCountryCode = phone.countryCode as String;
+                      });
+                      //when phone number country code is changed
+                      print(phone.completeNumber); //get complete number
+                      print(phone.countryCode); // get country code only
+                      print(phone.number); // only phone number
+                    },
+                  )),
+                ],
+              ),
             ),
           ),
           actions: [
@@ -618,29 +624,34 @@ class _ProfileState extends State<Profile> {
           }),
     );
   }
-  Widget getImagenBase64() {
-    // _imageBase64 = imagen;
-    final UriData data = Uri.parse(widget.profile.profileImage).data;
-    Uint8List myImage = data.contentAsBytes();
-    // var _bytesImage = Base64Decoder().convert(widget.profile.profileImage);
-    // const Base64Codec base64 = Base64Codec();
-    //
-    // // if (_imageBase64 == null) return new Container();
-    // var bytes = base64.decode((widget.profile.profileImage).toString());
-
-    return Image.memory(
-      myImage,
-      width: 200,
-      fit: BoxFit.fitWidth,
-
-    );
-  }
+  // Widget getImagenBase64() {
+  //   // _imageBase64 = imagen;
+  //   final UriData data = Uri.parse(widget.profile.profileImage).data;
+  //   Uint8List myImage = data.contentAsBytes();
+  //   // var _bytesImage = Base64Decoder().convert(widget.profile.profileImage);
+  //   // const Base64Codec base64 = Base64Codec();
+  //   //
+  //   // // if (_imageBase64 == null) return new Container();
+  //   // var bytes = base64.decode((widget.profile.profileImage).toString());
+  //
+  //   return Image.memory(
+  //     myImage,
+  //     width: 200,
+  //     fit: BoxFit.fitWidth,
+  //
+  //   );
+  // }
 
   Widget buildProfile() {
     final double circleRadius = 120.0;
     print("Proile model" + '${emailid}');
-    final UriData data = Uri.parse(widget.profile.profileImage).data;
-    Uint8List myImage = data.contentAsBytes();
+    print("Image"+widget.profile.profileImage);
+   // final UriData data = Uri.parse(widget.profile.profileImage).data;
+    Uint8List bytesImage = const Base64Decoder().convert(widget.profile.profileImage);
+
+    // Uint8List bytes = BASE64.decode(data);
+  //  Uint8List myImage = bytesImage.contentAsBytes();
+
     bool isVisible = true;
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -731,24 +742,23 @@ class _ProfileState extends State<Profile> {
                 ),
                 CircularProfileAvatar(
                   '',
-                  child: imageFile == null
+                  child: widget.profile.profileImage.isNotEmpty
                       ?
-                      Image.memory(
-                      myImage,
-                         fit: BoxFit.fitHeight,
-                      )
-
-                  // Image.asset(
-                  //        "assets/profile/default.png",
-                  //        // "https://png.pngitem.com/pimgs/s/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
-                  //         //"https://www.pngarea.com/pngm/4/5041637_beard-png-professional-business-man-icon-png-download.png",
-                  //         fit: BoxFit.cover,
-                  //       )
-                      : Image.file(
-                    imageFile,
-                    // File(widget.profile.profileImage),
+                      // (bytesImage.isNotEmpty)?Image.memory(
+                  Image.memory(
+                        bytesImage,
+                         fit: BoxFit.cover,
+                      ): Image.asset(
+                         "assets/profile/default.png",
+                         // "https://png.pngitem.com/pimgs/s/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
+                          //"https://www.pngarea.com/pngm/4/5041637_beard-png-professional-business-man-icon-png-download.png",
                           fit: BoxFit.cover,
                         ),
+                    //   : Image.file(
+                    // imageFile,
+                    // // File(widget.profile.profileImage),
+                    //       fit: BoxFit.cover,
+                    //     ),
                   borderColor: Colors.black,
                   borderWidth: 2,
                   elevation: 5,

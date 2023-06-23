@@ -41,7 +41,14 @@ class RateDescriptionItem with ChangeNotifier {
   String lwhunit;
   String pwunit;
   String slac;
+ // String RateDescriptionOrigin;
   String previousnatureofgoods;
+  String uldtype;
+  String uldserial;
+  String uldownercode;
+  String HSCode;
+  String origin;
+
 
 
   RateDescriptionItem(
@@ -66,19 +73,32 @@ class RateDescriptionItem with ChangeNotifier {
         this. volume,
         this.dimpieces,
         this.height, this.slac,
-        this.previousnatureofgoods
+        this.previousnatureofgoods,
+        this.uldtype,
+        this.uldserial,
+        this.uldownercode,
+        this.HSCode,
+       // this.RateDescriptionOrigin,
+        this.origin
+
 
       });
   RateDescriptionItem.fromJson(Map<String, dynamic> json)
-      : pieces = json['Pieces'],
-        grossWeight = json['Grossweight'],
+      : pieces = int.tryParse(json['Pieces'].toString()),
+        grossWeight = double.tryParse(json['Grossweight'].toString()),
         grossWeightUnit = json['Weight_Code'],
         serviceCode = json['Servicecode'],
         rateClass = json['Rateclass'],
-        itemNumber = json['Itemnumber'],
-        chargeableWeight = json['Chargeableweight'],
-        rateCharge = json['RateorCharge'],
-        total = json['Total'],
+        itemNumber = int.tryParse(json['Itemnumber'].toString()),
+        chargeableWeight =
+        //json['Chargeableweight'],
+        int.tryParse(json['Chargeableweight'].toString()),
+        rateCharge =
+        //json['RateorCharge'],
+        int.tryParse(json['RateorCharge'].toString()),
+        total =
+        //json['Total'],
+        int.tryParse(json['Total'].toString()),
         natureAndQuantity = json['Description'];
 
         // length = json['length'],
@@ -107,13 +127,16 @@ class RateDescriptionItem with ChangeNotifier {
   Map<String, dynamic> toJson() {
 
     // model.summaryratedescription();
-    String totdim="";
+    String totdim = "";
+    List<String> words = volume.split(" ");
+    print("volume type");
+    print(words[1].toString());
     for(int i = 0; i <dimensionsList.length; i++)
     {
       totdim += dimensionsList[i]['length'].toString() + "X" +
           dimensionsList[i]['width'].toString() + "X" +
-          dimensionsList[i]['height'].toString() + "X" +
-          dimensionsList[i]['lwhUnit'].toString() + ", " +
+          dimensionsList[i]['height'].toString() + " " +
+          dimensionsList[i]['lwhUnit'].toString() + " " +
           dimensionsList[i]['pieces'].toString()+" "+
           dimensionsList[i]['weight'].toString() +
           dimensionsList[i]['pwUnit'].toString() + "\n";
@@ -133,11 +156,60 @@ class RateDescriptionItem with ChangeNotifier {
       'Chargeableweight': chargeableWeight,
       'RateorCharge': rateCharge,
       'Total': total,
-      'Description':
-        natureAndQuantity + "\n"+
-            "SLAC "+slac+"\n"+
-            totdim
-            +"VOLUME "+volume.toUpperCase(),
+    'Description':
+        natureAndQuantity,
+
+      //+ "\n"+
+       //     "SLAC "+slac+"\n"+
+          //  totdim,
+      //"VOLUME "+volume.toUpperCase(),
+         "Volumetype": words[1].toString(),
+          "Origin":
+          //"ORIGIN: "+
+              origin,
+          "Volume":
+          //"VOLUME: "+
+             words[0].toString(),
+          "SLAC":
+         // "SLAC: "+
+              slac,
+
+      "DimensionsRateDescription": [
+    // for(int i = 0; i <dimensionsList.length; i++)
+    // {
+    //   // totdim += dimensionsList[i]['length'].toString() + "X" +
+    //   //     dimensionsList[i]['width'].toString() + "X" +
+    //   //     dimensionsList[i]['height'].toString() + " " +
+    //   //     dimensionsList[i]['lwhUnit'].toString() + " " +
+    //   //     dimensionsList[i]['pieces'].toString()+" "+
+    //   //     dimensionsList[i]['weight'].toString() +
+    //   //     dimensionsList[i]['pwUnit'].toString() + "\n"
+    //     "Length":  dimensionsList[i]['length'].toString(),
+    //     "Width":  dimensionsList[i]['width'].toString(),
+    //     "Height":   dimensionsList[i]['height'].toString(),
+    //     "HeightCode":  dimensionsList[i]['lwhUnit'].toString(),
+    //     "Pieces_dim":    dimensionsList[i]['pieces'].toString(),
+    //     "Weight":  dimensionsList[i]['weight'].toString(),
+    //     "WeightCode":   dimensionsList[i]['pwUnit'].toString()
+    // }
+            {
+              "Length": "10",
+              "Width": "20",
+              "Height":"30",
+              "HeightCode": "cm",
+              "Pieces_dim": "10",
+              "Weight": "100",
+              "WeightCode": "K"
+            }
+          ],
+
+      "ULDRateDescription": [
+        {
+       "Type1": uldtype,
+       "Serial1": uldserial,
+       "Ownercode1": uldownercode
+        }
+          ],
             // dimensionsList[i]['length'].toString() + "X" +
             // dimensionsList[i]['width'].toString() + "X" +
             // dimensionsList[i]['height'].toString() + "X" +

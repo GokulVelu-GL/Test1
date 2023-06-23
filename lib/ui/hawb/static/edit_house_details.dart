@@ -124,6 +124,55 @@ class UpdateHawbState extends State<UpdateHawb> {
 
     //consignee
     print(widget.houseDetails[0]["Consignee_Contact"]);
+    _fhlModel.houseDetailsNumber = widget.houseDetails[0]["serialNumber"];
+    _fhlModel.houseDetailsOrigin = widget.houseDetails[0]["origin"];
+    _fhlModel.houseDetailsDestination = widget.houseDetails[0]["destination"];
+    _fhlModel.houseDetailsNatureGoods = widget.houseDetails[0]["description"];
+
+    _fhlModel.houseDetailsDescription = widget.houseDetails[0]["Extended_description"];
+
+    _fhlModel.quantityDetailsPieces = widget.houseDetails[0]["pieces"].toString();
+
+    _fhlModel.quantityDetailsWeight = widget.houseDetails[0]["weight"].toString();
+    _fhlModel.quantityDetailsWeightUnit = widget.houseDetails[0]["weightCode"];
+    _fhlModel.quantityDetailsSLAC = widget.houseDetails[0]["SLAC"].toString();
+
+    _fhlModel.customsSecurityCountryCode =  widget.houseDetails[0]["CustomsSecurity"][0]
+    ["countryCode"];
+    this.CustomsCountryCode.text = _fhlModel.customsSecurityCountryCode;
+    _fhlModel.customsSecurityInfoIdentifier =  widget.houseDetails[0]["CustomsSecurity"][0]
+    ["informationIdentifier"];
+    _fhlModel.customsSecurityCSRCIdentifier = widget.houseDetails[0]["CustomsSecurity"][0]
+    ["csrcIdentifier"];
+    _fhlModel.customsSecuritySCSRCIdentifier = widget.houseDetails[0]["CustomsSecurity"][0]
+    ["scsrcInformation"];
+
+    _fhlModel.chargeDeclarationCurrencyCode = widget.houseDetails[0]["currencyCode"];
+    this.RateCurrencyCode.text = widget.houseDetails[0]["currencyCode"];
+    _fhlModel.chargeDeclarationWeightValue = widget.houseDetails[0]["weightVal"];
+    _fhlModel.chargeDeclarationOtherCharges = widget.houseDetails[0]["charges"];
+    _fhlModel.chargeDeclarationCarriageValue = widget.houseDetails[0]["carriageValue"];
+    _fhlModel.chargeDeclarationCustomsValue = widget.houseDetails[0]["customsValue"];
+    _fhlModel.chargeDeclarationInsuranceValue = widget.houseDetails[0]["insuranceValue"];
+
+
+    _fhlModel.shipperName = widget.houseDetails[0]["s_name"];
+
+    _fhlModel.shipperAddress = widget.houseDetails[0]["s_address"];
+    _fhlModel.shipperPlace = widget.houseDetails[0]["s_place"];
+    _fhlModel.shipperCode = widget.houseDetails[0]["s_countryCode"];
+
+
+    _fhlModel.shipperState = widget.houseDetails[0]["s_state"];
+    _fhlModel.shipperPostCode = widget.houseDetails[0]["s_postCode"];
+    _fhlModel.consigneeName = widget.houseDetails[0]["c_name"];
+    _fhlModel.consigneeAddress = widget.houseDetails[0]["c_address"];
+    _fhlModel.consigneePlace = widget.houseDetails[0]["c_place"];
+    _fhlModel.consigneeState = widget.houseDetails[0]["c_state"];
+    _fhlModel.consigneeCode = widget.houseDetails[0]["c_countryCode"];
+    this.ConsigneeCountryCode.text =  _fhlModel.consigneeCode;
+        _fhlModel.consigneePostCode = widget.houseDetails[0]["c_postCode"];
+
 
     consigneecontactList = new List<Map<String, dynamic>>.from(
         widget.houseDetails[0]["Consignee_Contact"]);
@@ -286,46 +335,51 @@ class UpdateHawbState extends State<UpdateHawb> {
                   print("Length " +
                       _fhlModel.sippercontactList.length.toString());
                   //Navigator.of(context).pop(_fhlModel);
+
                   print(_fhlModel.houseDetailsNumber);
                   Navigator.of(context).pop(_fhlModel);
                   var result =
-                  _fhlModel.updateFHL(widget.houseDetails[0]['id']);
+                  _fhlModel.updateFHL(widget.houseDetails[0]['id'],widget.houseDetails[0]["CustomsSecurity"][0]
+                  ["id"],);
                   print("iddddd"+(widget.houseDetails[0]['id']).toString());
-                  if (result.toString().contains("sucess")) {
-                    Fluttertoast.showToast(
-                        msg: 'House list edited',
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        // timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.green,
-                        textColor: Colors.white
-                    );
-                    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    //   content: Text("House list edited"),
-                    // ));
-                    // showMessage(
-                    //      S.of(context).Houselistedited,
-                    //    // "House list edited",
-                    //     Colors.green,
-                    //     Colors.white);
-                  } else {
-                    Fluttertoast.showToast(
-                        msg: 'House list edited failed',
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        // timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white
-                    );
-                    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    //   content: Text("House list edited failed"),
-                    // ));
-                    // showMessage(
-                    //     S.of(context).Houselisteditfailed,
-                    //     //"House list edit faild",
-                    //     Colors.red,
-                    //     Colors.white);
-                  }
+
+                  print("resultttt");
+                  print(result.toString());
+                  // if (result.toString().contains("success")) {
+                  //   Fluttertoast.showToast(
+                  //       msg: 'House list edited',
+                  //       toastLength: Toast.LENGTH_SHORT,
+                  //       gravity: ToastGravity.BOTTOM,
+                  //       // timeInSecForIosWeb: 1,
+                  //       backgroundColor: Colors.green,
+                  //       textColor: Colors.white
+                  //   );
+                  //   // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  //   //   content: Text("House list edited"),
+                  //   // ));
+                  //   // showMessage(
+                  //   //      S.of(context).Houselistedited,
+                  //   //    // "House list edited",
+                  //   //     Colors.green,
+                  //   //     Colors.white);
+                  // } else {
+                  //   Fluttertoast.showToast(
+                  //       msg: 'House list edited failed',
+                  //       toastLength: Toast.LENGTH_SHORT,
+                  //       gravity: ToastGravity.BOTTOM,
+                  //       // timeInSecForIosWeb: 1,
+                  //       backgroundColor: Colors.red,
+                  //       textColor: Colors.white
+                  //   );
+                  //   // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  //   //   content: Text("House list edited failed"),
+                  //   // ));
+                  //   // showMessage(
+                  //   //     S.of(context).Houselisteditfailed,
+                  //   //     //"House list edit faild",
+                  //   //     Colors.red,
+                  //   //     Colors.white);
+                  // }
                 },
                 child: Text(
                   S.of(context).Update,
@@ -415,7 +469,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                     border: OutlineInputBorder(
                         gapPadding: 2.0,
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    labelText: S.of(context).Name,
+                    labelText: S.of(context).Name+"*",
                     labelStyle: TextStyle(color: Theme.of(context).accentColor)
                   ,   suffixIcon: Icon(
                   Icons.contacts_rounded,
@@ -432,6 +486,7 @@ class UpdateHawbState extends State<UpdateHawb> {
               padding: const EdgeInsets.only(top: 2.0, bottom: 15.0),
               child: TextFormField(
                 enabled: !widget.isView,
+                inputFormatters: [AllCapitalCase()],
                 initialValue: widget.houseDetails[0]["c_address"],
                 onChanged: (value) {
                   _fhlModel.consigneeAddress = value;
@@ -451,8 +506,9 @@ class UpdateHawbState extends State<UpdateHawb> {
                     border: OutlineInputBorder(
                         gapPadding: 2.0,
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    labelText: S.of(context).StreetAddress,
+                    labelText: S.of(context).StreetAddress+"*",
                     labelStyle: TextStyle(color: Theme.of(context).accentColor),
+
                     suffixIcon: Icon(
                       Icons.my_location,
                       color: Theme.of(context).accentColor,
@@ -468,9 +524,10 @@ class UpdateHawbState extends State<UpdateHawb> {
               padding: const EdgeInsets.only(top: 2.0, bottom: 15.0),
               child: TextFormField(
                 enabled: !widget.isView,
+                inputFormatters: [AllCapitalCase()],
                 initialValue: widget.houseDetails[0]["c_place"],
                 onChanged: (value) {
-                  _fhlModel.consigneePlace = value;
+                _fhlModel.consigneePlace = value;
                 },
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -487,7 +544,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                     border: OutlineInputBorder(
                         gapPadding: 2.0,
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    labelText: S.of(context).Place,
+                    labelText: S.of(context).Place+"*",
                     labelStyle: TextStyle(color: Theme.of(context).accentColor),
                     suffixIcon: Icon(
                       Icons.place,
@@ -504,6 +561,7 @@ class UpdateHawbState extends State<UpdateHawb> {
               child: TextFormField(
                 enabled: !widget.isView,
                 initialValue: widget.houseDetails[0]["c_state"],
+                inputFormatters: [AllCapitalCase()],
                 onChanged: (value) {
                   _fhlModel.consigneeState = value;
                 },
@@ -554,24 +612,24 @@ class UpdateHawbState extends State<UpdateHawb> {
                             subtitle: Text(code.countryName),
                           );
                         },
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return
-                              S.of(context).Selectacountrycode;
-                            //'Select a country code';
-                          }
-                          return null;
-                        },
+                        // validator: (value) {
+                        //   if (value.isEmpty) {
+                        //     return
+                        //       S.of(context).Selectacountrycode;
+                        //     //'Select a country code';
+                        //   }
+                        //   return null;
+                        // },
 
                         autovalidateMode: AutovalidateMode.always,
                         textFieldConfiguration: TextFieldConfiguration(
                           inputFormatters: [AllCapitalCase()],
                           enabled: !widget.isView,
-                          controller:ShipperCountryCode,
-                          onChanged: (value) {
-                            _fhlModel.consigneeCode=value;
-                                ShipperCountryCode.text=value;
-                          },
+                          controller:ConsigneeCountryCode,
+                          // onChanged: (value) {
+                          //   _fhlModel.consigneeCode = value;
+                          //       ConsigneeCountryCode.text=value;
+                          // },
                           // controller: this.shipperContact,
                           // style: TextStyle(
                           //   fontSize: 16,
@@ -625,7 +683,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                               S.of(context).WrongAWBNumber;
                             //'Worong AWB Number';
                           } else {
-                            this.ShipperCountryCode.text = suggestion.countryCode;
+                            this.ConsigneeCountryCode.text = suggestion.countryCode;
                             _fhlModel.consigneeCode= suggestion.countryCode;
                           }
                         },
@@ -703,7 +761,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                       initialValue: widget.houseDetails[0]["c_postCode"],
                       onChanged: (value) {
                         _fhlModel.consigneePostCode = value;
-                      },
+                     },
                       decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -1083,7 +1141,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                     border: OutlineInputBorder(
                         gapPadding: 2.0,
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    labelText: S.of(context).Name,
+                    labelText: S.of(context).Name+"*",
                     labelStyle: TextStyle(color: Theme.of(context).accentColor)
                     ,      suffixIcon: Icon(
                   Icons.contacts_rounded,
@@ -1120,7 +1178,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                     border: OutlineInputBorder(
                         gapPadding: 2.0,
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    labelText: S.of(context).StreetAddress,
+                    labelText: S.of(context).StreetAddress+"*",
                     labelStyle: TextStyle(color: Theme.of(context).accentColor),
                     suffixIcon: Icon(
                       Icons.my_location,
@@ -1157,7 +1215,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                     border: OutlineInputBorder(
                         gapPadding: 2.0,
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    labelText: S.of(context).Place,
+                    labelText: S.of(context).Place+"*",
                     labelStyle: TextStyle(color: Theme.of(context).accentColor),
                     suffixIcon: Icon(
                       Icons.place,
@@ -1176,7 +1234,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                 initialValue: widget.houseDetails[0]["s_state"],
                 onChanged: (value) {
                   _fhlModel.shipperState = value;
-                },
+               },
                 inputFormatters: [AllCapitalCase()],
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -1225,23 +1283,23 @@ class UpdateHawbState extends State<UpdateHawb> {
                             subtitle: Text(code.countryName),
                           );
                         },
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return
-                              S.of(context).Selectacountrycode;
-                            //'Select a country code';
-                          }
-                          return null;
-                        },
+                        // validator: (value) {
+                        //   if (value.isEmpty) {
+                        //     return
+                        //       S.of(context).Selectacountrycode;
+                        //     //'Select a country code';
+                        //   }
+                        //   return null;
+                        // },
 
                         autovalidateMode: AutovalidateMode.always,
                         textFieldConfiguration: TextFieldConfiguration(
                           inputFormatters: [AllCapitalCase()],
                           enabled: !widget.isView,
                           controller:ShipperCountryCode,
-                          onChanged: (value) {
-                            _fhlModel.shipperCode = ShipperCountryCode.text;
-                          },
+                          // onChanged: (value) {
+                          //   _fhlModel.shipperCode = ShipperCountryCode.text;
+                          // },
                           // controller: this.shipperContact,
                           // style: TextStyle(
                           //   fontSize: 16,
@@ -1289,15 +1347,15 @@ class UpdateHawbState extends State<UpdateHawb> {
                         ),
                         suggestionsBoxDecoration: SuggestionsBoxDecoration(elevation: 2.0),
                         onSuggestionSelected: (CountryCode suggestion) {
-                          if (suggestion.countryCode == null &&
-                              suggestion.countryName == null) {
-                            return
-                              S.of(context).WrongAWBNumber;
-                            //'Worong AWB Number';
-                          } else {
+                          // if (suggestion.countryCode == null &&
+                          //     suggestion.countryName == null) {
+                          //   return
+                          //     S.of(context).WrongAWBNumber;
+                          //   //'Worong AWB Number';
+                          // } else {
                             this.ShipperCountryCode.text = suggestion.countryCode;
                             _fhlModel.shipperCode = suggestion.countryCode;
-                          }
+                          //}
                         },
 
                         // onSuggestionSelected: (CountryCode suggestion) {
@@ -1986,15 +2044,15 @@ class UpdateHawbState extends State<UpdateHawb> {
             //   maxLength: 3,
             //),
 
-              TypeAheadFormField<SpecialCode>(
-                  suggestionsCallback: SpecialCodeApi.getSpecialCode,
-                  itemBuilder: (context, SpecialCode suggestion) {
+              TypeAheadFormField<SpecialHandlingGroup>(
+                  suggestionsCallback: SpecialHandlingGroupApi.getSpecialHandlingCode,
+                  itemBuilder: (context, SpecialHandlingGroup suggestion) {
                     final code = suggestion;
                     return ListTile(
-                      title: Text(code.codeType,
+                      title: Text(code.shgCode,
                           style:
                           TextStyle(color: Theme.of(context).accentColor)),
-                      subtitle: Text(code.codeName,
+                      subtitle: Text(code.shgName,
                           style:
                           TextStyle(color: Theme.of(context).accentColor)),
                     );
@@ -2038,11 +2096,11 @@ class UpdateHawbState extends State<UpdateHawb> {
                     ),
                   ),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  onSuggestionSelected: (SpecialCode suggestion) {
+                  onSuggestionSelected: (SpecialHandlingGroup suggestion) {
                     print(suggestion);
-                    this.shcontroller.text = suggestion.codeType;
+                    this.shcontroller.text = suggestion.shgCode;
                     specialCodeList[dimensionIndex]['specialcode'] =
-                        suggestion.codeType;
+                        suggestion.shgCode;
                     //print(destination);
                   })), // DataColumn(label: Text('Length')),
         ]);
@@ -2119,15 +2177,15 @@ class UpdateHawbState extends State<UpdateHawb> {
                         subtitle: Text(code.currencyName),
                       );
                     },
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return
-                          S.of(context).SelectacurrencyName;
-
-                        //'Select a currency Name';
-                      }
-                      return null;
-                    },
+                    // validator: (value) {
+                    //   if (value.isEmpty) {
+                    //     return
+                    //       S.of(context).SelectacurrencyName;
+                    //
+                    //     //'Select a currency Name';
+                    //   }
+                    //   return null;
+                    // },
                     textFieldConfiguration: TextFieldConfiguration(
                       autofocus: false,
                       controller: RateCurrencyCode,
@@ -2164,7 +2222,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                         //     gapPadding: 2.0,
                         //     borderRadius: BorderRadius.all(Radius.circular(8.0))),
                         labelText:
-                        S.of(context).CurrencyCode,
+                        S.of(context).CurrencyCode+"*",
                         //"Currency Code",
                         prefixText: flag,
                         labelStyle: new TextStyle(
@@ -2184,17 +2242,17 @@ class UpdateHawbState extends State<UpdateHawb> {
                     ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     onSuggestionSelected: (CurrencyCode suggestion) {
-                      if (suggestion.currencyCode == null &&
-                          suggestion.currencyName == null) {
-                        return
-                          S.of(context).WrongCode;
-                        //'Worong Code';
-                      } else {
+                      // if (suggestion.currencyCode == null &&
+                      //     suggestion.currencyName == null) {
+                      //   return
+                      //     S.of(context).WrongCode;
+                      //   //'Worong Code';
+                      // } else {
                         this.RateCurrencyCode.text = suggestion.currencyName;
 
                         String Currency = suggestion.currencyName;
                         print(Currency);
-                      }
+                    //  }
                       RateCurrencyCode.text = suggestion.currencyCode;
                       _fhlModel.chargeDeclarationCurrencyCode  = suggestion.currencyCode;
                       //  //model.chargeSummaryTotalPostpaid
@@ -2261,10 +2319,10 @@ class UpdateHawbState extends State<UpdateHawb> {
                 inputFormatters: [AllCapitalCase()],
                 maxLength: 1,
                 enabled: !widget.isView,
-                initialValue: widget.houseDetails[0]["weightCode"],
+                initialValue: widget.houseDetails[0]["weightVal"],
                 onChanged: (value) {
                   _fhlModel.chargeDeclarationWeightValue = value;
-                },
+               },
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide:
@@ -2280,7 +2338,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                     border: OutlineInputBorder(
                         gapPadding: 2.0,
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    labelText: S.of(context).WeightValue,
+                    labelText: S.of(context).WeightValue+"*",
                     labelStyle: TextStyle(color: Theme.of(context).accentColor),
                     suffixIcon: Icon(
                       Icons.money,
@@ -2303,7 +2361,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                 initialValue: widget.houseDetails[0]["charges"],
                 onChanged: (value) {
                   _fhlModel.chargeDeclarationOtherCharges = value;
-                },
+               },
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide:
@@ -2319,7 +2377,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                     border: OutlineInputBorder(
                         gapPadding: 2.0,
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    labelText: S.of(context).OtherCharges,
+                    labelText: S.of(context).OtherCharges+"*",
                     labelStyle: TextStyle(color: Theme.of(context).accentColor)
                  , suffixIcon: Icon(
                   Icons.money,
@@ -2342,7 +2400,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                 initialValue: widget.houseDetails[0]["carriageValue"],
                 onChanged: (value) {
                   _fhlModel.chargeDeclarationCarriageValue = value;
-                },
+               },
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide:
@@ -2358,7 +2416,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                     border: OutlineInputBorder(
                         gapPadding: 2.0,
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    labelText: S.of(context).CarriageValue,
+                    labelText: S.of(context).CarriageValue+"*",
                     labelStyle: TextStyle(color: Theme.of(context).accentColor)
                 ,  suffixIcon: Icon(
                   Icons.money,
@@ -2381,7 +2439,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                 initialValue: widget.houseDetails[0]["customsValue"],
                 onChanged: (value) {
                   _fhlModel.chargeDeclarationCustomsValue = value;
-                },
+               },
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide:
@@ -2397,7 +2455,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                     border: OutlineInputBorder(
                         gapPadding: 2.0,
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    labelText: S.of(context).CustomsValue,
+                    labelText: S.of(context).CustomsValue+"*",
                     labelStyle: TextStyle(color: Theme.of(context).accentColor),
                   suffixIcon: Icon(
                   Icons.money,
@@ -2436,7 +2494,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                     border: OutlineInputBorder(
                         gapPadding: 2.0,
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    labelText: S.of(context).InsuranceValue,
+                    labelText: S.of(context).InsuranceValue+"*",
                     labelStyle: TextStyle(color: Theme.of(context).accentColor),
                     suffixIcon: Icon(
                       Icons.money,
@@ -2489,14 +2547,14 @@ class UpdateHawbState extends State<UpdateHawb> {
                     subtitle: Text(code.countryName),
                   );
                 },
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return
-                      S.of(context).Selectacountrycode;
-                    //'Select a country code';
-                  }
-                  return null;
-                },
+                // validator: (value) {
+                //   if (value.isEmpty) {
+                //     return
+                //       S.of(context).Selectacountrycode;
+                //     //'Select a country code';
+                //   }
+                //   return null;
+                // },
 
                 autovalidateMode: AutovalidateMode.always,
                 textFieldConfiguration: TextFieldConfiguration(
@@ -2505,7 +2563,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                   controller:CustomsCountryCode,
                   onChanged: (value) {
                     _fhlModel.customsSecurityCountryCode= CustomsCountryCode.text;
-                  },
+                 },
                   // controller: this.shipperContact,
                   // style: TextStyle(
                   //   fontSize: 16,
@@ -2554,15 +2612,15 @@ class UpdateHawbState extends State<UpdateHawb> {
                 ),
                 suggestionsBoxDecoration: SuggestionsBoxDecoration(elevation: 2.0),
                 onSuggestionSelected: (CountryCode suggestion) {
-                  if (suggestion.countryCode == null &&
-                      suggestion.countryName == null) {
-                    return
-                      S.of(context).WrongAWBNumber;
-                    //'Worong AWB Number';
-                  } else {
+                  // if (suggestion.countryCode == null &&
+                  //     suggestion.countryName == null) {
+                  //   return
+                  //     S.of(context).WrongAWBNumber;
+                  //   //'Worong AWB Number';
+                  // } else {
                     this.CustomsCountryCode.text = suggestion.countryCode;
                     _fhlModel.customsSecurityCountryCode= suggestion.countryCode;
-                  }
+                //  }
                 },
 
                 // onSuggestionSelected: (CountryCode suggestion) {
@@ -2646,6 +2704,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                 ["informationIdentifier"],
                 onChanged: (value) {
                   _fhlModel.customsSecurityInfoIdentifier = value;
+
                 },
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -2686,6 +2745,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                 ["csrcIdentifier"],
                 onChanged: (value) {
                   _fhlModel.customsSecurityCSRCIdentifier = value;
+
                 },
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -2725,6 +2785,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                 ["scsrcInformation"],
                 onChanged: (value) {
                   _fhlModel.customsSecuritySCSRCIdentifier = value;
+
                 },
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -2741,7 +2802,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                     border: OutlineInputBorder(
                         gapPadding: 2.0,
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    labelText: S.of(context).SCSRCIdentifier,
+                    labelText: S.of(context).SCSRCIdentifier+"*",
                     labelStyle: TextStyle(color: Theme.of(context).accentColor)
                     , suffixIcon: Icon(
                   Icons.monitor_weight_outlined,
@@ -2767,7 +2828,7 @@ class UpdateHawbState extends State<UpdateHawb> {
             Padding(
               padding: const EdgeInsets.only(top: 2.0, bottom: 15.0),
               child: Text(
-                S.of(context).QuantityDetails,
+                S.of(context).QuantityDetails+"*",
                 //"Quantity Details",
                 style: TextStyle(
                   color: Theme.of(context).accentColor,
@@ -2803,7 +2864,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                     border: OutlineInputBorder(
                         gapPadding: 2.0,
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    labelText: S.of(context).Pieces,
+                    labelText: S.of(context).Pieces+"*",
                     labelStyle: TextStyle(color: Theme.of(context).accentColor),
                     suffixIcon: Icon(
                       Icons.production_quantity_limits,
@@ -2848,7 +2909,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                               gapPadding: 2.0,
                               borderRadius:
                               BorderRadius.all(Radius.circular(8.0))),
-                          labelText: S.of(context).Weight,
+                          labelText: S.of(context).Weight+"*",
                           labelStyle:
                           TextStyle(color: Theme.of(context).accentColor),
                           suffixIcon: Icon(
@@ -2888,7 +2949,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                           onChanged: (String text) {
                             setState(() {
                               _fhlModel.quantityDetailsWeightUnit = text;
-                            });
+                           });
                           })
                           : Text(
                         widget.houseDetails[0]["weightCode"],
@@ -2911,7 +2972,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                 initialValue: widget.houseDetails[0]["SLAC"].toString(),
                 onChanged: (value) {
                   _fhlModel.quantityDetailsSLAC = value;
-                },
+               },
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide:
@@ -2974,6 +3035,8 @@ class UpdateHawbState extends State<UpdateHawb> {
                 enabled: !widget.isView,
                 initialValue: widget.houseDetails[0]["serialNumber"],
                 onChanged: (value) {
+
+                  _fhlModel.houseDetailsNumber = widget.houseDetails[0]["serialNumber"];
                   _fhlModel.houseDetailsNumber = value;
                 },
                 decoration: InputDecoration(
@@ -2991,7 +3054,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                     border: OutlineInputBorder(
                         gapPadding: 2.0,
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    labelText: S.of(context).HouseNumber,
+                    labelText: S.of(context).HouseNumber+"*",
                     labelStyle: TextStyle(color: Theme.of(context).accentColor)
                   ,   suffixIcon: Icon(
                   Icons.flight,
@@ -3033,7 +3096,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                 initialValue: widget.houseDetails[0]["description"],
                 onChanged: (value) {
                   _fhlModel.houseDetailsNatureGoods = value;
-                },
+               },
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide:
@@ -3049,7 +3112,7 @@ class UpdateHawbState extends State<UpdateHawb> {
                     border: OutlineInputBorder(
                         gapPadding: 2.0,
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    labelText: S.of(context).NatureOfGoods,
+                    labelText: S.of(context).NatureOfGoods+"*",
                     labelStyle: TextStyle(color: Theme.of(context).accentColor)
                   ,suffixIcon: Icon(
                   Icons.monitor_weight,
@@ -3062,6 +3125,7 @@ class UpdateHawbState extends State<UpdateHawb> {
             ),
 
             // ! houseDetailsDescription...
+
             Padding(
               padding: const EdgeInsets.only(top: 2.0, bottom: 15.0),
               child: TextFormField(
@@ -3106,7 +3170,8 @@ class UpdateHawbState extends State<UpdateHawb> {
   }
 
   destinationTF() {
-    this.edithouseDestination.text = widget.houseDetails[0]["destination"];
+
+        this.edithouseDestination.text = widget.houseDetails[0]["destination"];
 
     return TypeAheadField<AirportCode>(
         suggestionsCallback: AirportApi.getAirportCode,
@@ -3136,7 +3201,7 @@ class UpdateHawbState extends State<UpdateHawb> {
               border: OutlineInputBorder(
                   gapPadding: 2.0,
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
-              labelText: S.of(context).Destination,
+              labelText: S.of(context).Destination+"*",
               labelStyle: TextStyle(color: Theme.of(context).accentColor),
               suffixIcon: Icon(
                 Icons.flight_land,
@@ -3154,6 +3219,7 @@ class UpdateHawbState extends State<UpdateHawb> {
   }
 
   originTF() {
+
     this.edithouseOrigin.text = widget.houseDetails[0]["origin"];
 
     return TypeAheadField<AirportCode>(
@@ -3187,7 +3253,7 @@ class UpdateHawbState extends State<UpdateHawb> {
               border: OutlineInputBorder(
                   gapPadding: 2.0,
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
-              labelText: S.of(context).Origin,
+              labelText: S.of(context).Origin+"*",
               labelStyle: TextStyle(color: Theme.of(context).accentColor)
             ,suffixIcon: Icon(
             Icons.flight_takeoff,

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:rooster/formatter.dart';
 import 'package:rooster/generated/l10n.dart';
@@ -67,128 +68,132 @@ class _EditHawbState extends State<EditHawb> {
         ),
         centerTitle: true,
       ),
-      body: Center(
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Text(
-                  S.of(context).Update,
-                  //"Update",
-                  style: TextStyle(
-                      color: Theme.of(context).backgroundColor
+      body: Scrollable(
+        viewportBuilder: (BuildContext context, ViewportOffset position)
+
+        => Center(
+          child: Card(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Text(
+                    S.of(context).Update,
+                    //"Update",
+                    style: TextStyle(
+                        color: Theme.of(context).backgroundColor
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-              Form(
-                key: _awbForm,
-                child: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: airlineTF(),
-                              flex: 3,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Expanded(
-                              child: masterAWBTF(),
-                              flex: 7,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: originTF(),
-                              flex: 4,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Expanded(
-                              child: destinationTF(),
-                              flex: 4,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Expanded(
-                              child: shipmentTF(),
-                              flex: 2,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: piecesTF(),
-                              flex: 4,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Expanded(
-                              child: weightTF(),
-                              flex: 4,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Expanded(
-                              child: weightUnitTF(),
-                              flex: 2,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                SizedBox(
+                  height: 8.0,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      TextButton(
-                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
-                        onPressed: () {
-                          insertAWBList();
-                        },
-                        child: Text(
-                          S.of(context).Update,
-                          style: TextStyle(
-                              color: Theme.of(context).backgroundColor
+                Form(
+                  key: _awbForm,
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: airlineTF(),
+                                flex: 3,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Expanded(
+                                child: masterAWBTF(),
+                                flex: 7,
+                              ),
+                            ],
                           ),
-                          // "Update"
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: originTF(),
+                                flex: 3,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Expanded(
+                                child: destinationTF(),
+                                flex: 3,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Expanded(
+                                child: shipmentTF(),
+                                flex: 3,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: piecesTF(),
+                                flex: 4,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Expanded(
+                                child: weightTF(),
+                                flex: 4,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Expanded(
+                                child: weightUnitTF(),
+                                flex: 2,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
+                          onPressed: () {
+                            insertAWBList();
+                          },
+                          child: Text(
+                            S.of(context).Update,
+                            style: TextStyle(
+                                color: Theme.of(context).backgroundColor
+                            ),
+                            // "Update"
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -389,7 +394,7 @@ class _EditHawbState extends State<EditHawb> {
   originTF() {
     this.editoriginController.text = widget.origin;
 
-    return TypeAheadField<AirportCode>(
+    return TypeAheadFormField<AirportCode>(
         suggestionsCallback: AirportApi.getAirportCode,
         itemBuilder: (context, AirportCode suggestion) {
           final code = suggestion;
@@ -450,7 +455,7 @@ class _EditHawbState extends State<EditHawb> {
 
   destinationTF() {
     this.editdestinationController.text = widget.destination;
-    return TypeAheadField<AirportCode>(
+    return TypeAheadFormField<AirportCode>(
         suggestionsCallback: AirportApi.getAirportCode,
         itemBuilder: (context, AirportCode suggestion) {
           final code = suggestion;

@@ -24,6 +24,12 @@ import '../offline_main_hawb/api.dart';
 import '../offline_main_hawb/model_class.dart';
 
 class AddMasterAWB extends StatefulWidget {
+  var awblist;
+  AddMasterAWB({Key key,
+    this.awblist,
+  })
+      : super(key: key);
+
   @override
   _AddMasterAWBState createState() => _AddMasterAWBState();
 }
@@ -120,21 +126,21 @@ class _AddMasterAWBState extends State<AddMasterAWB> {
                                     children: [
                                       Expanded(
                                         child: originTF(),
-                                        flex: 4,
+                                        flex: 3,
                                       ),
                                       SizedBox(
                                         width: 5,
                                       ),
                                       Expanded(
                                         child: destinationTF(),
-                                        flex: 4,
+                                        flex: 3,
                                       ),
                                       SizedBox(
                                         width: 5,
                                       ),
                                       Expanded(
                                         child: shipmentTF(),
-                                        flex: 2,
+                                        flex: 3,
                                       ),
                                     ],
                                   ),
@@ -178,38 +184,58 @@ class _AddMasterAWBState extends State<AddMasterAWB> {
                                 TextButton(
                                   style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)),
                                   onPressed: () {
-                                     bool offlinestatus=false;
-                                    if (_awbForm.currentState.validate()) {
-                                      Api().insertAWBList(
-                                        context,
-                                          airline,
-                                          masterAWB,
-                                          shipment,
-                                          originController.text,
-                                          destinationController.text,
-                                          pieces,
-                                          weight,
-                                          weightUnit,
-                                          offlinestatus
-                                      );
+                                    bool offlinestatus = false;
+                                    bool alreadyExistAWB = true;
+                                    List _searchResult = [];
+                                    print("object");
+                                    _searchResult.clear();
+                                    // if (text.isEmpty) {
+                                    //   setState(() {});
+                                    //   return;
+                                    // }
 
+                                    widget.awblist.forEach((getawblist) {
+                                      print("Foreach'${getawblist}'" + airline);
+                                      String searchText = getawblist["origin"]
+                                          .toString();
+                                      if ((getawblist["prefix"].toString() ==
+                                          (airline)) &&
+                                          (getawblist["wayBillNumber"]
+                                              .toString() == (masterAWB))) {
+                                        Fluttertoast.showToast(
+                                            msg: 'AWB already exists',
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 5,
+                                            backgroundColor: Colors.red,
+                                            textColor: Colors.white
+                                        );
+                                        alreadyExistAWB = false;
+                                      }
+                                    });
 
-                                      Navigator.push(
-                                          context, HomeScreenRoute(MyEawb()));
+                                    print("bool Already Exists AWB");
+                                    print(alreadyExistAWB);
+                                    if (alreadyExistAWB==true) {
+                                      if (_awbForm.currentState.validate()) {
+                                        Api().insertAWBList(
+                                            context,
+                                            airline,
+                                            masterAWB,
+                                            shipment,
+                                            originController.text,
+                                            destinationController.text,
+                                            pieces,
+                                            weight,
+                                            weightUnit,
+                                            offlinestatus
+                                        );
+
+                                        Navigator.push(
+                                            context, HomeScreenRoute(MyEawb()));
+                                      }
                                     }
-                                    // Navigator.pop(
-                                    //   context,
-                                    //   {
-                                    //     'airline': airline ?? "",
-                                    //     'masterAWB': masterAWB ?? "",
-                                    //     'origin': origin ?? "",
-                                    //     'destination': destination ?? "",
-                                    //     'shipment': shipment ?? "TOTAL",
-                                    //     'pieces': double.parse(pieces) ?? 0.0,
-                                    //     'weight': double.parse(weight) ?? 0.0,
-                                    //     'unit': weightUnit,
-                                    //   },
-                                    // );
+
                                   },
                                   child: Text(
                                     S.of(context).Submit,
@@ -569,6 +595,7 @@ class _AddMasterAWBState extends State<AddMasterAWB> {
         },
         textFieldConfiguration: TextFieldConfiguration(
           inputFormatters: [AllCapitalCase()],
+          maxLength: 3,
           controller: this.originController,
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
@@ -623,6 +650,7 @@ class _AddMasterAWBState extends State<AddMasterAWB> {
         },
         textFieldConfiguration: TextFieldConfiguration(
           controller: this.destinationController,
+          maxLength: 3,
           inputFormatters: [AllCapitalCase()],
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
@@ -737,33 +765,36 @@ class _AddMasterAWBState extends State<AddMasterAWB> {
   // }
 
   shipmentTF() {
-    return TextFormField(
-      initialValue: shipment,
-      textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.text,
-      inputFormatters: [AllCapitalCase()],
-      decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Theme.of(context).accentColor),
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-          ),
-          //border: InputBorder.none,
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Theme.of(context).accentColor),
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-          ),
-          border: OutlineInputBorder(
-              gapPadding: 2.0,
-              borderRadius: BorderRadius.all(Radius.circular(8.0))),
-          labelText: S.of(context).Shipment,
-          labelStyle: TextStyle(color: Theme.of(context).accentColor)
-        //'Shipment',
+    return Padding(
+      padding: const EdgeInsets.only(bottom:20.0),
+      child: TextFormField(
+        initialValue: shipment,
+        textInputAction: TextInputAction.next,
+        keyboardType: TextInputType.text,
+        inputFormatters: [AllCapitalCase()],
+        decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).accentColor),
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
+            //border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).accentColor),
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
+            border: OutlineInputBorder(
+                gapPadding: 2.0,
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            labelText: S.of(context).Shipment,
+            labelStyle: TextStyle(color: Theme.of(context).accentColor)
+          //'Shipment',
+        ),
+        onChanged: (value) {
+          setState(() {
+            shipment = value;
+          });
+        },
       ),
-      onChanged: (value) {
-        setState(() {
-          shipment = value;
-        });
-      },
     );
   }
 

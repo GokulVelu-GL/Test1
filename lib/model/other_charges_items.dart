@@ -13,16 +13,16 @@ class OtherChargesItem {
       {this.description = "",
       this.amount = 0,
       this.entitlement = "",
-      this.rate = 0,
+      this.rate = 0.0,
       this.useRate = false,
       this.weight = "",
-      this.minimum = 0,
+      this.minimum = 0.0,
       this.isExpanded = false,
       this.prepaidcollect=""
       });
 
   OtherChargesItem.fromJson(Map<String, dynamic> json)
-      : amount = json['Amount'],
+      : amount = int.tryParse(json['Amount'].toString()),
         description = json['Code'],
         entitlement = json['Entitlement'],
         useRate = false,
@@ -32,8 +32,11 @@ class OtherChargesItem {
   Map<String, dynamic> toJson() {
     return {
       'Amount': amount,
-      'Code': entitlement=="Due agent"?description+"A":description+"C",
-      'Entitlement': entitlement,
+      'Code':
+      //entitlement=="Due agent"?
+      description,
+          //+"A":description+"C",
+      'Entitlement': entitlement=="Due agent"?"A":"C",
     };
   }
 }

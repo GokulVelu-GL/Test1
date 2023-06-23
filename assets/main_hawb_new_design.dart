@@ -10,7 +10,7 @@ import 'package:rooster/ui/hawb/static/edit_hawb.dart';
 import 'package:rooster/ui/hawb/house_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:tutorial_coach_mark/animated_focus_light.dart';
-// import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:http/http.dart' as http;
 import 'package:rooster/model/eawb_model.dart';
 import 'package:rooster/screenroute.dart';
@@ -60,8 +60,8 @@ class _MyEawbState extends State<MyEawb> with TickerProviderStateMixin {
     );
   }
 
-  // TutorialCoachMark tutorialCoachMark;
-  // List<TargetFocus> targets = List();
+  TutorialCoachMark tutorialCoachMark;
+  List<TargetFocus> targets = List();
   bool tutorial = false;
 
   GlobalKey _listTargetKey = GlobalKey();

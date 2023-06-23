@@ -127,8 +127,8 @@ class SpecialHandlingGroup {
 
   static SpecialHandlingGroup fromJson(Map<String, dynamic> json) =>
       SpecialHandlingGroup(
-        shgName: json['Group_SPH_Name'],
-        shgCode: json['Group_SPH_Code'],
+        shgName: json['SPH_Description'],
+        shgCode: json['SPH_Code'],
       );
 }
 
@@ -237,8 +237,8 @@ class Volume {
   });
 
   static Volume fromJson(Map<String, dynamic> json) => Volume(
-    abbrcode: json['Abbr_Code'],
-    meaning: json['Meaning'],
+    abbrcode: json['VolumeCodes_AbbrCode'],
+    meaning: json['VolumeCodes_Meaning'],
   );
 }
 
@@ -246,6 +246,7 @@ class VolumeCodeApi {
   static Future<List<Volume>> getVolumeCode(String query) async {
     final List volumeCode = StringData.voulmeCodes;
     //final List airportCodes = result;
+    print("volume code");
     print(volumeCode);
     return volumeCode
         .map((json) => Volume.fromJson(json))

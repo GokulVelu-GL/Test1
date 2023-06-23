@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
 import 'package:rooster/formatter.dart';
 import 'package:rooster/generated/l10n.dart';
@@ -8,6 +9,7 @@ import 'package:rooster/model/rate_description_items.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../model/eawb_model.dart';
+import '../../drodowns/OtherChargeCode.dart';
 
 class AddOtherChargesForm extends StatefulWidget {
   AddOtherChargesForm(
@@ -43,6 +45,7 @@ class _AddOtherChargesFormState extends State<AddOtherChargesForm> {
   List<RateDescriptionItem> ratedescriptionList = new List<RateDescriptionItem>();
   var amountvalue = TextEditingController();
   var minimumcontroller = TextEditingController();
+  var OtherChargeController = TextEditingController();
   // EAWBModel model;
   final _addOtherChargesItemForm = GlobalKey<FormState>();
 
@@ -64,17 +67,18 @@ class _AddOtherChargesFormState extends State<AddOtherChargesForm> {
   ];
 
   String prepaidrcollect="PPD";
-  List<String> codetype = [
-    "MY",
-    "XB",
-    "CG",
-    "CC",
-    "RA"
-  ];
+  // List<String> codetype = [
+  //   "MY",
+  //   "XB",
+  //   "CG",
+  //   "CC",
+  //   "RA"
+  // ];
   // String codetype1 =
   //     'RA'
   // ;
-  ChargeCode codetype1;
+  // ChargeCode codetype1;
+  String codetype1 = '';
 
   List<bool> _selections = List.generate(2, (_)=> false);
   List<String> criteriaDropDown = [
@@ -279,6 +283,7 @@ class _AddOtherChargesFormState extends State<AddOtherChargesForm> {
                         // ),
                         // ! Amount....
                         Container(
+
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(8.0),),
@@ -580,160 +585,221 @@ class _AddOtherChargesFormState extends State<AddOtherChargesForm> {
                         // ! Use rate....
                         Container(
                           margin: const EdgeInsets.only(bottom: 15),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8.0),),
-                              border: Border.all(color: Theme.of(context).accentColor,
-                                width: 2,
-                              )
-                          ),
-                          padding: const EdgeInsets.only(bottom:10),
-                          child: DropdownButton<ChargeCode>(
-                            hint:Padding(
-                              padding: const EdgeInsets.only(left: 15.0,top: 5),
-                              child: Text("Charge Code",
-                              style: TextStyle(
-                                color: Theme.of(context).accentColor
+                          child: TypeAheadField<OtherChargesCode>(
+                              suggestionsCallback: OtherChargeCodeClassApi.getRateClassCode,
+                              itemBuilder: (context, OtherChargesCode suggestion) {
+                                final code = suggestion;
+                                return ListTile(
+                                  title: Text(code.OtherChargeCode,
+                                      style: TextStyle(
+                                          color: Theme.of(context).accentColor)),
+                                  subtitle: Text(code.OtherChargeName,
+                                      style: TextStyle(
+                                          color: Theme.of(context).accentColor)),
+                                );
+                              },
+                              textFieldConfiguration: TextFieldConfiguration(
+                                controller: OtherChargeController,
+                                inputFormatters: [AllCapitalCase()],
+                                decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).accentColor,
+                                          width: 2
+                                      ),
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(8.0)),
+                                    ),
+                                    //border: InputBorder.none,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).accentColor,
+                                          width: 2
+                                      ),
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(8.0)),
+
+                                    ),
+                                    border: OutlineInputBorder(
+                                      // gapPadding: 1.0,
+                                        borderRadius:
+                                        BorderRadius.all(Radius.circular(8.0),
+
+                                        )),
+                                    suffixText: codetype1,
+                                    labelText: "Charge Code",
+                                    //S.of(context).Origin,
+                                    labelStyle:
+                                    TextStyle(color: Theme.of(context).accentColor)
+                                  //'Origin',
+                                ),
                               ),
-                              ),
-                            ),
-                              isExpanded: true,
-                              icon: Visibility (visible:false, child: Icon(Icons.arrow_downward)),
-                              // icon: Icon(Icons.keyboard_arrow_down),
-                              underline: SizedBox(),
-                              value: codetype1,
-                              onChanged: (ChargeCode newValue) {
+                              onSuggestionSelected: (OtherChargesCode suggestion) {
                                 setState(() {
-                                  codetype1 = newValue;
-                                  description = newValue.ChargCode;
-                                  model.otherChargesList.forEach((element) {
-                                    if(element.description==description&&element.entitlement==entitlementValue){
-                                      Fluttertoast.showToast(
-                                          msg: "This charge code is already exists",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.CENTER,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.red,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0
-                                      );
+                                  codetype1 = suggestion.OtherChargeName;
+                                  this.OtherChargeController.text=suggestion.OtherChargeCode;
+                                //  codetype1 = suggestion.OtherChargeCode;
+
+                                    // codetype1 = newValue;
+                                  description = suggestion.OtherChargeCode;
+                                    model.otherChargesList.forEach((element) {
+                                      if(element.description==description&&element.entitlement==entitlementValue){
+                                        Fluttertoast.showToast(
+                                            msg: "This charge code is already exists",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.red,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0
+                                        );
+                                      }
+                                    });
+                                    if(description =="MY"){weight ="Fuel Surcharge";}
+                                    else if(description =="XB"){weight ="Insurance & Security Surcharge";}
+                                    else if(description =="CG"){
+                                      weight ="Electronic processing or\n transmission of data for\n customs purposes";}
+                                    else if(description =="CC"){
+                                      weight ="Manual data entry for\n customs purposes";
                                     }
-                                  });
-                                  if(description =="MY"){weight ="Fuel Surcharge";}
-                                  else if(description =="XB"){weight ="Insurance & Security Surcharge";}
-                                  else if(description =="CG"){
-                                    weight ="Electronic processing or\n transmission of data for\n customs purposes";}
-              else if(description =="CC"){
-                weight ="Manual data entry for\n customs purposes";
-              }
-              else if(description =="RA"){
-                weight ="Dangerous Goods Fee";
-              }
-              // (entitlementValue=="Due agent")?description = newValue.ChargCode+"A":description = newValue.ChargCode+"C";
+                                    else if(description =="RA"){
+                                      weight ="Dangerous Goods Fee";
+                                    }
+                                    // (entitlementValue=="Due agent")?description = newValue.ChargCode+"A":description = newValue.ChargCode+"C";
+
 
                                 });
-                              },
-                              items: chargitems.map<DropdownMenuItem<ChargeCode>>((ChargeCode value) {
-                                return DropdownMenuItem<ChargeCode>(
-                                  value: value,
-                                  child: ListTile(
-                                    title: Text(value.ChargCode),
-                                    trailing:  Text(value.Chargename),
-                                  ),
-                                );
-                              }).toList()),
-                        ),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(bottom: 15),
-                        //   child: DropdownButton<String>(
-                        //       icon: Icon(Icons.arrow_drop_down),
-                        //       value: codetype1,
-                        //       items: codetype
-                        //           .map<DropdownMenuItem<String>>(
-                        //               (String value) {
-                        //             return DropdownMenuItem<String>(
-                        //               value: value,
-                        //               child: Text(value),
-                        //             );
-                        //           }).toList(),
-                        //       onChanged: (String text) {
-                        //         setState(() {
-                        //           codetype1 = text;
-                        //           description =text;
-                        //           if(description =="MY"){
-                        //             weight ="Fuel Surcharge";
-                        //           }
-                        //           else if(description =="XB"){
-                        //             weight ="Insurance & Security Surcharge";
-                        //           }
-                        //           else if(description =="CG"){
-                        //             weight ="Electronic processing or transmission\n of data for customs purposes";
-                        //           }
-                        //           else if(description =="CC"){
-                        //             weight ="Manual data entry for\n customs purposes";
-                        //           }
-                        //           else if(description =="RA"){
-                        //             weight ="Dangerous Goods Fee";
-                        //           }
-                        //
-                        //         });
-                        //       }),
-                        // ),
+                                // sippercontactList[index]['Shipper_Contact_Type'] =
+                                //     suggestion.contactCode;
 
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).accentColor.withOpacity(0.4),
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0)),
-                              border: Border.all(color: Theme.of(context).accentColor,
-                                width: 2,
-                              )
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: ListTile(
-                                  title: Text(
-                                    "PPD",
-                                    //"AWB",
-                                    style: TextStyle(
-                                        color: Theme.of(context).accentColor
+                                //_fhlModel.houseDetailsOrigin = suggestion.airportCode;
+                                //
+                              }),
+                        ),
+
+              //           Container(
+              //             margin: const EdgeInsets.only(bottom: 15),
+              //             decoration: BoxDecoration(
+              //                 borderRadius: BorderRadius.all(
+              //                   Radius.circular(8.0),),
+              //                 border: Border.all(color: Theme.of(context).accentColor,
+              //                   width: 2,
+              //                 )
+              //             ),
+              //             padding: const EdgeInsets.only(bottom:10),
+              //             child: DropdownButton<ChargeCode>(
+              //               hint:Padding(
+              //                 padding: const EdgeInsets.only(left: 15.0,top: 5),
+              //                 child: Text("Charge Code",
+              //                 style: TextStyle(
+              //                   color: Theme.of(context).accentColor
+              //                 ),
+              //                 ),
+              //               ),
+              //                 isExpanded: true,
+              //                 icon: Visibility (visible:false, child: Icon(Icons.arrow_downward)),
+              //                 // icon: Icon(Icons.keyboard_arrow_down),
+              //                 underline: SizedBox(),
+              //                 value: codetype1,
+              //                 onChanged: (ChargeCode newValue) {
+              //                   setState(() {
+              //                    // codetype1 = newValue;
+              //                     description = newValue.ChargCode;
+              //                     model.otherChargesList.forEach((element) {
+              //                       if(element.description==description&&element.entitlement==entitlementValue){
+              //                         Fluttertoast.showToast(
+              //                             msg: "This charge code is already exists",
+              //                             toastLength: Toast.LENGTH_SHORT,
+              //                             gravity: ToastGravity.CENTER,
+              //                             timeInSecForIosWeb: 1,
+              //                             backgroundColor: Colors.red,
+              //                             textColor: Colors.white,
+              //                             fontSize: 16.0
+              //                         );
+              //                       }
+              //                     });
+              //                     if(description =="MY"){weight ="Fuel Surcharge";}
+              //                     else if(description =="XB"){weight ="Insurance & Security Surcharge";}
+              //                     else if(description =="CG"){
+              //                       weight ="Electronic processing or\n transmission of data for\n customs purposes";}
+              // else if(description =="CC"){
+              //   weight ="Manual data entry for\n customs purposes";
+              // }
+              // else if(description =="RA"){
+              //   weight ="Dangerous Goods Fee";
+              // }
+              // // (entitlementValue=="Due agent")?description = newValue.ChargCode+"A":description = newValue.ChargCode+"C";
+              //
+              //                   });
+              //                 },
+              //                 items: chargitems.map<DropdownMenuItem<ChargeCode>>((ChargeCode value) {
+              //                   return DropdownMenuItem<ChargeCode>(
+              //                     value: value,
+              //                     child: ListTile(
+              //                       title: Text(value.ChargCode),
+              //                       trailing:  Text(value.Chargename),
+              //                     ),
+              //                   );
+              //                 }).toList()),
+              //           ),
+              //
+                        AbsorbPointer(
+                          absorbing: true,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).accentColor.withOpacity(0.2),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(8.0)),
+                              //  border: Border.all(color: Theme.of(context).accentColor,
+                                //  width: 2,
+                              //  )
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: ListTile(
+                                    title: Text(
+                                      "PPD",
+                                      //"AWB",
+                                      style: TextStyle(
+                                          color: Theme.of(context).accentColor
+                                      ),
                                     ),
+                                    leading: Radio(
+                                        fillColor: MaterialStateColor.resolveWith((states) => Theme.of(context).accentColor),
+                                        value: "PPD",
+                                        groupValue: model.chargesDeclarationOtherCharges,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            model.chargesDeclarationOtherCharges = value.toString();
+                                          });
+                                        }),
                                   ),
-                                  leading: Radio(
-                                      fillColor: MaterialStateColor.resolveWith((states) => Theme.of(context).accentColor),
-                                      value: "PPD",
-                                      groupValue: model.chargesDeclarationOtherCharges,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          model.chargesDeclarationOtherCharges = value.toString();
-                                        });
-                                      }),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Expanded(
-                                child: ListTile(
-                                  title: Text(
-                                    "COLL",
-                                    //"Multiple AWBs",
-                                    style: TextStyle(
-                                        color: Theme.of(context).accentColor
-                                    ),),
-                                  leading: Radio(
-                                      fillColor: MaterialStateColor.resolveWith((states) => Theme.of(context).accentColor),
-                                      value: "COLL",
-                                      groupValue: model.chargesDeclarationOtherCharges,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          model.chargesDeclarationOtherCharges = value.toString();
-                                        });
-                                      }),
+                                SizedBox(
+                                  width: 10,
                                 ),
-                              ),
-                            ],
+                                Expanded(
+                                  child: ListTile(
+                                    title: Text(
+                                      "COLL",
+                                      //"Multiple AWBs",
+                                      style: TextStyle(
+                                          color: Theme.of(context).accentColor
+                                      ),),
+                                    leading: Radio(
+                                        fillColor: MaterialStateColor.resolveWith((states) => Theme.of(context).accentColor),
+                                        value: "COLL",
+                                        groupValue: model.chargesDeclarationOtherCharges,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            model.chargesDeclarationOtherCharges = value.toString();
+                                          });
+                                        }),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
 
@@ -1209,51 +1275,51 @@ class _AddOtherChargesFormState extends State<AddOtherChargesForm> {
                                       children: [
                                         if(criteriaDropDownValue=="Gross Weight")Container(
                                           height: 30,
-                                            width: 30,
+                                        //    width: 60,
                                             decoration: BoxDecoration(
                                                 color: Theme.of(context).accentColor.withOpacity(0.4),
-                                                borderRadius: BorderRadius.all(Radius.circular(20))
+                                                borderRadius: BorderRadius.all(Radius.circular(10))
                                             ),
 
                                             child: Center(child: Container(
                                                 height: 30,
-                                                width: 30,
+                                               // width: 55,
                                                 decoration: BoxDecoration(
                                                     color: Theme.of(context).accentColor.withOpacity(0.4),
-                                                    borderRadius: BorderRadius.all(Radius.circular(20))
+                                                    borderRadius: BorderRadius.all(Radius.circular(10))
                                                 ),
                                                 child: Center(child: Text(totalgrossweight.toString()))))),
                                         if(criteriaDropDownValue=="Chargeable Weight")Container(
                                             height: 30,
-                                            width: 30,
+                                           // width: 30,
                                             decoration: BoxDecoration(
                                                 color: Theme.of(context).accentColor.withOpacity(0.4),
-                                                borderRadius: BorderRadius.all(Radius.circular(20))
+                                                borderRadius: BorderRadius.all(Radius.circular(10))
                                             ),
                                             child: Center(child: Text(totalchargeableweight.toString()))),
                                         if(criteriaDropDownValue=="No. of pieces")Container(
                                             height: 30,
-                                            width: 30,
+                                          //  width: 30,
                                             decoration: BoxDecoration(
                                                 color: Theme.of(context).accentColor.withOpacity(0.4),
-                                                borderRadius: BorderRadius.all(Radius.circular(20))
+                                                borderRadius: BorderRadius.all(Radius.circular(10))
                                             ),
                                             child: Center(child: Text(noofpieces.toString()))),
                                         if(criteriaDropDownValue=="Charges due Carrier")Container(
                                             height: 40,
-                                            width: 40,
+                                          //  width: 40,
                                             decoration: BoxDecoration(
                                                 color: Theme.of(context).accentColor.withOpacity(0.4),
-                                                borderRadius: BorderRadius.all(Radius.circular(20))
+                                                borderRadius: BorderRadius.all(Radius.circular(10))
                                             ),
 
                                             child: Center(child: Text(ChargesdueCarrier.toString()))),
                                         if(criteriaDropDownValue=="Charges due agent")Container(
                                             height: 40,
-                                            width: 40,
+                                          //  width: 40,
                                             decoration: BoxDecoration(
                                                 color: Theme.of(context).accentColor.withOpacity(0.4),
-                                                borderRadius: BorderRadius.all(Radius.circular(20))
+                                                borderRadius: BorderRadius.all(Radius.circular(10))
                                             ),
 
                                             child: Center(child: Text(dueagentvalue))),
@@ -1790,6 +1856,9 @@ class _AddOtherChargesFormState extends State<AddOtherChargesForm> {
                                 },
                                 child: Text(
                                   S.of(context).Close,
+                                  style: TextStyle(
+                                    color: Theme.of(context).backgroundColor
+                                  ),
                                   // "Close"
                                 ),
                               ),
@@ -1806,7 +1875,7 @@ class _AddOtherChargesFormState extends State<AddOtherChargesForm> {
                                         entitlement: entitlementValue,
                                         useRate: useRateIsEnabled,
                                         rate: rate,
-                                        weight: weight,
+                                        weight: codetype1,
                                         prepaidcollect: prepaidrcollect,
                                         minimum: minimum));
                                   },

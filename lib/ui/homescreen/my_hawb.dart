@@ -98,26 +98,27 @@ class _HAWBState extends State<HAWB> {
                 Navigator.push(context, HomeScreenRoute(ShowDataScreen()));
               }
               else if(isoffline==false){
+                // Fluttertoast.showToast(
+                //     msg: "Online",
+                //     toastLength: Toast.LENGTH_SHORT,
+                //     gravity: ToastGravity.CENTER,
+                //     timeInSecForIosWeb: 1,
+                //     textColor: Colors.white,
+                //     backgroundColor: Colors.green,
+                //     fontSize: 16.0
+                // );
                 Navigator.push(context, HomeScreenRoute(MyEawb()));
               }
 
             });
           },
-          onLongPress: () {
-            setState(() {
-              Fluttertoast.showToast(
-                  msg: "Online",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 1,
-                  textColor: Colors.white,
-                  backgroundColor: Colors.green,
-                  fontSize: 16.0
-              );
-              // TODO: HAWB options....
-              Navigator.push(context, HomeScreenRoute(MyEawb()));
-            });
-          },
+          // onLongPress: () {
+          //   setState(() {
+          //
+          //     // TODO: HAWB options....
+          //     Navigator.push(context, HomeScreenRoute(MyEawb()));
+          //   });
+          // },
           child: Card(
             color: Theme.of(context).backgroundColor,
             elevation: 5,

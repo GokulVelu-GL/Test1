@@ -31,6 +31,7 @@ class _newTaskState extends State<NewTask> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         elevation: 0,
         title: Text(
           S.of(context).NewTask,

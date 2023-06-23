@@ -286,7 +286,7 @@ class _AccountingInformationState extends State<AccountingInformation> {
                           }, icon: Icon(Icons.help,
                             color: Theme.of(context).accentColor,
                           )),
-                          //accountingInformationId(model),
+                          accountingInformationId(model),
                           accountingInformationBy(model)
                         ],
                       )
@@ -355,5 +355,193 @@ class _AccountingInformationState extends State<AccountingInformation> {
     );
   }
 
+  accountingInformationId(EAWBModel model) {
+    return Container(
+      margin: EdgeInsets.all(10.0),
+      child: TypeAheadField<AccId>(
+          suggestionsCallback: AccIdCodeApi.getAccIdCode,
+          itemBuilder: (context, AccId suggestion) {
+            final code = suggestion;
+            return ListTile(
+              title: Text(code.abbrcode,
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor)),
+              subtitle: Text(code.meaning,
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor)),
+            );
+          },
+          textFieldConfiguration: TextFieldConfiguration(
+            inputFormatters: [AllCapitalCase()],
 
+           controller: AccIdController,
+            decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Theme.of(context).accentColor,
+                      width: 2
+                  ),
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(8.0)),
+                ),
+                //border: InputBorder.none,
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Theme.of(context).accentColor,
+                      width: 2
+                  ),
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(8.0)),
+                ),
+                border: OutlineInputBorder(
+                    gapPadding: 2.0,
+                    borderRadius:
+                    BorderRadius.all(Radius.circular(8.0))),
+                suffixText: AccountIdDescription,
+                labelText: "Account Id",
+    suffixIcon: Icon(
+                Icons.contact_page,
+                color: Theme.of(context).accentColor,
+                // color: Colors.deepPurple,
+              ),
+                //S.of(context).Origin,
+                labelStyle:
+                TextStyle(color: Theme.of(context).accentColor)
+              //'Origin',
+            ),
+          ),
+          onSuggestionSelected: (AccId suggestion) {
+            setState(() {
+              AccountIdDescription= suggestion.meaning;
+              AccIdController.text = suggestion.abbrcode;
+              model.accountingInformationId= suggestion.abbrcode;
+            });
+
+            //
+          }),
+    );
+    //   Container(
+    //   margin: EdgeInsets.all(10.0),
+    //   child: FormField<String>(
+    //     builder: (FormFieldState<String> state) {
+    //       return InputDecorator(
+    //         decoration: InputDecoration(
+    //
+    //           // labelStyle: textStyle,
+    //           errorStyle: TextStyle(color: Colors.redAccent, fontSize: 16.0),
+    //           hintText: 'Please select expense',
+    //           enabledBorder: OutlineInputBorder(
+    //               borderSide: new BorderSide(
+    //                   color: Theme.of(context).accentColor,
+    //                   // color: Colors.deepPurple,
+    //                   width: 2),
+    //               //gapPadding: 2.0,
+    //               borderRadius: BorderRadius.all(Radius.circular(8.0))),
+    //           focusedBorder: OutlineInputBorder(
+    //             borderSide: BorderSide(
+    //               width: 2,
+    //               color: Theme.of(context).accentColor,
+    //               // color: Colors.deepPurple
+    //             ),
+    //             borderRadius: BorderRadius.circular(8.0),
+    //           ),
+    //           // border: OutlineInputBorder(
+    //           //     gapPadding: 2.0,
+    //           //     borderRadius: BorderRadius.all(Radius.circular(8.0))),
+    //           labelText:
+    //           S.of(context).AccountId,
+    //           //S.of(context).DeclaredValueforCarriage,
+    //           labelStyle: new TextStyle(
+    //               color: Theme.of(context).accentColor,
+    //               //color: Colors.deepPurple,
+    //               fontSize: 16.0),
+    //           suffixIcon: Icon(
+    //             Icons.money,
+    //             color: Theme.of(context).accentColor,
+    //             // color: Colors.deepPurple,
+    //           ),
+    //         ),
+    //
+    //         // border: OutlineInputBorder(
+    //         //
+    //         //     borderRadius: BorderRadius.circular(5.0))),
+    //         isEmpty: acc_id == '',
+    //         child: DropdownButtonHideUnderline(
+    //           child: DropdownButton<String>(
+    //
+    //             value: acc_id,
+    //             isDense: true,
+    //             onChanged: (String newValue) {
+    //               setState(() {
+    //                 acc_id = newValue;
+    //                 model.accountingInformationId=newValue;
+    //                 //    state.didChange(newValue);
+    //               });
+    //             },
+    //             items: groupid.map((String value) {
+    //               return DropdownMenuItem<String>(
+    //                 value: value,
+    //                 child: Text(value),
+    //               );
+    //             }).toList(),
+    //           ),
+    //         ),
+    //       );
+    //     },
+    //
+    //   ),
+    // );
+
+
+
+
+    // return Container(
+    //   margin: EdgeInsets.all(10.0),
+    //   child: TextFormField(
+    //     initialValue: model.accountingInformationId,
+    //     textInputAction: TextInputAction.newline,
+    //     inputFormatters: [AllCapitalCase()],
+    //
+    //     decoration: InputDecoration(
+    //         enabledBorder: OutlineInputBorder(
+    //             borderSide: new BorderSide(
+    //                 color: Theme.of(context).accentColor,
+    //                 // color: Colors.deepPurple,
+    //                 width:2),
+    //             //gapPadding: 2.0,
+    //             borderRadius: BorderRadius.all(Radius.circular(8.0))
+    //         ),
+    //         focusedBorder: OutlineInputBorder(
+    //           borderSide: BorderSide(width: 2,
+    //             color: Theme.of(context).accentColor,
+    //             // color: Colors.deepPurple
+    //           ),
+    //           borderRadius: BorderRadius.circular(8.0),
+    //         ),
+    //         // border: OutlineInputBorder(
+    //         //     gapPadding: 2.0,
+    //         //     borderRadius: BorderRadius.all(Radius.circular(8.0))),
+    //         labelText:
+    //       S.of(context).AccountId,
+    //         // "Account Id",
+    //         // S.of(context).Details,
+    //         labelStyle:
+    //         new TextStyle(
+    //             color: Theme.of(context).accentColor,
+    //             // color: Colors.deepPurple,
+    //             fontSize: 16.0),
+    //         suffixIcon: Icon(Icons.insert_drive_file,
+    //           color: Theme.of(context).accentColor,
+    //           // color: Colors.deepPurple,
+    //         )
+    //       //'Details',
+    //     ),
+    //     onChanged: (text) {
+    //       setState(() {
+    //         model.accountingInformationId = text;
+    //       });
+    //     },
+    //   ),
+    // );
+  }
 }

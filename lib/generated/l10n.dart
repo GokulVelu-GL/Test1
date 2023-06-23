@@ -3345,10 +3345,10 @@ class S {
     );
   }
 
-  /// `Booking Dockand Slot`
+  /// `Booking Dock and Slot`
   String get BookingDockandSlot {
     return Intl.message(
-      'Booking Dockand Slot',
+      'Booking Dock and Slot',
       name: 'BookingDockandSlot',
       desc: '',
       args: [],

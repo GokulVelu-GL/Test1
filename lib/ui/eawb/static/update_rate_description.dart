@@ -3387,7 +3387,14 @@ class UpdateRateDescriptionForm extends StatefulWidget {
         this.dimensionsList,
         this.text,
         this.slac,
-        this.piece2,this.consolidationstatus })
+        this.piece2,this.consolidationstatus,
+      this.uldownercode,
+        this.uldserial,
+        this.uldtype,
+        this.hscode,
+        this.origin
+
+      })
       : super(key: key);
 
   // ! Information....
@@ -3396,14 +3403,20 @@ class UpdateRateDescriptionForm extends StatefulWidget {
   String slac;
   double grossWeight;
   String grossWeightUnit;
-  final String rateClass;
-  final int itemNumber;
+   String rateClass;
+   int itemNumber;
   int chargeableWeight;
   int rateCharge;
   int total;
   int volume;
   int piece2;
   String autoCalculations;
+  String uldtype;
+  String uldserial;
+  String uldownercode;
+  String hscode;
+  String origin;
+
   final List<Map<String, dynamic>> dimensionsList;
 
   // ! Nature and quantity of goods....
@@ -3545,6 +3558,7 @@ class _UpdateRateDescriptionFormState extends State<UpdateRateDescriptionForm> {
   var _grossWeightController = TextEditingController();
   var natureofgoods = TextEditingController();
   var slacController = TextEditingController(text: 0.toString());
+
   var _chargeableWeightController =
   TextEditingController();
   String result = '0';
@@ -3899,11 +3913,11 @@ class _UpdateRateDescriptionFormState extends State<UpdateRateDescriptionForm> {
       //   pi = piece;
       // }
 
-      int dimenPieces = 0;
-
-      if (totalPieces > pieces) {
-        dimenPieces = totalPieces;
-      } else {}
+      // int dimenPieces = 0;
+      //
+      // if (totalPieces > pieces) {
+      //   dimenPieces = totalPieces;
+      // } else {}
 
       setState(() {
         _volumeController = TextEditingController(
@@ -3911,14 +3925,14 @@ class _UpdateRateDescriptionFormState extends State<UpdateRateDescriptionForm> {
                 " " +
                 unit.toString() +
                 " ( " +
-                dimenPieces.toString() +
+                totalPieces.toString() +
                 " " +
                 "pieces )");
         _volumetricController =
             TextEditingController(text: volumetricw + " kg");
         if (pieces == 0) {
           _piecesController =
-              TextEditingController(text: dimenPieces.toString());
+              TextEditingController(text: totalPieces.toString());
         }
         grossWeight = double.parse(volumetricw);
         if (volumetric_weight > _ChargeWeight) {
@@ -4061,11 +4075,11 @@ class _UpdateRateDescriptionFormState extends State<UpdateRateDescriptionForm> {
       //   pi = piece;
       // }
 
-      int dimenPieces = 0;
-
-      if (totalPieces > pieces) {
-        dimenPieces = totalPieces;
-      } else {}
+      // int dimenPieces = 0;
+      //
+      // if (totalPieces > pieces) {
+      //   dimenPieces = totalPieces;
+      // } else {}
 
       setState(() {
         _volumeController = TextEditingController(
@@ -4073,11 +4087,11 @@ class _UpdateRateDescriptionFormState extends State<UpdateRateDescriptionForm> {
                 " " +
                 unit.toString() +
                 "( " +
-                dimenPieces.toString() +
+                totalPieces.toString() +
                 " pieces )");
         _volumetricController = TextEditingController(text: volumetricw + "lb");
         if (pieces == 0) {
-          _piecesController = TextEditingController(text: dimenPieces.toString());
+          _piecesController = TextEditingController(text: totalPieces.toString());
         }
         grossWeight = double.parse(volumetricw);
         if (volumetric_weight > _ChargeWeight) {
@@ -4192,7 +4206,10 @@ class _UpdateRateDescriptionFormState extends State<UpdateRateDescriptionForm> {
       }
     }
   }
-
+  var uldtypecontroller = TextEditingController();
+  var uldserialcontroller = TextEditingController();
+  var uldownercodecontroller = TextEditingController();
+  var hscodecontroller = TextEditingController();
 
 
   @override
@@ -4200,8 +4217,19 @@ class _UpdateRateDescriptionFormState extends State<UpdateRateDescriptionForm> {
     // ! Information....
     // pieces = widget.pieces ?? 0;
     // grossWeight = widget.grossWeight ?? 0;
+    this.RateClassController.text =widget.rateClass;
+    this.uldtypecontroller.text = widget.uldtype;
+    this.uldserialcontroller.text = widget.uldserial;
+    this.uldownercodecontroller.text = widget.uldownercode;
+    this.hscodecontroller.text =widget.hscode;
+    this.natureofgoods.text = widget.natureAndQuantity;
+    this._totalController.text = widget.total.toString();
+    // this._volumeController.text =widget.volume.toString();
+    //
+
+
     grossWeightUnit = widget.grossWeightUnit ?? 'K';
-    rateClass = widget.rateClass ?? 'M';
+    this.rateClass = widget.rateClass ?? 'M';
     itemNumber = widget.itemNumber ?? 0;
     // chargeableWeight = widget.chargeableWeight ?? 0;
     rateCharge = widget.rateCharge ?? 0;
@@ -4225,6 +4253,7 @@ class _UpdateRateDescriptionFormState extends State<UpdateRateDescriptionForm> {
 
   @override
   Widget build(BuildContext context) {
+
     // natureAndQuantity=widget.natureAndQuantity;
     pieces=widget.pieces;
     grossWeight=widget.grossWeight;
@@ -5334,6 +5363,54 @@ class _UpdateRateDescriptionFormState extends State<UpdateRateDescriptionForm> {
                               ),
                             ),
                           ),
+                          Padding(
+                            padding:
+                            const EdgeInsets.only(top: 2.0, bottom: 15.0),
+                            child: TextFormField(
+                             initialValue: widget.origin,
+                              //controller: this.slacController,
+                              keyboardType: TextInputType.text,
+                              inputFormatters: [AllCapitalCase()],
+                              onChanged: (value) {
+                                setState(() {
+                                 widget.origin=value;
+                                  // natureAndQuantity = value;
+                                  // print(natureAndQuantity);
+                                });
+                              },
+                              decoration: InputDecoration(
+                                isDense: true,
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: new BorderSide(
+                                        color: Theme.of(context).accentColor,
+                                        // color: Colors.deepPurple,
+                                        width: 2),
+                                    //gapPadding: 2.0,
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(8.0))),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 2,
+                                    color: Theme.of(context).accentColor,
+                                    //color: Colors.deepPurple
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                // border: OutlineInputBorder(
+                                //     gapPadding: 2.0,
+                                //     borderRadius:
+                                //         BorderRadius.all(Radius.circular(8.0))),
+                                labelText:
+                                "Origin",
+                                //S.of(context).NatureandQuantity+" *",
+                                labelStyle: new TextStyle(
+                                    color: Theme.of(context).accentColor,
+                                    //color: Colors.deepPurple,
+                                    fontSize: 16.0),
+                                //'Nature and quantity',
+                              ),
+                            ),
+                          ),
                           // ! dimensionsList....
                           Row(
                             children: [
@@ -5359,12 +5436,48 @@ class _UpdateRateDescriptionFormState extends State<UpdateRateDescriptionForm> {
                                   onPressed: () {
                                     FocusScope.of(context).unfocus();
                                     setState(() {
-                                      totalPieces=0;
-                                      totalWeight=0;
+
                                       dimensionsList.removeWhere(
                                               (element) => element['isSelected']
                                       );
+                                      volumetricw ='0';
+                                      tempKVolume =[];
+                                      tempLVolume =[];
+                                      tempKPieces =[];
+                                      tempLPieces =[];
+                                      List.generate(
+                                          dimensionsList.length,
+                                              (index) {
+                                            if (grossWeightUnit == "L") {
+                                              _getvolumegwL(index);
+                                            } else {
+                                              print("delete height dimention");
+                                              _getvolumegwK(index);
+                                            }
 
+                                          }
+                                      );
+                                      if(dimensionsList.length==0){
+                                        print("Empty");
+
+                                        volumetricw ='0';
+                                        tempKVolume =[];
+                                        tempLVolume =[];
+                                        tempKPieces =[];
+                                        tempLPieces =[];
+                                        _volumeController = TextEditingController(
+                                            text: 0.toString() +
+                                                " " +
+                                                // unit.toString() +
+                                                " ( " +
+                                                0.toString() +
+                                                " " +
+                                                "pieces )"
+                                        );
+                                        _volumetricController =
+                                            TextEditingController(text: 0.toString());
+
+                                      }
                                     });
                                   },
                                 ),
@@ -5633,6 +5746,259 @@ class _UpdateRateDescriptionFormState extends State<UpdateRateDescriptionForm> {
                   //     ),
                   //   ),
                   // ),
+                  //ULD TYPE SERAIL NUMBER OWNER CODE, HARMONIZED CODE
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.grey, width: 1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding:
+                            const EdgeInsets.only(top: 2.0, bottom: 15.0),
+                            child: Text(
+                              "ULD",
+                              //  S.of(context).Natureandquantityofgoods,
+                              // "Nature and quantity of goods",
+                              style: TextStyle(
+                                color: Theme.of(context).accentColor,
+                                // color: Colors.deepPurple,
+                                // decoration: TextDecoration.underline,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: Padding(
+                                  padding:
+                                  const EdgeInsets.only(top: 2.0, bottom: 15.0),
+                                  child: TextFormField(
+
+                                    // initialValue: natureAndQuantity,
+                                    controller: this.uldtypecontroller,
+                                    keyboardType: TextInputType.text,
+                                    maxLength: 3,
+                                    inputFormatters: [AllCapitalCase()],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        // natureAndQuantity = value;
+                                        // print(natureAndQuantity);
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: new BorderSide(
+                                              color: Theme.of(context).accentColor,
+                                              // color: Colors.deepPurple,
+                                              width: 2),
+                                          //gapPadding: 2.0,
+                                          borderRadius:
+                                          BorderRadius.all(Radius.circular(8.0))),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 2,
+                                          color: Theme.of(context).accentColor,
+                                          //color: Colors.deepPurple
+                                        ),
+                                        borderRadius: BorderRadius.circular(8.0),
+                                      ),
+                                      // border: OutlineInputBorder(
+                                      //     gapPadding: 2.0,
+                                      //     borderRadius:
+                                      //         BorderRadius.all(Radius.circular(8.0))),
+                                      labelText:
+                                      "Type",
+                                      //S.of(context).NatureandQuantity
+                                      //    +" *",
+                                      labelStyle: new TextStyle(
+                                          color: Theme.of(context).accentColor,
+                                          //color: Colors.deepPurple,
+                                          fontSize: 16.0),
+                                      //'Nature and quantity',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Padding(
+                                  padding:
+                                  const EdgeInsets.only(top: 2.0, bottom: 15.0),
+                                  child: TextFormField(
+
+                                    // initialValue: natureAndQuantity,
+                                    controller: this.uldserialcontroller,
+                                    keyboardType: TextInputType.text,
+                                    maxLength: 5,
+                                    inputFormatters: [AllCapitalCase()],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        // natureAndQuantity = value;
+                                        // print(natureAndQuantity);
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: new BorderSide(
+                                              color: Theme.of(context).accentColor,
+                                              // color: Colors.deepPurple,
+                                              width: 2),
+                                          //gapPadding: 2.0,
+                                          borderRadius:
+                                          BorderRadius.all(Radius.circular(8.0))),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 2,
+                                          color: Theme.of(context).accentColor,
+                                          //color: Colors.deepPurple
+                                        ),
+                                        borderRadius: BorderRadius.circular(8.0),
+                                      ),
+                                      // border: OutlineInputBorder(
+                                      //     gapPadding: 2.0,
+                                      //     borderRadius:
+                                      //         BorderRadius.all(Radius.circular(8.0))),
+                                      labelText:
+                                      "Serial",
+                                      //S.of(context).NatureandQuantity
+                                      //    +" *",
+                                      labelStyle: new TextStyle(
+                                          color: Theme.of(context).accentColor,
+                                          //color: Colors.deepPurple,
+                                          fontSize: 16.0),
+                                      //'Nature and quantity',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Padding(
+                                  padding:
+                                  const EdgeInsets.only(top: 2.0, bottom: 15.0),
+                                  child: TextFormField(
+
+                                    // initialValue: natureAndQuantity,
+                                    controller: this.uldownercodecontroller,
+                                    keyboardType: TextInputType.text,
+                                    maxLength: 2,
+                                    inputFormatters: [AllCapitalCase()],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        // natureAndQuantity = value;
+                                        // print(natureAndQuantity);
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: new BorderSide(
+                                              color: Theme.of(context).accentColor,
+                                              // color: Colors.deepPurple,
+                                              width: 2),
+                                          //gapPadding: 2.0,
+                                          borderRadius:
+                                          BorderRadius.all(Radius.circular(8.0))),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 2,
+                                          color: Theme.of(context).accentColor,
+                                          //color: Colors.deepPurple
+                                        ),
+                                        borderRadius: BorderRadius.circular(8.0),
+                                      ),
+                                      // border: OutlineInputBorder(
+                                      //     gapPadding: 2.0,
+                                      //     borderRadius:
+                                      //         BorderRadius.all(Radius.circular(8.0))),
+                                      labelText:
+                                      "Owner Code",
+                                      //S.of(context).NatureandQuantity
+                                      //    +" *",
+                                      labelStyle: new TextStyle(
+                                          color: Theme.of(context).accentColor,
+                                          //color: Colors.deepPurple,
+                                          fontSize: 16.0),
+                                      //'Nature and quantity',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          // Text(natureAndQuantity),
+                          Padding(
+                            padding:
+                            const EdgeInsets.only(top: 2.0, bottom: 15.0),
+                            child: TextFormField(
+
+                              // initialValue: natureAndQuantity,
+                              controller: this.hscodecontroller,
+                              keyboardType: TextInputType.text,
+                              inputFormatters: [AllCapitalCase()],
+                              onChanged: (value) {
+                                setState(() {
+                                  // natureAndQuantity = value;
+                                  // print(natureAndQuantity);
+                                });
+                              },
+                              decoration: InputDecoration(
+                                isDense: true,
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: new BorderSide(
+                                        color: Theme.of(context).accentColor,
+                                        // color: Colors.deepPurple,
+                                        width: 2),
+                                    //gapPadding: 2.0,
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(8.0))),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 2,
+                                    color: Theme.of(context).accentColor,
+                                    //color: Colors.deepPurple
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                // border: OutlineInputBorder(
+                                //     gapPadding: 2.0,
+                                //     borderRadius:
+                                //         BorderRadius.all(Radius.circular(8.0))),
+                                labelText:
+                                "HS Codes",
+                                //S.of(context).NatureandQuantity
+                                //    +" *",
+                                labelStyle: new TextStyle(
+                                    color: Theme.of(context).accentColor,
+                                    //color: Colors.deepPurple,
+                                    fontSize: 16.0),
+                                //'Nature and quantity',
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    ),
+                  ),
                   // ! Dialog Buttons....
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0, bottom: 15.0),
@@ -5651,6 +6017,9 @@ class _UpdateRateDescriptionFormState extends State<UpdateRateDescriptionForm> {
                             },
                             child: Text(
                               S.of(context).Discard,
+                              style: TextStyle(
+                                color: Theme.of(context).backgroundColor
+                              ),
                               //"Discard"
                             ),
                           ),
@@ -5683,6 +6052,11 @@ class _UpdateRateDescriptionFormState extends State<UpdateRateDescriptionForm> {
                                     int.parse(_totalController.text),
                                     autoCalculations: autoCalculations,
                                     natureAndQuantity:(widget.consolidationstatus)?"CONSOLIDATION": natureofgoods.text,
+                                    uldtype: uldtypecontroller.text,
+                                    uldserial: uldserialcontroller.text,
+                                    uldownercode: uldownercodecontroller.text,
+                                    HSCode: hscodecontroller.text,
+                                    origin: widget.origin,
                                     text: text));
                               },
                               child: Text(S.of(context).Update,

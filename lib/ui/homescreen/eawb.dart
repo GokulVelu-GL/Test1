@@ -365,6 +365,7 @@ class _EAWBState extends State<EAWB> {
                         },
                         child: Text(
                           S.of(context).Search,
+                          style: TextStyle(color: Theme.of(context).backgroundColor),
                           // "Search"
                         ),
                       ),

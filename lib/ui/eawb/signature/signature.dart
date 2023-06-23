@@ -1,31 +1,31 @@
 // import 'dart:typed_data';
-
+//
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 // import 'package:hand_signature/signature.dart';
-
+//
 // import 'scroll_test.dart';
-
+//
 // HandSignatureControl control = new HandSignatureControl(
 //   threshold: 0.01,
 //   smoothRatio: 0.65,
 //   velocityRange: 2.0,
 // );
-
+//
 // ValueNotifier<String> svg = ValueNotifier<String>(null);
-
+//
 // ValueNotifier<ByteData> rawImage = ValueNotifier<ByteData>(null);
-
+//
 // ValueNotifier<ByteData> rawImageFit = ValueNotifier<ByteData>(null);
-
+//
 // class Signature extends StatefulWidget {
 //   @override
 //   State<Signature> createState() => _SignatureState();
 // }
-
+//
 // class _SignatureState extends State<Signature> {
 //   bool get scrollTest => false;
-
+//
 //   // This widget is the root of your application.
 //   @override
 //   Widget build(BuildContext context) {
@@ -84,13 +84,13 @@
 //                           maxStrokeWidth: 15.0,
 //                           type: SignatureDrawType.shape,
 //                         );
-
+//
 //                         rawImage.value = await control.toImage(
 //                           color: Colors.blueAccent,
 //                           background: Colors.greenAccent,
 //                           fit: false,
 //                         );
-
+//
 //                         rawImageFit.value = await control.toImage(
 //                           color: Colors.blueAccent,
 //                           background: Colors.greenAccent,
@@ -121,7 +121,7 @@
 //       ),
 //     );
 //   }
-
+//
 //   Widget _buildImageView() => Container(
 //     width: 192.0,
 //     height: 96.0,
@@ -148,7 +148,7 @@
 //       },
 //     ),
 //   );
-
+//
 //   Widget _buildScaledImageView() => Container(
 //     width: 192.0,
 //     height: 96.0,
@@ -161,7 +161,7 @@
 //       builder: (context, data, child) {
 //         if (data == null) {
 //           return Container(
-
+//
 //             child: Center(
 //               child: Text('not signed yet '
 //                   //'\nscaleToFill: true'
@@ -177,7 +177,7 @@
 //       },
 //     ),
 //   );
-
+//
 //   Widget _buildSvgView() => Container(
 //     width: 192.0,
 //     height: 96.0,
